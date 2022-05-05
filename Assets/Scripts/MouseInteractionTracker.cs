@@ -13,8 +13,9 @@ public class MouseInteractionTracker : MonoBehaviour //find better name, it keep
 	public static event Action<InteractableObject> mouseHoveredOnInteractable;
 	public static event Action<InteractableObject> mouseHoveredOffInteractable;
 
-	//public event Action mouseLeftClickedInteractable;
-	//public event Action mouseRightClickedInteractable;
+	public static event Action mouseLeftClickedNothing;
+	public static event Action<InteractableObject> mouseLeftClickedInteractable;
+	public static event Action<InteractableObject> mouseRightClickedInteractable;
 
 	//DOESNT NEED TO KNOW WHAT THE MANAGER IS DOING, DOESNT TAKE ORDERS FROM THE MANAGER, DOESNT TELL THE MANAGER ANYTHING
 	//SENDS OFF EVENTS WITH OBJECTS WHEN IT HOVERS OVER OR OFF THINGS 
@@ -25,6 +26,7 @@ public class MouseInteractionTracker : MonoBehaviour //find better name, it keep
 	{
 		RayCastInfo<InteractableObject> rayCastInfo = InteractionUtils.CheckIfObjectIsInFocus<InteractableObject>();
 		CheckHoverObject(rayCastInfo);
+		CheckClick(rayCastInfo);
 	}
 
 	private void CheckHoverObject(RayCastInfo<InteractableObject> rayCastInfo)
@@ -62,12 +64,36 @@ public class MouseInteractionTracker : MonoBehaviour //find better name, it keep
 	}
 
 
-	private void CheckClick(int something)
+	private void CheckClick(RayCastInfo<InteractableObject> rayCastInfo) //for now only handle clicking on one object
 	{
-
+		//https://github.com/EdwardBurden/FUBAR/blob/master/Assets/Assets/Scripts/Battle/Selection/SelectionController.cs
+		if (Input.GetMouseButtonDown(0))
+		{
+			OnLeftClick(rayCastInfo);
+		}
+		if (Input.GetMouseButtonDown(1))
+		{
+			OnRightClick(rayCastInfo);
+		}
 	}
 
-	//send off new object under hover event with InteractableObject
+	private void OnLeftClick(RayCastInfo<InteractableObject> rayCastInfo)
+	{
+		if (rayCastInfo.focused)
+		{
+			mouseLeftClickedInteractable?.Invoke(rayCastInfo.focusObject);
+		}
+		else
+		{
+			mouseLeftClickedNothing?.Invoke();
+		}
+	}
 
-	//send off new controllable hover event with ControllableObject
+	private void OnRightClick(RayCastInfo<InteractableObject> rayCastInfo)
+	{
+		if (rayCastInfo.focused)
+		{
+			mouseRightClickedInteractable?.Invoke(rayCastInfo.focusObject);
+		}
+	}
 }

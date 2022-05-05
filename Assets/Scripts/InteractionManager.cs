@@ -4,51 +4,95 @@ using UnityEngine;
 
 public class InteractionManager : MonoBehaviour
 {
+
 	public ControllableObject controlledObject;  //object we have selected
 	public InteractableObject targetInteractableObject; //object we are hovering above 
+	private bool inRightClickContext;
 
 
 	private void Awake()
 	{
-		MouseInteractionTracker.mouseHoveredOnInteractable += MouseInteractionTracker_mouseHoveredOnInteractable;
-		MouseInteractionTracker.mouseHoveredOffInteractable += MouseInteractionTracker_mouseHoveredOffInteractable;
+		inRightClickContext = false;
+		MouseInteractionTracker.mouseHoveredOnInteractable += OnHoverOnInteractable;
+		MouseInteractionTracker.mouseHoveredOffInteractable += OnHoverOffInteractable;
+
+		MouseInteractionTracker.mouseLeftClickedInteractable += OnLeftClickInteractable;
+		MouseInteractionTracker.mouseLeftClickedNothing += OnLeftClickNotInteractable;
+
+		MouseInteractionTracker.mouseRightClickedInteractable += OnRightClickInteractable;
 	}
 
-	private void MouseInteractionTracker_mouseHoveredOffInteractable(InteractableObject obj)
+	private void OnLeftClickNotInteractable()
 	{
-		Debug.Log("Off " + obj.name);
+		if (inRightClickContext)
+		{
+			CloseInteractionOptions();
+		}
 	}
 
-	private void MouseInteractionTracker_mouseHoveredOnInteractable(InteractableObject obj)
+	private void OnRightClickInteractable(InteractableObject obj)
 	{
+		if (obj == targetInteractableObject && obj != controlledObject)
+		{
+			OpenInteractionOptions();
+		}
+	}
+
+	private void OnLeftClickInteractable(InteractableObject obj)
+	{
+		if (inRightClickContext)
+		{
+			CloseInteractionOptions();
+		}
+		if (obj is ControllableObject controllableObject && controllableObject != controlledObject)
+		{
+			SelectControllableObject(controllableObject);
+		}
+	}
+
+	private void OnHoverOffInteractable(InteractableObject obj)
+	{
+		if (inRightClickContext)
+		{
+			return;
+		}
+		if (obj == targetInteractableObject)
+		{
+			targetInteractableObject = null;
+			Debug.Log("Off " + obj.name);
+		}
+	}
+
+	private void OnHoverOnInteractable(InteractableObject obj)
+	{
+		if (inRightClickContext)
+		{
+			return;
+		}
+		targetInteractableObject = obj;
 		Debug.Log("On " + obj.name);
 	}
 
-	private void Update()
+	private void OpenInteractionOptions()
 	{
-
+		inRightClickContext = true;
+		//GO TO UI
+		Debug.Log("OpenInteractionOptions");
 	}
 
-	//User Starts with ship selected
-	//when mouse hovers above other objects highlight them if they have the InteractableObject component
-
-	public void OpenInteractionOptions()
+	private void CloseInteractionOptions()
 	{
-		//With object selected, user right clicks 
-		//game displays list of possible interactions
-		//interacts possible are based on controlled object
-		//and object thats selected
-		//some targets can have uniuqe interactions
-
-		//while user selects ther option lock targetInteractableObject to not change so they dont hver over another object while choosing
-		//targetInteractableObject is unlocked when user selects or exits
+		inRightClickContext = false;
+		//GO TO UI
+		Debug.Log("CloseInteractionOptions");
 	}
 
-	public void SelectControllableObject()
+	private void SelectControllableObject(ControllableObject controllableObject)
 	{
-		//remove old controllable
-		//set new one
-
+		//controlledObject.ControlLost() //maybe event we'll see
+		controlledObject = null;
+		controlledObject = controllableObject;
+		Debug.Log("New Controllable " + controllableObject.name);
 	}
 
 }
