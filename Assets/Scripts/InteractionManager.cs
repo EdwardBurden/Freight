@@ -1,10 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class InteractionManager : MonoBehaviour
 {
-
+	private InteractionContextMenu interactionContextMenu; //creat context menu, pass through list of interaction actions and display
 	public ControllableObject controlledObject;  //object we have selected
 	public InteractableObject targetInteractableObject; //object we are hovering above 
 	private bool inRightClickContext;
@@ -78,6 +80,7 @@ public class InteractionManager : MonoBehaviour
 		inRightClickContext = true;
 		//GO TO UI
 		Debug.Log("OpenInteractionOptions");
+		GetInteractionNames();
 	}
 
 	private void CloseInteractionOptions()
@@ -95,4 +98,13 @@ public class InteractionManager : MonoBehaviour
 		Debug.Log("New Controllable " + controllableObject.name);
 	}
 
+	private string[] GetInteractionNames() //assume controllable is not nul and target are not null
+	{
+		//for ship example
+		//scriptableobject ,shipdefintion,  has actions list, holds prefab and some data
+		//prefab has ControllableObject component, and behaviouraction components, each component can have multiple actions, Which is just string-method dictionary
+		//
+		Dictionary<string, Action<InteractableObject>> actions = controlledObject.GetActionsFromBehaviours();
+		return actions.Keys.ToArray(); //linq
+	}
 }
