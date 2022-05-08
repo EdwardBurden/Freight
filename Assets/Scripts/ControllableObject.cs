@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ControllableObject : InteractableObject
 {
+	//private ShipDefintion  //can be more abstract later 
 	//BASICALLY A SHIP, SOMETHING THAT HAS ACTION WHEN INTERACTING WITH ANOTHER THING
 
 	private void Awake()
@@ -29,17 +30,21 @@ public class ControllableObject : InteractableObject
 		}
 	}
 
-	internal Dictionary<string, Action<InteractableObject>> GetActionsFromBehaviours()
+	public string[] GetInteractionActionNames() //assume controllable is not nul and target are not null
 	{
-		Dictionary<string, Action<InteractableObject>> actions = new Dictionary<string, Action<InteractableObject>>();
-		CustomBehaviour[] customBehaviours = GetComponents<CustomBehaviour>();
-		foreach (var item in customBehaviours)
+		CustomBehaviour[] behaviours = GetCustomBehaviours();
+		string[] names = new string[behaviours.Length];
+		for (int i = 0; i < behaviours.Length; i++)
 		{
-			foreach (var action in item.actions)
-			{
-				actions.Add(action.Key, action.Value);
-			}
+			names[i] = behaviours[i].actionName;
 		}
-		return actions;
+		return names;
+	}
+
+
+	public CustomBehaviour[] GetCustomBehaviours()
+	{
+		CustomBehaviour[] customBehaviours = GetComponents<CustomBehaviour>();
+		return customBehaviours;
 	}
 }

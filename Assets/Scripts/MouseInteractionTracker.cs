@@ -15,7 +15,7 @@ public class MouseInteractionTracker : MonoBehaviour //find better name, it keep
 
 	public static event Action mouseLeftClickedNothing;
 	public static event Action<InteractableObject> mouseLeftClickedInteractable;
-	public static event Action<InteractableObject> mouseRightClickedInteractable;
+	public static event Action<InteractableObject, Vector3> mouseRightClickedInteractable;
 
 	//DOESNT NEED TO KNOW WHAT THE MANAGER IS DOING, DOESNT TAKE ORDERS FROM THE MANAGER, DOESNT TELL THE MANAGER ANYTHING
 	//SENDS OFF EVENTS WITH OBJECTS WHEN IT HOVERS OVER OR OFF THINGS 
@@ -93,7 +93,7 @@ public class MouseInteractionTracker : MonoBehaviour //find better name, it keep
 	{
 		if (rayCastInfo.focused)
 		{
-			mouseRightClickedInteractable?.Invoke(rayCastInfo.focusObject);
+			mouseRightClickedInteractable?.Invoke(rayCastInfo.focusObject, rayCastInfo.hitInfo.point);
 		}
 	}
 }

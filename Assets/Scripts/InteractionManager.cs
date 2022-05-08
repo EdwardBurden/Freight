@@ -6,15 +6,15 @@ using UnityEngine;
 
 public class InteractionManager : MonoBehaviour
 {
-	private InteractionContextMenu interactionContextMenu; //creat context menu, pass through list of interaction actions and display
-	public ControllableObject controlledObject;  //object we have selected
-	public InteractableObject targetInteractableObject; //object we are hovering above 
-	private bool inRightClickContext;
 
+
+	public InteractionContextMenu interactionContextMenu; //placed on ui canvas for now
+	private ControllableObject controlledObject;  //object we have selected
+	private InteractableObject targetInteractableObject; //object we are hovering above 
 
 	private void Awake()
 	{
-		inRightClickContext = false;
+
 		MouseInteractionTracker.mouseHoveredOnInteractable += OnHoverOnInteractable;
 		MouseInteractionTracker.mouseHoveredOffInteractable += OnHoverOffInteractable;
 
@@ -26,23 +26,27 @@ public class InteractionManager : MonoBehaviour
 
 	private void OnLeftClickNotInteractable()
 	{
-		if (inRightClickContext)
+		if (interactionContextMenu.IsMenuOpen())
 		{
 			CloseInteractionOptions();
 		}
 	}
 
-	private void OnRightClickInteractable(InteractableObject obj)
+	private void OnRightClickInteractable(InteractableObject obj, Vector3 worldClickPosition)
 	{
-		if (obj == targetInteractableObject && obj != controlledObject)
+		if (obj != controlledObject)
 		{
-			OpenInteractionOptions();
+			OpenInteractionOptions(worldClickPosition);
+		}
+		else if (interactionContextMenu.IsMenuOpen())
+		{
+			CloseInteractionOptions();
 		}
 	}
 
 	private void OnLeftClickInteractable(InteractableObject obj)
 	{
-		if (inRightClickContext)
+		if (interactionContextMenu.IsMenuOpen())
 		{
 			CloseInteractionOptions();
 		}
@@ -54,7 +58,7 @@ public class InteractionManager : MonoBehaviour
 
 	private void OnHoverOffInteractable(InteractableObject obj)
 	{
-		if (inRightClickContext)
+		if (interactionContextMenu.IsMenuOpen())
 		{
 			return;
 		}
@@ -67,7 +71,7 @@ public class InteractionManager : MonoBehaviour
 
 	private void OnHoverOnInteractable(InteractableObject obj)
 	{
-		if (inRightClickContext)
+		if (interactionContextMenu.IsMenuOpen())
 		{
 			return;
 		}
@@ -75,17 +79,18 @@ public class InteractionManager : MonoBehaviour
 		Debug.Log("On " + obj.name);
 	}
 
-	private void OpenInteractionOptions()
+	private void OpenInteractionOptions(Vector3 worldHitPosition)
 	{
-		inRightClickContext = true;
 		//GO TO UI
 		Debug.Log("OpenInteractionOptions");
-		GetInteractionNames();
+		string[] actionNames = controlledObject.GetInteractionActionNames();
+		interactionContextMenu.Open(worldHitPosition);
+		interactionContextMenu.DisplayOptions(actionNames);
 	}
 
 	private void CloseInteractionOptions()
 	{
-		inRightClickContext = false;
+		interactionContextMenu.Close();
 		//GO TO UI
 		Debug.Log("CloseInteractionOptions");
 	}
@@ -96,15 +101,5 @@ public class InteractionManager : MonoBehaviour
 		controlledObject = null;
 		controlledObject = controllableObject;
 		Debug.Log("New Controllable " + controllableObject.name);
-	}
-
-	private string[] GetInteractionNames() //assume controllable is not nul and target are not null
-	{
-		//for ship example
-		//scriptableobject ,shipdefintion,  has actions list, holds prefab and some data
-		//prefab has ControllableObject component, and behaviouraction components, each component can have multiple actions, Which is just string-method dictionary
-		//
-		Dictionary<string, Action<InteractableObject>> actions = controlledObject.GetActionsFromBehaviours();
-		return actions.Keys.ToArray(); //linq
 	}
 }
