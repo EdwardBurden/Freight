@@ -366,7 +366,7 @@ GameObject:
   - component: {fileID: 532324032}
   - component: {fileID: 532324031}
   m_Layer: 0
-  m_Name: Ship3
+  m_Name: Ship2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -411,7 +411,7 @@ Transform:
   m_Children:
   - {fileID: 1216477240}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 129.345, z: 0}
 --- !u!1 &704141163
 GameObject:
@@ -431,7 +431,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &704141164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -781,6 +781,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8982228982059036013, guid: a8850aa788ac62a41b9086d1c05b6775, type: 3}
   m_PrefabInstance: {fileID: 1448961447091488688}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1347083203 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7535066311120304765, guid: a8850aa788ac62a41b9086d1c05b6775, type: 3}
+  m_PrefabInstance: {fileID: 1448961447091488688}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79b290198b6862b418ba66ed2822cf62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1372055861
 GameObject:
   m_ObjectHideFlags: 0
@@ -823,8 +834,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07b23a03e1a9c6844bf9e2f854f940b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controlledObject: {fileID: 532324032}
-  targetInteractableObject: {fileID: 0}
+  interactionContextMenu: {fileID: 1347083203}
 --- !u!4 &1372055864
 Transform:
   m_ObjectHideFlags: 0
@@ -838,7 +848,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1725386185
 GameObject:
@@ -919,8 +929,9 @@ GameObject:
   - component: {fileID: 1994226912}
   - component: {fileID: 1994226911}
   - component: {fileID: 1994226914}
+  - component: {fileID: 1994226915}
   m_Layer: 0
-  m_Name: Ship2
+  m_Name: ControlledShip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -965,7 +976,7 @@ Transform:
   m_Children:
   - {fileID: 748903419}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 129.345, z: 0}
 --- !u!114 &1994226914
 MonoBehaviour:
@@ -976,9 +987,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 1994226910}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac62e54ffe91c37479f9d1c0928e08d4, type: 3}
+  m_Script: {fileID: 11500000, guid: c1cc22c2d5027f74796ec8382ac7a7ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionName: Move Here
+  actionDescription: This is the movement description
+--- !u!114 &1994226915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1994226910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1cc22c2d5027f74796ec8382ac7a7ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: ff
+  actionDescription: ff
 --- !u!1 &2060457465
 GameObject:
   m_ObjectHideFlags: 0
@@ -1137,6 +1164,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 704141167}
     m_Modifications:
+    - target: {fileID: 803176044681744890, guid: a8850aa788ac62a41b9086d1c05b6775, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 803176044681744890, guid: a8850aa788ac62a41b9086d1c05b6775, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 803176044681744890, guid: a8850aa788ac62a41b9086d1c05b6775, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 803176044681744890, guid: a8850aa788ac62a41b9086d1c05b6775, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089102725815696432, guid: a8850aa788ac62a41b9086d1c05b6775, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089102725815696432, guid: a8850aa788ac62a41b9086d1c05b6775, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089102725815696432, guid: a8850aa788ac62a41b9086d1c05b6775, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089102725815696432, guid: a8850aa788ac62a41b9086d1c05b6775, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4928065656260313941, guid: a8850aa788ac62a41b9086d1c05b6775, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4928065656260313941, guid: a8850aa788ac62a41b9086d1c05b6775, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8403541495623804079, guid: a8850aa788ac62a41b9086d1c05b6775, type: 3}
       propertyPath: m_Name
       value: InteractionActionsContextMenu
@@ -1151,7 +1218,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8982228982059036013, guid: a8850aa788ac62a41b9086d1c05b6775, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8982228982059036013, guid: a8850aa788ac62a41b9086d1c05b6775, type: 3}
       propertyPath: m_AnchorMax.x
