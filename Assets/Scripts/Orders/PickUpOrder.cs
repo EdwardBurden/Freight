@@ -9,7 +9,7 @@ public class PickUpOrder : InteractionOrder
 	private MoveBehaviour movementBehaviour;
 	private PickUpBehaviour pickUpBehaviour;
 	private GameObject pickUp => interactableObject.gameObject;
-	public PickUpOrder(InteractableObject pickupObject, Orderable orderable) : base(orderable, pickupObject)
+	public PickUpOrder(InteractableObject pickupObject, Orderable orderable, Vector3 postion) : base(orderable, pickupObject, postion)
 	{
 
 	}

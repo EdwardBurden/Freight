@@ -3,17 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/MoveDefinition")]
-public class MoveDefinition : OrderDefinition<MoveOrder>
+public class MoveDefinition : InteractionOrderDefintion
 {
 	public float speed = 50;
-	public bool CanCreateMoveDefintion(ControllableObject controllableObject, Vector3 target)
+
+	public override bool CanCreateInteractionOrder(ControllableObject controllableObject, InteractableObject target, Vector3 postion)
 	{
-		return controllableObject.GetComponent<MoveBehaviour>() != null; //and moveisnt disabled for example //&& area is navigateable
+		return controllableObject.GetComponent<MoveBehaviour>() != null;
 	}
 
-	public MoveOrder CreateMoveDefintion(ControllableObject controllableObject, Vector3 target)
+	public override InteractionOrder CreateInteractionOrder(ControllableObject controllableObject, InteractableObject target, Vector3 postion)
 	{
-		MoveOrder moveOrder = new MoveOrder(target, controllableObject.orderable);
+		MoveOrder moveOrder = new MoveOrder(target, controllableObject.orderable, postion);
 		return moveOrder;
 	}
+
 }

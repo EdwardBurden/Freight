@@ -5,8 +5,11 @@ using UnityEngine;
 public abstract class InteractionOrder : Order
 {
 	protected InteractableObject interactableObject;
-	public InteractionOrder(Orderable orderable, InteractableObject interactableObject) : base(orderable)
+	protected Vector3 targetPosition;
+
+	public InteractionOrder(Orderable orderable, InteractableObject interactableObject ,Vector3 clickPosition) : base(orderable)
 	{
 		this.interactableObject = interactableObject;
+		targetPosition = clickPosition;
 	}
 }

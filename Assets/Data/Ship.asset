@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Ship
   m_EditorClassIdentifier: 
   orderDefintions:
+  - {fileID: 11400000, guid: e17d389038d706b4a8592ea559aec5c6, type: 2}
   - {fileID: 11400000, guid: 9b5aa9dfe24319d4daf7cfdaac720400, type: 2}

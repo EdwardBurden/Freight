@@ -3,19 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveOrder : Order
+public class MoveOrder : InteractionOrder
 {
 	private MoveBehaviour movementBehaviour;
-	private Vector3 target;
 
-	public MoveOrder(Vector3 target, Orderable orderable) : base(orderable)
+	public MoveOrder(InteractableObject pickupObject, Orderable orderable, Vector3 postion) : base(orderable, pickupObject, postion)
 	{
-		this.target = target;
+
 	}
+
 	public override void BeginOrder()
 	{
 		movementBehaviour = orderable.GetComponent<MoveBehaviour>();
-		movementBehaviour.StartMovement(target);
+		movementBehaviour.StartMovement(targetPosition);
 		movementBehaviour.MovementComplete += OrderComplete;
 	}
 

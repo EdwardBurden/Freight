@@ -8,7 +8,9 @@ public class InteractionManager : MonoBehaviour
 {
 	public InteractionContextMenu interactionContextMenu; //placed on ui canvas for now
 	private ControllableObject controlledObject;  //object we have selected
+
 	private InteractableObject targetInteractableObject; //object right clicked
+	private Vector3 clickPosition; //position of  right click
 
 	private void Awake()
 	{
@@ -37,6 +39,7 @@ public class InteractionManager : MonoBehaviour
 		if (obj != controlledObject)
 		{
 			targetInteractableObject = obj;
+			clickPosition = worldClickPosition;
 			OpenInteractionOptions(worldClickPosition);
 
 		}
@@ -76,13 +79,13 @@ public class InteractionManager : MonoBehaviour
 	{
 		//GO TO UI
 		Debug.Log("OpenInteractionOptions");
-		List<InteractionOrderDefintion> interactionOrderDefintions = controlledObject.GetAvailableInteractionOrders(targetInteractableObject);
+		List<InteractionOrderDefintion> interactionOrderDefintions = controlledObject.GetAvailableInteractionOrders(targetInteractableObject, clickPosition);
 		interactionContextMenu.DisplayOptions(worldHitPosition,interactionOrderDefintions);
 	}
 
 	private void OnOptionSelected(InteractionOrderDefintion interactionOrder)
 	{
-		InteractionOrder order = interactionOrder.CreateInteractionOrder(controlledObject, targetInteractableObject);
+		InteractionOrder order = interactionOrder.CreateInteractionOrder(controlledObject, targetInteractableObject, clickPosition);
 		controlledObject.orderable.AddOrder(order);
 		controlledObject.orderable.StartOrders();
 	}

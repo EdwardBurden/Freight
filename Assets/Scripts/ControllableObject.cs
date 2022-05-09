@@ -13,12 +13,12 @@ public class ControllableObject : InteractableObject //controlled by player
 	//private ShipDefintion  //can be more abstract later 
 	//BASICALLY A SHIP, SOMETHING THAT HAS ACTION WHEN INTERACTING WITH ANOTHER THING
 
-	public List<InteractionOrderDefintion> GetAvailableInteractionOrders(InteractableObject interactableObject)
+	public List<InteractionOrderDefintion> GetAvailableInteractionOrders(InteractableObject interactableObject, Vector3 postion)
 	{
 		List<InteractionOrderDefintion> interactionOrderDefintions = new List<InteractionOrderDefintion>();
 		foreach (InteractionOrderDefintion interactionOrder in shipDefintion.orderDefintions)
 		{
-			if (interactionOrder.CanCreateInteractionOrder(this, interactableObject))
+			if (interactionOrder.CanCreateInteractionOrder(this, interactableObject, postion))
 			{
 				interactionOrderDefintions.Add(interactionOrder);
 			}

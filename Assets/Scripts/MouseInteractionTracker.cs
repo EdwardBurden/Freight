@@ -30,9 +30,9 @@ public class MouseInteractionTracker : MonoBehaviour //find better name, it keep
 		{
 			return;
 		}
-		RayCastInfo<InteractableObject> rayCastInfo = InteractionUtils.CheckIfObjectIsInFocus<InteractableObject>();
-		CheckHoverObject(rayCastInfo);
-		CheckClick(rayCastInfo);
+		RayCastInfo<InteractableObject> interactionInfo = InteractionUtils.CheckIfObjectIsInFocus<InteractableObject>();
+		CheckHoverObject(interactionInfo);
+		CheckClick(interactionInfo);
 	}
 
 	private void CheckHoverObject(RayCastInfo<InteractableObject> rayCastInfo)
