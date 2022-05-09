@@ -7,6 +7,7 @@ using static InteractionUtils;
 
 public class MouseInteractionTracker : MonoBehaviour //find better name, it keeps track of where the players mouse is and when it clicks an object it tell the interaction manager
 {
+	//make similai movement class for default movement , outside of orders
 	private InteractableObject localHoverObject;
 
 	//MAKE STATIC
@@ -99,6 +100,10 @@ public class MouseInteractionTracker : MonoBehaviour //find better name, it keep
 		if (rayCastInfo.focused)
 		{
 			mouseRightClickedInteractable?.Invoke(rayCastInfo.focusObject, rayCastInfo.hitInfo.point);
+		}
+		else
+		{
+			mouseLeftClickedNothing?.Invoke();
 		}
 	}
 }

@@ -1,3 +1,4 @@
+using Behaviours;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,11 +23,6 @@ public class PickUpOrder : InteractionOrder
 		pickUpBehaviour.PickUpComplete += OrderComplete;
 
 		movementBehaviour.StartMovement(pickUp.transform.position);
-	}
-
-	public override bool CanBeginOrder()
-	{
-		return orderable.GetComponent<MoveBehaviour>() != null && orderable.GetComponent<PickUpBehaviour>() != null; ;
 	}
 
 	private void ReachedTarget()

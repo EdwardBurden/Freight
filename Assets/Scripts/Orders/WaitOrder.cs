@@ -15,11 +15,6 @@ public class WaitOrder : Order //WaitForeseconds for testing order work in order
 		orderable.StartCoroutine(Wait());
 	}
 
-	public override bool CanBeginOrder()
-	{
-		return true;
-	}
-
 	public override void EndOrder()
 	{
 		orderable.StopCoroutine(Wait());

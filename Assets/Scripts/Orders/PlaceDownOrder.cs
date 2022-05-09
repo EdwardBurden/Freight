@@ -1,20 +1,26 @@
+using Behaviours;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/*public class PlaceDownOrder : ShipOrder
+public class PlaceDownOrder : InteractionOrder
 {
-	public PlaceDownOrder(OrderQueue orderQueue, Orderable orderable) : base(orderQueue, orderable)
+	private MoveBehaviour movementBehaviour;
+//	private PickUpBehaviour pickUpBehaviour;
+	private GameObject pickUp => interactableObject.gameObject;
+	public PlaceDownOrder(InteractableObject pickupObject, Orderable orderable) : base(orderable, pickupObject)
 	{
 
 	}
-	public override void StartOrder()
+
+	public override void BeginOrder()
 	{
 		throw new System.NotImplementedException();
 	}
 
-	public override void UpdateOrder()
+	public override void EndOrder()
 	{
 		throw new System.NotImplementedException();
 	}
-}*/
+}
+

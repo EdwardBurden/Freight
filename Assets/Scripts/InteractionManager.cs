@@ -23,6 +23,8 @@ public class InteractionManager : MonoBehaviour
 		MouseInteractionTracker.mouseLeftClickedInteractable += OnLeftClickInteractable;
 		MouseInteractionTracker.mouseLeftClickedNothing += OnLeftClickNotInteractable;
 		MouseInteractionTracker.mouseRightClickedInteractable += OnRightClickInteractable;
+
+		InteractionContextMenu.optionSelected += OnOptionSelected;
 	}
 
 	private void OnLeftClickNotInteractable()
@@ -74,16 +76,15 @@ public class InteractionManager : MonoBehaviour
 	{
 		//GO TO UI
 		Debug.Log("OpenInteractionOptions");
-		if (true) //debug testing, remove  
-		{
-			Move(worldHitPosition);
-			//pickUp();
-			return;
-		}
-		/*string[] actionNames = controlledObject.GetInteractionActionNames(); //GET FROM DEFINTION(LIST OF AVIALBLE ORDERS)
-		interactionContextMenu.Open(worldHitPosition);
-		interactionContextMenu.DisplayOptions(actionNames);
-		*/
+		List<InteractionOrderDefintion> interactionOrderDefintions = controlledObject.GetAvailableInteractionOrders(targetInteractableObject);
+		interactionContextMenu.DisplayOptions(worldHitPosition,interactionOrderDefintions);
+	}
+
+	private void OnOptionSelected(InteractionOrderDefintion interactionOrder)
+	{
+		InteractionOrder order = interactionOrder.CreateInteractionOrder(controlledObject, targetInteractableObject);
+		controlledObject.orderable.AddOrder(order);
+		controlledObject.orderable.StartOrders();
 	}
 
 	private void SelectControllableObject(ControllableObject controllableObject)
@@ -92,24 +93,5 @@ public class InteractionManager : MonoBehaviour
 		controlledObject = null;
 		controlledObject = controllableObject;
 		Debug.Log("New Controllable " + controllableObject.name);
-	}
-
-	private void PutDown() //MOVE OUT WHEN DONE PROTOING
-	{
-		
-	}
-
-	private void PickUp() //MOVE OUT WHEN DONE PROTOING
-	{
-		PickUpOrder pickup = new PickUpOrder(targetInteractableObject, controlledObject.orderable);
-		controlledObject.orderable.AddOrder(pickup);
-		controlledObject.orderable.StartOrders();
-	}
-
-	private void Move(Vector3 position) //MOVE OUT WHEN DONE PROTOING
-	{
-		MoveOrder moveOrder = new MoveOrder(position, controlledObject.orderable);
-		controlledObject.orderable.AddOrder(moveOrder);
-		controlledObject.orderable.StartOrders();
 	}
 }

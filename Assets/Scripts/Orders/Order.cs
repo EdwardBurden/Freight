@@ -30,7 +30,6 @@ public abstract class Order
 	//public Action OrderComplete;
 
 	//public abstract bool IsOrderPossible(); return to later when maing system to plan order
-	public abstract bool CanBeginOrder(); //abut to start order, check it can begin
 
 	public abstract void BeginOrder();
 	public abstract void EndOrder();

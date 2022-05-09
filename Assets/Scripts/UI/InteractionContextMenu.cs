@@ -3,11 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+using TMPro;
 
 public class InteractionContextMenu : MonoBehaviour
 {
 	public GameObject actionPrefab;
 	public Transform menuTransfrom;
+
+	public static event Action<InteractionOrderDefintion> optionSelected;
 
 	private void Awake()
 	{
@@ -17,27 +22,38 @@ public class InteractionContextMenu : MonoBehaviour
 
 	private void RegisterEvents()
 	{
-		EventSystem.current.SetSelectedGameObject(menuTransfrom.gameObject);
+		//EventSystem.current.SetSelectedGameObject(menuTransfrom.gameObject);
 	}
 
-	internal void DisplayOptions(string[] actionNames)
+	public void DisplayOptions(Vector3 positionInWorld, List<InteractionOrderDefintion> interactionOrderDefintions)
 	{
 		Clear();
-		foreach (var item in actionNames)
+		Open(positionInWorld);
+		foreach (InteractionOrderDefintion interactionOrder in interactionOrderDefintions)
 		{
-			Instantiate(actionPrefab, menuTransfrom);
+			GameObject gameObject = Instantiate(actionPrefab, menuTransfrom);
+			Button button = gameObject.GetComponent<Button>();
+			TMP_Text text = gameObject.GetComponentInChildren<TMP_Text>();
+			text.text = interactionOrder.orderName;
+			button.onClick.AddListener(() => OptionSelected(interactionOrder));
 		}
+
 	}
 
-	internal bool IsMenuOpen()
+	public bool IsMenuOpen()
 	{
 		return menuTransfrom.gameObject.activeInHierarchy;
 	}
 
-	internal void Open(Vector3 positionInWorld)
+	private void OptionSelected(InteractionOrderDefintion interactionOrder)
 	{
-		RegisterEvents();
-		   Vector3 hit = Camera.main.WorldToScreenPoint(positionInWorld);
+		Close();
+		optionSelected?.Invoke(interactionOrder);
+	}
+
+	private void Open(Vector3 positionInWorld)
+	{
+		Vector3 hit = Camera.main.WorldToScreenPoint(positionInWorld);
 		menuTransfrom.position = hit;
 		menuTransfrom.gameObject.SetActive(true);
 	}

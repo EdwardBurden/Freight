@@ -1,3 +1,4 @@
+using Behaviours;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,11 +17,6 @@ public class MoveOrder : Order
 		movementBehaviour = orderable.GetComponent<MoveBehaviour>();
 		movementBehaviour.StartMovement(target);
 		movementBehaviour.MovementComplete += OrderComplete;
-	}
-
-	public override bool CanBeginOrder()
-	{
-		return orderable.GetComponent<MoveBehaviour>() != null; //&& area is navigateable
 	}
 
 	public override void EndOrder()

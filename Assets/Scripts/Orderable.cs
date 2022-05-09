@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Orderable : MonoBehaviour
 {
-	public bool loopOrders =false; //need to replace rmeove with index to loop, can be used for automation
+	public bool loopOrders = false; //need to replace rmeove with index to loop, can be used for automation
 	private bool active;
 	private List<Order> orderQueue = new List<Order>();
 	private Order currentOrder;
@@ -48,15 +48,8 @@ public class Orderable : MonoBehaviour
 	private void BeginNextOrder()
 	{
 		Order order = orderQueue[0];
-		if (order.CanBeginOrder())
-		{
-			currentOrder = order;
-			currentOrder.BeginOrder();
-		}
-		else
-		{
-			StopAllOrders();
-		}
+		currentOrder = order;
+		currentOrder.BeginOrder();
 		orderQueue.RemoveAt(0);
 	}
 
