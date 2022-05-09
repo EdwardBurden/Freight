@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using static InteractionUtils;
 
 public class MouseInteractionTracker : MonoBehaviour //find better name, it keeps track of where the players mouse is and when it clicks an object it tell the interaction manager
@@ -24,6 +25,10 @@ public class MouseInteractionTracker : MonoBehaviour //find better name, it keep
 
 	private void Update()
 	{
+		if (EventSystem.current.IsPointerOverGameObject())
+		{
+			return;
+		}
 		RayCastInfo<InteractableObject> rayCastInfo = InteractionUtils.CheckIfObjectIsInFocus<InteractableObject>();
 		CheckHoverObject(rayCastInfo);
 		CheckClick(rayCastInfo);

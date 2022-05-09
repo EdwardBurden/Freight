@@ -10,26 +10,26 @@ public class InteractionManager : MonoBehaviour
 
 	public InteractionContextMenu interactionContextMenu; //placed on ui canvas for now
 	private ControllableObject controlledObject;  //object we have selected
-	private InteractableObject targetInteractableObject; //object we are hovering above 
+	private InteractableObject targetInteractableObject; //object right clicked
 
 	private void Awake()
 	{
+		RegisterEvents();
+	}
 
+
+	private void RegisterEvents()
+	{
 		MouseInteractionTracker.mouseHoveredOnInteractable += OnHoverOnInteractable;
 		MouseInteractionTracker.mouseHoveredOffInteractable += OnHoverOffInteractable;
-
 		MouseInteractionTracker.mouseLeftClickedInteractable += OnLeftClickInteractable;
 		MouseInteractionTracker.mouseLeftClickedNothing += OnLeftClickNotInteractable;
-
 		MouseInteractionTracker.mouseRightClickedInteractable += OnRightClickInteractable;
 	}
 
 	private void OnLeftClickNotInteractable()
 	{
-		if (interactionContextMenu.IsMenuOpen())
-		{
-			CloseInteractionOptions();
-		}
+
 	}
 
 	private void OnRightClickInteractable(InteractableObject obj, Vector3 worldClickPosition)
@@ -37,19 +37,12 @@ public class InteractionManager : MonoBehaviour
 		if (obj != controlledObject)
 		{
 			OpenInteractionOptions(worldClickPosition);
-		}
-		else if (interactionContextMenu.IsMenuOpen())
-		{
-			CloseInteractionOptions();
+			targetInteractableObject = obj;
 		}
 	}
 
 	private void OnLeftClickInteractable(InteractableObject obj)
 	{
-		if (interactionContextMenu.IsMenuOpen())
-		{
-			CloseInteractionOptions();
-		}
 		if (obj is ControllableObject controllableObject && controllableObject != controlledObject)
 		{
 			SelectControllableObject(controllableObject);
@@ -62,11 +55,10 @@ public class InteractionManager : MonoBehaviour
 		{
 			return;
 		}
-		if (obj == targetInteractableObject)
-		{
-			targetInteractableObject = null;
-			Debug.Log("Off " + obj.name);
-		}
+
+		//targetInteractableObject = null;
+		Debug.Log("Off " + obj.name);
+
 	}
 
 	private void OnHoverOnInteractable(InteractableObject obj)
@@ -75,7 +67,7 @@ public class InteractionManager : MonoBehaviour
 		{
 			return;
 		}
-		targetInteractableObject = obj;
+		//targetInteractableObject = obj;
 		Debug.Log("On " + obj.name);
 	}
 
@@ -86,13 +78,6 @@ public class InteractionManager : MonoBehaviour
 		string[] actionNames = controlledObject.GetInteractionActionNames();
 		interactionContextMenu.Open(worldHitPosition);
 		interactionContextMenu.DisplayOptions(actionNames);
-	}
-
-	private void CloseInteractionOptions()
-	{
-		interactionContextMenu.Close();
-		//GO TO UI
-		Debug.Log("CloseInteractionOptions");
 	}
 
 	private void SelectControllableObject(ControllableObject controllableObject)

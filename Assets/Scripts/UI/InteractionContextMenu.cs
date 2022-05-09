@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class InteractionContextMenu : MonoBehaviour
 {
@@ -10,7 +11,13 @@ public class InteractionContextMenu : MonoBehaviour
 
 	private void Awake()
 	{
+		RegisterEvents();
 		Close();
+	}
+
+	private void RegisterEvents()
+	{
+		EventSystem.current.SetSelectedGameObject(menuTransfrom.gameObject);
 	}
 
 	internal void DisplayOptions(string[] actionNames)
@@ -29,12 +36,13 @@ public class InteractionContextMenu : MonoBehaviour
 
 	internal void Open(Vector3 positionInWorld)
 	{
-		Vector3 hit = Camera.main.WorldToScreenPoint(positionInWorld);
+		RegisterEvents();
+		   Vector3 hit = Camera.main.WorldToScreenPoint(positionInWorld);
 		menuTransfrom.position = hit;
 		menuTransfrom.gameObject.SetActive(true);
 	}
 
-	internal void Close()
+	private void Close()
 	{
 		menuTransfrom.gameObject.SetActive(false);
 	}
@@ -45,5 +53,12 @@ public class InteractionContextMenu : MonoBehaviour
 		{
 			GameObject.Destroy(child.gameObject);
 		}
+	}
+
+	public void OnDeselect(BaseEventData eventData)
+	{
+		Close();
+		Debug.LogError("");
+		//Mouse was clicked outside
 	}
 }
