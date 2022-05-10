@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orderName: Move
   orderDescription: Move Here
-  speed: 50
+  speed: 5
+  turnSpeed: 200

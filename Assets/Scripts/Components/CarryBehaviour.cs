@@ -7,7 +7,7 @@ namespace Behaviours
 {
 	public class CarryBehaviour : CustomBehaviour
 	{
-		public float turnSpeed;
+		private float turnSpeed; //or goto ship behaviour, get speed for defintion 
 		private const string PICKUP_ANIAMTION_TRIGGER = "PickUp";
 		private Carryable pickup;
 		private Animator animator;
@@ -20,9 +20,10 @@ namespace Behaviours
 			animator = gameObject.GetComponent<Animator>();
 		}
 
-		public void StartPickup(Carryable pick)
+		public void StartPickup(Carryable pick, float turnSpeed)
 		{
 			pickup = pick;
+			this.turnSpeed = turnSpeed;
 		}
 
 

@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orderName: Pick Up
   orderDescription: Pick Up Object
+  speed: 2
+  turnSpeed: 50

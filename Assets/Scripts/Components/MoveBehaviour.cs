@@ -7,17 +7,23 @@ namespace Behaviours
 {
 	public class MoveBehaviour : CustomBehaviour
 	{
-		public Transform aniamtionRoot;
-		public float speed;
-		public float turnSpeed;
-
 		private const string MOVING_ANIAMTION_BOOL = "Speed";
 		private const float MINDISTANCE = 0.01f;
+
+		public Transform aniamtionRoot;
+
+		private float speed; //or goto ship behaviour, get speed for defintion 
+		private float turnSpeed; //or goto ship behaviour, get speed for defintion 
 		private Vector3? target = null; //could add desired transform too
 		private Animator animator;
 
-		public event Action MovementComplete;// Tracked by queue system and any other system(sound, notification), could be put into event system in future
-											 //if problem, put code here to tell the world, then in moveorder listen to event
+		public event Action movementComplete;// Tracked by queue system and any other system(sound, notification), could be put into event system in future
+
+		private void Awake()
+		{
+			animator = gameObject.GetComponent<Animator>();
+		}
+
 		private void Update()
 		{
 			if (target == null)
@@ -32,13 +38,10 @@ namespace Behaviours
 			ReachedTarget();
 		}
 
-		private void Awake()
+		public void StartMovement(Vector3 target, float speed, float turnSpeed)
 		{
-			animator = gameObject.GetComponent<Animator>();
-		}
-
-		public void StartMovement(Vector3 target)
-		{
+			this.speed = speed;
+			this.turnSpeed = turnSpeed;
 			this.target = new Vector3(target.x, 0, target.z); //for now only x,z
 			if (IsAt(target))
 			{
@@ -55,7 +58,7 @@ namespace Behaviours
 		private void ReachedTarget()
 		{
 			StopMovement();
-			MovementComplete?.Invoke();
+			movementComplete?.Invoke();
 		}
 
 		private bool IsAt(Vector3 target)

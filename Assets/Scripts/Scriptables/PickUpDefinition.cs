@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/PickUpDefinition")]
 public class PickUpDefinition : InteractionOrderDefintion
 {
+	public float speed = 50;
+	public float turnSpeed = 50;
 	public override bool CanCreateInteractionOrder(ControllableObject controllableObject, InteractableObject target, Vector3 postion)
 	{
 		return controllableObject.GetComponent<MoveBehaviour>() != null && controllableObject.GetComponent<CarryBehaviour>() != null && target.GetComponent<Carryable>();
@@ -12,6 +14,6 @@ public class PickUpDefinition : InteractionOrderDefintion
 
 	public override InteractionOrder CreateInteractionOrder(ControllableObject controllableObject, InteractableObject target, Vector3 postion)
 	{
-		return new PickUpOrder(target, controllableObject.orderable, postion);
+		return new PickUpOrder(target, controllableObject.orderable, postion, speed, turnSpeed);
 	}
 }

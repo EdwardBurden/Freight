@@ -6,6 +6,7 @@ using UnityEngine;
 public class MoveDefinition : InteractionOrderDefintion
 {
 	public float speed = 50;
+	public float turnSpeed = 50;
 
 	public override bool CanCreateInteractionOrder(ControllableObject controllableObject, InteractableObject target, Vector3 postion)
 	{
@@ -14,7 +15,7 @@ public class MoveDefinition : InteractionOrderDefintion
 
 	public override InteractionOrder CreateInteractionOrder(ControllableObject controllableObject, InteractableObject target, Vector3 postion)
 	{
-		MoveOrder moveOrder = new MoveOrder(target, controllableObject.orderable, postion);
+		MoveOrder moveOrder = new MoveOrder(target, controllableObject.orderable, postion, speed , turnSpeed);
 		return moveOrder;
 	}
 

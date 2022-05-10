@@ -6,17 +6,19 @@ using UnityEngine;
 public class MoveOrder : InteractionOrder
 {
 	private MoveBehaviour movementBehaviour;
-
-	public MoveOrder(InteractableObject pickupObject, Orderable orderable, Vector3 postion) : base(orderable, pickupObject, postion)
+	private float speed;
+	private float turnSpeed;
+	public MoveOrder(InteractableObject pickupObject, Orderable orderable, Vector3 postion , float speed , float turnSpeed) : base(orderable, pickupObject, postion)
 	{
-
+		this.speed = speed;
+		this.turnSpeed = turnSpeed;
 	}
 
 	public override void BeginOrder()
 	{
 		movementBehaviour = orderable.GetComponent<MoveBehaviour>();
-		movementBehaviour.StartMovement(targetPosition);
-		movementBehaviour.MovementComplete += OrderComplete;
+		movementBehaviour.StartMovement(targetPosition, speed ,turnSpeed);
+		movementBehaviour.movementComplete += OrderComplete;
 	}
 
 	public override bool CheckOrderStatus()
@@ -27,6 +29,6 @@ public class MoveOrder : InteractionOrder
 	public override void EndOrder()
 	{
 		movementBehaviour.StopMovement();
-		movementBehaviour.MovementComplete -= OrderComplete;
+		movementBehaviour.movementComplete -= OrderComplete;
 	}
 }
