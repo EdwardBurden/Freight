@@ -12,24 +12,7 @@ public abstract class Order
 
 	protected Orderable orderable;
 
-	//after creating an order
-	//should be handed to queue and verified is valid/possible(item to pick up exists when given etc), ship has component needed to do task
-	//order is added to queue and waits to tbe assigned current order
-	//order is started 
-	//order contains order information and passes whats needed to component to work
-	//order accesses ship components to start tasks
-	//order then waits for ship component to return with order status
-	//status could be cancelled,complete dead ship etc
-	//status is handled by queue
-
-	//might not need
-	//private  Action OrderStarted;
-	//private  Action OrderStopped;
-
-	//public Action OrderCancelled;
-	//public Action OrderComplete;
-
-	//public abstract bool IsOrderPossible(); return to later when maing system to plan order
+	public abstract bool CheckOrderStatus();
 
 	public abstract void BeginOrder();
 	public abstract void EndOrder();

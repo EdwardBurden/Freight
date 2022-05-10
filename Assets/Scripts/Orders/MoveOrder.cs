@@ -19,11 +19,14 @@ public class MoveOrder : InteractionOrder
 		movementBehaviour.MovementComplete += OrderComplete;
 	}
 
-	public override void EndOrder()
+	public override bool CheckOrderStatus()
 	{
-		movementBehaviour.MovementComplete -= OrderComplete;
-		//do any cleanup
+		return true;//check area is still accessible
 	}
 
-
+	public override void EndOrder()
+	{
+		movementBehaviour.StopMovement();
+		movementBehaviour.MovementComplete -= OrderComplete;
+	}
 }

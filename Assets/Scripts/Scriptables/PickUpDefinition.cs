@@ -7,7 +7,7 @@ public class PickUpDefinition : InteractionOrderDefintion
 {
 	public override bool CanCreateInteractionOrder(ControllableObject controllableObject, InteractableObject target, Vector3 postion)
 	{
-		return controllableObject.GetComponent<MoveBehaviour>() != null && controllableObject.GetComponent<PickUpBehaviour>() != null && target.GetComponent<Carryable>();
+		return controllableObject.GetComponent<MoveBehaviour>() != null && controllableObject.GetComponent<CarryBehaviour>() != null && target.GetComponent<Carryable>();
 	}
 
 	public override InteractionOrder CreateInteractionOrder(ControllableObject controllableObject, InteractableObject target, Vector3 postion)

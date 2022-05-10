@@ -58,8 +58,9 @@ public class InteractionContextMenu : MonoBehaviour
 		menuTransfrom.gameObject.SetActive(true);
 	}
 
-	private void Close()
+	public void Close()
 	{
+		Clear();
 		menuTransfrom.gameObject.SetActive(false);
 	}
 

@@ -5,21 +5,26 @@ using UnityEngine;
 
 namespace Behaviours
 {
-	public class PickUpBehaviour : CustomBehaviour
+	public class CarryBehaviour : CustomBehaviour
 	{
 		public float turnSpeed;
 		private const string PICKUP_ANIAMTION_TRIGGER = "PickUp";
-		private GameObject pickup;
+		private Carryable pickup;
 		private Animator animator;
 		public event Action PickUpComplete;
 
 		private const float MINROTATIONDIFFERENCE = 0.001f;
 
-		public void StartPickup(GameObject pick)
+		private void Awake()
 		{
-			pickup = pick;
 			animator = gameObject.GetComponent<Animator>();
 		}
+
+		public void StartPickup(Carryable pick)
+		{
+			pickup = pick;
+		}
+
 
 		private void Update()
 		{
@@ -45,19 +50,31 @@ namespace Behaviours
 			this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, pickup.transform.rotation, turnSpeed * Time.deltaTime);
 		}
 
+		public void StopPickUp()
+		{
+			pickup = null;
+			animator.SetBool(PICKUP_ANIAMTION_TRIGGER, false);
+		}
+
 		private void ReadyToPickup()
 		{
 			animator.SetBool(PICKUP_ANIAMTION_TRIGGER, true);
 		}
+
+		public bool HasCarryable()
+		{
+			return GetComponentInChildren<Carryable>() != null;
+		}
+
 		public void ClampEngaged()
 		{
 			pickup.transform.SetParent(this.transform);
+			pickup.Carry();
 		}
 
 		public void AniamtionComplete()
 		{
-			pickup = null;
-			animator.SetBool(PICKUP_ANIAMTION_TRIGGER, false);
+			StopPickUp();
 			PickUpComplete?.Invoke();
 		}
 	}

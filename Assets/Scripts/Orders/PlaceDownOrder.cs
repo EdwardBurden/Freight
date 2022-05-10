@@ -22,5 +22,10 @@ public class PlaceDownOrder : InteractionOrder
 	{
 		throw new System.NotImplementedException();
 	}
+
+	public override bool CheckOrderStatus()
+	{
+		return true;//can figure out later
+	}
 }
 

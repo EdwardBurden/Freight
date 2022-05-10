@@ -7,8 +7,8 @@ using UnityEngine;
 public class PickUpOrder : InteractionOrder
 {
 	private MoveBehaviour movementBehaviour;
-	private PickUpBehaviour pickUpBehaviour;
-	private GameObject pickUp => interactableObject.gameObject;
+	private CarryBehaviour pickUpBehaviour;
+	private Carryable pickUp => interactableObject.GetComponent<Carryable>();
 	public PickUpOrder(InteractableObject pickupObject, Orderable orderable, Vector3 postion) : base(orderable, pickupObject, postion)
 	{
 
@@ -19,7 +19,7 @@ public class PickUpOrder : InteractionOrder
 		movementBehaviour = orderable.GetComponent<MoveBehaviour>();
 		movementBehaviour.MovementComplete += ReachedTarget;
 
-		pickUpBehaviour = orderable.GetComponent<PickUpBehaviour>();
+		pickUpBehaviour = orderable.GetComponent<CarryBehaviour>();
 		pickUpBehaviour.PickUpComplete += OrderComplete;
 
 		movementBehaviour.StartMovement(pickUp.transform.position);
@@ -28,17 +28,27 @@ public class PickUpOrder : InteractionOrder
 	private void ReachedTarget()
 	{
 		pickUpBehaviour.StartPickup(pickUp);
-		//play pickupanimation
-		//when aniamton reached lowest point, attach gameobject
-		//wait for animation to complete
-		//trigger ordercomplete
 	}
-
-
 
 	public override void EndOrder()
 	{
+		movementBehaviour.StopMovement();
+		pickUpBehaviour.StopPickUp();
 		movementBehaviour.MovementComplete -= ReachedTarget;
 		pickUpBehaviour.PickUpComplete -= OrderComplete;
+	}
+
+	public override bool CheckOrderStatus()
+	{
+		if (pickUpBehaviour.HasCarryable())
+		{
+			return false;
+		}
+
+		if (!pickUpBehaviour.HasCarryable() && pickUp.isBeingCarried)
+		{
+			return false;
+		}
+		return true;
 	}
 }

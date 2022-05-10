@@ -24,6 +24,7 @@ public class InteractionManager : MonoBehaviour
 		MouseInteractionTracker.mouseHoveredOffInteractable += OnHoverOffInteractable;
 		MouseInteractionTracker.mouseLeftClickedInteractable += OnLeftClickInteractable;
 		MouseInteractionTracker.mouseLeftClickedNothing += OnLeftClickNotInteractable;
+		MouseInteractionTracker.mouseRightClickedNothing += OnRightClickNotInteractable;
 		MouseInteractionTracker.mouseRightClickedInteractable += OnRightClickInteractable;
 
 		InteractionContextMenu.optionSelected += OnOptionSelected;
@@ -31,12 +32,17 @@ public class InteractionManager : MonoBehaviour
 
 	private void OnLeftClickNotInteractable()
 	{
+		CloseInteractionOptions();
+	}
 
+	private void OnRightClickNotInteractable()
+	{
+		CloseInteractionOptions();
 	}
 
 	private void OnRightClickInteractable(InteractableObject obj, Vector3 worldClickPosition)
 	{
-		if (obj != controlledObject)
+		if (controlledObject != null && obj != controlledObject)
 		{
 			targetInteractableObject = obj;
 			clickPosition = worldClickPosition;
@@ -51,6 +57,13 @@ public class InteractionManager : MonoBehaviour
 		{
 			SelectControllableObject(controllableObject);
 		}
+		else
+		{
+			controlledObject = null;
+		}
+
+		CloseInteractionOptions();
+
 	}
 
 	private void OnHoverOffInteractable(InteractableObject obj)
@@ -80,7 +93,15 @@ public class InteractionManager : MonoBehaviour
 		//GO TO UI
 		Debug.Log("OpenInteractionOptions");
 		List<InteractionOrderDefintion> interactionOrderDefintions = controlledObject.GetAvailableInteractionOrders(targetInteractableObject, clickPosition);
-		interactionContextMenu.DisplayOptions(worldHitPosition,interactionOrderDefintions);
+		interactionContextMenu.DisplayOptions(worldHitPosition, interactionOrderDefintions);
+	}
+
+	private void CloseInteractionOptions()
+	{
+		if (interactionContextMenu.IsMenuOpen())
+		{
+			interactionContextMenu.Close();
+		}
 	}
 
 	private void OnOptionSelected(InteractionOrderDefintion interactionOrder)

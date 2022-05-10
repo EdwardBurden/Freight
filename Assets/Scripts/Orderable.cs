@@ -5,10 +5,24 @@ using UnityEngine;
 
 public class Orderable : MonoBehaviour
 {
-	public bool loopOrders = false; //need to replace rmeove with index to loop, can be used for automation
+	//	public bool loopOrders = false; //need to replace rmeove with index to loop, can be used for automation
 	private bool active;
 	private List<Order> orderQueue = new List<Order>();
 	private Order currentOrder;
+
+	private void Update()
+	{
+		if (active && currentOrder != null)
+		{
+			bool status = currentOrder.CheckOrderStatus(); //can be enum or struct later
+			if (!status)
+			{
+				StopAllOrders();
+				Debug.LogError("Cannot complete Order");
+			}
+		}
+	}
+
 	public void AddOrder(Order shipOrder)
 	{
 		orderQueue.Add(shipOrder);
@@ -48,9 +62,10 @@ public class Orderable : MonoBehaviour
 	private void BeginNextOrder()
 	{
 		Order order = orderQueue[0];
+		orderQueue.RemoveAt(0);
+
 		currentOrder = order;
 		currentOrder.BeginOrder();
-		orderQueue.RemoveAt(0);
 	}
 
 	private void StopAllOrders()
@@ -61,6 +76,7 @@ public class Orderable : MonoBehaviour
 		}
 		currentOrder = null;
 		active = false;
+		orderQueue.Clear();
 	}
 
 	private bool HasOrders()

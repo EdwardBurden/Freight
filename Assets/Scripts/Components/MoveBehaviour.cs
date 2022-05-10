@@ -32,20 +32,29 @@ namespace Behaviours
 			ReachedTarget();
 		}
 
+		private void Awake()
+		{
+			animator = gameObject.GetComponent<Animator>();
+		}
+
 		public void StartMovement(Vector3 target)
 		{
 			this.target = new Vector3(target.x, 0, target.z); //for now only x,z
-			animator = gameObject.GetComponent<Animator>();
 			if (IsAt(target))
 			{
 				ReachedTarget();
 			}
 		}
 
-		private void ReachedTarget()
+		public void StopMovement()
 		{
 			target = null;
 			animator.SetFloat(MOVING_ANIAMTION_BOOL, 0);
+		}
+
+		private void ReachedTarget()
+		{
+			StopMovement();
 			MovementComplete?.Invoke();
 		}
 
