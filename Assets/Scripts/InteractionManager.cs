@@ -53,7 +53,7 @@ public class InteractionManager : MonoBehaviour
 
 	private void OnLeftClickInteractable(InteractableObject obj)
 	{
-		if (obj is ControllableObject controllableObject && controllableObject != controlledObject)
+		if (obj is ControllableObject controllableObject)
 		{
 			SelectControllableObject(controllableObject);
 		}
