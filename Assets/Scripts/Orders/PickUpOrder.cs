@@ -8,14 +8,12 @@ using UnityEngine;
 public class PickUpOrder : InteractionOrder
 {
 	private MoveBehaviour movementBehaviour;
-	private CarryBehaviour pickUpBehaviour;
-	private float speed;
-	private float turnSpeed;
+	private CarryBehaviour carryBehaviour;
+
 	private Carryable pickUp => interactableObject.GetComponent<Carryable>();
-	public PickUpOrder(InteractableObject pickupObject, Orderable orderable, Vector3 postion, float speed, float turnSpeed) : base(orderable, pickupObject, postion)
+	public PickUpOrder(InteractableObject pickupObject, Orderable orderable, Vector3 postion) : base(orderable, pickupObject, postion)
 	{
-		this.speed = speed;
-		this.turnSpeed = turnSpeed;
+
 	}
 
 	public override void BeginOrder()
@@ -23,23 +21,23 @@ public class PickUpOrder : InteractionOrder
 		movementBehaviour = orderable.GetComponent<MoveBehaviour>();
 		movementBehaviour.movementComplete += ReachedTarget;
 
-		pickUpBehaviour = orderable.GetComponent<CarryBehaviour>();
-		pickUpBehaviour.PickUpComplete += OrderComplete;
+		carryBehaviour = orderable.GetComponent<CarryBehaviour>();
+		carryBehaviour.PickUpComplete += OrderComplete;
 
-		movementBehaviour.StartMovement(pickUp.transform.position ,speed , turnSpeed);
+		movementBehaviour.StartMovement(pickUp.transform.position);
 	}
 
 	private void ReachedTarget()
 	{
-		pickUpBehaviour.StartPickup(pickUp, turnSpeed);
+		carryBehaviour.StartPickup(pickUp);
 	}
 
 	public override void EndOrder()
 	{
 		movementBehaviour.StopMovement();
-		pickUpBehaviour.StopPickUp();
+		carryBehaviour.StopPickUp();
 		movementBehaviour.movementComplete -= ReachedTarget;
-		pickUpBehaviour.PickUpComplete -= OrderComplete;
+		carryBehaviour.PickUpComplete -= OrderComplete;
 	}
 
 	public override bool CheckOrderStatus()

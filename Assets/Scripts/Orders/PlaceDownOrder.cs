@@ -6,26 +6,42 @@ using UnityEngine;
 public class PlaceDownOrder : InteractionOrder
 {
 	private MoveBehaviour movementBehaviour;
-//	private PickUpBehaviour pickUpBehaviour;
-	private GameObject pickUp => interactableObject.gameObject;
-	public PlaceDownOrder(InteractableObject pickupObject, Orderable orderable, Vector3 postion) : base(orderable, pickupObject, postion)
+	private CarryBehaviour carryBehaviour;
+
+	//private Carryable pickUp => interactableObject.GetComponent<Carryable>();
+	private GameObject targetParent => interactableObject.gameObject;
+	public PlaceDownOrder(InteractableObject targetPlaceDownObject, Orderable orderable, Vector3 postion) : base(orderable, targetPlaceDownObject, postion)
 	{
 
 	}
 
 	public override void BeginOrder()
 	{
-		throw new System.NotImplementedException();
+		movementBehaviour = orderable.GetComponent<MoveBehaviour>();
+		movementBehaviour.movementComplete += ReachedTarget;
+
+		carryBehaviour = orderable.GetComponent<CarryBehaviour>();
+		carryBehaviour.PlaeDownComplete += OrderComplete;
+
+		movementBehaviour.StartMovement(targetPosition);
 	}
 
-	public override void EndOrder()
+	private void ReachedTarget()
 	{
-		throw new System.NotImplementedException();
+		carryBehaviour.StartPlaceDown(targetParent);
 	}
 
 	public override bool CheckOrderStatus()
 	{
 		return true;//can figure out later
+	}
+
+	public override void EndOrder()
+	{
+		movementBehaviour.StopMovement();
+		carryBehaviour.StopPlaceDown();
+		movementBehaviour.movementComplete -= ReachedTarget;
+		carryBehaviour.PlaeDownComplete -= OrderComplete;
 	}
 }
 

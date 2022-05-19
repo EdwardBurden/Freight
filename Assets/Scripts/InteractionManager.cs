@@ -92,8 +92,9 @@ public class InteractionManager : MonoBehaviour
 	{
 		//GO TO UI
 		Debug.Log("OpenInteractionOptions");
-		List<InteractionOrderDefintion> interactionOrderDefintions = controlledObject.GetAvailableInteractionOrders(targetInteractableObject, clickPosition);
-		interactionContextMenu.DisplayOptions(worldHitPosition, interactionOrderDefintions);
+		//List<InteractionOrderDefintion> interactionOrderDefintions = controlledObject.GetAvailableInteractionOrders(targetInteractableObject, clickPosition);
+		OrderType[] orderTypes = (OrderType[])Enum.GetValues(typeof(OrderType));
+		interactionContextMenu.DisplayOptions(worldHitPosition, orderTypes);
 	}
 
 	private void CloseInteractionOptions()
@@ -104,9 +105,26 @@ public class InteractionManager : MonoBehaviour
 		}
 	}
 
-	private void OnOptionSelected(InteractionOrderDefintion interactionOrder)
+	private void OnOptionSelected(OrderType interactionOrder) //temp 
 	{
-		InteractionOrder order = interactionOrder.CreateInteractionOrder(controlledObject, targetInteractableObject, clickPosition);
+		Order order = null;
+		switch (interactionOrder)
+		{
+			case OrderType.Move:
+				order = new MoveOrder(targetInteractableObject, controlledObject.orderable, clickPosition);
+				break;
+			case OrderType.Pickup:
+				order = new PickUpOrder(targetInteractableObject, controlledObject.orderable, clickPosition);
+				break;
+			case OrderType.PlaceDown:
+				order = new PlaceDownOrder(targetInteractableObject, controlledObject.orderable, clickPosition);
+				break;
+			case OrderType.Wait:
+				order = new WaitOrder(5, controlledObject.orderable);
+				break;
+			default:
+				break;
+		}
 		controlledObject.orderable.AddOrder(order);
 		controlledObject.orderable.StartOrders();
 	}

@@ -8,16 +8,15 @@ public class MoveOrder : InteractionOrder
 	private MoveBehaviour movementBehaviour;
 	private float speed;
 	private float turnSpeed;
-	public MoveOrder(InteractableObject pickupObject, Orderable orderable, Vector3 postion , float speed , float turnSpeed) : base(orderable, pickupObject, postion)
+	public MoveOrder(InteractableObject pickupObject, Orderable orderable, Vector3 postion) : base(orderable, pickupObject, postion)
 	{
-		this.speed = speed;
-		this.turnSpeed = turnSpeed;
+
 	}
 
 	public override void BeginOrder()
 	{
 		movementBehaviour = orderable.GetComponent<MoveBehaviour>();
-		movementBehaviour.StartMovement(targetPosition, speed ,turnSpeed);
+		movementBehaviour.StartMovement(targetPosition);
 		movementBehaviour.movementComplete += OrderComplete;
 	}
 

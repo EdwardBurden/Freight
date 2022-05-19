@@ -7,76 +7,121 @@ namespace Behaviours
 {
 	public class CarryBehaviour : CustomBehaviour
 	{
-		private float turnSpeed; //or goto ship behaviour, get speed for defintion 
-		private const string PICKUP_ANIAMTION_TRIGGER = "PickUp";
-		private Carryable pickup;
+		public float turnSpeed; //or goto ship behaviour, get speed for defintion 
+		private const string PICKUP_ANIMATION_TRIGGER = "PickUp";
+		private const string PLACEDOWN_ANIMATION_TRIGGER = "PlaceDown";
+		public Transform[] carryPositions;
 		private Animator animator;
 		public event Action PickUpComplete;
+		public event Action PlaeDownComplete;
 
 		private const float MINROTATIONDIFFERENCE = 0.001f;
+
+		private GameObject targetObjectParent;
+		private Carryable targetObject;
 
 		private void Awake()
 		{
 			animator = gameObject.GetComponent<Animator>();
 		}
 
-		public void StartPickup(Carryable pick, float turnSpeed)
+		public void StartPickup(Carryable pick)
 		{
-			pickup = pick;
-			this.turnSpeed = turnSpeed;
+			targetObject = pick;
+			StartCoroutine(PickUp());
 		}
 
-
-		private void Update()
+		public void StartPlaceDown(GameObject targetParent)
 		{
-			if (pickup == null)
+			targetObject = GetComponentInChildren<Carryable>();
+			targetObjectParent = targetParent;
+			StartCoroutine(PlaceDown());
+		}
+		public void StopPickUp()
+		{
+			targetObject = null;
+			animator.SetBool(PICKUP_ANIMATION_TRIGGER, false);
+			StopAllCoroutines();
+		}
+
+		public void StopPlaceDown()
+		{
+			animator.SetBool(PLACEDOWN_ANIMATION_TRIGGER, false);
+			StopAllCoroutines();
+		}
+
+		private IEnumerator PickUp()
+		{
+			if (targetObject == null)
 			{
-				return;
+				yield return null;
 			}
-			if (!IsInPlace())
+			while (!IsMatchingRotation(targetObject.transform.rotation))
 			{
-				RotateeToPickUp();
-				return;
+				RotateToRotation(targetObject.transform.rotation);
+				yield return null;
 			}
 			ReadyToPickup();
 		}
 
-		private bool IsInPlace() //could add to the movement behaviour
+		private IEnumerator PlaceDown()
 		{
-			return Quaternion.Angle(this.transform.rotation, pickup.transform.rotation) < MINROTATIONDIFFERENCE;
+			if (targetObject == null)
+			{
+				yield return null;
+			}
+			while (!IsMatchingRotation(Quaternion.Euler(Vector3.forward)))
+			{
+				RotateToRotation(Quaternion.Euler(Vector3.forward));
+				yield return null;
+			}
+			ReadyToPlace();
 		}
 
-		private void RotateeToPickUp()
+		private bool IsMatchingRotation(Quaternion quaternion) //can be moved to helpers
 		{
-			this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, pickup.transform.rotation, turnSpeed * Time.deltaTime);
+			return Quaternion.Angle(this.transform.rotation, quaternion) < MINROTATIONDIFFERENCE;
 		}
 
-		public void StopPickUp()
+		private void RotateToRotation(Quaternion quaternion) //can be moved to helpers
 		{
-			pickup = null;
-			animator.SetBool(PICKUP_ANIAMTION_TRIGGER, false);
+			this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, quaternion, turnSpeed * Time.deltaTime);
 		}
 
 		private void ReadyToPickup()
 		{
-			animator.SetBool(PICKUP_ANIAMTION_TRIGGER, true);
+			animator.SetBool(PICKUP_ANIMATION_TRIGGER, true);
 		}
 
-		public bool HasCarryable()
+		private void ReadyToPlace()
 		{
-			return GetComponentInChildren<Carryable>() != null;
+			animator.SetBool(PLACEDOWN_ANIMATION_TRIGGER, true);
 		}
 
 		public void ClampEngaged()
 		{
-			pickup.transform.SetParent(this.transform);
-			pickup.Carry();
+			targetObject.transform.SetParent(this.transform);
+			targetObject.Carry();
 		}
 
-		public void AniamtionComplete()
+		public void PickUpAnimationComplete()
 		{
 			StopPickUp();
 			PickUpComplete?.Invoke();
 		}
+
+		public void ClampDisengaged()
+		{
+			targetObject.transform.parent = targetObjectParent.transform;
+			targetObject.Drop();
+		}
+
+		public void PlaceDownAnimationComplete()
+		{
+			StopPlaceDown();
+			PlaeDownComplete?.Invoke();
+		}
+
+
 	}
 }

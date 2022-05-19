@@ -8,12 +8,12 @@ using UnityEngine;
 public class ControllableObject : InteractableObject //controlled by player
 {
 	[SerializeField]
-	private ShipDefintion shipDefintion; // holds info and orders defintions for now, can 
+	//private ShipDefintion shipDefintion; // holds info and orders defintions for now, can 
 	public Orderable orderable => GetComponent<Orderable>();
 	//private ShipDefintion  //can be more abstract later 
 	//BASICALLY A SHIP, SOMETHING THAT HAS ACTION WHEN INTERACTING WITH ANOTHER THING
 
-	public List<InteractionOrderDefintion> GetAvailableInteractionOrders(InteractableObject interactableObject, Vector3 postion)
+	/*public List<InteractionOrderDefintion> GetAvailableInteractionOrders(InteractableObject interactableObject, Vector3 postion)
 	{
 		List<InteractionOrderDefintion> interactionOrderDefintions = new List<InteractionOrderDefintion>();
 		foreach (InteractionOrderDefintion interactionOrder in shipDefintion.orderDefintions)
@@ -24,7 +24,7 @@ public class ControllableObject : InteractableObject //controlled by player
 			}
 		}
 		return interactionOrderDefintions;
-	}
+	}*/
 
 
 

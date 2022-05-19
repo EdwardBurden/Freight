@@ -12,7 +12,7 @@ public class InteractionContextMenu : MonoBehaviour
 	public GameObject actionPrefab;
 	public Transform menuTransfrom;
 
-	public static event Action<InteractionOrderDefintion> optionSelected;
+	public static event Action<OrderType> optionSelected;
 
 	private void Awake()
 	{
@@ -25,17 +25,17 @@ public class InteractionContextMenu : MonoBehaviour
 		//EventSystem.current.SetSelectedGameObject(menuTransfrom.gameObject);
 	}
 
-	public void DisplayOptions(Vector3 positionInWorld, List<InteractionOrderDefintion> interactionOrderDefintions)
+	public void DisplayOptions(Vector3 positionInWorld, OrderType[] orderTypes)
 	{
 		Clear();
 		Open(positionInWorld);
-		foreach (InteractionOrderDefintion interactionOrder in interactionOrderDefintions)
+		foreach (OrderType orderType in orderTypes)
 		{
 			GameObject gameObject = Instantiate(actionPrefab, menuTransfrom);
 			Button button = gameObject.GetComponent<Button>();
 			TMP_Text text = gameObject.GetComponentInChildren<TMP_Text>();
-			text.text = interactionOrder.orderName;
-			button.onClick.AddListener(() => OptionSelected(interactionOrder));
+			text.text = orderType.ToString(); 
+			button.onClick.AddListener(() => OptionSelected(orderType));
 		}
 
 	}
@@ -45,7 +45,7 @@ public class InteractionContextMenu : MonoBehaviour
 		return menuTransfrom.gameObject.activeInHierarchy;
 	}
 
-	private void OptionSelected(InteractionOrderDefintion interactionOrder)
+	private void OptionSelected(OrderType interactionOrder)
 	{
 		Close();
 		optionSelected?.Invoke(interactionOrder);

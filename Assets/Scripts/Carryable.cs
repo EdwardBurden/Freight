@@ -12,4 +12,10 @@ public class Carryable : MonoBehaviour //could be a tag instead, can decide late
 		isBeingCarried = true;
 		GetComponent<Collider>().enabled = false;
 	}
+
+	internal void Drop()
+	{
+		isBeingCarried = false;
+		GetComponent<Collider>().enabled = true;
+	}
 }

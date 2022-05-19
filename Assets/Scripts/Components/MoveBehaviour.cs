@@ -12,8 +12,8 @@ namespace Behaviours
 
 		public Transform aniamtionRoot;
 
-		private float speed; //or goto ship behaviour, get speed for defintion 
-		private float turnSpeed; //or goto ship behaviour, get speed for defintion 
+		public float speed; //or goto ship behaviour, get speed for defintion 
+		public float turnSpeed; //or goto ship behaviour, get speed for defintion 
 		private Vector3? target = null; //could add desired transform too
 		private Animator animator;
 
@@ -38,7 +38,7 @@ namespace Behaviours
 			ReachedTarget();
 		}
 
-		public void StartMovement(Vector3 target, float speed, float turnSpeed)
+		public void StartMovement(Vector3 target)
 		{
 			this.speed = speed;
 			this.turnSpeed = turnSpeed;
