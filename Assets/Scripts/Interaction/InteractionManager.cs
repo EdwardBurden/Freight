@@ -44,7 +44,6 @@ public class InteractionManager : MonoBehaviour
 			targetInteractableObject = obj;
 			clickPosition = worldClickPosition;
 			OpenInteractionOptions(worldClickPosition);
-
 		}
 	}
 
@@ -58,9 +57,7 @@ public class InteractionManager : MonoBehaviour
 		{
 			controlledObject = null;
 		}
-
 		CloseInteractionOptions();
-
 	}
 
 	private void OnHoverOffInteractable(InteractableObject obj)
@@ -69,10 +66,6 @@ public class InteractionManager : MonoBehaviour
 		{
 			return;
 		}
-
-		//targetInteractableObject = null;
-		Debug.Log("Off " + obj.name);
-
 	}
 
 	private void OnHoverOnInteractable(InteractableObject obj)
@@ -81,14 +74,10 @@ public class InteractionManager : MonoBehaviour
 		{
 			return;
 		}
-		//targetInteractableObject = obj;
-		Debug.Log("On " + obj.name);
 	}
 
 	private void OpenInteractionOptions(Vector3 worldHitPosition)
 	{
-		//GO TO UI
-		Debug.Log("OpenInteractionOptions");
 		OrderType[] orderTypes = GetAvailableOrders();
 		interactionContextMenu.DisplayOptions(worldHitPosition, orderTypes);
 	}
@@ -162,9 +151,7 @@ public class InteractionManager : MonoBehaviour
 
 	private void SelectControllableObject(ControllableObject controllableObject)
 	{
-		//controlledObject.ControlLost() //maybe event we'll see
 		controlledObject = null;
 		controlledObject = controllableObject;
-		Debug.Log("New Controllable " + controllableObject.name);
 	}
 }
