@@ -662,6 +662,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8742200339806944815, guid: 3c00b5f6fd637a14b9ea912c7fefc2b6, type: 3}
+      propertyPath: speed
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8742200339806944818, guid: 3c00b5f6fd637a14b9ea912c7fefc2b6, type: 3}
       propertyPath: m_Name
       value: Prefab_Ship
@@ -879,7 +883,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7454863811307957395, guid: ff3e8d12a7cf1cc40ad403e71e817366, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -4.39
       objectReference: {fileID: 0}
     - target: {fileID: 7454863811307957395, guid: ff3e8d12a7cf1cc40ad403e71e817366, type: 3}
       propertyPath: m_LocalPosition.z

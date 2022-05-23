@@ -40,8 +40,6 @@ namespace Behaviours
 
 		public void StartMovement(Vector3 target)
 		{
-			this.speed = speed;
-			this.turnSpeed = turnSpeed;
 			this.target = new Vector3(target.x, 0, target.z); //for now only x,z
 			if (IsAt(target))
 			{

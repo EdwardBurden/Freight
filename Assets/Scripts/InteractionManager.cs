@@ -108,7 +108,7 @@ public class InteractionManager : MonoBehaviour
 		{
 			foreach (OrderType targetOrder in targetInteractableObject.targetOrders)
 			{
-				if (availableOrder == targetOrder)
+				if (availableOrder == targetOrder && CanCreate(availableOrder))
 				{
 					orders.Add(availableOrder);
 				}
@@ -117,7 +117,22 @@ public class InteractionManager : MonoBehaviour
 		return orders.ToArray();
 	}
 
-	private void OnOptionSelected(OrderType interactionOrder) //temp 
+	private bool CanCreate(OrderType interactionOrder) //UGLY BUT WORKS 
+	{
+		switch (interactionOrder)
+		{
+			case OrderType.Move:
+				return MoveOrder.CanCreate(controlledObject, clickPosition);
+			case OrderType.PlaceDown:
+				return PlaceDownOrder.CanCreate(controlledObject, targetInteractableObject , clickPosition);
+			default:
+				break;
+		}
+		return true;
+	}
+
+
+	private void OnOptionSelected(OrderType interactionOrder) //UGLY BUT WORKS 
 	{
 		Order order = null;
 		switch (interactionOrder)

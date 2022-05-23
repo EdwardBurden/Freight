@@ -46,6 +46,7 @@ namespace Behaviours
 
 		public void StopPlaceDown()
 		{
+			targetObject = null;
 			animator.SetBool(PLACEDOWN_ANIMATION_TRIGGER, false);
 			StopAllCoroutines();
 		}
@@ -62,6 +63,11 @@ namespace Behaviours
 				yield return null;
 			}
 			ReadyToPickup();
+		}
+
+		public bool HasCargo()
+		{
+			return targetObject != null || GetComponentInChildren<Freight>() != null;
 		}
 
 		private IEnumerator PlaceDown()
@@ -112,7 +118,7 @@ namespace Behaviours
 
 		public void ClampDisengaged()
 		{
-			targetObject.transform.parent = targetObjectParent.transform;
+			targetObject.transform.parent = null;
 			targetObject.Drop();
 		}
 

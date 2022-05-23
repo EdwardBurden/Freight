@@ -30,4 +30,9 @@ public class MoveOrder : InteractionOrder
 		movementBehaviour.StopMovement();
 		movementBehaviour.movementComplete -= OrderComplete;
 	}
+
+	public static bool CanCreate(ControllableObject controllableObject, Vector3 postion)
+	{
+		return postion.FlatDistanceTo(controllableObject.transform.position) > 20;
+	}
 }

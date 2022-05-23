@@ -1,4 +1,5 @@
 using Behaviours;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,6 +43,11 @@ public class PlaceDownOrder : InteractionOrder
 		carryBehaviour.StopPlaceDown();
 		movementBehaviour.movementComplete -= ReachedTarget;
 		carryBehaviour.PlaeDownComplete -= OrderComplete;
+	}
+
+	public static bool CanCreate(ControllableObject controlledObject, InteractableObject targetInteractableObject, Vector3 clickPosition)
+	{
+		return controlledObject.GetComponent<CarryBehaviour>().HasCargo();
 	}
 }
 
