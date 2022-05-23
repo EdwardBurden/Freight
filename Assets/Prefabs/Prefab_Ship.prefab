@@ -144,7 +144,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8742200339806944818}
-  m_LocalRotation: {x: -0, y: 0.9038779, z: -0, w: 0.42779055}
+  m_LocalRotation: {x: 0, y: 0.9038773, z: 0, w: 0.42779177}
   m_LocalPosition: {x: 2.85, y: 0, z: 4.62}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -165,7 +165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe9ab107a50e8434bae46a9808e12dcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loopOrders: 0
 --- !u!114 &8742200339806944815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,6 +193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnSpeed: 200
+  carryPositions: []
 --- !u!95 &8742200339806944809
 Animator:
   serializedVersion: 4
@@ -225,8 +225,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2.29, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.58, z: 0}
 --- !u!114 &1107104220049227006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,4 +239,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5b0502b2c753a0469062559b8628b46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipDefintion: {fileID: 11400000, guid: fe9960495b7f85240af6e9ee0539835b, type: 2}
+  targetOrders: 
+  availableOrders: 000000000100000002000000

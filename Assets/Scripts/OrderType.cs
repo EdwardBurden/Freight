@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum OrderType  //temp, so i dont have ot deal with data yet
+public enum OrderType //type of order that can be given from player/AI
 {
-   Move,
-   Pickup,
-   PlaceDown,
-   Wait
+	Move,
+	Pickup,
+	PlaceDown,
+	Wait,
+	Attack,
+	Die
 }

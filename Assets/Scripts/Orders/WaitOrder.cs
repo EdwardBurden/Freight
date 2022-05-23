@@ -25,7 +25,7 @@ public class WaitOrder : Order //WaitForeseconds for testing order work in order
 		orderable.StopCoroutine(Wait());
 	}
 
-	private IEnumerator Wait()
+	private IEnumerator Wait() //move into waitbehaviour
 	{
 		yield return new WaitForSeconds(waitTime);
 		Debug.LogError("waited");

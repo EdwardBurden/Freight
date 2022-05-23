@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class InteractionManager : MonoBehaviour
@@ -16,7 +14,6 @@ public class InteractionManager : MonoBehaviour
 	{
 		RegisterEvents();
 	}
-
 
 	private void RegisterEvents()
 	{
@@ -92,8 +89,7 @@ public class InteractionManager : MonoBehaviour
 	{
 		//GO TO UI
 		Debug.Log("OpenInteractionOptions");
-		//List<InteractionOrderDefintion> interactionOrderDefintions = controlledObject.GetAvailableInteractionOrders(targetInteractableObject, clickPosition);
-		OrderType[] orderTypes = (OrderType[])Enum.GetValues(typeof(OrderType));
+		OrderType[] orderTypes = GetAvailableOrders();
 		interactionContextMenu.DisplayOptions(worldHitPosition, orderTypes);
 	}
 
@@ -103,6 +99,22 @@ public class InteractionManager : MonoBehaviour
 		{
 			interactionContextMenu.Close();
 		}
+	}
+
+	private OrderType[] GetAvailableOrders()
+	{
+		List<OrderType> orders = new List<OrderType>();
+		foreach (OrderType availableOrder in controlledObject.availableOrders)
+		{
+			foreach (OrderType targetOrder in targetInteractableObject.targetOrders)
+			{
+				if (availableOrder == targetOrder)
+				{
+					orders.Add(availableOrder);
+				}
+			}
+		}
+		return orders.ToArray();
 	}
 
 	private void OnOptionSelected(OrderType interactionOrder) //temp 
@@ -122,6 +134,10 @@ public class InteractionManager : MonoBehaviour
 			case OrderType.Wait:
 				order = new WaitOrder(5, controlledObject.orderable);
 				break;
+			case OrderType.Attack:
+				return;
+			case OrderType.Die:
+				return;
 			default:
 				break;
 		}

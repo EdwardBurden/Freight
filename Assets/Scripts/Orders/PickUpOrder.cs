@@ -10,7 +10,7 @@ public class PickUpOrder : InteractionOrder
 	private MoveBehaviour movementBehaviour;
 	private CarryBehaviour carryBehaviour;
 
-	private Carryable pickUp => interactableObject.GetComponent<Carryable>();
+	private Freight pickUp => interactableObject.GetComponent<Freight>();
 	public PickUpOrder(InteractableObject pickupObject, Orderable orderable, Vector3 postion) : base(orderable, pickupObject, postion)
 	{
 

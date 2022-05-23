@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public  class InteractableObject : MonoBehaviour
+public abstract class InteractableObject : MonoBehaviour
 {
-	//COULD BE ANYTHING THAT HAS A BEHAVIOUR THAT CAN BE ACTED UPON
-
+	public OrderType[] targetOrders; //orders where this object is the target
 	private void Awake()
 	{
-	//	MouseInteractionTracker.mouseHoveredOnInteractable += MouseInteractionTracker_mouseHoveredOnInteractable; //FORTESTING
-		//MouseInteractionTracker.mouseHoveredOffInteractable += MouseInteractionTracker_mouseHoveredOffInteractable;//FORTESTING
+		MouseInteractionTracker.mouseHoveredOnInteractable += OnHover;
+		MouseInteractionTracker.mouseHoveredOffInteractable += OffHover;
 	}
 
-	private void MouseInteractionTracker_mouseHoveredOffInteractable(InteractableObject obj)
+	protected virtual void OffHover(InteractableObject obj)
 	{
 		if (obj == this)
 		{
@@ -20,7 +19,7 @@ public  class InteractableObject : MonoBehaviour
 		}
 	}
 
-	private void MouseInteractionTracker_mouseHoveredOnInteractable(InteractableObject obj)
+	protected virtual void OnHover(InteractableObject obj)
 	{
 		if (obj == this)
 		{

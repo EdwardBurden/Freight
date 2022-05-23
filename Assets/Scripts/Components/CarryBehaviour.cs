@@ -18,14 +18,14 @@ namespace Behaviours
 		private const float MINROTATIONDIFFERENCE = 0.001f;
 
 		private GameObject targetObjectParent;
-		private Carryable targetObject;
+		private Freight targetObject;
 
 		private void Awake()
 		{
 			animator = gameObject.GetComponent<Animator>();
 		}
 
-		public void StartPickup(Carryable pick)
+		public void StartPickup(Freight pick)
 		{
 			targetObject = pick;
 			StartCoroutine(PickUp());
@@ -33,7 +33,7 @@ namespace Behaviours
 
 		public void StartPlaceDown(GameObject targetParent)
 		{
-			targetObject = GetComponentInChildren<Carryable>();
+			targetObject = GetComponentInChildren<Freight>();
 			targetObjectParent = targetParent;
 			StartCoroutine(PlaceDown());
 		}

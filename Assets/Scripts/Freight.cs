@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Carryable : MonoBehaviour //could be a tag instead, can decide later
+public class Freight : InteractableObject //could be a tag instead, can decide later
 {
 	public bool isBeingCarried; //simple can expand later
 
