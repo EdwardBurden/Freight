@@ -1,4 +1,5 @@
 using Behaviours;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,22 +9,22 @@ using UnityEngine;
 public class PickUpOrder : InteractionOrder
 {
 	private MoveBehaviour movementBehaviour;
-	private CarryBehaviour carryBehaviour;
+	private SingleCarryBehaviour carryBehaviour;
 
 	private Freight pickUp => interactableObject.GetComponent<Freight>();
 	public PickUpOrder(InteractableObject pickupObject, Orderable orderable, Vector3 postion) : base(orderable, pickupObject, postion)
 	{
-
+		carryBehaviour = orderable.GetComponent<SingleCarryBehaviour>();
+		movementBehaviour = orderable.GetComponent<MoveBehaviour>();
+		pickUp.SelectForCarrying(true);
 	}
 
 	public override void BeginOrder()
 	{
-		movementBehaviour = orderable.GetComponent<MoveBehaviour>();
 		movementBehaviour.movementComplete += ReachedTarget;
-
-		carryBehaviour = orderable.GetComponent<CarryBehaviour>();
 		carryBehaviour.PickUpComplete += OrderComplete;
 
+		//pickUp.SelectForCarrying(true);
 		movementBehaviour.StartMovement(pickUp.transform.position);
 	}
 
@@ -40,20 +41,24 @@ public class PickUpOrder : InteractionOrder
 		carryBehaviour.PickUpComplete -= OrderComplete;
 	}
 
-	public override bool CheckOrderStatus()
+	internal static bool CanCreate(ControllableObject controlledObject, InteractableObject targetInteractableObject)
 	{
-
-		//return here, get cary item currently has , check if its the the target, return okay
-		//if not its already got a item and cant get another rturn false
-		/*if (pickUpBehaviour.HasCarryable() && pickUp.isBeingCarried)
+		Freight freight = targetInteractableObject.gameObject.GetComponent<Freight>();
+		if (freight == null)
 		{
 			return false;
 		}
-
-		if (!pickUpBehaviour.HasCarryable() && pickUp.isBeingCarried)
+		SingleCarryBehaviour carryBehaviour = controlledObject.gameObject.GetComponent<SingleCarryBehaviour>();
+		if (carryBehaviour == null)
 		{
 			return false;
-		}*/
-		return true;
+		}
+		return freight.CanCarry() && carryBehaviour.HasCarrySpace();
 	}
+
+	public override void CancelOrder()
+	{
+			throw new NotImplementedException();
+	}
+
 }

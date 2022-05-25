@@ -5,6 +5,9 @@ using UnityEngine;
 
 public abstract class Order
 {
+	public event Action OrderCompleteEvent;
+	public event Action OrderCancelledEvent;
+
 	public Order(Orderable orderable)
 	{
 		this.orderable = orderable;
@@ -12,13 +15,21 @@ public abstract class Order
 
 	protected Orderable orderable;
 
-	public abstract bool CheckOrderStatus();
-
 	public abstract void BeginOrder();
+
+	public virtual void UpdateOrder() { }
+
 	public abstract void EndOrder();
 
-	public virtual void OrderComplete()
+	public abstract void CancelOrder();
+
+	protected void OrderComplete()
 	{
-		orderable.CurrentOrderComplete();
+		OrderCompleteEvent?.Invoke();
+	}
+
+	protected void OrderCancelled()
+	{
+		OrderCancelledEvent?.Invoke();
 	}
 }

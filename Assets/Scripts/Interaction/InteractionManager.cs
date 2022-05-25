@@ -95,12 +95,9 @@ public class InteractionManager : MonoBehaviour
 		List<OrderType> orders = new List<OrderType>();
 		foreach (OrderType availableOrder in controlledObject.availableOrders)
 		{
-			foreach (OrderType targetOrder in targetInteractableObject.targetOrders)
+			if (CanCreate(availableOrder))
 			{
-				if (availableOrder == targetOrder && CanCreate(availableOrder))
-				{
-					orders.Add(availableOrder);
-				}
+				orders.Add(availableOrder);
 			}
 		}
 		return orders.ToArray();
@@ -112,8 +109,10 @@ public class InteractionManager : MonoBehaviour
 		{
 			case OrderType.Move:
 				return MoveOrder.CanCreate(controlledObject, clickPosition);
+			case OrderType.Pickup:
+				return PickUpOrder.CanCreate(controlledObject, targetInteractableObject);
 			case OrderType.PlaceDown:
-				return PlaceDownOrder.CanCreate(controlledObject, targetInteractableObject , clickPosition);
+				return PlaceDownOrder.CanCreate(controlledObject, clickPosition);
 			default:
 				break;
 		}

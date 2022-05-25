@@ -15,9 +15,9 @@ public class WaitOrder : Order //WaitForeseconds for testing order work in order
 		orderable.StartCoroutine(Wait());
 	}
 
-	public override bool CheckOrderStatus()
+	public override void CancelOrder()
 	{
-		return true;
+		throw new System.NotImplementedException();
 	}
 
 	public override void EndOrder()

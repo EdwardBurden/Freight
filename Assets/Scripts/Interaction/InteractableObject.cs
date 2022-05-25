@@ -4,7 +4,6 @@ using UnityEngine;
 
 public abstract class InteractableObject : MonoBehaviour
 {
-	public OrderType[] targetOrders; //orders where this object is the target
 	private void Awake()
 	{
 		MouseInteractionTracker.mouseHoveredOnInteractable += OnHover;

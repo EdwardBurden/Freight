@@ -14,12 +14,7 @@ public class Orderable : MonoBehaviour
 	{
 		if (active && currentOrder != null)
 		{
-			bool status = currentOrder.CheckOrderStatus(); //can be enum or struct later
-			if (!status)
-			{
-				StopAllOrders();
-				Debug.LogError("Cannot complete Order");
-			}
+			currentOrder.UpdateOrder(); 
 		}
 	}
 
@@ -34,21 +29,11 @@ public class Orderable : MonoBehaviour
 		{
 			return;
 		}
-
-		if (HasOrders())
-		{
-			active = true;
-			BeginNextOrder();
-		}
-		else
-		{
-			StopAllOrders();
-		}
+		TryNextOrder();
 	}
 
-	public void CurrentOrderComplete()
+	private void TryNextOrder()
 	{
-		currentOrder.EndOrder();
 		if (HasOrders())
 		{
 			BeginNextOrder();
@@ -57,14 +42,18 @@ public class Orderable : MonoBehaviour
 		{
 			StopAllOrders();
 		}
+
 	}
 
 	private void BeginNextOrder()
 	{
+		active = true;
 		Order order = orderQueue[0];
 		orderQueue.RemoveAt(0);
 
 		currentOrder = order;
+		currentOrder.OrderCompleteEvent += CurrentOrderComplete;
+		currentOrder.OrderCancelledEvent += CurrentOrderCancelled;
 		currentOrder.BeginOrder();
 	}
 
@@ -82,5 +71,23 @@ public class Orderable : MonoBehaviour
 	private bool HasOrders()
 	{
 		return orderQueue.Count > 0;
+	}
+
+	private void CurrentOrderCancelled()
+	{
+		currentOrder.CancelOrder();
+		currentOrder.OrderCompleteEvent -= CurrentOrderComplete;
+		currentOrder.OrderCompleteEvent -= CurrentOrderCancelled;
+		currentOrder = null;
+		TryNextOrder();
+	}
+
+	private void CurrentOrderComplete()
+	{
+		currentOrder.EndOrder();
+		currentOrder.OrderCompleteEvent -= CurrentOrderComplete;
+		currentOrder.OrderCompleteEvent -= CurrentOrderCancelled;
+		currentOrder = null;
+		TryNextOrder();
 	}
 }

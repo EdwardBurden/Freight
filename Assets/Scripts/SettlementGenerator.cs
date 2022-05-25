@@ -29,6 +29,7 @@ public class SettlementGenerator : MonoBehaviour
 		Vector3 positon = randomDirection * distanceFromCenter;
 		return positon;
 	}
+
 	private Quaternion GenerateRotations()
 	{
 		return Quaternion.AngleAxis( Random.Range(0.0f, 360.0f) , Vector3.up);

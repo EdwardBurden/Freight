@@ -5,20 +5,19 @@ using UnityEngine;
 
 namespace Behaviours
 {
-	public class CarryBehaviour : CustomBehaviour
+	public class SingleCarryBehaviour : CustomBehaviour
 	{
-		public float turnSpeed; //or goto ship behaviour, get speed for defintion 
+		private const float MINROTATIONDIFFERENCE = 0.001f;
 		private const string PICKUP_ANIMATION_TRIGGER = "PickUp";
 		private const string PLACEDOWN_ANIMATION_TRIGGER = "PlaceDown";
-		public Transform[] carryPositions;
-		private Animator animator;
+
 		public event Action PickUpComplete;
 		public event Action PlaeDownComplete;
 
-		private const float MINROTATIONDIFFERENCE = 0.001f;
+		public float turnSpeed; 
 
-		private GameObject targetObjectParent;
-		private Freight targetObject;
+		private Animator animator;
+		public Freight carryObject;
 
 		private void Awake()
 		{
@@ -27,52 +26,56 @@ namespace Behaviours
 
 		public void StartPickup(Freight pick)
 		{
-			targetObject = pick;
+			carryObject = pick;
 			StartCoroutine(PickUp());
 		}
 
-		public void StartPlaceDown(GameObject targetParent)
+		public void StartPlaceDown()
 		{
-			targetObject = GetComponentInChildren<Freight>();
-			targetObjectParent = targetParent;
+			carryObject = GetComponentInChildren<Freight>();
 			StartCoroutine(PlaceDown());
 		}
+
 		public void StopPickUp()
 		{
-			targetObject = null;
 			animator.SetBool(PICKUP_ANIMATION_TRIGGER, false);
 			StopAllCoroutines();
 		}
 
 		public void StopPlaceDown()
 		{
-			targetObject = null;
+			carryObject = null;
 			animator.SetBool(PLACEDOWN_ANIMATION_TRIGGER, false);
 			StopAllCoroutines();
 		}
 
 		private IEnumerator PickUp()
 		{
-			if (targetObject == null)
+			if (carryObject == null)
 			{
 				yield return null;
 			}
-			while (!IsMatchingRotation(targetObject.transform.rotation))
+			while (!IsMatchingRotation(carryObject.transform.rotation))
 			{
-				RotateToRotation(targetObject.transform.rotation);
+				RotateToRotation(carryObject.transform.rotation);
 				yield return null;
 			}
 			ReadyToPickup();
 		}
 
-		public bool HasCargo()
+		public virtual bool HasCargo()
 		{
-			return targetObject != null || GetComponentInChildren<Freight>() != null;
+			return carryObject != null;
+		}
+
+		public virtual bool HasCarrySpace()
+		{
+			return carryObject == null;
 		}
 
 		private IEnumerator PlaceDown()
 		{
-			if (targetObject == null)
+			if (carryObject == null)
 			{
 				yield return null;
 			}
@@ -106,8 +109,8 @@ namespace Behaviours
 
 		public void ClampEngaged()
 		{
-			targetObject.transform.SetParent(this.transform);
-			targetObject.Carry();
+			carryObject.transform.SetParent(this.transform);
+			carryObject.Carry();
 		}
 
 		public void PickUpAnimationComplete()
@@ -118,8 +121,8 @@ namespace Behaviours
 
 		public void ClampDisengaged()
 		{
-			targetObject.transform.parent = null;
-			targetObject.Drop();
+			carryObject.transform.parent = null;
+			carryObject.Drop();
 		}
 
 		public void PlaceDownAnimationComplete()
