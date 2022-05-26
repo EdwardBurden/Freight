@@ -16,7 +16,7 @@ public class PickUpOrder : InteractionOrder
 	{
 		carryBehaviour = orderable.GetComponent<SingleCarryBehaviour>();
 		movementBehaviour = orderable.GetComponent<MoveBehaviour>();
-		pickUp.SelectForCarrying(true);
+		pickUp.RegisterCarrier(carryBehaviour);
 	}
 
 	public override void BeginOrder()
@@ -24,7 +24,7 @@ public class PickUpOrder : InteractionOrder
 		movementBehaviour.movementComplete += ReachedTarget;
 		carryBehaviour.PickUpComplete += OrderComplete;
 
-		//pickUp.SelectForCarrying(true);
+
 		movementBehaviour.StartMovement(pickUp.transform.position);
 	}
 

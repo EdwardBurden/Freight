@@ -1,3 +1,4 @@
+using Behaviours;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,27 +7,27 @@ using UnityEngine;
 public class Freight : InteractableObject //could be a tag instead, can decide later
 {
 	private bool isBeingCarried; //Is currently being carried in a ship
-	private bool selectedForCarrying; //Ship register interest in picking up, unregisterd when placed own order begins
+	private SingleCarryBehaviour registeredCarrier; //Ship register interest in picking up, unregisterd when
 
-	private void Awake()
+	protected override void Awake()
 	{
 		isBeingCarried = false;
-		selectedForCarrying = false;
+		registeredCarrier = null;
 	}
 
 	public bool CanCarry()
 	{
-		return !isBeingCarried && !selectedForCarrying;
+		return !isBeingCarried && registeredCarrier == null;
 	}
 
-	public bool IsSelectedToCarry()
+	public bool HasCarrier()
 	{
-		return selectedForCarrying;
+		return registeredCarrier != null;
 	}
 
-	public void SelectForCarrying(bool toggle)
+	public void RegisterCarrier(SingleCarryBehaviour carryBehaviour)
 	{
-		selectedForCarrying = toggle;
+		registeredCarrier = carryBehaviour;
 	}
 
 	public void Carry()
@@ -38,7 +39,7 @@ public class Freight : InteractableObject //could be a tag instead, can decide l
 	public void Drop()
 	{
 		isBeingCarried = false;
-		selectedForCarrying = false;
+		registeredCarrier = null;
 		GetComponent<Collider>().enabled = true;
 	}
 }

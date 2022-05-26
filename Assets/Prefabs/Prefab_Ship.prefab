@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aniamtionRoot: {fileID: 8742200339675275296}
-  speed: 3
+  speed: 6
   turnSpeed: 200
 --- !u!114 &8742200339806944814
 MonoBehaviour:
@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnSpeed: 200
-  carryPositions: []
+  carryObject: {fileID: 0}
 --- !u!95 &8742200339806944809
 Animator:
   serializedVersion: 4
@@ -239,5 +239,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5b0502b2c753a0469062559b8628b46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetOrders: 
   availableOrders: 000000000100000002000000

@@ -13,7 +13,7 @@ public class PlaceDownOrder : InteractionOrder
 	{
 		carryBehaviour = orderable.GetComponent<SingleCarryBehaviour>();
 		movementBehaviour = orderable.GetComponent<MoveBehaviour>();
-		carryBehaviour.carryObject.SelectForCarrying(false);
+		carryBehaviour.carryObject.RegisterCarrier(null);
 	}
 
 	public override void BeginOrder()
@@ -21,7 +21,6 @@ public class PlaceDownOrder : InteractionOrder
 		movementBehaviour.movementComplete += ReachedTarget;
 		carryBehaviour.PlaeDownComplete += OrderComplete;
 
-		//carryBehaviour.carryObject.SelectForCarrying(false);
 		movementBehaviour.StartMovement(targetPosition);
 	}
 
@@ -51,7 +50,7 @@ public class PlaceDownOrder : InteractionOrder
 			return false;
 		}
 
-		return carryBehaviour.HasCargo() && freight.IsSelectedToCarry();
+		return carryBehaviour.HasCargo() && freight.HasCarrier();
 	}
 
 	public override void CancelOrder()

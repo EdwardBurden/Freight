@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class InteractableObject : MonoBehaviour
 {
-	private void Awake()
+	protected virtual void Awake()
 	{
 		MouseInteractionTracker.mouseHoveredOnInteractable += OnHover;
 		MouseInteractionTracker.mouseHoveredOffInteractable += OffHover;
