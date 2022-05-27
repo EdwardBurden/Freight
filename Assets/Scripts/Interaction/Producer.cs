@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Producer : InteractableObject
 {
-	public GameObject frieghtPrefab;
+	public Freight frieghtPrefab;
 	public Transform spawnLocation;
 	public int timeBetweenSpawn;
 
@@ -23,7 +23,7 @@ public class Producer : InteractableObject
 		while (true)
 		{
 			yield return new WaitForSeconds(timeBetweenSpawn);
-			if (CanSpawn())
+			if (!HasFreigthSpawned())
 			{
 				Instantiate(frieghtPrefab, spawnLocation);
 			}
@@ -31,9 +31,13 @@ public class Producer : InteractableObject
 
 	}
 
-	private bool CanSpawn()
+	public bool HasFreigthSpawned()
 	{
-		return spawnLocation.GetComponentInChildren<Freight>() == null;
+		return spawnLocation.GetComponentInChildren<Freight>() != null;
+	}
 
+	public Freight GetSpawnedFreight()
+	{
+		return spawnLocation.GetComponentInChildren<Freight>();
 	}
 }

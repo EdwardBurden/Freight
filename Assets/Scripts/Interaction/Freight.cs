@@ -7,28 +7,17 @@ using UnityEngine;
 public class Freight : InteractableObject //could be a tag instead, can decide later
 {
 	private bool isBeingCarried; //Is currently being carried in a ship
-	private SingleCarryBehaviour registeredCarrier; //Ship register interest in picking up, unregisterd when
 
 	protected override void Awake()
 	{
 		isBeingCarried = false;
-		registeredCarrier = null;
 	}
 
 	public bool CanCarry()
 	{
-		return !isBeingCarried && registeredCarrier == null;
+		return !isBeingCarried;
 	}
 
-	public bool HasCarrier()
-	{
-		return registeredCarrier != null;
-	}
-
-	public void RegisterCarrier(SingleCarryBehaviour carryBehaviour)
-	{
-		registeredCarrier = carryBehaviour;
-	}
 
 	public void Carry()
 	{
@@ -39,7 +28,6 @@ public class Freight : InteractableObject //could be a tag instead, can decide l
 	public void Drop()
 	{
 		isBeingCarried = false;
-		registeredCarrier = null;
 		GetComponent<Collider>().enabled = true;
 	}
 }

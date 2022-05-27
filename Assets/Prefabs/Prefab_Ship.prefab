@@ -239,4 +239,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5b0502b2c753a0469062559b8628b46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  availableOrders: 000000000100000002000000
+  actionDefintions:
+  - {fileID: 11400000, guid: 8aff52e47ee3c7249913fc893f595ddf, type: 2}
+  - {fileID: 11400000, guid: dcab9725f1a74f94a80d90f4d863ebfa, type: 2}
+  - {fileID: 11400000, guid: 21dc32d95f5a99043a13332dfb188507, type: 2}
+  - {fileID: 11400000, guid: b4491b1cf5f550d4f8d61a03be1a51ed, type: 2}

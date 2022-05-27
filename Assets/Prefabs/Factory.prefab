@@ -124,6 +124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7199239207814978233}
   - component: {fileID: 2502005786315449323}
+  - component: {fileID: 98122666}
   m_Layer: 0
   m_Name: Factory
   m_TagString: Untagged
@@ -160,7 +161,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e72540dbe8d2524ab7c79204c2daf6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetOrders: 04000000
-  frieghtPrefab: {fileID: 3246483250008509797, guid: 1100a2f84fa666946b2b66711aef9380, type: 3}
+  frieghtPrefab: {fileID: 3800175408581303401, guid: 1100a2f84fa666946b2b66711aef9380, type: 3}
   spawnLocation: {fileID: 1303949751511800473}
-  timeBetweenSpawn: 10
+  timeBetweenSpawn: 3
+--- !u!65 &98122666
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7199239207814978230}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 12.9, y: 6.78, z: 12.45}
+  m_Center: {x: 0, y: 2.88, z: 0}

@@ -7,12 +7,11 @@ using UnityEngine.UI;
 
 using TMPro;
 
-public class InteractionContextMenu : MonoBehaviour
+public class InteractionContextMenu : Menu
 {
 	public GameObject actionPrefab;
-	public Transform menuTransfrom;
 
-	public static event Action<OrderType> optionSelected;
+	public static event Action<ActionDefintion> optionSelected;
 
 	private void Awake()
 	{
@@ -20,34 +19,23 @@ public class InteractionContextMenu : MonoBehaviour
 		Close();
 	}
 
-	private void RegisterEvents()
-	{
-		//EventSystem.current.SetSelectedGameObject(menuTransfrom.gameObject);
-	}
-
-	public void DisplayOptions(Vector3 positionInWorld, OrderType[] orderTypes)
+	public void DisplayOptions(Vector3 positionInWorld, ActionDefintion[] actions)
 	{
 		Clear();
 		Open(positionInWorld);
-		foreach (OrderType orderType in orderTypes)
+		foreach (ActionDefintion action in actions)
 		{
-			GameObject gameObject = Instantiate(actionPrefab, menuTransfrom);
+			GameObject gameObject = action.CreateButton(menuTransfrom);
 			Button button = gameObject.GetComponent<Button>();
-			TMP_Text text = gameObject.GetComponentInChildren<TMP_Text>();
-			text.text = orderType.ToString(); 
-			button.onClick.AddListener(() => OptionSelected(orderType));
+			button.onClick.AddListener(() => OptionSelected(action));
 		}
 
 	}
 
-	public bool IsMenuOpen()
-	{
-		return menuTransfrom.gameObject.activeInHierarchy;
-	}
-
-	private void OptionSelected(OrderType interactionOrder)
+	private void OptionSelected(ActionDefintion interactionOrder)
 	{
 		Close();
+		//interactionOrder.OnActionSelected();
 		optionSelected?.Invoke(interactionOrder);
 	}
 
@@ -55,27 +43,6 @@ public class InteractionContextMenu : MonoBehaviour
 	{
 		Vector3 hit = Camera.main.WorldToScreenPoint(positionInWorld);
 		menuTransfrom.position = hit;
-		menuTransfrom.gameObject.SetActive(true);
-	}
-
-	public void Close()
-	{
-		Clear();
-		menuTransfrom.gameObject.SetActive(false);
-	}
-
-	private void Clear()
-	{
-		foreach (Transform child in menuTransfrom.transform)
-		{
-			GameObject.Destroy(child.gameObject);
-		}
-	}
-
-	public void OnDeselect(BaseEventData eventData)
-	{
-		Close();
-		Debug.LogError("");
-		//Mouse was clicked outside
+		Open();
 	}
 }

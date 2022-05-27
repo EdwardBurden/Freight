@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a4b3172a86df5d4a8b6d5fa37da1509, type: 3}
+  m_Name: CollectAction
+  m_EditorClassIdentifier: 
+  actionButtonPrefab: {fileID: 1188613633496225760, guid: 741bcf13ba4f61447a3916ff6a618622, type: 3}
+  Name: Collect
+  description: Ship moves to a producer and collects freight if available
+  icon: {fileID: 21300000, guid: 24c5c7dfea9425b4cad935285454257b, type: 3}

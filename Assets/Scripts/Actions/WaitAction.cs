@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaitOrder : Order //WaitForeseconds for testing order work in order for now
+public class WaitAction : FreightAction //WaitForeseconds for testing order work in order for now
 {
 	private int waitTime;
-	public WaitOrder(int waitTime, Orderable orderable) : base(orderable)
+	public WaitAction(int waitTime, Orderable orderable, ActionDefintion actionDefintion) : base(orderable, actionDefintion)
 	{
 		this.waitTime = waitTime;
 	}
@@ -15,21 +15,26 @@ public class WaitOrder : Order //WaitForeseconds for testing order work in order
 		orderable.StartCoroutine(Wait());
 	}
 
-	public override void CancelOrder()
+	public override void OrderCancelled()
 	{
 		throw new System.NotImplementedException();
 	}
 
-	public override void EndOrder()
+	public override void OrderFinished()
 	{
 		orderable.StopCoroutine(Wait());
+	}
+
+	public override void UpdateOrder()
+	{
+		throw new System.NotImplementedException();
 	}
 
 	private IEnumerator Wait() //move into waitbehaviour
 	{
 		yield return new WaitForSeconds(waitTime);
 		Debug.LogError("waited");
-		OrderComplete();
+		CompleteOrder();
 		yield return null;
 	}
 }

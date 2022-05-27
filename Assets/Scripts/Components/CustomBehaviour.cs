@@ -7,6 +7,10 @@ namespace Behaviours
 {
 	public abstract class CustomBehaviour : MonoBehaviour
 	{
+		public virtual void StopBehaviour()
+		{
 
+
+		}
 	}
 }

@@ -47,7 +47,7 @@ namespace Behaviours
 			}
 		}
 
-		public void StopMovement()
+		public override void StopBehaviour()
 		{
 			target = null;
 			animator.SetFloat(MOVING_ANIAMTION_BOOL, 0);
@@ -55,7 +55,7 @@ namespace Behaviours
 
 		private void ReachedTarget()
 		{
-			StopMovement();
+			StopBehaviour();
 			movementComplete?.Invoke();
 		}
 

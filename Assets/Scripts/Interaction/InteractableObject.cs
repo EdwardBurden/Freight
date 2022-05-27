@@ -14,7 +14,7 @@ public abstract class InteractableObject : MonoBehaviour
 	{
 		if (obj == this)
 		{
-			this.transform.localScale /= 0.9f;
+			//this.transform.localScale /= 0.9f;
 		}
 	}
 
@@ -22,7 +22,7 @@ public abstract class InteractableObject : MonoBehaviour
 	{
 		if (obj == this)
 		{
-			this.transform.localScale *= 0.9f;
+			//this.transform.localScale *= 0.9f;
 		}
 	}
 }

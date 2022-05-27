@@ -14,10 +14,11 @@ namespace Behaviours
 		public event Action PickUpComplete;
 		public event Action PlaeDownComplete;
 
-		public float turnSpeed; 
+		public float turnSpeed;
 
 		private Animator animator;
 		public Freight carryObject;
+		public Transform targetInteractionTransform;
 
 		private void Awake()
 		{
@@ -30,21 +31,28 @@ namespace Behaviours
 			StartCoroutine(PickUp());
 		}
 
-		public void StartPlaceDown()
+		public void StartPlaceDown(Transform targetInteractionTransform)
 		{
+			this.targetInteractionTransform = targetInteractionTransform;
 			carryObject = GetComponentInChildren<Freight>();
 			StartCoroutine(PlaceDown());
 		}
 
-		public void StopPickUp()
+
+		public override void StopBehaviour()
+		{
+			StopAllCoroutines();
+		}
+
+
+		public void EndPickUp()
 		{
 			animator.SetBool(PICKUP_ANIMATION_TRIGGER, false);
 			StopAllCoroutines();
 		}
 
-		public void StopPlaceDown()
+		public void EndPlaceDown()
 		{
-			carryObject = null;
 			animator.SetBool(PLACEDOWN_ANIMATION_TRIGGER, false);
 			StopAllCoroutines();
 		}
@@ -63,11 +71,6 @@ namespace Behaviours
 			ReadyToPickup();
 		}
 
-		public virtual bool HasCargo()
-		{
-			return carryObject != null;
-		}
-
 		public virtual bool HasCarrySpace()
 		{
 			return carryObject == null;
@@ -79,9 +82,9 @@ namespace Behaviours
 			{
 				yield return null;
 			}
-			while (!IsMatchingRotation(Quaternion.Euler(Vector3.forward)))
+			while (!IsMatchingRotation(targetInteractionTransform.rotation))
 			{
-				RotateToRotation(Quaternion.Euler(Vector3.forward));
+				RotateToRotation(targetInteractionTransform.rotation);
 				yield return null;
 			}
 			ReadyToPlace();
@@ -115,7 +118,7 @@ namespace Behaviours
 
 		public void PickUpAnimationComplete()
 		{
-			StopPickUp();
+			EndPickUp();
 			PickUpComplete?.Invoke();
 		}
 
@@ -127,7 +130,7 @@ namespace Behaviours
 
 		public void PlaceDownAnimationComplete()
 		{
-			StopPlaceDown();
+			EndPlaceDown();
 			PlaeDownComplete?.Invoke();
 		}
 

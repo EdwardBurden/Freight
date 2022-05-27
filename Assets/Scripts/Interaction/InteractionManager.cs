@@ -5,7 +5,7 @@ using UnityEngine;
 public class InteractionManager : MonoBehaviour
 {
 	public InteractionContextMenu interactionContextMenu; //placed on ui canvas for now
-	private ControllableObject controlledObject;  //object we have selected
+	public ControllableObject controlledObject;  //object we have selected
 
 	private InteractableObject targetInteractableObject; //object right clicked
 	private Vector3 clickPosition; //position of  right click
@@ -17,8 +17,8 @@ public class InteractionManager : MonoBehaviour
 
 	private void RegisterEvents()
 	{
-		MouseInteractionTracker.mouseHoveredOnInteractable += OnHoverOnInteractable;
-		MouseInteractionTracker.mouseHoveredOffInteractable += OnHoverOffInteractable;
+		//	MouseInteractionTracker.mouseHoveredOnInteractable += OnHoverOnInteractable;
+		//	MouseInteractionTracker.mouseHoveredOffInteractable += OnHoverOffInteractable;
 		MouseInteractionTracker.mouseLeftClickedInteractable += OnLeftClickInteractable;
 		MouseInteractionTracker.mouseLeftClickedNothing += OnLeftClickNotInteractable;
 		MouseInteractionTracker.mouseRightClickedNothing += OnRightClickNotInteractable;
@@ -60,26 +60,10 @@ public class InteractionManager : MonoBehaviour
 		CloseInteractionOptions();
 	}
 
-	private void OnHoverOffInteractable(InteractableObject obj)
-	{
-		if (interactionContextMenu.IsMenuOpen())
-		{
-			return;
-		}
-	}
-
-	private void OnHoverOnInteractable(InteractableObject obj)
-	{
-		if (interactionContextMenu.IsMenuOpen())
-		{
-			return;
-		}
-	}
-
 	private void OpenInteractionOptions(Vector3 worldHitPosition)
 	{
-		OrderType[] orderTypes = GetAvailableOrders();
-		interactionContextMenu.DisplayOptions(worldHitPosition, orderTypes);
+		ActionDefintion[] interactionActions = GetAvailableOrders();
+		interactionContextMenu.DisplayOptions(worldHitPosition, interactionActions);
 	}
 
 	private void CloseInteractionOptions()
@@ -90,12 +74,12 @@ public class InteractionManager : MonoBehaviour
 		}
 	}
 
-	private OrderType[] GetAvailableOrders()
+	private ActionDefintion[] GetAvailableOrders()
 	{
-		List<OrderType> orders = new List<OrderType>();
-		foreach (OrderType availableOrder in controlledObject.availableOrders)
+		List<ActionDefintion> orders = new List<ActionDefintion>();
+		foreach (ActionDefintion availableOrder in controlledObject.actionDefintions)
 		{
-			if (CanCreate(availableOrder))
+			if (availableOrder.ActionAvailable(controlledObject, targetInteractableObject , clickPosition))
 			{
 				orders.Add(availableOrder);
 			}
@@ -103,54 +87,15 @@ public class InteractionManager : MonoBehaviour
 		return orders.ToArray();
 	}
 
-	private bool CanCreate(OrderType interactionOrder) //UGLY BUT WORKS 
+	private void OnOptionSelected(ActionDefintion interactionOrder) //UGLY BUT WORKS 
 	{
-		switch (interactionOrder)
-		{
-			case OrderType.Move:
-				return MoveOrder.CanCreate(controlledObject, clickPosition);
-			case OrderType.Pickup:
-				return PickUpOrder.CanCreate(controlledObject, targetInteractableObject);
-			case OrderType.PlaceDown:
-				return PlaceDownOrder.CanCreate(controlledObject, clickPosition);
-			default:
-				break;
-		}
-		return true;
-	}
-
-
-	private void OnOptionSelected(OrderType interactionOrder) //UGLY BUT WORKS 
-	{
-		Order order = null;
-		switch (interactionOrder)
-		{
-			case OrderType.Move:
-				order = new MoveOrder(targetInteractableObject, controlledObject.orderable, clickPosition);
-				break;
-			case OrderType.Pickup:
-				order = new PickUpOrder(targetInteractableObject, controlledObject.orderable, clickPosition);
-				break;
-			case OrderType.PlaceDown:
-				order = new PlaceDownOrder(targetInteractableObject, controlledObject.orderable, clickPosition);
-				break;
-			case OrderType.Wait:
-				order = new WaitOrder(5, controlledObject.orderable);
-				break;
-			case OrderType.Attack:
-				return;
-			case OrderType.Die:
-				return;
-			default:
-				break;
-		}
-		controlledObject.orderable.AddOrder(order);
-		controlledObject.orderable.StartOrders();
+		interactionOrder.OnActionSelected(controlledObject, targetInteractableObject, clickPosition);
 	}
 
 	private void SelectControllableObject(ControllableObject controllableObject)
 	{
 		controlledObject = null;
 		controlledObject = controllableObject;
+
 	}
 }
