@@ -29,9 +29,9 @@ public class CollectActionDefintion : ActionDefintion
 	public override void OnActionSelected(ControllableObject controllableObject, InteractableObject interactableObject, Vector3 clickPostion)
 	{
 		Producer producer = interactableObject as Producer;
-		Freight freight = producer.GetSpawnedFreight();
+
 		//open ui to select resource
-		CollectAction collectAction = new CollectAction(freight, producer, controllableObject.orderable, this);
+		CollectAction collectAction = new CollectAction(producer, controllableObject.orderable, this);
 		controllableObject.orderable.AddOrder(collectAction);
 		controllableObject.orderable.StartOrders();
 	}

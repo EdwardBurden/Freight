@@ -25,7 +25,7 @@ public class Producer : InteractableObject
 			yield return new WaitForSeconds(timeBetweenSpawn);
 			if (!HasFreigthSpawned())
 			{
-				Instantiate(frieghtPrefab, spawnLocation);
+				 Instantiate(frieghtPrefab, spawnLocation);
 			}
 		}
 

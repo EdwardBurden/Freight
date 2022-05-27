@@ -6,22 +6,20 @@ using UnityEngine;
 public class CollectAction : FreightAction
 {
 	public Producer producer;
-	public Freight collectionObject;
 	private MoveBehaviour movementBehaviour;
 	private SingleCarryBehaviour carryBehaviour;
 
 
-	public CollectAction(Freight collectionObject, Producer producer, Orderable orderable, ActionDefintion defintion) : base(orderable, defintion)
+	public CollectAction(Producer producer, Orderable orderable, ActionDefintion defintion) : base(orderable, defintion)
 	{
 		carryBehaviour = orderable.GetComponent<SingleCarryBehaviour>();
 		movementBehaviour = orderable.GetComponent<MoveBehaviour>();
-		this.collectionObject = collectionObject;
 		this.producer = producer;
 	}
 
 	public override void BeginOrder()
 	{
-		if (!carryBehaviour.HasCarrySpace() || collectionObject == null)
+		if (!carryBehaviour.HasCarrySpace() || producer.GetSpawnedFreight() == null)
 		{
 			CancelOrder();
 			return;
@@ -30,12 +28,12 @@ public class CollectAction : FreightAction
 		movementBehaviour.movementComplete += ReachedTarget;
 		carryBehaviour.PickUpComplete += CompleteOrder;
 
-		movementBehaviour.StartMovement(collectionObject.transform.position);
+		movementBehaviour.StartMovement(producer.GetSpawnedFreight().transform.position);
 	}
 
 	private void ReachedTarget()
 	{
-		carryBehaviour.StartPickup(collectionObject);
+		carryBehaviour.StartPickup(producer.GetSpawnedFreight());
 	}
 
 	public override void OrderFinished()
