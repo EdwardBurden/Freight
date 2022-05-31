@@ -5,16 +5,27 @@ using UnityEngine;
 
 public class Orderable : MonoBehaviour
 {
-	//	public bool loopOrders = false; //need to replace rmeove with index to loop, can be used for automation
+	private bool loopOrders = true; //need to replace rmeove with index to loop, can be used for automation
 	private bool active;
 	private List<GameAction> orderQueue = new List<GameAction>();
-	private GameAction currentOrder;
+	private int index = -1;
+	private GameAction currentOrder
+	{
+		get
+		{
+			if (index != -1 && index < orderQueue.Count)
+			{
+				return orderQueue[index];
+			}
+			return null;
+		}
+	}
 
 	private void Update()
 	{
 		if (active && currentOrder != null)
 		{
-			currentOrder.OrderUpdated(); 
+			currentOrder.OrderUpdated();
 		}
 	}
 
@@ -40,7 +51,15 @@ public class Orderable : MonoBehaviour
 		}
 		else
 		{
-			StopAllOrders();
+			if (loopOrders)
+			{
+				index = -1;
+				TryNextOrder();
+			}
+			else
+			{
+				StopAllOrders();
+			}
 		}
 
 	}
@@ -48,10 +67,11 @@ public class Orderable : MonoBehaviour
 	private void BeginNextOrder()
 	{
 		active = true;
-		GameAction order = orderQueue[0];
-		orderQueue.RemoveAt(0);
+		index++;
+		//GameAction order = orderQueue[0];
+		//	orderQueue.RemoveAt(0);
 
-		currentOrder = order;
+		//	currentOrder = order;
 		currentOrder.OrderCompleteEvent += CurrentOrderComplete;
 		currentOrder.OrderCancelledEvent += CurrentOrderCancelled;
 		currentOrder.OrderStarted();
@@ -63,14 +83,15 @@ public class Orderable : MonoBehaviour
 		{
 			currentOrder.OrderFinished();
 		}
-		currentOrder = null;
+		index = -1;
+		//currentOrder = null;
 		active = false;
 		orderQueue.Clear();
 	}
 
 	private bool HasOrders()
 	{
-		return orderQueue.Count > 0;
+		return index < orderQueue.Count - 1;
 	}
 
 	private void CurrentOrderCancelled()
@@ -78,7 +99,7 @@ public class Orderable : MonoBehaviour
 		currentOrder.OrderCancelled();
 		currentOrder.OrderCompleteEvent -= CurrentOrderComplete;
 		currentOrder.OrderCompleteEvent -= CurrentOrderCancelled;
-		currentOrder = null;
+		//currentOrder = null;
 		TryNextOrder();
 	}
 
@@ -87,7 +108,7 @@ public class Orderable : MonoBehaviour
 		currentOrder.OrderFinished();
 		currentOrder.OrderCompleteEvent -= CurrentOrderComplete;
 		currentOrder.OrderCompleteEvent -= CurrentOrderCancelled;
-		currentOrder = null;
+		//currentOrder = null;
 		TryNextOrder();
 	}
 }

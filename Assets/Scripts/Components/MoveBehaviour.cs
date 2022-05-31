@@ -39,7 +39,8 @@ using UnityEngine;
 
 		public void StartMovement(Vector3 target)
 		{
-			this.target = new Vector3(target.x, 0, target.z); //for now only x,z
+		//this.target = new Vector3(target.x, 0, target.z); //for now only x,z
+		this.target = target;
 			if (IsAt(target))
 			{
 				ReachedTarget();
