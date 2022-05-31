@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Orderable : MonoBehaviour
 {
-	private bool loopOrders = true; //need to replace rmeove with index to loop, can be used for automation
+	public bool loopOrders = false; //need to replace rmeove with index to loop, can be used for automation
 	private bool active;
 	private List<GameAction> orderQueue = new List<GameAction>();
 	private int index = -1;
@@ -51,7 +51,7 @@ public class Orderable : MonoBehaviour
 		}
 		else
 		{
-			if (loopOrders)
+			if (loopOrders && orderQueue.Count > 1)
 			{
 				index = -1;
 				TryNextOrder();
