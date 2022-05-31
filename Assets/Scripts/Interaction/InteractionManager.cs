@@ -62,7 +62,7 @@ public class InteractionManager : MonoBehaviour
 
 	private void OpenInteractionOptions(Vector3 worldHitPosition)
 	{
-		ActionDefintion[] interactionActions = GetAvailableOrders();
+		GameActionDefintion[] interactionActions = GetAvailableOrders();
 		interactionContextMenu.DisplayOptions(worldHitPosition, interactionActions);
 	}
 
@@ -74,10 +74,10 @@ public class InteractionManager : MonoBehaviour
 		}
 	}
 
-	private ActionDefintion[] GetAvailableOrders()
+	private GameActionDefintion[] GetAvailableOrders()
 	{
-		List<ActionDefintion> orders = new List<ActionDefintion>();
-		foreach (ActionDefintion availableOrder in controlledObject.actionDefintions)
+		List<GameActionDefintion> orders = new List<GameActionDefintion>();
+		foreach (GameActionDefintion availableOrder in controlledObject.actionDefintions)
 		{
 			if (availableOrder.ActionAvailable(controlledObject, targetInteractableObject , clickPosition))
 			{
@@ -87,7 +87,7 @@ public class InteractionManager : MonoBehaviour
 		return orders.ToArray();
 	}
 
-	private void OnOptionSelected(ActionDefintion interactionOrder) //UGLY BUT WORKS 
+	private void OnOptionSelected(GameActionDefintion interactionOrder) //UGLY BUT WORKS 
 	{
 		interactionOrder.OnActionSelected(controlledObject, targetInteractableObject, clickPosition);
 	}

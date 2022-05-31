@@ -1,23 +1,25 @@
-using Behaviours;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeliverAction : FreightAction
+public class DeliverAction : GameAction
 {
 	public Consumer consumer;
 	private MoveBehaviour movementBehaviour;
 	private SingleCarryBehaviour carryBehaviour;
+	private WaitBehaviour waitBehaviour;
 
-	public DeliverAction(Consumer consumer, Orderable orderable, ActionDefintion defintion) : base(orderable, defintion)
+	public DeliverAction(Consumer consumer, Orderable orderable, GameActionDefintion defintion) : base(orderable, defintion)
 	{
 		carryBehaviour = orderable.GetComponent<SingleCarryBehaviour>();
 		movementBehaviour = orderable.GetComponent<MoveBehaviour>();
+		waitBehaviour = orderable.GetComponent<WaitBehaviour>();
 		this.consumer = consumer;
 	}
 
-	public override void BeginOrder()
+	public override void OrderStarted()
 	{
 		if (carryBehaviour.HasCarrySpace())
 		{
@@ -25,15 +27,27 @@ public class DeliverAction : FreightAction
 			return;
 		}
 
-		movementBehaviour.movementComplete += ReachedTarget;
-		carryBehaviour.PlaeDownComplete += PlaceComplete;
-
-		movementBehaviour.StartMovement(consumer.deliverlocation.position);
+		MoveToConsumer();
 	}
 
-	private void ReachedTarget()
+	private void MoveToConsumer()
 	{
-		carryBehaviour.StartPlaceDown(consumer.deliverlocation);
+		movementBehaviour.movementComplete += ReachedConsumer;
+		carryBehaviour.PlaeDownComplete += PlaceComplete;
+
+		movementBehaviour.StartMovement(consumer.GetDevliveryPoint().position);
+	}
+
+	private void ReachedConsumer()
+	{
+		waitBehaviour.StartWait(() => consumer.CanDeliver(), ConsumerIsFree);
+	//	carryBehaviour.StartPlaceDown(consumer.deliverlocation);
+	}
+
+	private void ConsumerIsFree()
+	{
+		consumer.SetLock(true);
+		carryBehaviour.StartPlaceDown(consumer.GetDevliveryPoint());
 	}
 
 	private void PlaceComplete()
@@ -45,9 +59,10 @@ public class DeliverAction : FreightAction
 
 	public override void OrderFinished()
 	{
+		consumer.SetLock(false);
 		movementBehaviour.StopBehaviour();
 		carryBehaviour.StopBehaviour();
-		movementBehaviour.movementComplete -= ReachedTarget;
+		movementBehaviour.movementComplete -= ReachedConsumer;
 		carryBehaviour.PlaeDownComplete -= PlaceComplete;
 	}
 
@@ -56,7 +71,7 @@ public class DeliverAction : FreightAction
 		OrderFinished();
 	}
 
-	public override void UpdateOrder()
+	public override void OrderUpdated()
 	{
 		//
 	}

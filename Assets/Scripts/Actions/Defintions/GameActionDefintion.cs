@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class ActionDefintion : ScriptableObject
+public abstract class GameActionDefintion : ScriptableObject
 {
 	public GameObject actionButtonPrefab;
 	public string Name;
@@ -18,7 +18,7 @@ public abstract class ActionDefintion : ScriptableObject
 	public abstract void OnActionSelected(ControllableObject controllableObject, InteractableObject interactableObject, Vector3 clickPostion);
 
 
-	public GameObject CreateButton(Transform menuTransfrom)
+	public virtual GameObject CreateButton(Transform menuTransfrom)
 	{
 		GameObject gameObject = Instantiate(actionButtonPrefab, menuTransfrom);
 		TMP_Text text = gameObject.GetComponentInChildren<TMP_Text>();

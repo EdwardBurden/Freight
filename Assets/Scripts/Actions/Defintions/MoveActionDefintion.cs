@@ -1,10 +1,9 @@
-using Behaviours;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/MoveActionDefintion", order = 1)]
-public class MoveActionDefintion : ActionDefintion
+public class MoveActionDefintion : GameActionDefintion
 {
 	public override bool ActionAvailable(ControllableObject controllableObject, InteractableObject interactableObject, Vector3 clickPostion)
 	{

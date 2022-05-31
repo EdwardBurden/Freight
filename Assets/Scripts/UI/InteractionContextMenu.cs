@@ -11,7 +11,7 @@ public class InteractionContextMenu : Menu
 {
 	public GameObject actionPrefab;
 
-	public static event Action<ActionDefintion> optionSelected;
+	public static event Action<GameActionDefintion> optionSelected;
 
 	private void Awake()
 	{
@@ -19,11 +19,11 @@ public class InteractionContextMenu : Menu
 		Close();
 	}
 
-	public void DisplayOptions(Vector3 positionInWorld, ActionDefintion[] actions)
+	public void DisplayOptions(Vector3 positionInWorld, GameActionDefintion[] actions)
 	{
 		Clear();
 		Open(positionInWorld);
-		foreach (ActionDefintion action in actions)
+		foreach (GameActionDefintion action in actions)
 		{
 			GameObject gameObject = action.CreateButton(menuTransfrom);
 			Button button = gameObject.GetComponent<Button>();
@@ -32,7 +32,7 @@ public class InteractionContextMenu : Menu
 
 	}
 
-	private void OptionSelected(ActionDefintion interactionOrder)
+	private void OptionSelected(GameActionDefintion interactionOrder)
 	{
 		Close();
 		//interactionOrder.OnActionSelected();

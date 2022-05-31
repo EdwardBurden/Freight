@@ -2,39 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaitAction : FreightAction //WaitForeseconds for testing order work in order for now
+public class WaitAction : GameAction //WaitForeseconds for testing order work in order for now
 {
+	WaitBehaviour waitBehaviour;
 	private int waitTime;
-	public WaitAction(int waitTime, Orderable orderable, ActionDefintion actionDefintion) : base(orderable, actionDefintion)
+
+	public WaitAction(int waitTime, Orderable orderable, GameActionDefintion actionDefintion) : base(orderable, actionDefintion)
 	{
+		waitBehaviour = orderable.GetComponent<WaitBehaviour>();
 		this.waitTime = waitTime;
 	}
 
-	public override void BeginOrder()
+	public override void OrderStarted()
 	{
-		orderable.StartCoroutine(Wait());
+		waitBehaviour.StartWait(waitTime, CompleteOrder);
 	}
 
 	public override void OrderCancelled()
 	{
-		throw new System.NotImplementedException();
+		waitBehaviour.StopBehaviour();
 	}
 
 	public override void OrderFinished()
 	{
-		orderable.StopCoroutine(Wait());
+		waitBehaviour.StopBehaviour();
 	}
 
-	public override void UpdateOrder()
+	public override void OrderUpdated()
 	{
-		throw new System.NotImplementedException();
-	}
-
-	private IEnumerator Wait() //move into waitbehaviour
-	{
-		yield return new WaitForSeconds(waitTime);
-		Debug.LogError("waited");
-		CompleteOrder();
-		yield return null;
+		//
 	}
 }

@@ -3,23 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class FreightAction
+public abstract class GameAction
 {
 	protected Orderable orderable;
-	public ActionDefintion defintion;
+	public GameActionDefintion defintion;
 
 	public event Action OrderCompleteEvent;
 	public event Action OrderCancelledEvent;
 
-	public FreightAction(Orderable orderable, ActionDefintion defintion)
+	public GameAction(Orderable orderable, GameActionDefintion defintion)
 	{
 		this.orderable = orderable;
 		this.defintion = defintion;
 	}
 
-	public abstract void BeginOrder();
+	public abstract void OrderStarted();
 
-	public abstract void UpdateOrder();
+	public abstract void OrderUpdated();
 
 	public abstract void OrderFinished();
 

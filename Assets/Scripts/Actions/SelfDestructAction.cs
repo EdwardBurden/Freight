@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SelfDestructAction : FreightAction
+public class SelfDestructAction : GameAction
 {
 	public float timer;
 	public float timeRemaining;
 
-	public SelfDestructAction(float timetodestory, Orderable orderable, ActionDefintion defintion) : base(orderable, defintion)
+	public SelfDestructAction(float timetodestory, Orderable orderable, GameActionDefintion defintion) : base(orderable, defintion)
 	{
 		this.timer = timetodestory;
 	}
 
-	public override void BeginOrder()
+	public override void OrderStarted()
 	{
 		timeRemaining = timer;
 	}
@@ -28,7 +28,7 @@ public class SelfDestructAction : FreightAction
 		//throw new System.NotImplementedException();
 	}
 
-	public override void UpdateOrder()
+	public override void OrderUpdated()
 	{
 		timeRemaining -= Time.deltaTime;
 		if (timeRemaining < 0) {

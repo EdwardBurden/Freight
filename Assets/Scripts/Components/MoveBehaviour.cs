@@ -3,8 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Behaviours
-{
+
 	public class MoveBehaviour : CustomBehaviour
 	{
 		private const string MOVING_ANIAMTION_BOOL = "Speed";
@@ -76,4 +75,3 @@ namespace Behaviours
 			this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, look, turnSpeed * Time.deltaTime);
 		}
 	}
-}

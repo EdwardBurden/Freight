@@ -1,10 +1,10 @@
-using Behaviours;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/CollectActionDefintion", order = 1)]
-public class CollectActionDefintion : ActionDefintion
+public class CollectActionDefintion : GameActionDefintion
 {
 	public override bool ActionAvailable(ControllableObject controllableObject, InteractableObject interactableObject, Vector3 clickPostion)
 	{
@@ -23,7 +23,7 @@ public class CollectActionDefintion : ActionDefintion
 		{
 			return false;
 		}
-		return producer.HasFreigthSpawned();
+		return true;
 	}
 
 	public override void OnActionSelected(ControllableObject controllableObject, InteractableObject interactableObject, Vector3 clickPostion)

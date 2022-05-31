@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 8742200339806944809}
   - component: {fileID: 1107104220682342567}
   - component: {fileID: 1107104220049227006}
+  - component: {fileID: 3283987040252302784}
   m_Layer: 0
   m_Name: Prefab_Ship
   m_TagString: Untagged
@@ -194,6 +195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnSpeed: 200
   carryObject: {fileID: 0}
+  targetInteractionTransform: {fileID: 0}
 --- !u!95 &8742200339806944809
 Animator:
   serializedVersion: 4
@@ -244,3 +246,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dcab9725f1a74f94a80d90f4d863ebfa, type: 2}
   - {fileID: 11400000, guid: 21dc32d95f5a99043a13332dfb188507, type: 2}
   - {fileID: 11400000, guid: b4491b1cf5f550d4f8d61a03be1a51ed, type: 2}
+--- !u!114 &3283987040252302784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8742200339806944818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a5655a3e05e45247904a181fc1c7966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

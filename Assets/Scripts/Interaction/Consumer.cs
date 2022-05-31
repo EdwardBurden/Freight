@@ -5,13 +5,12 @@ using UnityEngine;
 
 public class Consumer : InteractableObject
 {
-	public int timeBetweenSpawn;
-	public Transform deliverlocation;
+	private bool isLockedInInteraction;
+	[SerializeField]
+	private int timeBetweenSpawn;
+	[SerializeField]
+	private Transform deliverlocation;
 
-	internal bool CanDeliver()
-	{
-		return !IsfreightInPostion();
-	}
 	private void OnEnable()
 	{
 		StartCoroutine(WaitAndEat());
@@ -22,17 +21,18 @@ public class Consumer : InteractableObject
 		StopCoroutine(WaitAndEat());
 	}
 
-	private IEnumerator WaitAndEat()
+	public bool CanDeliver()
 	{
-		while (true)
-		{
-			yield return new WaitForSeconds(timeBetweenSpawn);
-			if (IsfreightInPostion())
-			{
-				Destroy(deliverlocation.transform.GetChild(0).gameObject);
-			}
-		}
+		return !isLockedInInteraction && !IsFreightInPostion();
+	}
 
+	public Transform GetDevliveryPoint()
+	{
+		return deliverlocation;
+	}
+	public void SetLock(bool lockInteraction)
+	{
+		isLockedInInteraction = lockInteraction;
 	}
 
 	public void FreightDelivered(Freight freight)
@@ -40,8 +40,21 @@ public class Consumer : InteractableObject
 		freight.transform.parent = deliverlocation;
 	}
 
-	public bool IsfreightInPostion()
+	private bool IsFreightInPostion()
 	{
 		return deliverlocation.GetComponentInChildren<Freight>() != null;
+	}
+
+	private IEnumerator WaitAndEat()
+	{
+		while (true)
+		{
+			yield return new WaitForSeconds(timeBetweenSpawn);
+			if (IsFreightInPostion())
+			{
+				Destroy(deliverlocation.transform.GetChild(0).gameObject);
+			}
+		}
+
 	}
 }

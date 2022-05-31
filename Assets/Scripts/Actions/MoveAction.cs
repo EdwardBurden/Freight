@@ -1,19 +1,19 @@
-using Behaviours;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveAction : FreightAction
+public class MoveAction : GameAction
 {
 	private MoveBehaviour movementBehaviour;
 	public Vector3 position;
 
-	public MoveAction(Vector3 position, Orderable orderable, ActionDefintion defintion) : base(orderable, defintion)
+	public MoveAction(Vector3 position, Orderable orderable, GameActionDefintion defintion) : base(orderable, defintion)
 	{
 		this.position = position;
 	}
 
-	public override void BeginOrder()
+	public override void OrderStarted()
 	{
 		movementBehaviour = orderable.GetComponent<MoveBehaviour>();
 		movementBehaviour.StartMovement(position);
@@ -31,7 +31,7 @@ public class MoveAction : FreightAction
 		OrderFinished();
 	}
 
-	public override void UpdateOrder()
+	public override void OrderUpdated()
 	{
 		//
 	}

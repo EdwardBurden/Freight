@@ -1,10 +1,10 @@
-using Behaviours;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/DeliverActionDefintion", order = 1)]
-public class DeliverActionDefintion : ActionDefintion
+public class DeliverActionDefintion : GameActionDefintion
 {
 	public override bool ActionAvailable(ControllableObject controllableObject, InteractableObject interactableObject, Vector3 clickPostion)
 	{
@@ -23,7 +23,7 @@ public class DeliverActionDefintion : ActionDefintion
 		{
 			return false;
 		}
-		return consumer.CanDeliver();
+		return true;
 	}
 
 	public override void OnActionSelected(ControllableObject controllableObject, InteractableObject interactableObject, Vector3 clickPostion)

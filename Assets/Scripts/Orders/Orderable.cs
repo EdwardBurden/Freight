@@ -7,18 +7,18 @@ public class Orderable : MonoBehaviour
 {
 	//	public bool loopOrders = false; //need to replace rmeove with index to loop, can be used for automation
 	private bool active;
-	private List<FreightAction> orderQueue = new List<FreightAction>();
-	private FreightAction currentOrder;
+	private List<GameAction> orderQueue = new List<GameAction>();
+	private GameAction currentOrder;
 
 	private void Update()
 	{
 		if (active && currentOrder != null)
 		{
-			currentOrder.UpdateOrder(); 
+			currentOrder.OrderUpdated(); 
 		}
 	}
 
-	public void AddOrder(FreightAction shipOrder)
+	public void AddOrder(GameAction shipOrder)
 	{
 		orderQueue.Add(shipOrder);
 	}
@@ -48,13 +48,13 @@ public class Orderable : MonoBehaviour
 	private void BeginNextOrder()
 	{
 		active = true;
-		FreightAction order = orderQueue[0];
+		GameAction order = orderQueue[0];
 		orderQueue.RemoveAt(0);
 
 		currentOrder = order;
 		currentOrder.OrderCompleteEvent += CurrentOrderComplete;
 		currentOrder.OrderCancelledEvent += CurrentOrderCancelled;
-		currentOrder.BeginOrder();
+		currentOrder.OrderStarted();
 	}
 
 	private void StopAllOrders()

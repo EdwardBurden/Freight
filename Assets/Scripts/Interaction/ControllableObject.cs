@@ -7,7 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(Orderable))]
 public class ControllableObject : InteractableObject
 {
-	public ActionDefintion[] actionDefintions;
+	public GameActionDefintion[] actionDefintions;
 	public Orderable orderable => GetComponent<Orderable>();
 
 
