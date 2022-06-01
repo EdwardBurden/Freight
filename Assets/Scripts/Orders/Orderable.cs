@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine;
 
 public class Orderable : MonoBehaviour
 {
+	public static event Action<Orderable, GameAction> orderGiven;
+
 	public bool loopOrders = false; //need to replace rmeove with index to loop, can be used for automation
 	private bool active;
 	private List<GameAction> orderQueue = new List<GameAction>();
@@ -29,9 +32,20 @@ public class Orderable : MonoBehaviour
 		}
 	}
 
+	internal List<GameActionDefintion> GetOrderListDefintions()
+	{
+		List<GameActionDefintion> defintions = new List<GameActionDefintion>();
+		foreach (GameAction gameAction in orderQueue)
+		{
+			defintions.Add(gameAction.defintion);
+		}
+		return defintions;
+	}
+
 	public void AddOrder(GameAction shipOrder)
 	{
 		orderQueue.Add(shipOrder);
+		orderGiven?.Invoke(this, shipOrder);
 	}
 
 	public void StartOrders()

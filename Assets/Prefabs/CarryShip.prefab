@@ -62,7 +62,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8271659499491576799}
-  m_LocalRotation: {x: -0, y: 0.9038779, z: -0, w: 0.42779055}
+  m_LocalRotation: {x: 0, y: 0.9038773, z: 0, w: 0.42779177}
   m_LocalPosition: {x: 0.85, y: 0, z: 2.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -83,7 +83,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe9ab107a50e8434bae46a9808e12dcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loopOrders: 0
+  loopOrders: 1
 --- !u!114 &8271659499491576770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,11 +96,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fbf2797906145e4caa667f67c581607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   aniamtionRoot: {fileID: 8271659499102098893}
-  maxSpeed: 5
-  turnSpeed: 200
-  currentSpeed: 0
-  acc: 0.001
+  maxSpeed: 3
+  turnSpeed: 500
+  accelerationAmount: 0
+  acc: 0.1
 --- !u!114 &8271659499491576771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7b20190024ab004d9223d613840758a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnSpeed: 200
+  turnSpeed: 50
   carryObject: {fileID: 0}
   targetInteractionTransform: {fileID: 0}
 --- !u!95 &8271659499491576772

@@ -9,9 +9,8 @@ using TMPro;
 
 public class InteractionContextMenu : Menu
 {
-	public GameObject actionPrefab;
-
-	public static event Action<GameActionDefintion> optionSelected;
+	[SerializeField]
+	private GameObject actionPrefab;
 
 	private void Awake()
 	{
@@ -35,8 +34,7 @@ public class InteractionContextMenu : Menu
 	private void OptionSelected(GameActionDefintion interactionOrder)
 	{
 		Close();
-		//interactionOrder.OnActionSelected();
-		optionSelected?.Invoke(interactionOrder);
+		interactionOrder.OnActionSelected(InteractionManager.controlledObject, InteractionManager.targetInteractableObject, InteractionManager.clickPosition);
 	}
 
 	private void Open(Vector3 positionInWorld)

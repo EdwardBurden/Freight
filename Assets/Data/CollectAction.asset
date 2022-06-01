@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: CollectAction
   m_EditorClassIdentifier: 
   actionButtonPrefab: {fileID: 1188613633496225760, guid: 741bcf13ba4f61447a3916ff6a618622, type: 3}
-  Name: Collect
+  actionName: Collect
   description: Ship moves to a producer and collects freight if available
   icon: {fileID: 21300000, guid: 24c5c7dfea9425b4cad935285454257b, type: 3}

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: DeliverAction
   m_EditorClassIdentifier: 
   actionButtonPrefab: {fileID: 1188613633496225760, guid: 741bcf13ba4f61447a3916ff6a618622, type: 3}
-  Name: Deliver
+  actionName: Deliver
   description: Deliver the freight in the inventory
   icon: {fileID: 21300000, guid: 4662fbc3274bbc648b2e153c800ef483, type: 3}

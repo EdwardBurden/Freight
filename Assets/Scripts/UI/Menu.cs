@@ -5,6 +5,7 @@ using UnityEngine;
 public class Menu : MonoBehaviour
 {
 	public Transform menuTransfrom;
+
 	private void Awake()
 	{
 		RegisterEvents();

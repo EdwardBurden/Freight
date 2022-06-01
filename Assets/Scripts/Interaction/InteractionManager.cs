@@ -4,37 +4,31 @@ using UnityEngine;
 
 public class InteractionManager : MonoBehaviour
 {
-	public InteractionContextMenu interactionContextMenu; //placed on ui canvas for now
-	public ControllableObject controlledObject;  //object we have selected
+	[SerializeField]
+	private OrderListHUD orderListHUD;
+	[SerializeField]
+	private InteractionContextMenu interactionContextMenu; //placed on ui canvas for now
 
-	private InteractableObject targetInteractableObject; //object right clicked
-	private Vector3 clickPosition; //position of  right click
+	public static ControllableObject controlledObject;  //object we have selected
+	public static InteractableObject targetInteractableObject; //object right clicked
+	public static Vector3 clickPosition; //position of  right click
 
 	private void Awake()
 	{
-		RegisterEvents();
-	}
-
-	private void RegisterEvents()
-	{
-		//	MouseInteractionTracker.mouseHoveredOnInteractable += OnHoverOnInteractable;
-		//	MouseInteractionTracker.mouseHoveredOffInteractable += OnHoverOffInteractable;
 		MouseInteractionTracker.mouseLeftClickedInteractable += OnLeftClickInteractable;
 		MouseInteractionTracker.mouseLeftClickedNothing += OnLeftClickNotInteractable;
 		MouseInteractionTracker.mouseRightClickedNothing += OnRightClickNotInteractable;
 		MouseInteractionTracker.mouseRightClickedInteractable += OnRightClickInteractable;
-
-		InteractionContextMenu.optionSelected += OnOptionSelected;
 	}
 
 	private void OnLeftClickNotInteractable()
 	{
-		CloseInteractionOptions();
+		CloseMenus();
 	}
 
 	private void OnRightClickNotInteractable()
 	{
-		CloseInteractionOptions();
+		CloseMenus();
 	}
 
 	private void OnRightClickInteractable(InteractableObject obj, Vector3 worldClickPosition)
@@ -56,8 +50,8 @@ public class InteractionManager : MonoBehaviour
 		else
 		{
 			controlledObject = null;
+			CloseMenus();
 		}
-		CloseInteractionOptions();
 	}
 
 	private void OpenInteractionOptions(Vector3 worldHitPosition)
@@ -66,12 +60,10 @@ public class InteractionManager : MonoBehaviour
 		interactionContextMenu.DisplayOptions(worldHitPosition, interactionActions);
 	}
 
-	private void CloseInteractionOptions()
+	private void CloseMenus()
 	{
-		if (interactionContextMenu.IsMenuOpen())
-		{
-			interactionContextMenu.Close();
-		}
+		interactionContextMenu.Close();
+		orderListHUD.Close();
 	}
 
 	private GameActionDefintion[] GetAvailableOrders()
@@ -79,7 +71,7 @@ public class InteractionManager : MonoBehaviour
 		List<GameActionDefintion> orders = new List<GameActionDefintion>();
 		foreach (GameActionDefintion availableOrder in controlledObject.actionDefintions)
 		{
-			if (availableOrder.ActionAvailable(controlledObject, targetInteractableObject , clickPosition))
+			if (availableOrder.ActionAvailable(controlledObject, targetInteractableObject, clickPosition))
 			{
 				orders.Add(availableOrder);
 			}
@@ -87,15 +79,11 @@ public class InteractionManager : MonoBehaviour
 		return orders.ToArray();
 	}
 
-	private void OnOptionSelected(GameActionDefintion interactionOrder) //UGLY BUT WORKS 
-	{
-		interactionOrder.OnActionSelected(controlledObject, targetInteractableObject, clickPosition);
-	}
-
 	private void SelectControllableObject(ControllableObject controllableObject)
 	{
 		controlledObject = null;
 		controlledObject = controllableObject;
 
+		orderListHUD.Show(controlledObject.orderable);
 	}
 }
