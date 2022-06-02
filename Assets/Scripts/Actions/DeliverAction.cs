@@ -8,20 +8,22 @@ public class DeliverAction : GameAction
 {
 	public Consumer consumer;
 	private MoveBehaviour movementBehaviour;
-	private SingleCarryBehaviour carryBehaviour;
+	private DeliverBehaviour deliverBehaviour;
 	private WaitBehaviour waitBehaviour;
+	private CarryStorage carryStorage;
 
 	public DeliverAction(Consumer consumer, Orderable orderable, GameActionDefintion defintion) : base(orderable, defintion)
 	{
-		carryBehaviour = orderable.GetComponent<SingleCarryBehaviour>();
+		deliverBehaviour = orderable.GetComponent<DeliverBehaviour>();
 		movementBehaviour = orderable.GetComponent<MoveBehaviour>();
 		waitBehaviour = orderable.GetComponent<WaitBehaviour>();
+		carryStorage = orderable.GetComponent<CarryStorage>();
 		this.consumer = consumer;
 	}
 
 	public override void OrderStarted()
 	{
-		if (carryBehaviour.HasCarrySpace())
+		if (carryStorage.SelectFirstFreight() == null)
 		{
 			CancelOrder();
 			return;
@@ -33,7 +35,7 @@ public class DeliverAction : GameAction
 	private void MoveToConsumer()
 	{
 		movementBehaviour.movementComplete += ReachedConsumer;
-		carryBehaviour.PlaeDownComplete += PlaceComplete;
+		deliverBehaviour.PlaceDownComplete += CompleteOrder;
 
 		movementBehaviour.StartMovement(consumer.GetDevliveryPoint().position);
 	}
@@ -41,34 +43,32 @@ public class DeliverAction : GameAction
 	private void ReachedConsumer()
 	{
 		waitBehaviour.StartWait(() => consumer.CanDeliver(), ConsumerIsFree);
-	//	carryBehaviour.StartPlaceDown(consumer.deliverlocation);
+		//	carryBehaviour.StartPlaceDown(consumer.deliverlocation);
 	}
 
 	private void ConsumerIsFree()
 	{
 		consumer.SetLock(true);
-		carryBehaviour.StartPlaceDown(consumer.GetDevliveryPoint());
-	}
-
-	private void PlaceComplete()
-	{
-		consumer.FreightDelivered(carryBehaviour.carryObject);
-		carryBehaviour.carryObject = null;
-		CompleteOrder();
+		deliverBehaviour.StartPlaceDown(consumer.GetDevliveryPoint(), carryStorage.SelectFirstFreight());
 	}
 
 	public override void OrderFinished()
 	{
+		consumer.FreightDelivered(deliverBehaviour.target);
 		consumer.SetLock(false);
+
 		movementBehaviour.StopBehaviour();
-		carryBehaviour.StopBehaviour();
+		deliverBehaviour.StopBehaviour();
 		movementBehaviour.movementComplete -= ReachedConsumer;
-		carryBehaviour.PlaeDownComplete -= PlaceComplete;
+		deliverBehaviour.PlaceDownComplete -= CompleteOrder;
 	}
 
 	public override void OrderCancelled()
 	{
-		OrderFinished();
+		movementBehaviour.StopBehaviour();
+		deliverBehaviour.StopBehaviour();
+		movementBehaviour.movementComplete -= ReachedConsumer;
+		deliverBehaviour.PlaceDownComplete -= CompleteOrder;
 	}
 
 	public override void OrderUpdated()

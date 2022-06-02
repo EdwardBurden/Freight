@@ -16,8 +16,9 @@ public class MoveAction : GameAction
 	public override void OrderStarted()
 	{
 		movementBehaviour = orderable.GetComponent<MoveBehaviour>();
-		movementBehaviour.StartMovement(position);
+
 		movementBehaviour.movementComplete += CompleteOrder;
+		movementBehaviour.StartMovement(position);
 	}
 
 	public override void OrderFinished()

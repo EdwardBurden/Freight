@@ -32,7 +32,28 @@ public class Orderable : MonoBehaviour
 		}
 	}
 
-	internal List<GameActionDefintion> GetOrderListDefintions()
+	public void ResumeOrders()
+	{
+		if (!active)
+		{
+			index--;
+			TryNextOrder();
+		}
+	}
+	public void PauseOrders()
+	{
+		if (active)
+		{
+			active = false;
+			currentOrder.OrderCancelled();
+			currentOrder.OrderCompleteEvent -= CurrentOrderComplete;
+			currentOrder.OrderCancelledEvent -= CurrentOrderCancelled;
+			
+		}
+	}
+
+
+	public List<GameActionDefintion> GetOrderListDefintions()
 	{
 		List<GameActionDefintion> defintions = new List<GameActionDefintion>();
 		foreach (GameAction gameAction in orderQueue)
@@ -65,14 +86,10 @@ public class Orderable : MonoBehaviour
 		}
 		else
 		{
+			StopAllOrders();
 			if (loopOrders && orderQueue.Count > 1)
 			{
-				index = -1;
-				TryNextOrder();
-			}
-			else
-			{
-				StopAllOrders();
+				StartOrders();
 			}
 		}
 
@@ -93,14 +110,12 @@ public class Orderable : MonoBehaviour
 
 	private void StopAllOrders()
 	{
-		if (currentOrder != null)
-		{
-			currentOrder.OrderFinished();
-		}
+		//if (currentOrder != null)
+		//{
+		//	FinishOrder(currentOrder);
+		//}
 		index = -1;
-		//currentOrder = null;
 		active = false;
-		orderQueue.Clear();
 	}
 
 	private bool HasOrders()
@@ -108,21 +123,30 @@ public class Orderable : MonoBehaviour
 		return index < orderQueue.Count - 1;
 	}
 
-	private void CurrentOrderCancelled()
+	private void FinishOrder(GameAction order)
+	{
+		order.OrderFinished();
+		order.OrderCompleteEvent -= CurrentOrderComplete;
+		order.OrderCancelledEvent -= CurrentOrderCancelled;
+	}
+
+
+	private void CurrentOrderCancelled() //return to later
 	{
 		currentOrder.OrderCancelled();
 		currentOrder.OrderCompleteEvent -= CurrentOrderComplete;
-		currentOrder.OrderCompleteEvent -= CurrentOrderCancelled;
+		currentOrder.OrderCancelledEvent -= CurrentOrderCancelled;
 		//currentOrder = null;
-		TryNextOrder();
+		StopAllOrders();
+		Debug.LogError("cancelled");
+		//tell user
+		//ClearOrders();
+		//TryNextOrder();
 	}
 
 	private void CurrentOrderComplete()
 	{
-		currentOrder.OrderFinished();
-		currentOrder.OrderCompleteEvent -= CurrentOrderComplete;
-		currentOrder.OrderCompleteEvent -= CurrentOrderCancelled;
-		//currentOrder = null;
+		FinishOrder(currentOrder);
 		TryNextOrder();
 	}
 }

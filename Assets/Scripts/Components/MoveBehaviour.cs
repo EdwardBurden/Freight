@@ -17,20 +17,15 @@ public class MoveBehaviour : CustomBehaviour
 	public float accelerationAmount;
 	public float acc = 0.05f;
 	private Vector3? target = null; //could add desired transform too
-	private Animator animator;
 
 	public event Action movementComplete;// Tracked by queue system and any other system(sound, notification), could be put into event system in future
 
-	private void Awake()
-	{
-		animator = gameObject.GetComponent<Animator>();
-	}
 
 	private void Update()
 	{
 		if (target != null)
 		{
-			if (!IsAt(target.Value))
+			if (!IsAt(target.Value, MINDISTANCE))
 			{
 				MoveTo(target.Value);
 				return;
@@ -45,12 +40,7 @@ public class MoveBehaviour : CustomBehaviour
 
 	public void StartMovement(Vector3 target)
 	{
-		//this.target = new Vector3(target.x, 0, target.z); //for now only x,z
 		this.target = target;
-		if (IsAt(target))
-		{
-			ReachedTarget();
-		}
 	}
 
 	public override void StopBehaviour()
@@ -64,11 +54,6 @@ public class MoveBehaviour : CustomBehaviour
 	{
 		StopBehaviour();
 		movementComplete?.Invoke();
-	}
-
-	private bool IsAt(Vector3 target)
-	{
-		return Vector3.Distance(target, this.transform.position) <= MINDISTANCE;
 	}
 
 	private void MoveTo(Vector3 target) //simple

@@ -13,7 +13,7 @@ public class CollectActionDefintion : GameActionDefintion
 		{
 			return false;
 		}
-		SingleCarryBehaviour carryBehaviour = controllableObject.gameObject.GetComponent<SingleCarryBehaviour>();
+		CollectBehaviour carryBehaviour = controllableObject.gameObject.GetComponent<CollectBehaviour>();
 		if (carryBehaviour == null)
 		{
 			return false;

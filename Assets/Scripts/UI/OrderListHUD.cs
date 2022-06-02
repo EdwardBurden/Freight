@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class OrderListHUD : Menu
 {
+	private Orderable orderable;
+
 	protected override void RegisterEvents()
 	{
 		Orderable.orderGiven += Orderable_orderGiven;
@@ -16,11 +18,15 @@ public class OrderListHUD : Menu
 
 	private void Orderable_orderGiven(Orderable orderable, GameAction gameAction)
 	{
-		Show(orderable);
+		if (this.orderable == orderable)
+		{
+			Show(orderable);
+		}
 	}
 
 	public void Show(Orderable orderable)
 	{
+		this.orderable = orderable;
 		List<GameActionDefintion> gameActions = orderable.GetOrderListDefintions();
 		Clear();
 		Open();
@@ -30,5 +36,14 @@ public class OrderListHUD : Menu
 			Button button = gameObject.GetComponent<Button>();
 
 		}
+	}
+
+	public void Pause()
+	{
+		orderable.PauseOrders();
+	}
+	public void Resume()
+	{
+		orderable.ResumeOrders();
 	}
 }

@@ -13,7 +13,7 @@ public class DeliverActionDefintion : GameActionDefintion
 		{
 			return false;
 		}
-		SingleCarryBehaviour carryBehaviour = controllableObject.gameObject.GetComponent<SingleCarryBehaviour>();
+		DeliverBehaviour carryBehaviour = controllableObject.gameObject.GetComponent<DeliverBehaviour>();
 		if (carryBehaviour == null)
 		{
 			return false;

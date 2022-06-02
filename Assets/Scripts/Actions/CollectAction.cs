@@ -6,20 +6,22 @@ public class CollectAction : GameAction
 {
 	private Producer producer;
 	private MoveBehaviour movementBehaviour;
-	private SingleCarryBehaviour carryBehaviour;
+	private CollectBehaviour collectBehaviour;
 	private WaitBehaviour waitBehaviour;
+	private CarryStorage carryStorage;
 
 	public CollectAction(Producer producer, Orderable orderable, GameActionDefintion defintion) : base(orderable, defintion)
 	{
-		carryBehaviour = orderable.GetComponent<SingleCarryBehaviour>();
+		collectBehaviour = orderable.GetComponent<CollectBehaviour>();
 		movementBehaviour = orderable.GetComponent<MoveBehaviour>();
 		waitBehaviour = orderable.GetComponent<WaitBehaviour>();
+		carryStorage = orderable.GetComponent<CarryStorage>();
 		this.producer = producer;
 	}
 
 	public override void OrderStarted()
 	{
-		if (!carryBehaviour.HasCarrySpace())
+		if (!carryStorage.HasSpace())
 		{
 			CancelOrder();
 			return;
@@ -32,7 +34,7 @@ public class CollectAction : GameAction
 	private void MoveToProducer()
 	{
 		movementBehaviour.movementComplete += ReachedProducer;
-		carryBehaviour.PickUpComplete += CompleteOrder;
+		collectBehaviour.PickUpComplete += CompleteOrder;
 
 		movementBehaviour.StartMovement(producer.GetCollectionPoint());
 
@@ -47,7 +49,7 @@ public class CollectAction : GameAction
 	private void ProducerIsFree()
 	{
 		producer.SetLock(true);
-		carryBehaviour.StartPickup(producer.GetSpawnedFreight());
+		collectBehaviour.StartPickup(producer.GetSpawnedFreight());
 
 	}
 
@@ -55,14 +57,18 @@ public class CollectAction : GameAction
 	{
 		producer.SetLock(false);
 		movementBehaviour.StopBehaviour();
-		carryBehaviour.StopBehaviour();
+		collectBehaviour.StopBehaviour();
 		movementBehaviour.movementComplete -= ReachedProducer;
-		carryBehaviour.PickUpComplete -= CompleteOrder;
+		collectBehaviour.PickUpComplete -= CompleteOrder;
 	}
 
 	public override void OrderCancelled()
 	{
-		OrderFinished();
+		producer.SetLock(false);
+		movementBehaviour.StopBehaviour();
+		collectBehaviour.StopBehaviour();
+		movementBehaviour.movementComplete -= ReachedProducer;
+		collectBehaviour.PickUpComplete -= CompleteOrder;
 	}
 
 	public override void OrderUpdated()

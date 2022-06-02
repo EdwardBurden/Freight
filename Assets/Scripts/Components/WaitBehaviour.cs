@@ -17,7 +17,7 @@ public class WaitBehaviour : CustomBehaviour
 
 	}
 
-	private IEnumerator WaitTime(int time , Action onSuccess) //move into waitbehaviour
+	private IEnumerator WaitTime(int time, Action onSuccess) //move into waitbehaviour
 	{
 		yield return new WaitForSeconds(time);
 		onSuccess();
@@ -30,6 +30,7 @@ public class WaitBehaviour : CustomBehaviour
 			yield return null;
 		}
 		onSuccess();
+		StopAllCoroutines();
 	}
 
 
