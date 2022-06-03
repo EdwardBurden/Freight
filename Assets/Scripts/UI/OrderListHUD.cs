@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class OrderListHUD : Menu
 {
 	private Orderable orderable;
+	[SerializeField]
+	private Transform orderListTransform;
 
 	protected override void RegisterEvents()
 	{
@@ -24,6 +26,11 @@ public class OrderListHUD : Menu
 		}
 	}
 
+	private void UpdateIndexTracker()
+	{
+		throw new NotImplementedException();
+	}
+
 	public void Show(Orderable orderable)
 	{
 		this.orderable = orderable;
@@ -32,8 +39,8 @@ public class OrderListHUD : Menu
 		Open();
 		foreach (GameActionDefintion action in gameActions)
 		{
-			GameObject gameObject = action.CreateButton(menuTransfrom);
-			Button button = gameObject.GetComponent<Button>();
+			GameObject gameObject = action.CreateButton(orderListTransform);
+
 
 		}
 	}
@@ -46,4 +53,14 @@ public class OrderListHUD : Menu
 	{
 		orderable.ResumeOrders();
 	}
+
+	protected override void Clear()
+	{
+		foreach (Transform child in orderListTransform.transform)
+		{
+			GameObject.Destroy(child.gameObject);
+		}
+	}
+
 }
+

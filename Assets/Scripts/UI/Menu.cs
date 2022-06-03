@@ -28,7 +28,7 @@ public class Menu : MonoBehaviour
 		menuTransfrom.gameObject.SetActive(false);
 	}
 
-	protected void Clear()
+	protected virtual void Clear()
 	{
 		foreach (Transform child in menuTransfrom.transform)
 		{

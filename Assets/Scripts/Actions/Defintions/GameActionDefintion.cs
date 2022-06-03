@@ -11,7 +11,7 @@ public abstract class GameActionDefintion : ScriptableObject
 	public string description;
 	public Sprite icon;
 
-	//can be shown as option or right click
+
 	public abstract bool ActionAvailable(ControllableObject controllableObject, InteractableObject interactableObject, Vector3 clickPostion);
 
 

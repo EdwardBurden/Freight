@@ -8,6 +8,7 @@ public class Orderable : MonoBehaviour
 {
 	public static event Action<Orderable, GameAction> orderGiven;
 
+
 	public bool loopOrders = false; //need to replace rmeove with index to loop, can be used for automation
 	private bool active;
 	private List<GameAction> orderQueue = new List<GameAction>();
@@ -32,7 +33,7 @@ public class Orderable : MonoBehaviour
 		}
 	}
 
-	public void ResumeOrders()
+	public void ResumeOrders()//temp needs work
 	{
 		if (!active)
 		{
@@ -40,7 +41,7 @@ public class Orderable : MonoBehaviour
 			TryNextOrder();
 		}
 	}
-	public void PauseOrders()
+	public void PauseOrders() //temp needs work
 	{
 		if (active)
 		{
@@ -48,7 +49,7 @@ public class Orderable : MonoBehaviour
 			currentOrder.OrderCancelled();
 			currentOrder.OrderCompleteEvent -= CurrentOrderComplete;
 			currentOrder.OrderCancelledEvent -= CurrentOrderCancelled;
-			
+
 		}
 	}
 
@@ -99,10 +100,7 @@ public class Orderable : MonoBehaviour
 	{
 		active = true;
 		index++;
-		//GameAction order = orderQueue[0];
-		//	orderQueue.RemoveAt(0);
 
-		//	currentOrder = order;
 		currentOrder.OrderCompleteEvent += CurrentOrderComplete;
 		currentOrder.OrderCancelledEvent += CurrentOrderCancelled;
 		currentOrder.OrderStarted();
@@ -110,10 +108,6 @@ public class Orderable : MonoBehaviour
 
 	private void StopAllOrders()
 	{
-		//if (currentOrder != null)
-		//{
-		//	FinishOrder(currentOrder);
-		//}
 		index = -1;
 		active = false;
 	}
@@ -138,6 +132,7 @@ public class Orderable : MonoBehaviour
 		currentOrder.OrderCancelledEvent -= CurrentOrderCancelled;
 		//currentOrder = null;
 		StopAllOrders();
+		orderQueue.Clear();
 		Debug.LogError("cancelled");
 		//tell user
 		//ClearOrders();

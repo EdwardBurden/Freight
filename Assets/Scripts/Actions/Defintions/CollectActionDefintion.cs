@@ -29,8 +29,6 @@ public class CollectActionDefintion : GameActionDefintion
 	public override void OnActionSelected(ControllableObject controllableObject, InteractableObject interactableObject, Vector3 clickPostion)
 	{
 		Producer producer = interactableObject as Producer;
-
-		//open ui to select resource
 		CollectAction collectAction = new CollectAction(producer, controllableObject.orderable, this);
 		controllableObject.orderable.AddOrder(collectAction);
 		controllableObject.orderable.StartOrders();
