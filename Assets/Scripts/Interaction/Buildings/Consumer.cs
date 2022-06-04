@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Consumer : InteractableObject
+public class Consumer : Building
 {
 	private bool isLockedInInteraction;
 	[SerializeField]

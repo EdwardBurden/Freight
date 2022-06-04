@@ -5,12 +5,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using static InteractionUtils;
 
-public class MouseInteractionTracker : MonoBehaviour //find better name, it keeps track of where the players mouse is and when it clicks an object it tell the interaction manager
+public class MouseInteractionTracker : MonoBehaviour
 {
-	//make similai movement class for default movement , outside of orders
 	private InteractableObject localHoverObject;
-
-	//MAKE STATIC
 
 	public static event Action<InteractableObject> mouseHoveredOnInteractable;
 	public static event Action<InteractableObject> mouseHoveredOffInteractable;
@@ -19,11 +16,6 @@ public class MouseInteractionTracker : MonoBehaviour //find better name, it keep
 	public static event Action mouseRightClickedNothing;
 	public static event Action<InteractableObject> mouseLeftClickedInteractable;
 	public static event Action<InteractableObject, Vector3> mouseRightClickedInteractable;
-
-	//DOESNT NEED TO KNOW WHAT THE MANAGER IS DOING, DOESNT TAKE ORDERS FROM THE MANAGER, DOESNT TELL THE MANAGER ANYTHING
-	//SENDS OFF EVENTS WITH OBJECTS WHEN IT HOVERS OVER OR OFF THINGS 
-	//SENDS OFF EVENTS WHEN USER CLICKS ON AN INTERACTABLE OBJECT
-	//SENDS OFF EVENTS WHEN USER RIGHT CLICKS ON AN INTERACTABLE OBJECT
 
 	private void Update()
 	{

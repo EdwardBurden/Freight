@@ -34,7 +34,7 @@ public class InteractionContextMenu : Menu
 	private void OptionSelected(GameActionDefintion interactionOrder)
 	{
 		Close();
-		interactionOrder.OnActionSelected(InteractionManager.controlledObject, InteractionManager.targetInteractableObject, InteractionManager.clickPosition);
+		interactionOrder.OnActionSelected(ControlledObjectsInteractionManager.controlledObject, ControlledObjectsInteractionManager.targetInteractableObject, ControlledObjectsInteractionManager.clickPosition);
 	}
 
 	private void Open(Vector3 positionInWorld)
