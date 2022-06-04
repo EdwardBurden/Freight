@@ -161,9 +161,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e72540dbe8d2524ab7c79204c2daf6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultMaterial: {fileID: 0}
+  hoverMaterial: {fileID: 0}
+  clickMaterial: {fileID: 0}
+  renderer: {fileID: 0}
   frieghtPrefab: {fileID: 3800175408581303401, guid: 1100a2f84fa666946b2b66711aef9380, type: 3}
   spawnLocation: {fileID: 1303949751511800473}
-  timeBetweenSpawn: 3
+  timeBetweenSpawn: 10
 --- !u!65 &98122666
 BoxCollider:
   m_ObjectHideFlags: 0

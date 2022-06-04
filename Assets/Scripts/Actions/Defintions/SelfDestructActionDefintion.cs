@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/SelfDestructActionDefintion", order = 1)]
+[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/Actions/SelfDestructActionDefintion", order = 1)]
 public class SelfDestructActionDefintion : GameActionDefintion
 {
 	public override bool ActionAvailable(ControllableObject controllableObject, InteractableObject interactableObject, Vector3 clickPostion)
