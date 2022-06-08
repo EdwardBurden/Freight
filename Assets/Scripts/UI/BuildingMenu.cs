@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildingMenu : Menu
+public abstract class BuildingMenu : Menu
 {
-	public void Display(Building building)
+	protected Building building;
+	public virtual void Display(Building building)
 	{
+		this.building = building;
 		Open();
 		//throw new NotImplementedException();
 	}

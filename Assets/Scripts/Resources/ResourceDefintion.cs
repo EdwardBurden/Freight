@@ -8,4 +8,6 @@ public class ResourceDefintion : ScriptableObject
 	public string resourceName;
 	public string resourceDescription;
 	public Sprite icon;
+	public GameObject FreightPrefab;
+	public float spawnTime;
 }

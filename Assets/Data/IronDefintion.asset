@@ -15,3 +15,5 @@ MonoBehaviour:
   resourceName: Iron
   resourceDescription: Its iron
   icon: {fileID: 21300000, guid: 4c084d68a5e82f34fa9a69c9bee78266, type: 3}
+  FreightPrefab: {fileID: 2684717111607376016, guid: d6e3529f9a6e82f49bd3cf0b0374a218, type: 3}
+  spawnTime: 5

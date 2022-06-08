@@ -110,6 +110,10 @@ public class Orderable : MonoBehaviour
 	{
 		index = -1;
 		active = false;
+		if (!loopOrders)
+		{
+			orderQueue.Clear();
+		}
 	}
 
 	private bool HasOrders()

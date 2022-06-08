@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class BuildingManager : MonoBehaviour
 {
-	[SerializeField]
+	public Transform canvas;
+
 	private BuildingMenu buildingMenu;
 	private Building buildingSelected;
 
@@ -28,17 +29,27 @@ public class BuildingManager : MonoBehaviour
 			OpenBuildingMenu(building);
 			//	SelectControllableObject(controllableObject);
 		}
+		else {
+			CloseBuildingMenu();
+		}
 		//throw new NotImplementedException();
 	}
 
 	public void OpenBuildingMenu(Building building)
 	{
+		CloseBuildingMenu();
+
+		buildingMenu = building.CreateBuildingMenu(canvas);
 		buildingMenu.Display(building);
 	}
 
 	public void CloseBuildingMenu()
 	{
-		buildingMenu.Close();
+		if (buildingMenu != null)
+		{
+			buildingMenu.Close();
+			Destroy(buildingMenu.gameObject);
+		}
 
 	}
 }

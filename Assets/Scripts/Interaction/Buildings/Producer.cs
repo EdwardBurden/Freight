@@ -3,8 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public struct ProductionOrder
+{
+	public ResourceDefintion resource;
+
+	public ProductionOrder(ResourceDefintion resource)
+	{
+		this.resource = resource;
+	}
+}
+
 public class Producer : Building
 {
+	//Temp
+	public List<ResourceDefintion> resourcesProduced;
+	//temp
+	public List<ProductionOrder> productionQueue = new List<ProductionOrder>();
 	private bool isLockedInInteraction;
 	[SerializeField]
 	private Freight frieghtPrefab;
@@ -47,17 +62,38 @@ public class Producer : Building
 	{
 		return spawnLocation.GetComponentInChildren<Freight>() != null;
 	}
+	private ProductionOrder GetNextProduction()
+	{
+		ProductionOrder productionOrder = productionQueue[0];
+		return productionOrder;
+
+	}
+	private bool HasProductionQueue()
+	{
+		return productionQueue.Count > 0;
+
+	}
+
+	public void AddOrder(ResourceDefintion resource)
+	{
+		ProductionOrder productionOrder = new ProductionOrder(resource);
+		productionQueue.Add(productionOrder);
+		//StartCoroutine(WaitAndSpawn());
+	}
+
 
 	private IEnumerator WaitAndSpawn()
 	{
 		while (true)
 		{
-			yield return new WaitForSeconds(timeBetweenSpawn);
-			if (!HasFreightSpawned())
+			if (HasProductionQueue() && !HasFreightSpawned())
 			{
-				Instantiate(frieghtPrefab, spawnLocation);
+				ProductionOrder productionOrder = GetNextProduction();
+				yield return new WaitForSeconds(productionOrder.resource.spawnTime);
+				Instantiate(productionOrder.resource.FreightPrefab, spawnLocation);
+				productionQueue.RemoveAt(0);
 			}
+			yield return null;
 		}
-
 	}
 }
