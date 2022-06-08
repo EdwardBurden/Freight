@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class ProducerMenu : BuildingMenu
 {
-
 	public Transform resourceList;
 	public Transform productionList;
 	public GameObject resourceIconPrefab;
@@ -16,9 +15,6 @@ public class ProducerMenu : BuildingMenu
 	public override void Display(Building building)
 	{
 		base.Display(building);
-		Producer producer = building as Producer;
-
-
 		foreach (ResourceDefintion resourceDef in producer.resourcesProduced)
 		{
 			GameObject gameObject = Instantiate(resourceIconPrefab, resourceList);

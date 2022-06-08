@@ -22,11 +22,8 @@ public class Producer : Building
 	public List<ProductionOrder> productionQueue = new List<ProductionOrder>();
 	private bool isLockedInInteraction;
 	[SerializeField]
-	private Freight frieghtPrefab;
-	[SerializeField]
 	private Transform spawnLocation;
-	[SerializeField]
-	private int timeBetweenSpawn;
+
 
 	private void OnEnable()
 	{

@@ -7,19 +7,8 @@ public class Consumer : Building
 {
 	private bool isLockedInInteraction;
 	[SerializeField]
-	private int timeBetweenSpawn;
-	[SerializeField]
 	private Transform deliverlocation;
-
-	private void OnEnable()
-	{
-		StartCoroutine(WaitAndEat());
-	}
-
-	private void OnDisable()
-	{
-		StopCoroutine(WaitAndEat());
-	}
+	public List<ResourceDefintion> resourcesAccepted;
 
 	public bool CanDeliver()
 	{
@@ -38,23 +27,11 @@ public class Consumer : Building
 	public void FreightDelivered(Freight freight)
 	{
 		freight.transform.parent = deliverlocation;
+		Destroy(deliverlocation.transform.GetChild(0).gameObject); //maybe add wait/ add animation disappearing
 	}
 
 	private bool IsFreightInPostion()
 	{
 		return deliverlocation.GetComponentInChildren<Freight>() != null;
-	}
-
-	private IEnumerator WaitAndEat()
-	{
-		while (true)
-		{
-			yield return new WaitForSeconds(timeBetweenSpawn);
-			if (IsFreightInPostion())
-			{
-				Destroy(deliverlocation.transform.GetChild(0).gameObject);
-			}
-		}
-
 	}
 }
