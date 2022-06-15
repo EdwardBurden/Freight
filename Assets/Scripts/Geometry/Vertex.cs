@@ -8,10 +8,10 @@ public class Vertex
 
     //The outgoing halfedge (a halfedge that starts at this vertex)
     //Doesnt matter which edge we connect to it
-    //public HalfEdge halfEdge;
+    public HalfEdge halfEdge;
 
     //Which triangle is this vertex a part of?
-   // public Triangle triangle;
+    public Triangle triangle;
 
     //The previous and next vertex this vertex is attached to
     public Vertex prevVertex;
