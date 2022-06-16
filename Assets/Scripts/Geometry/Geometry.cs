@@ -146,4 +146,39 @@ public static class Geometry
 
 		return center;
 	}
+
+	//Clamp list indices
+	//Will even work if index is larger/smaller than listSize, so can loop multiple times
+	public static int ClampListIndex(int index, int listSize)
+	{
+		index = ((index % listSize) + listSize) % listSize;
+
+		return index;
+	}
+
+	//Is a point to the left, to the right, or on a plane
+	//https://gamedevelopment.tutsplus.com/tutorials/understanding-sutherland-hodgman-clipping-for-physics-engines--gamedev-11917
+	//Notice that the plane normal doesnt have to be normalized
+	public static float DistanceFromPointToPlane(Vector3 planeNormal, Vector3 planePos, Vector3 pointPos)
+	{
+		//Positive distance denotes that the point p is on the front side of the plane 
+		//Negative means it's on the back side
+		float distance = Vector3.Dot(planeNormal, pointPos - planePos);
+
+		return distance;
+	}
+
+	//Get the coordinate if we know a ray-plane is intersecting
+	public static Vector3 GetRayPlaneIntersectionCoordinate(Vector3 planePos, Vector3 planeNormal, Vector3 rayStart, Vector3 rayDir)
+	{
+		float denominator = Vector3.Dot(-planeNormal, rayDir);
+
+		Vector3 vecBetween = planePos - rayStart;
+
+		float t = Vector3.Dot(vecBetween, -planeNormal) / denominator;
+
+		Vector3 intersectionPoint = rayStart + rayDir * t;
+
+		return intersectionPoint;
+	}
 }

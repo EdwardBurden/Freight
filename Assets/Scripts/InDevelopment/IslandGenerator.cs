@@ -20,25 +20,79 @@ public class IslandGenerator : MonoBehaviour
 	{
 		points = new Transform[boundaryPointsAmount];
 		SpawnPoints();
-	//}
+		}
 
-	//void Update()
-	//{
+		void Update()
+		{
 		//points = new Vector3[boundaryPointsAmount + 1];
 		//SpawnPoints();
 		List<Vertex> vertices = CreateVertexListFromPoints();
 		boundary = JarvisMarchAlgorithm.GetConvexHull(vertices);
 		triangles = DelaunayTriangulation.TriangulateByFlippingEdges(CreateVerterListFromPoints());
 
-		float bigSize = size * 2f;
 		List<Vector3> vectors = CreateVerterListFromPoints();
-		vectors.Add(new Vector3(0f, 0f, bigSize) + this.transform.position);
-		vectors.Add(new Vector3(0f, 0f, -bigSize) + this.transform.position);
-		vectors.Add(new Vector3(bigSize, 0f, 0f) + this.transform.position);
-		vectors.Add(new Vector3(-bigSize, 0f, 0f) + this.transform.position);
+		vectors.Add(new Vector3(0f, 0f, maxSize) + this.transform.position);
+		vectors.Add(new Vector3(0f, 0f, -maxSize) + this.transform.position);
+		vectors.Add(new Vector3(maxSize, 0f, 0f) + this.transform.position);
+		vectors.Add(new Vector3(-maxSize, 0f, 0f) + this.transform.position);
 		vectors.RemoveAll(x => boundary.Exists(v => v.position == x));
 
 		cells = DelaunayToVoronoi.GenerateVoronoiDiagram(vectors);
+		List<Vector3> boundaryPoints = new List<Vector3>();
+		foreach (var item in boundary)
+		{
+			boundaryPoints.Add(item.position);
+		}
+
+		foreach (var item in cells)
+		{
+			GetCellEdgePositions(item);
+			item.borderCoordinates = SutherlandHodgman.ClipPolygon(item.borderCoordinates, boundaryPoints);
+		}
+	}
+
+	private void GetCellEdgePositions(VoronoiCell voronoiCell)
+	{
+		List<Vector3> edgesCoordinates = new List<Vector3>();
+
+		VoronoiEdge startEdge = voronoiCell.edges[0];
+
+		edgesCoordinates.Add(startEdge.v2);
+
+		Vector3 currentVertex = startEdge.v2;
+
+		for (int j = 1; j < voronoiCell.edges.Count; j++)
+		{
+			//Find the next edge
+			for (int k = 1; k < voronoiCell.edges.Count; k++)
+			{
+				Vector3 thisEdgeStart = voronoiCell.edges[k].v1;
+
+				if ((thisEdgeStart - currentVertex).sqrMagnitude < 0.01f)
+				{
+					edgesCoordinates.Add(voronoiCell.edges[k].v2);
+
+					currentVertex = voronoiCell.edges[k].v2;
+
+					break;
+				}
+			}
+		}
+		voronoiCell.borderCoordinates = edgesCoordinates;
+		return;
+
+		List<Vertex> vertices = new List<Vertex>();
+		foreach (var item in edgesCoordinates)
+		{
+			vertices.Add(new Vertex(item));
+		}
+		var b = JarvisMarchAlgorithm.GetConvexHull(vertices);
+		List<Vector3> boundaryPoints = new List<Vector3>();
+		foreach (var item in b)
+		{
+			boundaryPoints.Add(item.position);
+		}
+		//	return boundaryPoints;
 	}
 
 	private void OnDrawGizmos()
@@ -79,6 +133,22 @@ public class IslandGenerator : MonoBehaviour
 				Gizmos.DrawLine(cells[i].edges[j].v1, cells[i].edges[j].v2);
 			}
 		}
+		Gizmos.color = Color.green;
+		int nextCellPoint = 1;
+
+		foreach (var item in cells)
+		{
+			for (int i = 0; i < item.borderCoordinates.Count; i++, nextCellPoint++)
+			{
+				if (nextCellPoint == item.borderCoordinates.Count)
+				{
+					nextCellPoint = 0;
+				}
+				Gizmos.DrawLine(item.borderCoordinates[i], item.borderCoordinates[nextCellPoint]);
+			}
+		}
+
+
 
 	}
 	private void DisplayVoronoiCells(List<VoronoiCell> cells)
