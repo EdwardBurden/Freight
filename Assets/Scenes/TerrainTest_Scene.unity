@@ -267,10 +267,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e08eca58f9f3139488dcd3632a4fa52c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minislandDistance: 20
+  minislandDistance: 120
   islandAmount: 1
-  sizeX: 400
-  sizeZ: 400
+  sizeX: 500
+  sizeZ: 500
 --- !u!4 &1498918745
 Transform:
   m_ObjectHideFlags: 0

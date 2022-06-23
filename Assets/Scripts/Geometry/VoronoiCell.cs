@@ -14,4 +14,6 @@ public class VoronoiCell
     {
         this.sitePos = sitePos;
     }
+
+    public List<Triangle> triangles = new List<Triangle>(); //for mesh making
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
+	public Island Islandprefab;
+
 	private int MAXRETRY = 5;
 
 	public int minislandDistance = 10;
@@ -34,10 +36,9 @@ public class MapGenerator : MonoBehaviour
 				}
 			}
 
-			GameObject gameObject = new GameObject("Island");
-			gameObject.transform.parent = this.transform;
-			gameObject.transform.position = position;
-			gameObject.AddComponent<IslandGenerator>();
+			Island island =  Instantiate(Islandprefab);
+			island.transform.parent = this.transform;
+			island.transform.position = position;
 			islandPoints.Add(position);
 		}
 	}

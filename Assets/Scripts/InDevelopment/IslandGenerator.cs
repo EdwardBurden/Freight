@@ -2,56 +2,74 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IslandGenerator : MonoBehaviour
+public static class IslandGenerator
 {
-	//include this positon in the algorithm
-
-	//  https://www.habrador.com/tutorials/math/8-convex-hull/
-	public int boundaryPointsAmount = 20;
-	public int maxSize = 30;
-	public int minSize = 10;
-
-	private Transform[] points;
-	private List<Vertex> boundary = new List<Vertex>();
-	private List<Triangle> triangles = new List<Triangle>();
-	private List<VoronoiCell> cells = new List<VoronoiCell>();
-
-	private void Start()
+	public static List<VoronoiCell> CreateTrianglesFromVoronoiCells(List<VoronoiCell> voronoiCells)
 	{
-		points = new Transform[boundaryPointsAmount];
-		SpawnPoints();
-		}
-
-		void Update()
+		List<VoronoiCell> meshCells = new List<VoronoiCell>();
+		foreach (VoronoiCell voronoiCell in voronoiCells)
 		{
-		//points = new Vector3[boundaryPointsAmount + 1];
-		//SpawnPoints();
-		List<Vertex> vertices = CreateVertexListFromPoints();
-		boundary = JarvisMarchAlgorithm.GetConvexHull(vertices);
-		triangles = DelaunayTriangulation.TriangulateByFlippingEdges(CreateVerterListFromPoints());
-
-		List<Vector3> vectors = CreateVerterListFromPoints();
-		vectors.Add(new Vector3(0f, 0f, maxSize) + this.transform.position);
-		vectors.Add(new Vector3(0f, 0f, -maxSize) + this.transform.position);
-		vectors.Add(new Vector3(maxSize, 0f, 0f) + this.transform.position);
-		vectors.Add(new Vector3(-maxSize, 0f, 0f) + this.transform.position);
-		vectors.RemoveAll(x => boundary.Exists(v => v.position == x));
-
-		cells = DelaunayToVoronoi.GenerateVoronoiDiagram(vectors);
-		List<Vector3> boundaryPoints = new List<Vector3>();
-		foreach (var item in boundary)
-		{
-			boundaryPoints.Add(item.position);
+			if (voronoiCell.borderCoordinates.Count < 3)
+			{
+				continue;
+			}
+			voronoiCell.triangles = DelaunayTriangulation.TriangulateByFlippingEdges(voronoiCell.borderCoordinates);
+			meshCells.Add(voronoiCell);
 		}
-
-		foreach (var item in cells)
-		{
-			GetCellEdgePositions(item);
-			item.borderCoordinates = SutherlandHodgman.ClipPolygon(item.borderCoordinates, boundaryPoints);
-		}
+		return meshCells;
 	}
 
-	private void GetCellEdgePositions(VoronoiCell voronoiCell)
+
+	public static List<Vertex> CreateRandomPoints(int pointsAmount, int minSize, int maxSize)
+	{
+		List<Vertex> points = new List<Vertex>();
+		for (int i = 0; i < pointsAmount; i++)
+		{
+			int size = Random.Range(minSize, maxSize);
+			float xChance = Random.Range(-1.0f, 1.0f);
+			float zChance = Random.Range(-1.0f, 1.0f);
+			Vector3 randomDirection = new Vector3(xChance, 0, zChance);
+			Vector3 positon = randomDirection.normalized * size;
+			points.Add(new Vertex(positon));
+		}
+		return points;
+	}
+
+	public static List<VoronoiCell> CreateVoronoiCells(List<Vertex> vectors, int maxSize)
+	{
+		List<Vector3> points = GetPostionsFromVertecies(vectors);
+
+		float bigNumber = maxSize * 5;
+		points.Add(new Vector3(0f, 0f, bigNumber));
+		points.Add(new Vector3(0f, 0f, -bigNumber));
+		points.Add(new Vector3(bigNumber, 0f, 0f));
+		points.Add(new Vector3(-bigNumber, 0f, 0f));
+		var cells = DelaunayToVoronoi.GenerateVoronoiDiagram(points);
+		return cells;
+	}
+
+	public static void ClipVoronoiDiagram(List<VoronoiCell> voronoiCells, List<Vertex> boundary)
+	{
+		List<Vector3> points = GetPostionsFromVertecies(boundary);
+		foreach (VoronoiCell voronoiCell in voronoiCells)
+		{
+			voronoiCell.borderCoordinates = GetCellEdgePositions(voronoiCell);
+			voronoiCell.borderCoordinates = SutherlandHodgman.ClipPolygon(voronoiCell.borderCoordinates, points);
+		}
+
+	}
+
+	private static List<Vector3> GetPostionsFromVertecies(List<Vertex> vertices)
+	{
+		List<Vector3> points = new List<Vector3>();
+		foreach (Vertex vertex in vertices)
+		{
+			points.Add(vertex.position);
+		}
+		return points;
+	}
+
+	private static List<Vector3> GetCellEdgePositions(VoronoiCell voronoiCell)
 	{
 		List<Vector3> edgesCoordinates = new List<Vector3>();
 
@@ -78,30 +96,17 @@ public class IslandGenerator : MonoBehaviour
 				}
 			}
 		}
-		voronoiCell.borderCoordinates = edgesCoordinates;
-		return;
-
-		List<Vertex> vertices = new List<Vertex>();
-		foreach (var item in edgesCoordinates)
-		{
-			vertices.Add(new Vertex(item));
-		}
-		var b = JarvisMarchAlgorithm.GetConvexHull(vertices);
-		List<Vector3> boundaryPoints = new List<Vector3>();
-		foreach (var item in b)
-		{
-			boundaryPoints.Add(item.position);
-		}
-		//	return boundaryPoints;
+		return edgesCoordinates;
 	}
 
-	private void OnDrawGizmos()
+	/*private void OnDrawGizmos()
 	{
+		float radius = 1f;
 		Gizmos.color = Color.green;
 		List<Vector3> vectors = CreateVerterListFromPoints();
 		for (int i = 0; i < vectors.Count; i++)
 		{
-			float radius = 0.2f;
+
 
 			Gizmos.DrawSphere(vectors[i], radius);
 		}
@@ -124,8 +129,18 @@ public class IslandGenerator : MonoBehaviour
 			Gizmos.DrawLine(triangles[i].v2.position, triangles[i].v3.position);
 			Gizmos.DrawLine(triangles[i].v3.position, triangles[i].v1.position);
 		}
+
+		Gizmos.color = Color.magenta;
+		for (int i = 0; i < cells.Count; i++)
+		{
+
+
+			Gizmos.DrawSphere(cells[i].sitePos, radius);
+		}
+
+
 		Gizmos.color = Color.red;
-		//DisplayVoronoiCells(cells);
+		DisplayVoronoiCells(cells);
 		for (int i = 0; i < cells.Count; i++)
 		{
 			for (int j = 0; j < cells[i].edges.Count; j++)
@@ -150,90 +165,5 @@ public class IslandGenerator : MonoBehaviour
 
 
 
-	}
-	private void DisplayVoronoiCells(List<VoronoiCell> cells)
-	{
-		Random.InitState(6);
-
-		for (int i = 0; i < cells.Count; i++)
-		{
-			VoronoiCell c = cells[i];
-
-			Vector3 p1 = c.sitePos;
-
-			Gizmos.color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f), 1f);
-
-			List<Vector3> vertices = new List<Vector3>();
-
-			List<int> triangles = new List<int>();
-
-			vertices.Add(p1);
-
-			for (int j = 0; j < c.edges.Count; j++)
-			{
-				Vector3 p3 = c.edges[j].v1;
-				Vector3 p2 = c.edges[j].v2;
-
-				vertices.Add(p2);
-				vertices.Add(p3);
-
-				triangles.Add(0);
-				triangles.Add(vertices.Count - 2);
-				triangles.Add(vertices.Count - 1);
-			}
-
-			Mesh triangleMesh = new Mesh();
-
-			triangleMesh.vertices = vertices.ToArray();
-
-			triangleMesh.triangles = triangles.ToArray();
-
-			triangleMesh.RecalculateNormals();
-
-			Gizmos.DrawMesh(triangleMesh);
-		}
-	}
-
-
-	private List<Vertex> CreateVertexListFromPoints()
-	{
-		List<Vertex> vertices = new List<Vertex>();
-		foreach (var item in points)
-		{
-			vertices.Add(new Vertex(item.position));
-		}
-		return vertices;
-	}
-
-	private List<Vector3> CreateVerterListFromPoints()
-	{
-		List<Vector3> vertices = new List<Vector3>();
-		foreach (var item in points)
-		{
-			vertices.Add(item.position);
-		}
-		return vertices;
-	}
-
-
-
-	public void SpawnPoints()
-	{
-		int size = Random.Range(minSize, maxSize);
-		for (int i = 0; i < boundaryPointsAmount; i++)
-		{
-			float xChance = Random.Range(-1.0f, 1.0f);
-			float zChance = Random.Range(-1.0f, 1.0f);
-			float sizeChance = Random.Range(0.0f, 1.0f);
-			Vector3 randomDirection = new Vector3(xChance, 0, zChance);
-			Vector3 positon = randomDirection.normalized * size * sizeChance;
-
-			GameObject gameObject = new GameObject("Point");
-			gameObject.transform.parent = this.transform;
-			gameObject.transform.localPosition = positon;
-			points[i] = gameObject.transform;
-		}
-
-	}
-
+	}*/
 }
