@@ -4,6 +4,9 @@ using UnityEngine;
 
 public static class IslandGenerator
 {
+
+
+
 	public static List<VoronoiCell> CreateTrianglesFromVoronoiCells(List<VoronoiCell> voronoiCells)
 	{
 		List<VoronoiCell> meshCells = new List<VoronoiCell>();

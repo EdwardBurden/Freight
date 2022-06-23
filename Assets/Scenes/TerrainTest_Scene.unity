@@ -267,7 +267,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e08eca58f9f3139488dcd3632a4fa52c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minislandDistance: 120
+  Islandprefab: {fileID: 7844090786841298427, guid: 51559d6f3c8b71242b61b3a7367a250b, type: 3}
+  minislandDistance: 60
   islandAmount: 1
   sizeX: 500
   sizeZ: 500

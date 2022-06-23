@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Island : MonoBehaviour
 {
-	public Material material;
+	public Material[] materials;
 
 	public int pointsAmount = 50;
 	public int density = 1;
@@ -16,7 +16,7 @@ public class Island : MonoBehaviour
 
 	private void Start()
 	{
-		Random.InitState(12);
+		//Random.InitState(12);
 		List<Vertex> points = IslandGenerator.CreateRandomPoints(pointsAmount, minSize, maxSize);
 		List<Vertex> boundary = JarvisMarchAlgorithm.GetConvexHull(points);
 		//points.RemoveAll(boundary);  remove boundary points optionally
@@ -25,9 +25,9 @@ public class Island : MonoBehaviour
 		IslandGenerator.ClipVoronoiDiagram(voronoiCells, boundary);
 
 		voronoiCells = IslandGenerator.CreateTrianglesFromVoronoiCells(voronoiCells); //may not be needed
-		DrawMesh(voronoiCells[0]);
+																					  //		DrawMesh(voronoiCells[0]);
 
-		foreach (VoronoiCell  voronoiCell in voronoiCells)
+		foreach (VoronoiCell voronoiCell in voronoiCells)
 		{
 			DrawMesh(voronoiCell);
 		}
@@ -84,9 +84,10 @@ public class Island : MonoBehaviour
 		List<Vector3> vertices = new List<Vector3>();
 		List<int> triangles = new List<int>();
 
-		float height = Random.Range(-3.0f, 3.0f);
+		float dist = Vector2.Distance(voronoiCell.sitePos.xz(), Vector2.zero);
+		float height = Random.Range(1f, 10f) + (maxSize - dist);
 
-		int p = 0;
+		/*int p = 0;
 		for (int i = 0; i < voronoiCell.triangles.Count; i++, p += 3)
 		{
 			Triangle triangle = voronoiCell.triangles[i];
@@ -97,29 +98,49 @@ public class Island : MonoBehaviour
 			triangles.Add(p);
 			triangles.Add(p + 1);
 			triangles.Add(p + 2);
-		}
-		/*	Vector3 p1 = voronoiCell.sitePos;
-			vertices.Add(p1);
+		}*/
+		Vector3 p1 = voronoiCell.sitePos + new Vector3(0, height, 0);
+		vertices.Add(p1);
 
-			for (int j = 0; j < voronoiCell.borderCoordinates.Count; j++)
+		for (int j = 0; j < voronoiCell.borderCoordinates.Count; j++)
+		{
+			Vector3 p3 = voronoiCell.borderCoordinates[j] + new Vector3(0, height, 0);
+			int nextPoint = j + 1;
+			if (nextPoint >= voronoiCell.borderCoordinates.Count)
 			{
-				Vector3 p3 = voronoiCell.borderCoordinates[j];
-				int nextPoint = j + 1;
-				if (nextPoint >= voronoiCell.borderCoordinates.Count)
-				{
-					nextPoint = 0;
-				}
-				Vector3 p2 = voronoiCell.borderCoordinates[nextPoint];
-
-				vertices.Add(p2);
-				vertices.Add(p3);
-
-				triangles.Add(0);
-				triangles.Add(vertices.Count - 2);
-				triangles.Add(vertices.Count - 1);
+				nextPoint = 0;
 			}
+			Vector3 p2 = voronoiCell.borderCoordinates[nextPoint] + new Vector3(0, height, 0);
 
-			*/
+			vertices.Add(p2);
+			vertices.Add(p3);
+
+			triangles.Add(0);
+			triangles.Add(vertices.Count - 2);
+			triangles.Add(vertices.Count - 1);
+
+
+			vertices.Add(p2 + new Vector3(0, -height, 0));
+			vertices.Add(p3);
+			vertices.Add(p2);
+
+
+
+			triangles.Add(vertices.Count - 3);
+			triangles.Add(vertices.Count - 2);
+			triangles.Add(vertices.Count - 1);
+
+
+			vertices.Add(p2 + new Vector3(0, -height, 0));
+			vertices.Add(p3 + new Vector3(0, -height, 0));
+			vertices.Add(p3);
+
+			triangles.Add(vertices.Count - 3);
+			triangles.Add(vertices.Count - 2);
+			triangles.Add(vertices.Count - 1);
+		}
+
+
 
 		Mesh triangleMesh = new Mesh();
 		triangleMesh.vertices = vertices.ToArray();
@@ -127,11 +148,12 @@ public class Island : MonoBehaviour
 		triangleMesh.RecalculateNormals();
 		MeshFilter meshFilter = gameObject.AddComponent<MeshFilter>();
 		MeshRenderer meshRenderer = gameObject.AddComponent<MeshRenderer>();
-		meshRenderer.material = material;
-		gameObject.transform.parent = this.transform;
-			//gameObject.transform.position = voronoiCell.sitePos;
+		meshRenderer.material = materials[Random.Range(0, materials.Length)];
+		gameObject.transform.parent = null;
+		//gameObject.transform.position = voronoiCell.sitePos;
 		meshFilter.mesh = triangleMesh;
 	}
+
 
 	private void DisplayVoronoiCells(List<VoronoiCell> cells)
 	{
