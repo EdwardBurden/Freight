@@ -6,68 +6,89 @@ public class Island : MonoBehaviour
 {
 	public Material[] materials;
 
-	public int pointsAmount = 50;
-	public int density = 1;
-	public int maxSize = 60;
-	public int minSize = 10;
+	public int minPoints = 50;
+	public int maxPoints = 50;
+	public int minRadius = 10;
+	public int maxRadius = 60;
 
+	public int seed;
+
+	public int pointsAmount;
+
+	List<Vertex> points = new List<Vertex>();
+	List<Vertex> boundary = new List<Vertex>();
 	//List<List<Triangle>> triangles = new List<List<Triangle>>(); //temp
 	List<VoronoiCell> voronoiCells = new List<VoronoiCell>(); //temp
 
 	private void Start()
 	{
+		//Random.InitState(019283);
+		//seed = Random.seed;
+		print(Random.state.ToString());
+		pointsAmount = Random.Range(minPoints, maxPoints);
+
 		//Random.InitState(12);
-		List<Vertex> points = IslandGenerator.CreateRandomPoints(pointsAmount, minSize, maxSize);
-		List<Vertex> boundary = JarvisMarchAlgorithm.GetConvexHull(points);
-		//points.RemoveAll(boundary);  remove boundary points optionally
-		voronoiCells = IslandGenerator.CreateVoronoiCells(points, maxSize);
+		points = IslandGenerator.CreateRandomPoints(pointsAmount, minRadius, maxRadius);
+		var _myLocalList = new List<Vertex>(points);
+		boundary = JarvisMarchAlgorithm.GetConvexHull(_myLocalList);
+
+		voronoiCells = IslandGenerator.CreateVoronoiCells(points, maxRadius);
 
 		IslandGenerator.ClipVoronoiDiagram(voronoiCells, boundary);
 
-		voronoiCells = IslandGenerator.CreateTrianglesFromVoronoiCells(voronoiCells); //may not be needed
-																					  //		DrawMesh(voronoiCells[0]);
+		voronoiCells = IslandGenerator.CreateTrianglesFromVoronoiCells(voronoiCells);
+
 
 		foreach (VoronoiCell voronoiCell in voronoiCells)
 		{
+
 			DrawMesh(voronoiCell);
 		}
-		//var triangles = DelaunayTriangulation.TriangulateByFlippingEdges(points);
-		//create our points
-		//create island boundary
-		//create cells
-		//make mesh from cells
 	}
 
 	private void OnDrawGizmos()
 	{
 		//
-		for (int i = 0; i < voronoiCells.Count; i++)
-		{
-			for (int j = 0; j < voronoiCells[i].edges.Count; j++)
+		/*	Gizmos.color = Color.red;
+			for (int i = 0; i < voronoiCells.Count; i++)
 			{
-				Gizmos.DrawLine(voronoiCells[i].edges[j].v1, voronoiCells[i].edges[j].v2);
+				for (int j = 0; j < voronoiCells[i].edges.Count; j++)
+				{
+					Gizmos.DrawLine(voronoiCells[i].edges[j].v1, voronoiCells[i].edges[j].v2);
+				}
 			}
-		}
 
-
+			*/
 		//
 		Gizmos.color = Color.blue;
-
-		for (int i = 0; i < voronoiCells[0].triangles.Count; i++)
+		int nextvert = 1;
+		for (int i = 0; i < boundary.Count; i++, nextvert++)
 		{
-			Gizmos.DrawLine(voronoiCells[0].triangles[i].v1.position, voronoiCells[0].triangles[i].v2.position);
-			Gizmos.DrawLine(voronoiCells[0].triangles[i].v2.position, voronoiCells[0].triangles[i].v3.position);
-			Gizmos.DrawLine(voronoiCells[0].triangles[i].v3.position, voronoiCells[0].triangles[i].v1.position);
+			if (nextvert == boundary.Count)
+			{
+				nextvert = 0;
+			}
+			Gizmos.DrawLine(boundary[i].position, boundary[nextvert].position);
 		}
 
 		//
-		Gizmos.color = Color.green;
-		int nextCellPoint = 1;
+		Gizmos.color = Color.gray;
 
+
+		foreach (var item in points)
+		{
+			//Gizmos.DrawSphere(item.position, 2);
+		}
+		Gizmos.color = Color.green;
 		foreach (var item in voronoiCells)
 		{
+			int nextCellPoint = 1;
+			//Gizmos.DrawSphere(item.sitePos, 1);
+
+
 			for (int i = 0; i < item.borderCoordinates.Count; i++, nextCellPoint++)
 			{
+				//Gizmos.DrawSphere(item.borderCoordinates[i], 0.5f);
 				if (nextCellPoint == item.borderCoordinates.Count)
 				{
 					nextCellPoint = 0;
@@ -81,77 +102,19 @@ public class Island : MonoBehaviour
 	{
 		GameObject gameObject = new GameObject("Cell");
 
-		List<Vector3> vertices = new List<Vector3>();
-		List<int> triangles = new List<int>();
+		int h = Random.Range(0, materials.Length);
 
-		float dist = Vector2.Distance(voronoiCell.sitePos.xz(), Vector2.zero);
-		float height = Random.Range(1f, 10f) + (maxSize - dist);
+		//	float dist = Vector2.Distance(voronoiCell.sitePos.xz(), Vector2.zero);
+		//	int height = Random.Range(1, 5);
 
-		/*int p = 0;
-		for (int i = 0; i < voronoiCell.triangles.Count; i++, p += 3)
-		{
-			Triangle triangle = voronoiCell.triangles[i];
-			vertices.Add(triangle.v1.position + new Vector3(0, height, 0));
-			vertices.Add(triangle.v2.position + new Vector3(0, height, 0));
-			vertices.Add(triangle.v3.position + new Vector3(0, height, 0));
+		Mesh mesh = IslandGenerator.CreateVoronoiMesh(voronoiCell, (h + 1) * 5);
 
-			triangles.Add(p);
-			triangles.Add(p + 1);
-			triangles.Add(p + 2);
-		}*/
-		Vector3 p1 = voronoiCell.sitePos + new Vector3(0, height, 0);
-		vertices.Add(p1);
-
-		for (int j = 0; j < voronoiCell.borderCoordinates.Count; j++)
-		{
-			Vector3 p3 = voronoiCell.borderCoordinates[j] + new Vector3(0, height, 0);
-			int nextPoint = j + 1;
-			if (nextPoint >= voronoiCell.borderCoordinates.Count)
-			{
-				nextPoint = 0;
-			}
-			Vector3 p2 = voronoiCell.borderCoordinates[nextPoint] + new Vector3(0, height, 0);
-
-			vertices.Add(p2);
-			vertices.Add(p3);
-
-			triangles.Add(0);
-			triangles.Add(vertices.Count - 2);
-			triangles.Add(vertices.Count - 1);
-
-
-			vertices.Add(p2 + new Vector3(0, -height, 0));
-			vertices.Add(p3);
-			vertices.Add(p2);
-
-
-
-			triangles.Add(vertices.Count - 3);
-			triangles.Add(vertices.Count - 2);
-			triangles.Add(vertices.Count - 1);
-
-
-			vertices.Add(p2 + new Vector3(0, -height, 0));
-			vertices.Add(p3 + new Vector3(0, -height, 0));
-			vertices.Add(p3);
-
-			triangles.Add(vertices.Count - 3);
-			triangles.Add(vertices.Count - 2);
-			triangles.Add(vertices.Count - 1);
-		}
-
-
-
-		Mesh triangleMesh = new Mesh();
-		triangleMesh.vertices = vertices.ToArray();
-		triangleMesh.triangles = triangles.ToArray();
-		triangleMesh.RecalculateNormals();
 		MeshFilter meshFilter = gameObject.AddComponent<MeshFilter>();
 		MeshRenderer meshRenderer = gameObject.AddComponent<MeshRenderer>();
-		meshRenderer.material = materials[Random.Range(0, materials.Length)];
-		gameObject.transform.parent = null;
-		//gameObject.transform.position = voronoiCell.sitePos;
-		meshFilter.mesh = triangleMesh;
+		meshRenderer.material = materials[h];
+		gameObject.transform.parent = this.transform;
+		gameObject.transform.localPosition = Vector3.zero;
+		meshFilter.mesh = mesh;
 	}
 
 

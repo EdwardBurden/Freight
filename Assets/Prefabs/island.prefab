@@ -45,11 +45,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   materials:
-  - {fileID: 2100000, guid: 5ef9f54353a0827479382e6d1dab624b, type: 2}
+  - {fileID: 2100000, guid: f1ed0bcd2e0c8984ea40906e59194ded, type: 2}
   - {fileID: 2100000, guid: f2d0d8d3515e13e4c951cd520a0cad22, type: 2}
   - {fileID: 2100000, guid: cd0edae8505cae34385b4c6cb3e80a84, type: 2}
-  - {fileID: 2100000, guid: f1ed0bcd2e0c8984ea40906e59194ded, type: 2}
-  pointsAmount: 50
-  density: 1
-  maxSize: 60
-  minSize: 10
+  - {fileID: 2100000, guid: 5ef9f54353a0827479382e6d1dab624b, type: 2}
+  minPoints: 10
+  maxPoints: 20
+  minRadius: 10
+  maxRadius: 60
+  seed: 0
+  pointsAmount: 0

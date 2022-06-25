@@ -4,7 +4,62 @@ using UnityEngine;
 
 public static class IslandGenerator
 {
+	public static Mesh CreateVoronoiMesh(VoronoiCell voronoiCell, int height)
+	{
+		List<Vector3> vertices = new List<Vector3>();
+		List<int> triangles = new List<int>();
 
+		int p = 0;
+		for (int i = 0; i < voronoiCell.triangles.Count; i++, p += 3)
+		{
+			Triangle triangle = voronoiCell.triangles[i];
+			vertices.Add(triangle.v1.position + new Vector3(0, height, 0));
+			vertices.Add(triangle.v2.position + new Vector3(0, height, 0));
+			vertices.Add(triangle.v3.position + new Vector3(0, height, 0));
+
+			triangles.Add(p);
+			triangles.Add(p + 1);
+			triangles.Add(p + 2);
+		}
+
+		for (int j = 0; j < voronoiCell.borderCoordinates.Count; j++)
+		{
+			Vector3 p3 = voronoiCell.borderCoordinates[j] + new Vector3(0, height, 0);
+			int nextPoint = j + 1;
+			if (nextPoint >= voronoiCell.borderCoordinates.Count)
+			{
+				nextPoint = 0;
+			}
+			Vector3 p2 = voronoiCell.borderCoordinates[nextPoint] + new Vector3(0, height, 0);
+
+
+			vertices.Add(p2 + new Vector3(0, -height, 0));
+			vertices.Add(p3);
+			vertices.Add(p2);
+
+
+
+			triangles.Add(vertices.Count - 3);
+			triangles.Add(vertices.Count - 2);
+			triangles.Add(vertices.Count - 1);
+
+
+			vertices.Add(p2 + new Vector3(0, -height, 0));
+			vertices.Add(p3 + new Vector3(0, -height, 0));
+			vertices.Add(p3);
+
+			triangles.Add(vertices.Count - 3);
+			triangles.Add(vertices.Count - 2);
+			triangles.Add(vertices.Count - 1);
+		}
+
+
+		Mesh triangleMesh = new Mesh();
+		triangleMesh.vertices = vertices.ToArray();
+		triangleMesh.triangles = triangles.ToArray();
+		triangleMesh.RecalculateNormals();
+		return triangleMesh;
+	}
 
 
 	public static List<VoronoiCell> CreateTrianglesFromVoronoiCells(List<VoronoiCell> voronoiCells)
@@ -12,7 +67,7 @@ public static class IslandGenerator
 		List<VoronoiCell> meshCells = new List<VoronoiCell>();
 		foreach (VoronoiCell voronoiCell in voronoiCells)
 		{
-			if (voronoiCell.borderCoordinates.Count < 3)
+			if (voronoiCell.borderCoordinates.Count ==0)
 			{
 				continue;
 			}
@@ -28,11 +83,11 @@ public static class IslandGenerator
 		List<Vertex> points = new List<Vertex>();
 		for (int i = 0; i < pointsAmount; i++)
 		{
-			int size = Random.Range(minSize, maxSize);
+			int distance = Random.Range(minSize, maxSize);
 			float xChance = Random.Range(-1.0f, 1.0f);
 			float zChance = Random.Range(-1.0f, 1.0f);
 			Vector3 randomDirection = new Vector3(xChance, 0, zChance);
-			Vector3 positon = randomDirection.normalized * size;
+			Vector3 positon = randomDirection.normalized * distance;
 			points.Add(new Vertex(positon));
 		}
 		return points;
@@ -48,6 +103,9 @@ public static class IslandGenerator
 		points.Add(new Vector3(bigNumber, 0f, 0f));
 		points.Add(new Vector3(-bigNumber, 0f, 0f));
 		var cells = DelaunayToVoronoi.GenerateVoronoiDiagram(points);
+		if (cells.Count != points.Count) {
+			Debug.LogError("error");
+		}
 		return cells;
 	}
 
@@ -74,7 +132,9 @@ public static class IslandGenerator
 
 	private static List<Vector3> GetCellEdgePositions(VoronoiCell voronoiCell)
 	{
-		List<Vector3> edgesCoordinates = new List<Vector3>();
+
+
+			List<Vector3> edgesCoordinates = new List<Vector3>();
 
 		VoronoiEdge startEdge = voronoiCell.edges[0];
 
@@ -89,7 +149,7 @@ public static class IslandGenerator
 			{
 				Vector3 thisEdgeStart = voronoiCell.edges[k].v1;
 
-				if ((thisEdgeStart - currentVertex).sqrMagnitude < 0.01f)
+				if ((thisEdgeStart - currentVertex).sqrMagnitude < 0.0001f)
 				{
 					edgesCoordinates.Add(voronoiCell.edges[k].v2);
 

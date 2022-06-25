@@ -10,9 +10,11 @@ public class MapGenerator : MonoBehaviour
 
 	public int minislandDistance = 10;
 
-	public int islandAmount;
-	public int sizeX;
-	public int sizeZ;
+	//public int islandAmount;
+	public int rows;
+	public int columns;
+	//public int sizeX;
+	//public int sizeZ;
 
 	private List<Vector3> islandPoints = new List<Vector3>();
 
@@ -21,41 +23,20 @@ public class MapGenerator : MonoBehaviour
 
 		islandPoints.Clear();
 
-		for (int i = 0; i < islandAmount; i++)
-		{
-			Vector3 position = Vector3.zero;
-			for (int j = 0; j < MAXRETRY; j++)
-			{
-				int x = Random.Range(0, sizeX);
-				int z = Random.Range(0, sizeZ);
-				Vector3 testPos = new Vector3(x, 0, z);
-				if (CanAddIsland(testPos))
-				{
-					position = testPos;
-					break;
-				}
-			}
 
-			Island island =  Instantiate(Islandprefab);
-			island.transform.parent = this.transform;
-			island.transform.position = position;
-			islandPoints.Add(position);
-		}
-	}
-
-	private bool CanAddIsland(Vector3 position)
-	{
-		for (int i = 0; i < islandPoints.Count; i++)
+		for (int i = 0; i < rows; i++)
 		{
-			if (Vector3.Distance(position, islandPoints[i]) < minislandDistance)
+			for (int j = 0; j < columns; j++)
 			{
-				return false;
+				Vector3 position = new Vector3(minislandDistance * i, 0, minislandDistance * j);
+				Island island = Instantiate(Islandprefab);
+				island.transform.parent = this.transform;
+				island.transform.position = position;
+				islandPoints.Add(position);
 			}
 		}
-		return true;
+
 
 	}
-
-
 }
 
