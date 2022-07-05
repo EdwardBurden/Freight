@@ -5,24 +5,19 @@ using UnityEngine;
 
 public class MoveAction : HierarchicalAction
 {
-	public MoveAction(GameObject gameObject, Transform target) : base()
+	public MoveAction(GameObject gameObject, Vector3 target) : base()
 	{
-		//If landed
-		//add levitate aniamtion and move the ship up to correct level
-
-
-		//else ship is in the air and ready to move
-		AnimateShipEnginesLookAtAction animateShipEnginesLookAtAction = new AnimateShipEnginesLookAtAction(target, gameObject);
-		//	AnimateShipEnginesIdleAction animateShipEnginesIdleAction = new AnimateShipEnginesIdleAction(target, gameObject);
-		LookAtAction lookAtAction = new LookAtAction(target.position, 80, gameObject);
+		AnimateShipLookAtAction animateShipLookAtAction = new AnimateShipLookAtAction(target, gameObject);
+		AnimateShipIdleAction animateShipIdleAction = new AnimateShipIdleAction(gameObject);
+		LookAtAction lookAtAction = new LookAtAction(target, 80, gameObject);
 		SyncAction syncAction = new SyncAction();
-		MoveToAction moveToAction = new MoveToAction(target.position, 5, gameObject, true);
+		MoveToAction moveToAction = new MoveToAction(target, 5, gameObject, true);
 
-		actionList.PushAction(animateShipEnginesLookAtAction);
+		actionList.PushAction(animateShipLookAtAction);
 		actionList.PushAction(lookAtAction);
 		actionList.PushAction(syncAction);
 		actionList.PushAction(moveToAction);
-		//	actionList.PushAction(animateShipEnginesIdleAction);
+		actionList.PushAction(animateShipIdleAction);
 	}
 
 

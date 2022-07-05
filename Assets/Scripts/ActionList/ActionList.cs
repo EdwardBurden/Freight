@@ -30,6 +30,10 @@ namespace ActionLists
 			while (!blocked && index < actions.Count)
 			{
 				Action action = actions[index];
+				if (!action.isInitialised)
+				{
+					action.OnInitialise();
+				}
 				action.OnUpdate();
 				blocked = action.isBlocking;
 				if (actions[index].isFinished)
@@ -43,6 +47,9 @@ namespace ActionLists
 			}
 		}
 
-
+		public void Clear()
+		{
+			actions.Clear();
+		}
 	}
 }

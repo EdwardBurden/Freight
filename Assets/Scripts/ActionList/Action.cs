@@ -2,6 +2,7 @@ namespace ActionLists
 {
 	public abstract class Action
 	{
+		public bool isInitialised;
 		public bool isFinished;
 		public bool isBlocking;
 		public ActionList owner;
@@ -10,11 +11,17 @@ namespace ActionLists
 		{
 			this.isBlocking = isBlocking;
 			this.isFinished = false;
+			isInitialised = false;
 		}
 
 		public void SetOwner(ActionList actionList)
 		{
 			owner = actionList;
+		}
+
+		public virtual void OnInitialise()
+		{
+			isInitialised = true;
 		}
 
 		public abstract void OnUpdate();
