@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IProducer
 {
-
+	//public ResourceData[] GetProducedResources();
 }
