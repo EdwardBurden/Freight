@@ -15,25 +15,41 @@ public class CollectAction : HierarchicalAction
 		this.gameObject = gameObject;
 		this.producer = target;
 		this.resourceData = resourceTarget;
-
 		Vector3 position = target.GetLandingPosition();
-		AnimateShipLookAtAction animateShipLookAtAction = new AnimateShipLookAtAction(position, gameObject);
-		AnimateShipIdleAction animateShipIdleAction = new AnimateShipIdleAction(gameObject);
+		Quaternion rotation = target.GetLandingRotation();
+
+		//Move
+		AnimateShipLookAtAction animateShipLookAtAction = new AnimateShipLookAtAction();
+		AnimateShipIdleAction animateShipIdleAction = new AnimateShipIdleAction();
 		LookAtAction lookAtAction = new LookAtAction(position, 80, gameObject);
 		SyncAction syncAction = new SyncAction();
 		MoveToAction moveToAction = new MoveToAction(position, 5, gameObject, true);
+
+		//Collect - to implement
+		RotateToAction rotateToAction = new RotateToAction(rotation, 80, gameObject, true);
+		SpawnFreightAction spawnFreightAction = new SpawnFreightAction();
+		AnimateShipCollectAction animateShipCollectAction = new AnimateShipCollectAction();
+		AnimateLoadingPlatformOpenAction animateLoadingPlatformOpenAction = new AnimateLoadingPlatformOpenAction();
+		ParentFreightAction connectFreightToShipAction = new ParentFreightAction();
+		AnimateLoadingPlatformCloseAction animateLoadingPlatformCloseAction = new AnimateLoadingPlatformCloseAction();
+		
 
 		actionList.PushAction(animateShipLookAtAction);
 		actionList.PushAction(lookAtAction);
 		actionList.PushAction(syncAction);
 		actionList.PushAction(moveToAction);
 		actionList.PushAction(animateShipIdleAction);
-		//RotateIntoOrientation action - get orientation from IProducer
-		//AnimateShipIdleAction
-		//AnimateShipCollectAction
-		//LoadAction- resourceTarget
-		//AnimateProducer
-		//AnimateShipIdleAction
+
+
+		actionList.PushAction(rotateToAction);
+		//actionList.PushAction(spawnFreightAction);
+		//actionList.PushAction(animateShipCollectAction);
+		//actionList.PushAction(animateLoadingPlatformOpenAction);
+		//actionList.PushAction(animateShipIdleAction);
+		//actionList.PushAction(connectFreightToShipAction);
+		//actionList.PushAction(animateLoadingPlatformCloseAction);
+		//actionList.PushAction(animateShipIdleAction);
+
 
 		DelayAction delayAction = new DelayAction(2);
 		actionList.PushAction(delayAction);

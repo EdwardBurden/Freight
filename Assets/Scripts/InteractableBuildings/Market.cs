@@ -9,7 +9,17 @@ public class Market : Building, IConsumer, IProducer
 		throw new System.NotImplementedException();
 	}
 
+	public GameObject GetLandingPlatform()
+	{
+		throw new System.NotImplementedException();
+	}
+
 	public Vector3 GetLandingPosition()
+	{
+		throw new System.NotImplementedException();
+	}
+
+	public Quaternion GetLandingRotation()
 	{
 		throw new System.NotImplementedException();
 	}
