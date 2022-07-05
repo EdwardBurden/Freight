@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class Town : Building, IConsumer
 {
-
+	public ResourceData[] GetAcceptedResources()
+	{
+		throw new System.NotImplementedException();
+	}
 }

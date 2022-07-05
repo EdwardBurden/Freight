@@ -4,5 +4,13 @@ using UnityEngine;
 
 public class Market : Building, IConsumer, IProducer
 {
+	public ResourceData[] GetAcceptedResources()
+	{
+		throw new System.NotImplementedException();
+	}
 
+	public ResourceData[] GetProducedResources()
+	{
+		throw new System.NotImplementedException();
+	}
 }
