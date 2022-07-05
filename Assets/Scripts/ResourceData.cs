@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ResourceData/ScriptableObject")]
 public class ResourceData : ScriptableObject
 {
-
+	public GameObject freightPrefab;
 }

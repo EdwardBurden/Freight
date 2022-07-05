@@ -9,20 +9,11 @@ public class Factory : Building, IProducer, IConsumer
 		throw new System.NotImplementedException();
 	}
 
-	public GameObject GetLandingPlatform()
+	public LandingPlatform GetLandingPlatform()
 	{
 		throw new System.NotImplementedException();
 	}
 
-	public Vector3 GetLandingPosition()
-	{
-		throw new System.NotImplementedException();
-	}
-
-	public Quaternion GetLandingRotation()
-	{
-		throw new System.NotImplementedException();
-	}
 
 	public ResourceData[] GetProducedResources()
 	{

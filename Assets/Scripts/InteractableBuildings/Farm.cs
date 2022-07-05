@@ -5,24 +5,14 @@ using UnityEngine;
 public class Farm : Building, IProducer
 {
 	[SerializeField]
-	private GameObject platform;
+	private LandingPlatform platform;
 
 	[SerializeField]
 	private ResourceData[] produces; //temp
 
-	public GameObject GetLandingPlatform()
+	public LandingPlatform GetLandingPlatform()
 	{
-		throw new System.NotImplementedException();
-	}
-
-	public Vector3 GetLandingPosition()
-	{
-		return platform.transform.position;
-	}
-
-	public Quaternion GetLandingRotation()
-	{
-		return platform.transform.rotation;
+		return platform;
 	}
 
 	public ResourceData[] GetProducedResources()

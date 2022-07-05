@@ -8,14 +8,13 @@ public class MoveAction : HierarchicalAction
 	public MoveAction(GameObject gameObject, Vector3 target) : base()
 	{
 		AnimateShipLookAtAction animateShipLookAtAction = new AnimateShipLookAtAction();
-		AnimateShipIdleAction animateShipIdleAction = new AnimateShipIdleAction();
-		LookAtAction lookAtAction = new LookAtAction(target, 80, gameObject);
-		SyncAction syncAction = new SyncAction();
+		LookAtAction lookAtAction = new LookAtAction(target, 80, gameObject, true);
 		MoveToAction moveToAction = new MoveToAction(target, 5, gameObject, true);
+		AnimateShipIdleAction animateShipIdleAction = new AnimateShipIdleAction();
 
 		actionList.PushAction(animateShipLookAtAction);
 		actionList.PushAction(lookAtAction);
-		actionList.PushAction(syncAction);
+		actionList.PushAction(new SyncAction());
 		actionList.PushAction(moveToAction);
 		actionList.PushAction(animateShipIdleAction);
 	}

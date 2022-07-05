@@ -9,5 +9,4 @@ public class AnimateLoadingPlatformOpenAction : AnimateAction
 	{
 		isFinished = true;
 	}
-
 }
