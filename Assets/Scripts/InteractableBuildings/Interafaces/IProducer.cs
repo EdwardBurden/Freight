@@ -5,4 +5,5 @@ using UnityEngine;
 public interface IProducer
 {
 	public ResourceData[] GetProducedResources();
+	public Vector3 GetLandingPosition();
 }

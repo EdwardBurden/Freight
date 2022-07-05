@@ -6,6 +6,7 @@ using ActionLists;
 public class ActionListTest : MonoBehaviour
 {
 	public Transform[] transforms;
+	public Farm farm;
 
 	public ShipTest shiptest;
 
@@ -13,11 +14,16 @@ public class ActionListTest : MonoBehaviour
 	private void Start()
 	{
 		actionList = new ActionList();
+
+		CollectAction collectAction = new CollectAction(shiptest.gameObject, farm, farm.GetProducedResources()[0]);
+		actionList.PushAction(collectAction);
+
 		foreach (Transform transform in transforms)
 		{
 			MoveAction moveAction = new MoveAction(shiptest.gameObject, transform.position);
 			actionList.PushAction(moveAction);
 		}
+
 	}
 
 	private void Update()

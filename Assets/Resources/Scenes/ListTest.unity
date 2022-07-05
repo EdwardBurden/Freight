@@ -710,6 +710,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26c17db5222304c40badd142e53ca1ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  produces:
+  - {fileID: 11400000, guid: 1ee249951273d1c4994ec161801201b0, type: 2}
 --- !u!135 &1272762880
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -822,6 +824,7 @@ MonoBehaviour:
   - {fileID: 2065846748}
   - {fileID: 501995729}
   - {fileID: 1541683783}
+  farm: {fileID: 1272762879}
   shiptest: {fileID: 7540023416490709164}
 --- !u!4 &1421308934
 Transform:

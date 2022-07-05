@@ -5,28 +5,38 @@ using UnityEngine;
 
 public class CollectAction : HierarchicalAction
 {
+	private GameObject gameObject;
+	private IProducer producer;
+	private ResourceData resourceData;
+
+
 	public CollectAction(GameObject gameObject, IProducer target, ResourceData resourceTarget) : base()
 	{
-		//Checks first
-		//CheckShiphasSpace //exit out if not/throw some alarm to the user throughj notification
-		//Check IProducer makes that resourceTarget
+		this.gameObject = gameObject;
+		this.producer = target;
+		this.resourceData = resourceTarget;
 
-		//AnimateShipLookAtAction
-		//LookAtAction
+		Vector3 position = target.GetLandingPosition();
+		AnimateShipLookAtAction animateShipLookAtAction = new AnimateShipLookAtAction(position, gameObject);
+		AnimateShipIdleAction animateShipIdleAction = new AnimateShipIdleAction(gameObject);
+		LookAtAction lookAtAction = new LookAtAction(position, 80, gameObject);
+		SyncAction syncAction = new SyncAction();
+		MoveToAction moveToAction = new MoveToAction(position, 5, gameObject, true);
 
-		//MoveToAction
-
+		actionList.PushAction(animateShipLookAtAction);
+		actionList.PushAction(lookAtAction);
+		actionList.PushAction(syncAction);
+		actionList.PushAction(moveToAction);
+		actionList.PushAction(animateShipIdleAction);
 		//RotateIntoOrientation action - get orientation from IProducer
-
 		//AnimateShipIdleAction
-
 		//AnimateShipCollectAction
-
 		//LoadAction- resourceTarget
-
 		//AnimateProducer
-
 		//AnimateShipIdleAction
+
+		DelayAction delayAction = new DelayAction(2);
+		actionList.PushAction(delayAction);
 	}
 
 	public override void OnInitialise()
