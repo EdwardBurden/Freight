@@ -5,29 +5,42 @@ using UnityEngine;
 
 public class DeliverAction : HierarchicalAction
 {
-	public DeliverAction(GameObject gameObject, IConsumer target, ResourceData resourceTarget) :base()
+	private GameObject gameObject;
+	private IConsumer consumer;
+	private ResourceData resourceData;
+	public DeliverAction(GameObject gameObject, IConsumer target, ResourceData resourceTarget) : base()
 	{
-		//Checks first
-		//CheckGameobjecthasResource //exit out if not/throw some alarm to the user throughj notification
-		//check iConsumer accepts resource
-
-		//AnimateShipLookAtAction
-		//LookAtAction
-
-		//MoveToAction
-
-		//RotateIntoOrientation action - get orientation from IConsumer
-
-		//AnimateShipIdleAction
-
-		//AnimateConsumerShowFreightAction
-
-		//AnimateShipDeliverAction
-
-		//UnloadAction- resourceTarget
-
-		//AnimateShipIdleAction
+		this.gameObject = gameObject;
+		this.consumer = target;
+		this.resourceData = resourceTarget;
+		CreateActions();
 	}
+
+
+	private void CreateActions()
+	{
+		LandingPlatform landingPlatform = consumer.GetLandingPlatform();
+		Vector3 position = landingPlatform.GetLandingPosition();
+		Quaternion rotation = landingPlatform.GetLandingRotation();
+
+		//Move
+		MoveAction moveAction = new MoveAction(gameObject, position);
+		actionList.PushAction(moveAction);
+
+		//Deliver
+		actionList.PushAction(new RotateToAction(rotation, 80, gameObject, true));
+		actionList.PushAction(new AnimateShipDeliverAction());
+		actionList.PushAction(new AnimateLoadingPlatformOpenAction());
+		actionList.PushAction(new SyncAction());
+		actionList.PushAction(new DelayAction(2));
+		actionList.PushAction(new ParentFreightToPlatformAction(landingPlatform, gameObject, resourceData));
+		actionList.PushAction(new AnimateShipIdleAction());
+		actionList.PushAction(new AnimateLoadingPlatformCloseAction());
+		actionList.PushAction(new DestoryFreightAction(landingPlatform));
+
+		actionList.PushAction(new DelayAction(2));
+	}
+
 	public override void OnInitialise()
 	{
 		base.OnInitialise();

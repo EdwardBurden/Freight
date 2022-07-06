@@ -5,4 +5,5 @@ using UnityEngine;
 public interface IConsumer 
 {
 	public ResourceData[] GetAcceptedResources();
+	LandingPlatform GetLandingPlatform();
 }

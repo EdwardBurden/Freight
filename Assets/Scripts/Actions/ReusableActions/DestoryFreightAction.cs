@@ -3,15 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ParentFreightAction : Action
+public class DestoryFreightAction : Action
 {
 	private LandingPlatform landingPlatform;
-	private GameObject ship;
 
-	public ParentFreightAction(LandingPlatform landingPlatform, GameObject ship)
+	public DestoryFreightAction( LandingPlatform landingPlatform)
 	{
 		this.landingPlatform = landingPlatform;
-		this.ship = ship;
 	}
 
 	public override void OnUpdate()
@@ -22,7 +20,6 @@ public class ParentFreightAction : Action
 	public override void OnInitialise()
 	{
 		base.OnInitialise();
-		GameObject freight = landingPlatform.GetActiveFreight();
-		freight.transform.parent = ship.transform;
+		GameObject.Destroy(landingPlatform.GetActiveFreight());
 	}
 }

@@ -4,8 +4,20 @@ using UnityEngine;
 
 public class Town : Building, IConsumer
 {
+	[SerializeField]
+	private LandingPlatform platform;
+
+
+	[SerializeField]
+	private ResourceData[] accepts; //temp
+
 	public ResourceData[] GetAcceptedResources()
 	{
-		throw new System.NotImplementedException();
+		return accepts;
+	}
+
+	public LandingPlatform GetLandingPlatform()
+	{
+		return platform;
 	}
 }

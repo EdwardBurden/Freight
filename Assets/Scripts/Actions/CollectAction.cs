@@ -25,30 +25,20 @@ public class CollectAction : HierarchicalAction
 		Quaternion rotation = landingPlatform.GetLandingRotation();
 
 		//Move
-		MoveAction moveAction = new MoveAction(gameObject, position);
-		actionList.PushAction(moveAction);
+		actionList.PushAction(new MoveAction(gameObject, position));
 
-		//Collect - to implement
-		RotateToAction rotateToAction = new RotateToAction(rotation, 80, gameObject, true);
-		//Remove freight from stockpile of producer
-		SpawnFreightAction spawnFreightAction = new SpawnFreightAction(resourceData, landingPlatform);
-		AnimateShipCollectAction animateShipCollectAction = new AnimateShipCollectAction();
-		AnimateLoadingPlatformOpenAction animateLoadingPlatformOpenAction = new AnimateLoadingPlatformOpenAction();
-		ParentFreightAction connectFreightToShipAction = new ParentFreightAction(landingPlatform , gameObject);
-		AnimateShipIdleAction animateShipIdleAction = new AnimateShipIdleAction();
-		AnimateLoadingPlatformCloseAction animateLoadingPlatformCloseAction = new AnimateLoadingPlatformCloseAction();
-
-		actionList.PushAction(rotateToAction);
-		actionList.PushAction(spawnFreightAction);
-		actionList.PushAction(animateShipCollectAction);
-		actionList.PushAction(animateLoadingPlatformOpenAction);
+		//Collect
+		actionList.PushAction(new RotateToAction(rotation, 80, gameObject, true));
+		actionList.PushAction(new SpawnFreightAction(resourceData, landingPlatform));
+		actionList.PushAction(new AnimateShipCollectAction());
+		actionList.PushAction(new AnimateLoadingPlatformOpenAction());
 		actionList.PushAction(new SyncAction());
-		actionList.PushAction(connectFreightToShipAction);
-		actionList.PushAction(animateShipIdleAction);
-		actionList.PushAction(animateLoadingPlatformCloseAction);
+		actionList.PushAction(new DelayAction(2)); //for testing
+		actionList.PushAction(new ParentFreightToShipAction(landingPlatform, gameObject));
+		actionList.PushAction(new AnimateShipIdleAction());
+		actionList.PushAction(new AnimateLoadingPlatformCloseAction());
 
-		DelayAction delayAction = new DelayAction(2);
-		actionList.PushAction(delayAction);
+		actionList.PushAction(new DelayAction(2));
 	}
 
 	public override void OnInitialise()

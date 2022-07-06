@@ -7,20 +7,25 @@ public class ActionListTest : MonoBehaviour
 {
 	public Transform[] transforms;
 	public Farm farm;
+	public Town town;
 
-	public ShipTest shiptest;
+	public GameObject shiptest;
 
 	ActionList actionList;
 	private void Start()
 	{
 		actionList = new ActionList();
 
-		CollectAction collectAction = new CollectAction(shiptest.gameObject, farm, farm.GetProducedResources()[0]);
+		CollectAction collectAction = new CollectAction(shiptest, farm, farm.GetProducedResources()[0]);
 		actionList.PushAction(collectAction);
+
+		DeliverAction deliverAction = new DeliverAction(shiptest, town, farm.GetProducedResources()[0]);
+		actionList.PushAction(deliverAction);
+
 
 		foreach (Transform transform in transforms)
 		{
-			MoveAction moveAction = new MoveAction(shiptest.gameObject, transform.position);
+			MoveAction moveAction = new MoveAction(shiptest, transform.position);
 			actionList.PushAction(moveAction);
 		}
 
