@@ -8,7 +8,7 @@ public class SpawnFreightAction : Action
 	private ResourceData resourceData;
 	private LandingPlatform landingPlatform;
 
-	public SpawnFreightAction(ResourceData resourceData, LandingPlatform landingPlatform)
+	public SpawnFreightAction(ResourceData resourceData, LandingPlatform landingPlatform) : base(true)
 	{
 		this.resourceData = resourceData;
 		this.landingPlatform = landingPlatform;

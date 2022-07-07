@@ -13,4 +13,10 @@ public class MoveAction : HierarchicalAction
 		actionList.PushAction(new MoveToAction(target, 5, gameObject, true));
 		actionList.PushAction(new AnimateShipIdleAction());
 	}
+
+	public override void OnInitialise()
+	{
+		base.OnInitialise();
+		//If alreayd here quit
+	}
 }

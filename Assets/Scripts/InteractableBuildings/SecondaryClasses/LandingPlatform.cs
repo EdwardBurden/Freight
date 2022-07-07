@@ -8,14 +8,17 @@ public class LandingPlatform : MonoBehaviour
 	[SerializeField]
 	private GameObject freightSpawnTransform;
 
+	[SerializeField]
+	private GameObject landingSpot;
+
 	internal Vector3 GetLandingPosition()
 	{
-		return this.transform.position;
+		return landingSpot.transform.position;
 	}
 
 	internal Quaternion GetLandingRotation()
 	{
-		return this.transform.rotation;
+		return landingSpot.transform.rotation;
 	}
 
 	internal Transform GetFreightSpawnTransform()

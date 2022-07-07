@@ -5,9 +5,26 @@ using UnityEngine;
 
 public class AnimateLoadingPlatformCloseAction : AnimateAction
 {
-	public override void OnUpdate()
+	private LandingPlatform landingPlatform;
+
+	public AnimateLoadingPlatformCloseAction(LandingPlatform landingPlatform) : base(landingPlatform.GetComponent<Animator>())
 	{
-		isFinished = true;
+		this.landingPlatform = landingPlatform;
+
 	}
 
+
+	public override void OnUpdate()
+	{
+		if (animator.GetCurrentAnimatorStateInfo(0).IsName("Close") && !AnimatorIsPlaying())
+		{
+			isFinished = true;
+		}
+	}
+
+	public override void OnInitialise()
+	{
+		base.OnInitialise();
+		animator.SetBool("Open", false);
+	}
 }

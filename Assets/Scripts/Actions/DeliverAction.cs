@@ -28,17 +28,19 @@ public class DeliverAction : HierarchicalAction
 		actionList.PushAction(moveAction);
 
 		//Deliver
-		actionList.PushAction(new RotateToAction(rotation, 80, gameObject, true));
-		actionList.PushAction(new AnimateShipDeliverAction());
-		actionList.PushAction(new AnimateLoadingPlatformOpenAction());
+		actionList.PushAction(new RotateToAction(rotation, 80, gameObject, true)); //block
+		actionList.PushAction(new AnimateShipLandAction(null)); //not block
+		actionList.PushAction(new AnimateLoadingPlatformOpenAction(landingPlatform));//not block
 		actionList.PushAction(new SyncAction());
 		actionList.PushAction(new DelayAction(2));
-		actionList.PushAction(new ParentFreightToPlatformAction(landingPlatform, gameObject, resourceData));
-		actionList.PushAction(new AnimateShipIdleAction());
-		actionList.PushAction(new AnimateLoadingPlatformCloseAction());
-		actionList.PushAction(new DestoryFreightAction(landingPlatform));
 
+		actionList.PushAction(new AnimateShipDeliverAction());//block
+		actionList.PushAction(new ParentFreightToPlatformAction(landingPlatform, gameObject, resourceData));//block
+		actionList.PushAction(new AnimateShipIdleAction()); //not block
+		actionList.PushAction(new AnimateLoadingPlatformCloseAction(landingPlatform)); //not block
+		actionList.PushAction(new SyncAction());
 		actionList.PushAction(new DelayAction(2));
+		actionList.PushAction(new DestoryFreightAction(landingPlatform));
 	}
 
 	public override void OnInitialise()
