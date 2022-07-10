@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca7fe997860ae8947a5b18b0ad9e8763, type: 3}
   m_Name: Resource1
   m_EditorClassIdentifier: 
-  freightPrefab: {fileID: 466618088437455616, guid: bc993f97bf207924eae676c79eacbb61, type: 3}
+  freightPrefab: {fileID: 2785265033204548586, guid: bc993f97bf207924eae676c79eacbb61, type: 3}

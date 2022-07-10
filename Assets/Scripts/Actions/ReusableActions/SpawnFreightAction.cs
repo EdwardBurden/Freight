@@ -23,6 +23,7 @@ public class SpawnFreightAction : Action
 	{
 		base.OnInitialise();
 		Transform transform = landingPlatform.GetFreightSpawnTransform();
-		GameObject.Instantiate(resourceData.freightPrefab, transform);
+		FreightObject freight = GameObject.Instantiate(resourceData.freightPrefab, transform) as FreightObject;
+		freight.resourceData = resourceData;
 	}
 }

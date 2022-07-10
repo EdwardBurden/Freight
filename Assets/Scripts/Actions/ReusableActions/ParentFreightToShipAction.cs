@@ -6,9 +6,9 @@ using UnityEngine;
 public class ParentFreightToShipAction : Action
 {
 	private LandingPlatform landingPlatform;
-	private GameObject ship;
+	private CarryObject ship;
 
-	public ParentFreightToShipAction(LandingPlatform landingPlatform, GameObject ship)
+	public ParentFreightToShipAction(LandingPlatform landingPlatform, CarryObject ship)
 	{
 		this.landingPlatform = landingPlatform;
 		this.ship = ship;
@@ -23,6 +23,6 @@ public class ParentFreightToShipAction : Action
 	{
 		base.OnInitialise();
 		GameObject freight = landingPlatform.GetActiveFreight();
-		freight.transform.parent = ship.transform;
+		freight.transform.parent = ship.GetFirstEmptyStorageTransform();
 	}
 }

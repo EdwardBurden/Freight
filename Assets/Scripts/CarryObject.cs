@@ -26,10 +26,28 @@ public class CarryObject : MonoBehaviour //goes on ship for carrying stuff
 	}
 
 
-	public Vector3 GetStorageTransformOffset(ResourceData resourceData) //use to add to platform postion before landing at platforms
+	public FreightObject GetFreightOfResource(ResourceData resourceData) //use to add to platform postion before landing at platforms
 	{
 		FreightObject freightObject = GetAllFreight().Find(x => x.resourceData == resourceData);
-		return freightObject.transform.parent.localPosition;
+		return freightObject;
+	}
+
+	public Transform GetFirstStorageTransformOfResource(ResourceData resourceData) //use to add to platform postion before landing at platforms
+	{
+		FreightObject freightObject = GetAllFreight().Find(x => x.resourceData == resourceData);
+		return freightObject.transform.parent.transform;
+	}
+
+	public Transform GetFirstEmptyStorageTransform() //use to add to platform postion before landing at platforms
+	{
+		foreach (var item in storageTransforms)
+		{
+			if (item.childCount == 0)
+			{
+				return item.transform;
+			}
+		}
+		return null;
 	}
 
 }

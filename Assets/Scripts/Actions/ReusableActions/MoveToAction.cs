@@ -26,7 +26,7 @@ public class MoveToAction : GameObjectAction
 
 	private bool IsAtLocation()
 	{
-		return Vector3.Distance(gameObject.transform.position, position) < 0.1f;
+		return Vector3.Distance(gameObject.transform.position, position) < 0.01f;
 	}
 
 	private void MoveTo()

@@ -6,10 +6,10 @@ using UnityEngine;
 public class ParentFreightToPlatformAction : Action
 {
 	private LandingPlatform landingPlatform;
-	private GameObject ship;
+	private CarryObject ship;
 	private ResourceData resourceData;
 
-	public ParentFreightToPlatformAction(LandingPlatform landingPlatform, GameObject ship, ResourceData resourceData)
+	public ParentFreightToPlatformAction(LandingPlatform landingPlatform, CarryObject ship, ResourceData resourceData)
 	{
 		this.landingPlatform = landingPlatform;
 		this.ship = ship;
@@ -26,7 +26,7 @@ public class ParentFreightToPlatformAction : Action
 		base.OnInitialise();
 		//GET Selected FreightFromShip, for now just get freight gameobject 
 
-		Transform freight = ship.transform.GetChild(1);
-		freight.parent = landingPlatform.GetFreightSpawnTransform();
+		FreightObject freight = ship.GetFreightOfResource(resourceData);
+		freight.transform.parent = landingPlatform.GetFreightSpawnTransform();
 	}
 }

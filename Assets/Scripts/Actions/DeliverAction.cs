@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class DeliverAction : HierarchicalAction
 {
-	private GameObject gameObject;
+	private CarryObject carryObject;
 	private IConsumer consumer;
 	private ResourceData resourceData;
-	public DeliverAction(GameObject gameObject, IConsumer target, ResourceData resourceTarget) : base()
+	public DeliverAction(CarryObject carryObject, IConsumer target, ResourceData resourceTarget) : base()
 	{
-		this.gameObject = gameObject;
+		this.carryObject = carryObject;
 		this.consumer = target;
 		this.resourceData = resourceTarget;
 		CreateActions();
@@ -21,21 +21,20 @@ public class DeliverAction : HierarchicalAction
 	{
 		LandingPlatform landingPlatform = consumer.GetLandingPlatform();
 		Vector3 position = landingPlatform.GetLandingPosition();
-		Quaternion rotation = landingPlatform.GetLandingRotation();
 
 		//Move
-		MoveAction moveAction = new MoveAction(gameObject, position);
+		MoveAction moveAction = new MoveAction(carryObject.gameObject, position);
 		actionList.PushAction(moveAction);
 
 		//Deliver
-		actionList.PushAction(new RotateToAction(rotation, 80, gameObject, true)); //block
+		actionList.PushAction(new AlignShipForDeliveryAction(carryObject ,resourceData , landingPlatform)); //block
 		actionList.PushAction(new AnimateShipLandAction(null)); //not block
 		actionList.PushAction(new AnimateLoadingPlatformOpenAction(landingPlatform));//not block
 		actionList.PushAction(new SyncAction());
 		actionList.PushAction(new DelayAction(2));
 
 		actionList.PushAction(new AnimateShipDeliverAction());//block
-		actionList.PushAction(new ParentFreightToPlatformAction(landingPlatform, gameObject, resourceData));//block
+		actionList.PushAction(new ParentFreightToPlatformAction(landingPlatform, carryObject, resourceData));//block
 		actionList.PushAction(new AnimateShipIdleAction()); //not block
 		actionList.PushAction(new AnimateLoadingPlatformCloseAction(landingPlatform)); //not block
 		actionList.PushAction(new SyncAction());

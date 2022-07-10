@@ -22,13 +22,11 @@ public class CollectAction : HierarchicalAction
 	{
 		LandingPlatform landingPlatform = producer.GetLandingPlatform();
 		Vector3 position = landingPlatform.GetLandingPosition();
-		Quaternion rotation = landingPlatform.GetLandingRotation();
-
 		//Move
 		actionList.PushAction(new MoveAction(carryObject.gameObject, position));
 
 		//Collect
-		actionList.PushAction(new RotateToAction(rotation, 80, carryObject.gameObject, true));//block
+		actionList.PushAction(new AlignShipForCollectionAction(carryObject, landingPlatform)); //block
 		actionList.PushAction(new SpawnFreightAction(resourceData, landingPlatform)); //block
 		actionList.PushAction(new AnimateShipLandAction(null)); //not block
 		actionList.PushAction(new AnimateLoadingPlatformOpenAction(landingPlatform));    //not block
@@ -36,7 +34,7 @@ public class CollectAction : HierarchicalAction
 		actionList.PushAction(new DelayAction(2));
 
 		actionList.PushAction(new AnimateShipCollectAction()); //block
-		actionList.PushAction(new ParentFreightToShipAction(landingPlatform, carryObject.gameObject)); //block
+		actionList.PushAction(new ParentFreightToShipAction(landingPlatform, carryObject)); //block
 		actionList.PushAction(new AnimateShipIdleAction()); //not block
 		actionList.PushAction(new AnimateLoadingPlatformCloseAction(landingPlatform)); //not block
 		actionList.PushAction(new SyncAction());
