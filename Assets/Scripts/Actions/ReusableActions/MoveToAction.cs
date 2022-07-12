@@ -1,15 +1,13 @@
 using ActionLists;
 using UnityEngine;
 
-public class MoveToAction : GameObjectAction
+public class MoveToAction : ShipAction
 {
 	Vector3 position;
-	float speed;
 
-	public MoveToAction(Vector3 position, float speed, GameObject gameObject, bool isBlocking) : base(gameObject, isBlocking)
+	public MoveToAction(Vector3 position, ShipObject shipObject, bool isBlocking) : base(shipObject, isBlocking)
 	{
 		this.position = position;
-		this.speed = speed;
 	}
 
 	public override void OnUpdate()
@@ -26,14 +24,14 @@ public class MoveToAction : GameObjectAction
 
 	private bool IsAtLocation()
 	{
-		return Vector3.Distance(gameObject.transform.position, position) < 0.01f;
+		return Vector3.Distance(shipObject.transform.position, position) < 0.01f;
 	}
 
 	private void MoveTo()
 	{
-		Vector3 direction = position - gameObject.transform.position;
+		Vector3 direction = position - shipObject.transform.position;
 		direction.Normalize();
-		gameObject.transform.position += direction * Time.deltaTime * speed;
+		shipObject.transform.position += direction * Time.deltaTime * shipObject.speed;
 	}
 
 }

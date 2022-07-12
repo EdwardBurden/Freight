@@ -503,7 +503,7 @@ MonoBehaviour:
   farm2: {fileID: 156535045}
   town: {fileID: 826474448}
   town2: {fileID: 1559183225}
-  shiptest: {fileID: 2040440434}
+  shiptest: {fileID: 2040440435}
 --- !u!1 &1541683782
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,15 +718,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6705d70786f2f0488b8cb521f51dbd8, type: 3}
---- !u!114 &2040440434 stripped
+--- !u!114 &2040440435 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2040440434, guid: b6705d70786f2f0488b8cb521f51dbd8, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3659785250157394400, guid: b6705d70786f2f0488b8cb521f51dbd8, type: 3}
   m_PrefabInstance: {fileID: 2040440431}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d78af42f8da8934d81d016d476fee4a, type: 3}
+  m_Script: {fileID: 11500000, guid: 2417ca225a92b914a8c556d7c1799f31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2065846747

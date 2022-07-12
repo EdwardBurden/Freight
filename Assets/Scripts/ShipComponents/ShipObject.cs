@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //base ship class
-public class ShipObject : MonoBehaviour
+public class ShipObject : InteractableObject
 {
-	public virtual void OnSelected() { }
+	public int speed; //TODO get from scriptable
+	public int turnSpeed;
 
-	public virtual void OnDeselected() { }
+
+	public virtual void OnShipSelected() { }
+
+	public virtual void OnShipDeselected() { }
 }

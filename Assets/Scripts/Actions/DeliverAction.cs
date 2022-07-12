@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class DeliverAction : HierarchicalAction
 {
+	private ShipObject shipObject;
 	private CarryObject carryObject;
 	private IConsumer consumer;
 	private ResourceData resourceData;
-	public DeliverAction(CarryObject carryObject, IConsumer target, ResourceData resourceTarget) : base()
+	public DeliverAction(ShipObject shipObject, CarryObject carryObject, IConsumer target, ResourceData resourceTarget) : base()
 	{
+		this.shipObject = shipObject;
 		this.carryObject = carryObject;
 		this.consumer = target;
 		this.resourceData = resourceTarget;
@@ -23,11 +25,11 @@ public class DeliverAction : HierarchicalAction
 		Vector3 position = landingPlatform.GetLandingPosition();
 
 		//Move
-		MoveAction moveAction = new MoveAction(carryObject.gameObject, position);
+		MoveAction moveAction = new MoveAction(shipObject, position);
 		actionList.PushAction(moveAction);
 
 		//Deliver
-		actionList.PushAction(new AlignShipForDeliveryAction(carryObject ,resourceData , landingPlatform)); //block
+		actionList.PushAction(new AlignShipForDeliveryAction(shipObject, carryObject, resourceData, landingPlatform)); //block
 		actionList.PushAction(new AnimateShipLandAction(null)); //not block
 		actionList.PushAction(new AnimateLoadingPlatformOpenAction(landingPlatform));//not block
 		actionList.PushAction(new SyncAction());

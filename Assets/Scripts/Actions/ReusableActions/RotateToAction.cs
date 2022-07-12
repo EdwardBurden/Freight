@@ -3,14 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RotateToAction : GameObjectAction
+public class RotateToAction : ShipAction
 {
 	Quaternion rotation;
-	float turnSpeed;
-	public RotateToAction(Quaternion rotation, float speed, GameObject gameObject, bool isBlocking = false) : base(gameObject, isBlocking)
+	public RotateToAction(Quaternion rotation, ShipObject shipObject, bool isBlocking = false) : base(shipObject, isBlocking)
 	{
 		this.rotation = rotation;
-		turnSpeed = speed;
 	}
 
 	public override void OnUpdate()
@@ -27,14 +25,14 @@ public class RotateToAction : GameObjectAction
 
 	private bool IsAtRotation()
 	{
-		return Mathf.Approximately(Mathf.Abs(Quaternion.Dot(gameObject.transform.rotation, rotation)), 1.0f);
+		return Mathf.Approximately(Mathf.Abs(Quaternion.Dot(shipObject.transform.rotation, rotation)), 1.0f);
 
 	}
 
 
 	private void RotateTo()
 	{
-		gameObject.transform.rotation = Quaternion.RotateTowards(gameObject.transform.rotation, rotation, turnSpeed * Time.deltaTime);
+		shipObject.transform.rotation = Quaternion.RotateTowards(shipObject.transform.rotation, rotation, shipObject.turnSpeed * Time.deltaTime);
 
 	}
 }

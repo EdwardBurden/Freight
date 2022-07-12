@@ -11,28 +11,30 @@ public class ActionListTest : MonoBehaviour
 	public Town town;
 	public Town town2;
 
-	public CarryObject shiptest;
+	public ShipObject shiptest;
 
 	ActionList actionList;
 	private void Start()
 	{
 		actionList = new ActionList();
 
-		CollectAction collectAction = new CollectAction(shiptest, farm, farm.GetProducedResources()[0]);
+		CarryObject carryObject = shiptest.GetComponent<CarryObject>();
+
+		CollectAction collectAction = new CollectAction(shiptest, carryObject, farm, farm.GetProducedResources()[0]);
 		actionList.PushAction(collectAction);
 
-		CollectAction collect2Action = new CollectAction(shiptest, farm2, farm2.GetProducedResources()[0]);
+		CollectAction collect2Action = new CollectAction(shiptest, carryObject, farm2, farm2.GetProducedResources()[0]);
 		actionList.PushAction(collect2Action);
 
-		DeliverAction deliverAction = new DeliverAction(shiptest, town, farm.GetProducedResources()[0]);
+		DeliverAction deliverAction = new DeliverAction(shiptest, carryObject, town, farm.GetProducedResources()[0]);
 		actionList.PushAction(deliverAction);
 
-		DeliverAction deliver2Action = new DeliverAction(shiptest, town2, farm2.GetProducedResources()[0]);
+		DeliverAction deliver2Action = new DeliverAction(shiptest, carryObject, town2, farm2.GetProducedResources()[0]);
 		actionList.PushAction(deliver2Action);
 
 		foreach (Transform transform in transforms)
 		{
-			MoveAction moveAction = new MoveAction(shiptest.gameObject, transform.position);
+			MoveAction moveAction = new MoveAction(shiptest, transform.position);
 			actionList.PushAction(moveAction);
 		}
 

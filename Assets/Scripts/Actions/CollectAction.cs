@@ -5,13 +5,15 @@ using UnityEngine;
 
 public class CollectAction : HierarchicalAction
 {
+	private ShipObject shipObject;
 	private CarryObject carryObject;
 	private IProducer producer;
 	private ResourceData resourceData;
 
 
-	public CollectAction(CarryObject carryObject, IProducer target, ResourceData resourceTarget) : base()
+	public CollectAction(ShipObject shipObject, CarryObject carryObject, IProducer target, ResourceData resourceTarget) : base()
 	{
+		this.shipObject = shipObject;
 		this.carryObject = carryObject;
 		this.producer = target;
 		this.resourceData = resourceTarget;
@@ -23,10 +25,10 @@ public class CollectAction : HierarchicalAction
 		LandingPlatform landingPlatform = producer.GetLandingPlatform();
 		Vector3 position = landingPlatform.GetLandingPosition();
 		//Move
-		actionList.PushAction(new MoveAction(carryObject.gameObject, position));
+		actionList.PushAction(new MoveAction(shipObject, position));
 
 		//Collect
-		actionList.PushAction(new AlignShipForCollectionAction(carryObject, landingPlatform)); //block
+		actionList.PushAction(new AlignShipForCollectionAction(shipObject, carryObject, landingPlatform)); //block
 		actionList.PushAction(new SpawnFreightAction(resourceData, landingPlatform)); //block
 		actionList.PushAction(new AnimateShipLandAction(null)); //not block
 		actionList.PushAction(new AnimateLoadingPlatformOpenAction(landingPlatform));    //not block

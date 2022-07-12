@@ -39,12 +39,12 @@ public class ShipManager : MonoBehaviour
 	private void SelectShipObject(ShipObject shipObject)
 	{
 		this.shipObject = shipObject;
-		this.shipObject.OnSelected();
+		this.shipObject.OnShipSelected();
 	}
 
 	private void DeSelectShipObject()
 	{
-		shipObject.OnDeselected();
+		shipObject.OnShipDeselected();
 		shipObject = null;
 	}
 }
