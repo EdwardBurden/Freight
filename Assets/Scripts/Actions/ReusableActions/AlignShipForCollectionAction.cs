@@ -20,7 +20,7 @@ public class AlignShipForCollectionAction : HierarchicalAction
 		offset = carryObject.GetFirstEmptyStorageTransform().localPosition;
 		Vector3 position = landingPlatform.GetLandingPosition();
 		Quaternion rotation = landingPlatform.GetLandingRotation();
-		actionList.PushAction(new RotateToAction(rotation, 40, carryObject.gameObject, true)); //block
+		actionList.PushAction(new RotateToAction(rotation, 40, carryObject.gameObject, false)); //block
 		actionList.PushAction(new MoveToAction(position - (rotation * offset), 2, carryObject.gameObject, false)); //no block
 	}
 }
