@@ -1,6 +1,4 @@
 using ActionLists;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RotateToAction : ShipObjectAction
@@ -26,9 +24,7 @@ public class RotateToAction : ShipObjectAction
 	private bool IsAtRotation()
 	{
 		return Mathf.Approximately(Mathf.Abs(Quaternion.Dot(shipObject.transform.rotation, rotation)), 1.0f);
-
 	}
-
 
 	private void RotateTo()
 	{

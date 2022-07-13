@@ -6,7 +6,6 @@ using UnityEngine.Events;
 [SelectionBase]
 public class InteractableObject : MonoBehaviour
 {
-	//use events for highlights etc
 	[SerializeField]
 	private UnityEvent OnHoverEvent;
 	[SerializeField]

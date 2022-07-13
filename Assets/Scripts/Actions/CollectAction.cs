@@ -11,7 +11,7 @@ public class CollectAction : ShipAction
 	private ResourceData resourceData;
 
 
-	public CollectAction( ShipObject shipObject, IProducer target, ResourceData resourceTarget) : base()
+	public CollectAction(ShipActionDefintion shipActionDefintion, ShipObject shipObject, IProducer target, ResourceData resourceTarget) : base(shipActionDefintion)
 	{
 		this.shipObject = shipObject;
 		this.carryObject = shipObject.GetComponent<CarryObject>();
@@ -25,23 +25,18 @@ public class CollectAction : ShipAction
 		LandingPlatform landingPlatform = producer.GetLandingPlatform();
 		Vector3 position = landingPlatform.GetLandingPosition();
 		//Move
-		actionList.PushAction(new AnimateShipLookAtAction());
 		actionList.PushAction(new LookAtAction(position, shipObject, true));
 		actionList.PushAction(new SyncAction());
 		actionList.PushAction(new MoveToAction(position, shipObject, true));
-		actionList.PushAction(new AnimateShipIdleAction());
 
 		//Collect
 		actionList.PushAction(new AlignShipForCollectionAction(shipObject, carryObject, landingPlatform)); //block
 		actionList.PushAction(new SpawnFreightAction(resourceData, landingPlatform)); //block
-		actionList.PushAction(new AnimateShipLandAction(null)); //not block
 		actionList.PushAction(new AnimateLoadingPlatformOpenAction(landingPlatform));    //not block
 		actionList.PushAction(new SyncAction());
 		actionList.PushAction(new DelayAction(2));
 
-		actionList.PushAction(new AnimateShipCollectAction()); //block
 		actionList.PushAction(new ParentFreightToShipAction(landingPlatform, carryObject)); //block
-		actionList.PushAction(new AnimateShipIdleAction()); //not block
 		actionList.PushAction(new AnimateLoadingPlatformCloseAction(landingPlatform)); //not block
 		actionList.PushAction(new SyncAction());
 		actionList.PushAction(new DelayAction(2));
@@ -52,7 +47,7 @@ public class CollectAction : ShipAction
 		base.OnInitialise();
 		if (!CheckShipIsValid() || !CheckProducerIsValid())
 		{
-			//Alert User
+			//TODO Alert User
 			actionList.Clear();
 			isFinished = true;
 		}
@@ -61,6 +56,7 @@ public class CollectAction : ShipAction
 
 	private bool CheckShipIsValid()
 	{
+		//TODO
 		//check ship has space to collect
 		return true;
 
@@ -68,7 +64,8 @@ public class CollectAction : ShipAction
 
 	private bool CheckProducerIsValid()
 	{
-		//check producer has the resource type
+		//TODO
+	 //check producer has the resource type
 		return true;
 
 	}

@@ -5,10 +5,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI
-{
+{//TODO
 	public class InteractionActionOptionsDialog : MonoBehaviour
 	{
 		public static event Action<ShipAction> ShipActionCreatedEvent;
+
+		[SerializeField]
+		private Camera camera;
 
 		[SerializeField]
 		private GameObject root;
@@ -79,8 +82,12 @@ namespace UI
 
 		private void Open(Vector3 positionInWorld)
 		{
-			//Vector3 hit = Camera.main.WorldToScreenPoint(positionInWorld);
-			//root.transform.position = hit;
+
+Vector3 hit = camera.WorldToScreenPoint(positionInWorld);
+
+
+			//now you can set the position of the ui element
+			root.transform.GetComponent<RectTransform>().position = hit;
 			Show();
 		}
 		public void Show()

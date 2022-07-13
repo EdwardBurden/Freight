@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//TODO
 public class SelectResourceDialog : MonoBehaviour
 {
 	private Action<ResourceData> resourceSelectedCallback;

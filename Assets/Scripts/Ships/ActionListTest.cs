@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ActionLists;
-
+//TODO
 public class ActionListTest : MonoBehaviour
 {
 
@@ -20,7 +20,7 @@ public class ActionListTest : MonoBehaviour
 	{
 		actionList = new ActionList();
 
-		CollectAction collectAction = new CollectAction(shiptest, farm, farm.GetProducedResources()[0]);
+		/*CollectAction collectAction = new CollectAction(shiptest, farm, farm.GetProducedResources()[0]);
 		actionList.PushAction(collectAction);
 
 		CollectAction collect2Action = new CollectAction(shiptest, farm2, farm2.GetProducedResources()[0]);
@@ -37,7 +37,7 @@ public class ActionListTest : MonoBehaviour
 			MoveAction moveAction = new MoveAction(shiptest, transform.position);
 			actionList.PushAction(moveAction);
 		}
-
+		*/
 	}
 
 	private void Update()

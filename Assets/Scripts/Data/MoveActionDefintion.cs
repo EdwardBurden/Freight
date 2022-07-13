@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//TODO
 [CreateAssetMenu(menuName = "ScriptableObject/MoveActionDefintion")]
 public class MoveActionDefintion : ShipActionDefintion
 {
@@ -10,12 +11,8 @@ public class MoveActionDefintion : ShipActionDefintion
 		return true;
 	}
 
-
-
 	public override void OnOptionSelected(ShipObject shipObject, InteractableObject interactableObject, Vector3 clickPostion, Action<ShipAction> callback)
 	{
-		MoveAction moveAction = new MoveAction(shipObject, clickPostion);
-		callback.Invoke(moveAction);
-		//open slect resource ui , with callback (resource) =>  OnResourceSelected(shipObject, interactableObject ,clickPostion,resource , Action<ShipAction> callback);
+		callback.Invoke(new MoveAction(this, shipObject, clickPostion));
 	}
 }

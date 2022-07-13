@@ -1,5 +1,6 @@
 
 //base ship class
+using ActionLists;
 using System;
 using System.Collections.Generic;
 
@@ -14,8 +15,8 @@ public class ShipObject : InteractableObject
 
 	public virtual void OnShipDeselected() { }
 
-	internal ShipActionList GetActionList()
+	internal ActionList GetActionList()
 	{
-		throw new NotImplementedException();
+		throw new NotImplementedException();//TODO
 	}
 }

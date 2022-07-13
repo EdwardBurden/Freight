@@ -45,7 +45,7 @@ public class ShipManager : Singleton<ShipManager>
 	{
 		InteractionActionOptionsDialog.ShipActionCreatedEvent -= InteractionActionOptionsDialog_ShipActionCreatedEvent;
 		//add to list
-		throw new Exception();
+		throw new Exception();//TODO
 	}
 
 	private ShipActionDefintion[] GetAvailableActions(InteractableObject obj, Vector3 worldClickPosition)

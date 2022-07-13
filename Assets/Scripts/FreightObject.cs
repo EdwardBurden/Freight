@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class FreightObject : MonoBehaviour
 {
-	public ResourceData resourceData;
+	public ResourceData resourceData;//TODO
 }

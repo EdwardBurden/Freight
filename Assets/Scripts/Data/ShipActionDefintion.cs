@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//TODO
 public abstract class ShipActionDefintion : ScriptableObject
 {
 	public string actionName;

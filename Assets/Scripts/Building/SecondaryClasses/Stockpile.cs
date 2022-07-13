@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//TODO
 public class Stockpile
 {
 	private Dictionary<ResourceData, int> resourceAmounts = new Dictionary<ResourceData, int>();

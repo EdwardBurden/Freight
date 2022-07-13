@@ -16,6 +16,7 @@ public class MouseInteractionTracker : MonoBehaviour
 	public static event Action<InteractableObject> mouseHoveredOffInteractable;
 
 	public static event Action LeftClickNonInteractableEvent;
+	public static event Action RightClickNonInteractableEvent;
 	public static event Action<InteractableObject, Vector3> LeftClickInteractableEvent;
 	public static event Action<InteractableObject, Vector3> RightClickInteractableEvent;
 
@@ -99,6 +100,7 @@ public class MouseInteractionTracker : MonoBehaviour
 		}
 		else
 		{
+			RightClickNonInteractableEvent?.Invoke();
 		}
 	}
 }

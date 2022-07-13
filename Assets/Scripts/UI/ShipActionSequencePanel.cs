@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace UI
+namespace UI//TODO
 {
 	//show list of actions , updates as actions finish
 	public class ShipActionSequencePanel : MonoBehaviour

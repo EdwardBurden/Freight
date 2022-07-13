@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class LookAtAction : ShipObjectAction
 {
-	Vector3 target;
+	private Vector3 target;
 
 	public LookAtAction(Vector3 position, ShipObject shipObject, bool isBlocking = false) : base(shipObject, isBlocking)
 	{

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MoveToAction : ShipObjectAction
 {
-	Vector3 position;
+	private Vector3 position;
 
 	public MoveToAction(Vector3 position, ShipObject shipObject, bool isBlocking) : base(shipObject, isBlocking)
 	{

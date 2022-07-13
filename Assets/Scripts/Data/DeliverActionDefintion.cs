@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//TODO
 [CreateAssetMenu(menuName = "ScriptableObject/DeliverActionDefintion")]
 public class DeliverActionDefintion : ShipActionDefintion
 {
@@ -27,7 +28,7 @@ public class DeliverActionDefintion : ShipActionDefintion
 	private void OnResourceSelected(ShipObject shipObject, InteractableObject interactableObject, Vector3 clickPostion, ResourceData resourceData, Action<ShipAction> callback)
 	{
 		IConsumer consumer = interactableObject.GetComponent<IConsumer>();
-		DeliverAction deliverAction = new DeliverAction(shipObject, consumer, resourceData);
+		DeliverAction deliverAction = new DeliverAction(this,shipObject, consumer, resourceData);
 		callback?.Invoke(deliverAction);
 	}
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/CollectActionDefintion")]
 
+//TODO
 public class CollectActionDefintion : ShipActionDefintion
 {
 	public override bool CanShowOption(ShipObject shipObject, InteractableObject interactableObject, Vector3 clickPostion)
@@ -28,7 +29,7 @@ public class CollectActionDefintion : ShipActionDefintion
 	private void OnResourceSelected(ShipObject shipObject, InteractableObject interactableObject, Vector3 clickPostion, ResourceData resourceData, Action<ShipAction> callback)
 	{
 		IProducer producer = interactableObject.GetComponent<IProducer>();
-		CollectAction collectAction = new CollectAction(shipObject, producer, resourceData);
+		CollectAction collectAction = new CollectAction(this,shipObject, producer, resourceData);
 		callback?.Invoke(collectAction);
 	}
 }

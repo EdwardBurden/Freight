@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class AlignShipForDeliveryAction : HierarchicalAction
 {
-	ShipObject shipObject;
-	CarryObject carryObject;
-	LandingPlatform landingPlatform;
-	Vector3 offset;
-	ResourceData resourceData;
+	private ShipObject shipObject;
+	private CarryObject carryObject;
+	private LandingPlatform landingPlatform;
+	private Vector3 offset;
+	private ResourceData resourceData;
+
 	public AlignShipForDeliveryAction(ShipObject shipObject, CarryObject carryObject, ResourceData resourceData, LandingPlatform landingPlatform) : base()
 	{
 		this.shipObject = shipObject;
@@ -24,6 +25,7 @@ public class AlignShipForDeliveryAction : HierarchicalAction
 		offset = carryObject.GetFirstStorageTransformOfResource(resourceData).localPosition;
 		Vector3 position = landingPlatform.GetLandingPosition();
 		Quaternion rotation = landingPlatform.GetLandingRotation();
+
 		actionList.PushAction(new RotateToAction(rotation, shipObject, false)); //block
 		actionList.PushAction(new MoveToAction(position - (rotation * offset), shipObject, false)); //no block
 	}

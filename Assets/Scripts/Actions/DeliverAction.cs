@@ -9,7 +9,7 @@ public class DeliverAction : ShipAction
 	private CarryObject carryObject;
 	private IConsumer consumer;
 	private ResourceData resourceData;
-	public DeliverAction( ShipObject shipObject, IConsumer target, ResourceData resourceTarget) : base()
+	public DeliverAction(ShipActionDefintion shipActionDefintion, ShipObject shipObject, IConsumer target, ResourceData resourceTarget) : base(shipActionDefintion)
 	{
 		this.shipObject = shipObject;
 		this.carryObject = shipObject.GetComponent<CarryObject>();
@@ -25,22 +25,17 @@ public class DeliverAction : ShipAction
 		Vector3 position = landingPlatform.GetLandingPosition();
 
 		//Move
-		actionList.PushAction(new AnimateShipLookAtAction());
 		actionList.PushAction(new LookAtAction(position, shipObject, true));
 		actionList.PushAction(new SyncAction());
 		actionList.PushAction(new MoveToAction(position, shipObject, true));
-		actionList.PushAction(new AnimateShipIdleAction());
 
 		//Deliver
 		actionList.PushAction(new AlignShipForDeliveryAction(shipObject, carryObject, resourceData, landingPlatform)); //block
-		actionList.PushAction(new AnimateShipLandAction(null)); //not block
 		actionList.PushAction(new AnimateLoadingPlatformOpenAction(landingPlatform));//not block
 		actionList.PushAction(new SyncAction());
 		actionList.PushAction(new DelayAction(2));
 
-		actionList.PushAction(new AnimateShipDeliverAction());//block
 		actionList.PushAction(new ParentFreightToPlatformAction(landingPlatform, carryObject, resourceData));//block
-		actionList.PushAction(new AnimateShipIdleAction()); //not block
 		actionList.PushAction(new AnimateLoadingPlatformCloseAction(landingPlatform)); //not block
 		actionList.PushAction(new SyncAction());
 		actionList.PushAction(new DelayAction(2));
@@ -52,6 +47,7 @@ public class DeliverAction : ShipAction
 		base.OnInitialise();
 		if (!CheckShipIsValid() || !CheckProducerIsValid())
 		{
+			//TODO
 			//Alert User
 			actionList.Clear();
 			isFinished = true;
@@ -61,6 +57,7 @@ public class DeliverAction : ShipAction
 
 	private bool CheckShipIsValid()
 	{
+		//TODO
 		//check ship has the resource to deliver
 		return true;
 
@@ -68,6 +65,7 @@ public class DeliverAction : ShipAction
 
 	private bool CheckProducerIsValid()
 	{
+		//TODO
 		//check consumer accepts the resource
 		return true;
 
