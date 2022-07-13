@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UI
+public enum ShipActions
 {
-	public class UIManager : MonoBehaviour
-	{
-
-	}
+	Move,
+	Collect,
+	Deliver
 }

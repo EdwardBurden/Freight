@@ -1,13 +1,14 @@
 
 //base ship class
 using System;
+using System.Collections.Generic;
 
 public class ShipObject : InteractableObject
 {
 
 	public int speed; //TODO get from scriptable
 	public int turnSpeed;
-
+	public ShipActionDefintion[] shipActions;
 
 	public virtual void OnShipSelected() { }
 

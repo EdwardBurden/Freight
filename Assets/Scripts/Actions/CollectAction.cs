@@ -25,7 +25,11 @@ public class CollectAction : ShipAction
 		LandingPlatform landingPlatform = producer.GetLandingPlatform();
 		Vector3 position = landingPlatform.GetLandingPosition();
 		//Move
-		actionList.PushAction(new MoveAction(shipObject, position));
+		actionList.PushAction(new AnimateShipLookAtAction());
+		actionList.PushAction(new LookAtAction(position, shipObject, true));
+		actionList.PushAction(new SyncAction());
+		actionList.PushAction(new MoveToAction(position, shipObject, true));
+		actionList.PushAction(new AnimateShipIdleAction());
 
 		//Collect
 		actionList.PushAction(new AlignShipForCollectionAction(shipObject, carryObject, landingPlatform)); //block

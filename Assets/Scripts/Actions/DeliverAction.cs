@@ -25,8 +25,11 @@ public class DeliverAction : ShipAction
 		Vector3 position = landingPlatform.GetLandingPosition();
 
 		//Move
-		MoveAction moveAction = new MoveAction(shipObject, position);
-		actionList.PushAction(moveAction);
+		actionList.PushAction(new AnimateShipLookAtAction());
+		actionList.PushAction(new LookAtAction(position, shipObject, true));
+		actionList.PushAction(new SyncAction());
+		actionList.PushAction(new MoveToAction(position, shipObject, true));
+		actionList.PushAction(new AnimateShipIdleAction());
 
 		//Deliver
 		actionList.PushAction(new AlignShipForDeliveryAction(shipObject, carryObject, resourceData, landingPlatform)); //block
