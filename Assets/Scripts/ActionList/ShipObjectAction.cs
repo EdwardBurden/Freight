@@ -2,11 +2,11 @@ using UnityEngine;
 
 namespace ActionLists
 {
-	public abstract class ShipAction : Action
+	public abstract class ShipObjectAction : Action
 	{
 		public ShipObject shipObject;
 
-		public ShipAction(ShipObject shipObject, bool isBlocking = false) : base(isBlocking)
+		public ShipObjectAction(ShipObject shipObject, bool isBlocking = false) : base(isBlocking)
 		{
 			this.shipObject = shipObject;
 		}

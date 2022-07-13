@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 2040440434}
   - component: {fileID: 4651881735626619483}
   - component: {fileID: 3659785250157394400}
+  - component: {fileID: 3467583556009641256}
   m_Layer: 0
   m_Name: Ship1
   m_TagString: Untagged
@@ -175,6 +176,19 @@ MonoBehaviour:
       m_Calls: []
   speed: 2
   turnSpeed: 1
+--- !u!65 &3467583556009641256
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4868325655057865435}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 4, z: 7}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &5542477084402147373
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,7 +1,7 @@
 using ActionLists;
 using UnityEngine;
 
-public class LookAtAction : ShipAction
+public class LookAtAction : ShipObjectAction
 {
 	Vector3 target;
 

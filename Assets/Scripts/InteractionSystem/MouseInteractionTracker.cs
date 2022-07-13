@@ -7,13 +7,17 @@ using static InteractionUtils;
 
 public class MouseInteractionTracker : MonoBehaviour
 {
+	[SerializeField]
+	private Camera mainCamera;
+
 	private InteractableObject localHoverObject;
 
 	public static event Action<InteractableObject> mouseHoveredOnInteractable;
 	public static event Action<InteractableObject> mouseHoveredOffInteractable;
 
-	public static event Action<InteractableObject, Vector3> mouseLeftClickedInteractable;
-	public static event Action<InteractableObject, Vector3> mouseRightClickedInteractable;
+	public static event Action LeftClickNonInteractableEvent;
+	public static event Action<InteractableObject, Vector3> LeftClickInteractableEvent;
+	public static event Action<InteractableObject, Vector3> RightClickInteractableEvent;
 
 	private void Update()
 	{
@@ -21,7 +25,7 @@ public class MouseInteractionTracker : MonoBehaviour
 		{
 			return;
 		}
-		RayCastInfo<InteractableObject> interactionInfo = InteractionUtils.CheckIfObjectIsInFocus<InteractableObject>();
+		RayCastInfo<InteractableObject> interactionInfo = InteractionUtils.CheckIfObjectIsInFocus<InteractableObject>(mainCamera);
 		CheckHoverObject(interactionInfo);
 		CheckClick(interactionInfo);
 	}
@@ -79,12 +83,11 @@ public class MouseInteractionTracker : MonoBehaviour
 	{
 		if (rayCastInfo.focused)
 		{
-			mouseLeftClickedInteractable?.Invoke(rayCastInfo.focusObject, rayCastInfo.hitInfo.point);
-			//rayCastInfo.focusObject.OnLeftClick(); have interaction manger trigger these, as selected/deselected
+			LeftClickInteractableEvent?.Invoke(rayCastInfo.focusObject, rayCastInfo.hitInfo.point);
 		}
 		else
 		{
-		//	mouseLeftClickedNothing?.Invoke();
+			LeftClickNonInteractableEvent?.Invoke();
 		}
 	}
 
@@ -92,12 +95,10 @@ public class MouseInteractionTracker : MonoBehaviour
 	{
 		if (rayCastInfo.focused)
 		{
-			mouseRightClickedInteractable?.Invoke(rayCastInfo.focusObject, rayCastInfo.hitInfo.point);
-		//	rayCastInfo.focusObject.OnRigthClick(); have interaction manger trigger these
+			RightClickInteractableEvent?.Invoke(rayCastInfo.focusObject, rayCastInfo.hitInfo.point);
 		}
 		else
 		{
-			//mouseRightClickedNothing?.Invoke();
 		}
 	}
 }

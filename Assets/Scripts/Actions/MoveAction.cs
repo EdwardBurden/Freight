@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveAction : HierarchicalAction
+public class MoveAction : ShipAction
 {
-	public MoveAction(ShipObject shipObject, Vector3 target) : base()
+	public MoveAction( ShipObject shipObject, Vector3 target) : base()
 	{
 		actionList.PushAction(new AnimateShipLookAtAction());
 		actionList.PushAction(new LookAtAction(target, shipObject, true));

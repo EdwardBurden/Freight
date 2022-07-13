@@ -17,12 +17,12 @@ public static class InteractionUtils
 		}
 	}
 
-	public static RayCastInfo<T> CheckIfObjectIsInFocus<T>() where T : MonoBehaviour
+	public static RayCastInfo<T> CheckIfObjectIsInFocus<T>(Camera camera) where T : MonoBehaviour
 	{
 		RaycastHit hit = new RaycastHit();
 		bool inSight = false;
 		T foundObject = null;
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 		float distance = 10000;
 		RaycastHit[] raycasts = Physics.RaycastAll(ray);
 		for (int i = 0; i < raycasts.Length; i++)

@@ -5,6 +5,8 @@ using ActionLists;
 
 public class ActionListTest : MonoBehaviour
 {
+
+
 	public Transform[] transforms;
 	public Farm farm;
 	public Farm farm2;
@@ -18,18 +20,16 @@ public class ActionListTest : MonoBehaviour
 	{
 		actionList = new ActionList();
 
-		CarryObject carryObject = shiptest.GetComponent<CarryObject>();
-
-		CollectAction collectAction = new CollectAction(shiptest, carryObject, farm, farm.GetProducedResources()[0]);
+		CollectAction collectAction = new CollectAction(shiptest, farm, farm.GetProducedResources()[0]);
 		actionList.PushAction(collectAction);
 
-		CollectAction collect2Action = new CollectAction(shiptest, carryObject, farm2, farm2.GetProducedResources()[0]);
+		CollectAction collect2Action = new CollectAction(shiptest, farm2, farm2.GetProducedResources()[0]);
 		actionList.PushAction(collect2Action);
 
-		DeliverAction deliverAction = new DeliverAction(shiptest, carryObject, town, farm.GetProducedResources()[0]);
+		DeliverAction deliverAction = new DeliverAction(shiptest, town, farm.GetProducedResources()[0]);
 		actionList.PushAction(deliverAction);
 
-		DeliverAction deliver2Action = new DeliverAction(shiptest, carryObject, town2, farm2.GetProducedResources()[0]);
+		DeliverAction deliver2Action = new DeliverAction(shiptest, town2, farm2.GetProducedResources()[0]);
 		actionList.PushAction(deliver2Action);
 
 		foreach (Transform transform in transforms)

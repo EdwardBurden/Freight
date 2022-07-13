@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollectAction : HierarchicalAction
+public class CollectAction : ShipAction
 {
 	private ShipObject shipObject;
 	private CarryObject carryObject;
@@ -11,10 +11,10 @@ public class CollectAction : HierarchicalAction
 	private ResourceData resourceData;
 
 
-	public CollectAction(ShipObject shipObject, CarryObject carryObject, IProducer target, ResourceData resourceTarget) : base()
+	public CollectAction( ShipObject shipObject, IProducer target, ResourceData resourceTarget) : base()
 	{
 		this.shipObject = shipObject;
-		this.carryObject = carryObject;
+		this.carryObject = shipObject.GetComponent<CarryObject>();
 		this.producer = target;
 		this.resourceData = resourceTarget;
 		CreateActions();

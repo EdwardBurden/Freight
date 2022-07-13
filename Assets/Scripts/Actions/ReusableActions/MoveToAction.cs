@@ -1,7 +1,7 @@
 using ActionLists;
 using UnityEngine;
 
-public class MoveToAction : ShipAction
+public class MoveToAction : ShipObjectAction
 {
 	Vector3 position;
 

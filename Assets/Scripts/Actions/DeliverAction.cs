@@ -3,16 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeliverAction : HierarchicalAction
+public class DeliverAction : ShipAction
 {
 	private ShipObject shipObject;
 	private CarryObject carryObject;
 	private IConsumer consumer;
 	private ResourceData resourceData;
-	public DeliverAction(ShipObject shipObject, CarryObject carryObject, IConsumer target, ResourceData resourceTarget) : base()
+	public DeliverAction( ShipObject shipObject, IConsumer target, ResourceData resourceTarget) : base()
 	{
 		this.shipObject = shipObject;
-		this.carryObject = carryObject;
+		this.carryObject = shipObject.GetComponent<CarryObject>();
 		this.consumer = target;
 		this.resourceData = resourceTarget;
 		CreateActions();

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RotateToAction : ShipAction
+public class RotateToAction : ShipObjectAction
 {
 	Quaternion rotation;
 	public RotateToAction(Quaternion rotation, ShipObject shipObject, bool isBlocking = false) : base(shipObject, isBlocking)

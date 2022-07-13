@@ -1,15 +1,27 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ShipManager : MonoBehaviour
 {
-	public ShipObject shipObject;  //object we have selected
+	public static event Action<ShipObject> ShipSelectedEvent;
+	public static event Action<ShipObject> ShipDeSelectedEvent;
+
+	private ShipObject shipObject;  //object we have selected
 
 	private void Awake()
 	{
-		MouseInteractionTracker.mouseLeftClickedInteractable += OnLeftClickInteractable;
-		MouseInteractionTracker.mouseRightClickedInteractable += OnRightClickInteractable;
+		MouseInteractionTracker.LeftClickNonInteractableEvent += DeSelectShipObject;
+		MouseInteractionTracker.LeftClickInteractableEvent += OnLeftClickInteractable;
+		MouseInteractionTracker.RightClickInteractableEvent += OnRightClickInteractable;
+	}
+
+	private void OnDestroy()
+	{
+		MouseInteractionTracker.LeftClickNonInteractableEvent -= DeSelectShipObject;
+		MouseInteractionTracker.LeftClickInteractableEvent -= OnLeftClickInteractable;
+		MouseInteractionTracker.RightClickInteractableEvent -= OnRightClickInteractable;
 	}
 
 	private void OnRightClickInteractable(InteractableObject obj, Vector3 worldClickPosition)
@@ -40,11 +52,14 @@ public class ShipManager : MonoBehaviour
 	{
 		this.shipObject = shipObject;
 		this.shipObject.OnShipSelected();
+		ShipSelectedEvent.Invoke(shipObject);
 	}
 
 	private void DeSelectShipObject()
 	{
-		shipObject.OnShipDeselected();
+		shipObject?.OnShipDeselected();
 		shipObject = null;
+		ShipDeSelectedEvent.Invoke(shipObject);
 	}
 }
+
