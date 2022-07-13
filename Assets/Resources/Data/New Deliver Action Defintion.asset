@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: New Deliver Action Defintion
   m_EditorClassIdentifier: 
   actionName: 
-  iconPrefab: {fileID: 8918794758970724997, guid: a0e730cd055dcde4992a43a0085177b0, type: 3}
+  iconPrefab: {fileID: 1434945959370307695, guid: 6c93d0921a656b14d93a4887eda62546, type: 3}

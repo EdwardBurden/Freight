@@ -6,6 +6,8 @@ using System.Collections.Generic;
 
 public class ShipObject : InteractableObject
 {
+	private ActionList actionList = new ActionList();
+	private bool play = true;
 
 	public int speed; //TODO get from scriptable
 	public int turnSpeed;
@@ -15,8 +17,13 @@ public class ShipObject : InteractableObject
 
 	public virtual void OnShipDeselected() { }
 
-	internal ActionList GetActionList()
+	public void Push(ShipAction shipAction)
 	{
-		throw new NotImplementedException();//TODO
+		actionList.PushAction(shipAction);
+	}
+
+	private void Update()
+	{
+		actionList.Update();
 	}
 }

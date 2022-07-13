@@ -6,46 +6,31 @@ using UnityEngine.UI;
 
 namespace UI
 {//TODO
-	public class InteractionActionOptionsDialog : MonoBehaviour
+	public class ShipActionOptionsScreen : Screen
 	{
+		public static string PATH = "Prefabs/UI/InteractionActionOptionsDialog";
 		public static event Action<ShipAction> ShipActionCreatedEvent;
-
-		[SerializeField]
-		private Camera camera;
-
-		[SerializeField]
-		private GameObject root;
+		public static event Action<ShipAction> ShipActionCreationCancelledEvent;
 
 		[SerializeField]
 		private Transform options;
 
-
 		private ShipObject shipObject;
 		private InteractableObject obj;
-		private ShipActionDefintion[] interactionActions;
 		private Vector3 worldClickPosition;
 
-		private void Awake()
+		public static void Create(ShipObject shipObject, InteractableObject obj, ShipActionDefintion[] interactionActions, Vector3 worldClickPosition)
 		{
-			ShipManager.ShipOptionsOpened += DisplayOptions; //TODO replace with UIMAnager
+
+			ShipActionOptionsScreen screen = Screen.Open(PATH) as ShipActionOptionsScreen;
+			screen.Init(shipObject, obj, interactionActions, worldClickPosition);
+			UIManager.instance.RegisterScreen(screen);
 		}
 
-		private void OnDestroy()
-		{
-			ShipManager.ShipOptionsOpened -= DisplayOptions;// TODO replace with UIMAnager
-		}
-
-
-		private void Start()
-		{
-			Hide();
-		}
-
-		public void DisplayOptions(ShipObject shipObject, InteractableObject obj, ShipActionDefintion[] interactionActions, Vector3 worldClickPosition)
+		public void Init(ShipObject shipObject, InteractableObject obj, ShipActionDefintion[] interactionActions, Vector3 worldClickPosition)
 		{
 			this.shipObject = shipObject;
 			this.obj = obj;
-			this.interactionActions = interactionActions;
 			this.worldClickPosition = worldClickPosition;
 
 
@@ -70,34 +55,21 @@ namespace UI
 
 		private void OptionSelected(ShipActionDefintion interactionOrder)
 		{
-			Hide();
+			//Hide();
 			interactionOrder.OnOptionSelected(shipObject, obj, worldClickPosition, OnSelectionComplete);
 		}
 
 		private void OnSelectionComplete(ShipAction shipAction)
 		{
-			Hide();
+			UIManager.instance.Close(this);
 			ShipActionCreatedEvent?.Invoke(shipAction);
 		}
 
 		private void Open(Vector3 positionInWorld)
 		{
-
-Vector3 hit = camera.WorldToScreenPoint(positionInWorld);
-
-
-			//now you can set the position of the ui element
+			Vector3 hit = Camera.main.WorldToScreenPoint(positionInWorld);
 			root.transform.GetComponent<RectTransform>().position = hit;
-			Show();
-		}
-		public void Show()
-		{
-			root.SetActive(true);
-		}
-
-		public void Hide()
-		{
-			root.SetActive(false);
+			//Show();
 		}
 	}
 }

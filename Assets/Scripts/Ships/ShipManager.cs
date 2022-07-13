@@ -8,7 +8,6 @@ public class ShipManager : Singleton<ShipManager>
 {
 	public static event Action<ShipObject> ShipSelectedEvent;
 	public static event Action<ShipObject> ShipDeSelectedEvent;
-	public static event Action<ShipObject, InteractableObject, ShipActionDefintion[], Vector3> ShipOptionsOpened;
 
 	private ShipObject shipObject;  //object we have selected
 
@@ -36,16 +35,15 @@ public class ShipManager : Singleton<ShipManager>
 			InteractableObject targetInteractableObject = obj;
 			ShipActionDefintion[] interactionActions = GetAvailableActions(targetInteractableObject, worldClickPosition);
 
-			InteractionActionOptionsDialog.ShipActionCreatedEvent += InteractionActionOptionsDialog_ShipActionCreatedEvent;
-			ShipOptionsOpened?.Invoke(shipObject, obj, interactionActions, worldClickPosition);
+			ShipActionOptionsScreen.ShipActionCreatedEvent += InteractionActionOptionsDialog_ShipActionCreatedEvent;
+			ShipActionOptionsScreen.Create(shipObject, obj, interactionActions, worldClickPosition);
 		}
 	}
 
-	private void InteractionActionOptionsDialog_ShipActionCreatedEvent(ShipAction obj)
+	private void InteractionActionOptionsDialog_ShipActionCreatedEvent(ShipAction shipAction)
 	{
-		InteractionActionOptionsDialog.ShipActionCreatedEvent -= InteractionActionOptionsDialog_ShipActionCreatedEvent;
-		//add to list
-		throw new Exception();//TODO
+		ShipActionOptionsScreen.ShipActionCreatedEvent -= InteractionActionOptionsDialog_ShipActionCreatedEvent;
+		shipObject.Push(shipAction);
 	}
 
 	private ShipActionDefintion[] GetAvailableActions(InteractableObject obj, Vector3 worldClickPosition)
@@ -79,14 +77,14 @@ public class ShipManager : Singleton<ShipManager>
 	{
 		this.shipObject = shipObject;
 		this.shipObject.OnShipSelected();
-		ShipSelectedEvent.Invoke(shipObject);
+		ShipSelectedEvent?.Invoke(shipObject);
 	}
 
 	private void DeSelectShipObject()
 	{
 		shipObject?.OnShipDeselected();
 		shipObject = null;
-		ShipDeSelectedEvent.Invoke(shipObject);
+		ShipDeSelectedEvent?.Invoke(shipObject);
 	}
 }
 

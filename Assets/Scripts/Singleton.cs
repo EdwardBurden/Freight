@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Singleton<T> : MonoBehaviour
 {
-	private static T _instance;
+	protected static T _instance;
 
 	public static T instance
 	{
@@ -12,7 +12,7 @@ public class Singleton<T> : MonoBehaviour
 		{
 			if (_instance == null)
 			{
-				Debug.LogError("missing");
+				Debug.LogError($"{typeof(T)} missing");
 			}
 			return _instance;
 		}
