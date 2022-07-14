@@ -8,7 +8,7 @@ namespace UI
 {//TODO
 	public class ShipActionOptionsScreen : Screen
 	{
-		public static string PATH = "Prefabs/UI/InteractionActionOptionsDialog";
+		public static string PATH = "Prefabs/UI/InteractionActionOptionsScreen";
 
 		[SerializeField]
 		private Transform options;
@@ -27,35 +27,18 @@ namespace UI
 		{
 			this.shipActionSelectionInfo = shipActionSelectionInfo;
 			this.callBack = callBack;
-			Clear();
+			Clear(options);
 			Open(shipActionSelectionInfo.clickPosition);
 			foreach (ShipActionDefintion action in interactionActions)
 			{
-				GameObject gameObject = action.CreateActionSelectionButton(options);
-				Button button = gameObject.AddComponent<Button>();
-				button.onClick.AddListener(() => OptionSelected(action));
+				action.CreateActionSelectionButton(options, () => OptionSelected(action));
 			}
 
-		}
-
-		private void Clear()
-		{
-			foreach (Transform item in options)
-			{
-				Destroy(item.gameObject);
-			}
 		}
 
 		private void OptionSelected(ShipActionDefintion interactionOrder)
 		{
 			callBack?.Invoke(interactionOrder, shipActionSelectionInfo);
-		}
-
-		private void Open(Vector3 positionInWorld)
-		{
-			Vector3 hit = Camera.main.WorldToScreenPoint(positionInWorld);
-			root.transform.GetComponent<RectTransform>().position = hit;
-			//Show();
 		}
 	}
 }

@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 560a3ca37134b85448090721a8bf8937, type: 3}
   m_Name: New Deliver Action Defintion
   m_EditorClassIdentifier: 
-  actionName: 
-  iconPrefab: {fileID: 1434945959370307695, guid: 6c93d0921a656b14d93a4887eda62546, type: 3}
+  actionName: Deliver
+  actionIcon: {fileID: 21300000, guid: e5f8aa94c89bea04e8f1cfedc4fc6c6b, type: 3}
+  actionColor: {r: 0.19926, g: 0.73800004, b: 0.63923097, a: 1}
+  iconPrefab: {fileID: 7230138071748487761, guid: 7c40dca882bc43c449357664c56650c7, type: 3}

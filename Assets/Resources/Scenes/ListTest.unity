@@ -803,7 +803,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85cb707933c02a744bfe184779ef5a63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipObject: {fileID: 0}
 --- !u!4 &1446160409
 Transform:
   m_ObjectHideFlags: 0
@@ -1145,22 +1144,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3659785250157394400, guid: b6705d70786f2f0488b8cb521f51dbd8, type: 3}
-      propertyPath: shipActions.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3659785250157394400, guid: b6705d70786f2f0488b8cb521f51dbd8, type: 3}
-      propertyPath: shipActions.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: a103b71af81881a43a58f9aa882f2fcc, type: 2}
-    - target: {fileID: 3659785250157394400, guid: b6705d70786f2f0488b8cb521f51dbd8, type: 3}
-      propertyPath: shipActions.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 4928bd6d119345c44884ee566c8e0f05, type: 2}
-    - target: {fileID: 3659785250157394400, guid: b6705d70786f2f0488b8cb521f51dbd8, type: 3}
-      propertyPath: shipActions.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: af1f7bd45c6eb0b47a343b495fb5a251, type: 2}
     - target: {fileID: 4868325655057865435, guid: b6705d70786f2f0488b8cb521f51dbd8, type: 3}
       propertyPath: m_Name
       value: Ship1
@@ -1348,22 +1331,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackgroundClickCatcher
       objectReference: {fileID: 0}
-    - target: {fileID: 5069391662096372234, guid: 6ece1443800328c4d912dfffa5f38802, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9088954529611861931, guid: 6ece1443800328c4d912dfffa5f38802, type: 3}
       propertyPath: OnClickEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1180004926}
-    - target: {fileID: 9088954529611861931, guid: 6ece1443800328c4d912dfffa5f38802, type: 3}
-      propertyPath: OnClickEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CloseAllScreens
-      objectReference: {fileID: 0}
-    - target: {fileID: 9088954529611861931, guid: 6ece1443800328c4d912dfffa5f38802, type: 3}
-      propertyPath: OnClickEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UIManager, Assembly-CSharp
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ece1443800328c4d912dfffa5f38802, type: 3}
 --- !u!1001 &1453830249556562743

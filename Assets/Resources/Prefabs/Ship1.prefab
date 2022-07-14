@@ -176,7 +176,10 @@ MonoBehaviour:
       m_Calls: []
   speed: 3
   turnSpeed: 40
-  shipActions: []
+  shipActions:
+  - {fileID: 11400000, guid: a103b71af81881a43a58f9aa882f2fcc, type: 2}
+  - {fileID: 11400000, guid: 4928bd6d119345c44884ee566c8e0f05, type: 2}
+  - {fileID: 11400000, guid: af1f7bd45c6eb0b47a343b495fb5a251, type: 2}
 --- !u!65 &3467583556009641256
 BoxCollider:
   m_ObjectHideFlags: 0
