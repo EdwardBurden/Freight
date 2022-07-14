@@ -5,15 +5,13 @@ using UnityEngine;
 
 public class CollectAction : ShipAction
 {
-	private ShipObject shipObject;
 	private CarryObject carryObject;
 	private IProducer producer;
 	private ResourceData resourceData;
 
 
-	public CollectAction(ShipActionDefintion shipActionDefintion, ShipObject shipObject, IProducer target, ResourceData resourceTarget) : base(shipActionDefintion)
+	public CollectAction(ShipActionDefintion shipActionDefintion, ShipObject shipObject, IProducer target, ResourceData resourceTarget) : base(shipActionDefintion, shipObject)
 	{
-		this.shipObject = shipObject;
 		this.carryObject = shipObject.GetComponent<CarryObject>();
 		this.producer = target;
 		this.resourceData = resourceTarget;

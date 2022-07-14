@@ -7,10 +7,10 @@ using UnityEngine;
 //TODO
 public class CollectActionDefintion : ShipActionDefintion
 {
-	public override bool CanShowOption(ShipObject shipObject, InteractableObject interactableObject, Vector3 clickPostion)
+	public override bool CanShowOption(ShipActionSelectionInfo shipActionSelectionInfo)
 	{
-		IProducer producer = interactableObject.GetComponent<IProducer>();
-		CarryObject carryBehaviour = shipObject.gameObject.GetComponent<CarryObject>();
+		IProducer producer = shipActionSelectionInfo.interactable.GetComponent<IProducer>();
+		CarryObject carryBehaviour = shipActionSelectionInfo.ship.gameObject.GetComponent<CarryObject>();
 		if (producer == null || carryBehaviour == null)
 		{
 			return false;
@@ -20,16 +20,18 @@ public class CollectActionDefintion : ShipActionDefintion
 
 
 
-	public override void OnOptionSelected(ShipObject shipObject, InteractableObject interactableObject, Vector3 clickPostion, Action<ShipAction> callback)
+	public override void OnOptionSelected(ShipActionSelectionInfo shipActionSelectionInfo, Action<ShipAction> callback)
 	{
+		IProducer producer = shipActionSelectionInfo.interactable.GetComponent<IProducer>();
+		//CollectResourceSelectScreen.Create(producer, OnResourceSelected);
 		//open slect resource ui , with callback (resource) =>  OnResourceSelected(shipObject, interactableObject ,clickPostion,resource , Action<ShipAction> callback);
 
 	}
 
-	private void OnResourceSelected(ShipObject shipObject, InteractableObject interactableObject, Vector3 clickPostion, ResourceData resourceData, Action<ShipAction> callback)
+	private void OnResourceSelected(ShipActionSelectionInfo shipActionSelectionInfo, ResourceData resourceData, Action<ShipAction> callback)
 	{
-		IProducer producer = interactableObject.GetComponent<IProducer>();
-		CollectAction collectAction = new CollectAction(this,shipObject, producer, resourceData);
+		IProducer producer = shipActionSelectionInfo.interactable.GetComponent<IProducer>();
+		CollectAction collectAction = new CollectAction(this, shipActionSelectionInfo.ship, producer, resourceData);
 		callback?.Invoke(collectAction);
 	}
 }

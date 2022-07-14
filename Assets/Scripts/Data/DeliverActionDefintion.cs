@@ -6,10 +6,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/DeliverActionDefintion")]
 public class DeliverActionDefintion : ShipActionDefintion
 {
-	public override bool CanShowOption(ShipObject shipObject, InteractableObject interactableObject, Vector3 clickPostion)
+	public override bool CanShowOption(ShipActionSelectionInfo shipActionSelectionInfo)
 	{
-		IConsumer consumer = interactableObject.GetComponent<IConsumer>();
-		CarryObject carryBehaviour = shipObject.gameObject.GetComponent<CarryObject>();
+		IConsumer consumer = shipActionSelectionInfo.interactable.GetComponent<IConsumer>();
+		CarryObject carryBehaviour = shipActionSelectionInfo.ship.gameObject.GetComponent<CarryObject>();
 		if (consumer == null || carryBehaviour == null)
 		{
 			return false;
@@ -19,7 +19,7 @@ public class DeliverActionDefintion : ShipActionDefintion
 
 
 
-	public override void OnOptionSelected(ShipObject shipObject, InteractableObject interactableObject, Vector3 clickPostion, Action<ShipAction> callback)
+	public override void OnOptionSelected(ShipActionSelectionInfo shipActionSelectionInfo, Action<ShipAction> callback)
 	{
 		//open slect resource ui , with callback (resource) =>  OnResourceSelected(shipObject, interactableObject ,clickPostion,resource , Action<ShipAction> callback);
 

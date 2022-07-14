@@ -5,13 +5,12 @@ using UnityEngine;
 
 public class DeliverAction : ShipAction
 {
-	private ShipObject shipObject;
 	private CarryObject carryObject;
 	private IConsumer consumer;
 	private ResourceData resourceData;
-	public DeliverAction(ShipActionDefintion shipActionDefintion, ShipObject shipObject, IConsumer target, ResourceData resourceTarget) : base(shipActionDefintion)
+
+	public DeliverAction(ShipActionDefintion shipActionDefintion, ShipObject shipObject, IConsumer target, ResourceData resourceTarget) : base(shipActionDefintion,shipObject)
 	{
-		this.shipObject = shipObject;
 		this.carryObject = shipObject.GetComponent<CarryObject>();
 		this.consumer = target;
 		this.resourceData = resourceTarget;

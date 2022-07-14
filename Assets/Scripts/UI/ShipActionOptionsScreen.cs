@@ -9,33 +9,26 @@ namespace UI
 	public class ShipActionOptionsScreen : Screen
 	{
 		public static string PATH = "Prefabs/UI/InteractionActionOptionsDialog";
-		public static event Action<ShipAction> ShipActionCreatedEvent;
-		public static event Action<ShipAction> ShipActionCreationCancelledEvent;
 
 		[SerializeField]
 		private Transform options;
 
-		private ShipObject shipObject;
-		private InteractableObject obj;
-		private Vector3 worldClickPosition;
+		private ShipActionSelectionInfo shipActionSelectionInfo;
+		private Action<ShipActionDefintion, ShipActionSelectionInfo> callBack;
 
-		public static void Create(ShipObject shipObject, InteractableObject obj, ShipActionDefintion[] interactionActions, Vector3 worldClickPosition)
+		public static void Create(ShipActionSelectionInfo shipActionSelectionInfo, ShipActionDefintion[] interactionActions, Action<ShipActionDefintion, ShipActionSelectionInfo> callBack)
 		{
-
 			ShipActionOptionsScreen screen = Screen.Open(PATH) as ShipActionOptionsScreen;
-			screen.Init(shipObject, obj, interactionActions, worldClickPosition);
+			screen.Init(shipActionSelectionInfo, interactionActions, callBack);
 			UIManager.instance.RegisterScreen(screen);
 		}
 
-		public void Init(ShipObject shipObject, InteractableObject obj, ShipActionDefintion[] interactionActions, Vector3 worldClickPosition)
+		public void Init(ShipActionSelectionInfo shipActionSelectionInfo, ShipActionDefintion[] interactionActions, Action<ShipActionDefintion, ShipActionSelectionInfo> callBack)
 		{
-			this.shipObject = shipObject;
-			this.obj = obj;
-			this.worldClickPosition = worldClickPosition;
-
-
+			this.shipActionSelectionInfo = shipActionSelectionInfo;
+			this.callBack = callBack;
 			Clear();
-			Open(worldClickPosition);
+			Open(shipActionSelectionInfo.clickPosition);
 			foreach (ShipActionDefintion action in interactionActions)
 			{
 				GameObject gameObject = action.CreateActionSelectionButton(options);
@@ -55,14 +48,7 @@ namespace UI
 
 		private void OptionSelected(ShipActionDefintion interactionOrder)
 		{
-			//Hide();
-			interactionOrder.OnOptionSelected(shipObject, obj, worldClickPosition, OnSelectionComplete);
-		}
-
-		private void OnSelectionComplete(ShipAction shipAction)
-		{
-			UIManager.instance.Close(this);
-			ShipActionCreatedEvent?.Invoke(shipAction);
+			callBack?.Invoke(interactionOrder, shipActionSelectionInfo);
 		}
 
 		private void Open(Vector3 positionInWorld)

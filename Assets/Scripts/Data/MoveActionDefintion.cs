@@ -6,13 +6,13 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/MoveActionDefintion")]
 public class MoveActionDefintion : ShipActionDefintion
 {
-	public override bool CanShowOption(ShipObject shipObject, InteractableObject interactableObject, Vector3 clickPostion)
+	public override bool CanShowOption(ShipActionSelectionInfo shipActionSelectionInfo)
 	{
 		return true;
 	}
 
-	public override void OnOptionSelected(ShipObject shipObject, InteractableObject interactableObject, Vector3 clickPostion, Action<ShipAction> callback)
+	public override void OnOptionSelected(ShipActionSelectionInfo shipActionSelectionInfo, Action<ShipAction> callback)
 	{
-		callback.Invoke(new MoveAction(this, shipObject, clickPostion));
+		callback.Invoke(new MoveAction(this, shipActionSelectionInfo.ship, shipActionSelectionInfo.clickPosition));
 	}
 }

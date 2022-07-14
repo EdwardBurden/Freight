@@ -9,14 +9,13 @@ public class ShipManager : Singleton<ShipManager>
 	public static event Action<ShipObject> ShipSelectedEvent;
 	public static event Action<ShipObject> ShipDeSelectedEvent;
 
-	public ShipObject shipObject;  //object we have selected
+	private ShipObject shipSelected;  //object we have selected
 
 	private void Awake()
 	{
 		MouseInteractionTracker.LeftClickNonInteractableEvent += DeSelectShipObject;
 		MouseInteractionTracker.LeftClickInteractableEvent += OnLeftClickInteractable;
 		MouseInteractionTracker.RightClickInteractableEvent += OnRightClickInteractable;
-
 	}
 
 	private void OnDestroy()
@@ -28,30 +27,35 @@ public class ShipManager : Singleton<ShipManager>
 
 	private void OnRightClickInteractable(InteractableObject obj, Vector3 worldClickPosition)
 	{
-		if (shipObject != null && obj.gameObject != shipObject.gameObject)
+		if (shipSelected != null && obj.gameObject != shipSelected.gameObject)
 		{
 			//TODO, if only option is move , then move
+			ShipActionSelectionInfo shipActionSelectionInfo = new ShipActionSelectionInfo(shipSelected, obj, worldClickPosition);
+			ShipActionDefintion[] interactionActions = GetAvailableActions(shipActionSelectionInfo);
 
-			InteractableObject targetInteractableObject = obj;
-			ShipActionDefintion[] interactionActions = GetAvailableActions(targetInteractableObject, worldClickPosition);
-
-			ShipActionOptionsScreen.ShipActionCreatedEvent += InteractionActionOptionsDialog_ShipActionCreatedEvent;
-			ShipActionOptionsScreen.Create(shipObject, obj, interactionActions, worldClickPosition);
+			ShipActionOptionsScreen.Create(shipActionSelectionInfo, interactionActions, OnShipActionSelected);
 		}
 	}
 
-	private void InteractionActionOptionsDialog_ShipActionCreatedEvent(ShipAction shipAction)
+	private void OnShipActionSelected(ShipActionDefintion shipActionDefintion, ShipActionSelectionInfo shipActionSelectionInfo)
 	{
-		ShipActionOptionsScreen.ShipActionCreatedEvent -= InteractionActionOptionsDialog_ShipActionCreatedEvent;
-		shipObject.Push(shipAction);
+		shipActionDefintion.OnOptionSelected(shipActionSelectionInfo, OnShipActionCreated);
 	}
 
-	private ShipActionDefintion[] GetAvailableActions(InteractableObject obj, Vector3 worldClickPosition)
+	private void OnShipActionCreated(ShipAction shipAction)
+	{
+		ShipObject shipObject = shipAction.shipObject;
+		shipObject.Push(shipAction);
+		UIManager.instance.CloseAllScreens();
+		//Fire eVENT
+	}
+
+	private ShipActionDefintion[] GetAvailableActions(ShipActionSelectionInfo shipActionSelectionInfo)
 	{
 		List<ShipActionDefintion> orders = new List<ShipActionDefintion>();
-		foreach (ShipActionDefintion availableOrder in shipObject.shipActions)
+		foreach (ShipActionDefintion availableOrder in shipActionSelectionInfo.ship.shipActions)
 		{
-			if (availableOrder.CanShowOption(shipObject, obj, worldClickPosition))
+			if (availableOrder.CanShowOption(shipActionSelectionInfo))
 			{
 				orders.Add(availableOrder);
 			}
@@ -75,16 +79,30 @@ public class ShipManager : Singleton<ShipManager>
 
 	private void SelectShipObject(ShipObject shipObject)
 	{
-		this.shipObject = shipObject;
-		this.shipObject.OnShipSelected();
+		this.shipSelected = shipObject;
+		this.shipSelected.OnShipSelected();
 		ShipSelectedEvent?.Invoke(shipObject);
 	}
 
 	private void DeSelectShipObject()
 	{
-		shipObject?.OnShipDeselected();
-		shipObject = null;
-		ShipDeSelectedEvent?.Invoke(shipObject);
+		shipSelected?.OnShipDeselected();
+		shipSelected = null;
+		ShipDeSelectedEvent?.Invoke(shipSelected);
+	}
+}
+
+public struct ShipActionSelectionInfo
+{
+	public ShipObject ship;
+	public InteractableObject interactable;
+	public Vector3 clickPosition;
+
+	public ShipActionSelectionInfo(ShipObject ship, InteractableObject interactable, Vector3 clickPosition)
+	{
+		this.ship = ship;
+		this.interactable = interactable;
+		this.clickPosition = clickPosition;
 	}
 }
 

@@ -4,16 +4,20 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class BackgroundClickCatcher : MonoBehaviour, IPointerClickHandler
+public class ExitMenuCatcher : MonoBehaviour, IPointerClickHandler
 {
 	public UnityEvent OnClickEvent;
 
 
 	public void OnPointerClick(PointerEventData pointerEventData)
 	{
-		OnClickEvent?.Invoke();
+		if (pointerEventData.button == PointerEventData.InputButton.Left)
+		{
+			OnClickEvent?.Invoke();
+			Debug.Log(name + " BackgroundClickCatcher Clicked!");
+		}
 		//Output to console the clicked GameObject's name and the following message. You can replace this with your own actions for when clicking the GameObject.
-		Debug.Log(name + " BackgroundClickCatcher Clicked!");
+		
 	}
 	private void OnMouseDown()
 	{
