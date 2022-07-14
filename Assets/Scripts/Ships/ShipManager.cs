@@ -9,7 +9,7 @@ public class ShipManager : Singleton<ShipManager>
 	public static event Action<ShipObject> ShipSelectedEvent;
 	public static event Action<ShipObject> ShipDeSelectedEvent;
 
-	private ShipObject shipObject;  //object we have selected
+	public ShipObject shipObject;  //object we have selected
 
 	private void Awake()
 	{

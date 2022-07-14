@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public static class InteractionUtils
 {
@@ -40,9 +41,32 @@ public static class InteractionUtils
 				else
 					inSight = false;
 			}
+
+
+
 		}
 		return new RayCastInfo<T>(inSight, hit, foundObject);
 	}
+
+	public static bool CheckIfObjectIsUIInFocus(Vector3 mousePosition)
+	{
+		PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
+		pointerEventData.position = mousePosition;
+
+		List<RaycastResult> raycastResults = new List<RaycastResult>();
+		EventSystem.current.RaycastAll(pointerEventData, raycastResults);
+		for (int i = 0; i < raycastResults.Count; i++)
+		{
+			if (raycastResults[i].gameObject.layer == 5)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+
+
 
 	public static Vector2 xz(this Vector3 vv)
 	{

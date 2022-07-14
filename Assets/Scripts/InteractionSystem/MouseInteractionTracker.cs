@@ -22,8 +22,9 @@ public class MouseInteractionTracker : MonoBehaviour
 
 	private void Update()
 	{
+		bool onUI = InteractionUtils.CheckIfObjectIsUIInFocus(Input.mousePosition);
 		RayCastInfo<InteractableObject> interactionInfo = InteractionUtils.CheckIfObjectIsInFocus<InteractableObject>(mainCamera);
-		if (EventSystem.current.IsPointerOverGameObject() && !BackgroundClickCatcher.mouseOver)
+		if (onUI)
 		{
 			return;
 		}

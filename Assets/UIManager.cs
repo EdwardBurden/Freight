@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using UI;
 using UnityEngine;
 
 public class UIManager : Singleton<UIManager>
@@ -51,17 +49,18 @@ public class UIManager : Singleton<UIManager>
 	{
 		screen.Close();
 		screenHistory.Remove(screen);
-		CloseBackground();
+		TryCloseBackground();
 	}
 
 	public void BackScreen()
 	{
 		int index = screenHistory.Count - 1;
 		screenHistory[index].Close();
-		screenHistory.RemoveAt(index); CloseBackground();
+		screenHistory.RemoveAt(index);
+		TryCloseBackground();
 	}
 
-	private void CloseBackground()
+	private void TryCloseBackground()
 	{
 		if (screenHistory.Count == 0)
 		{
