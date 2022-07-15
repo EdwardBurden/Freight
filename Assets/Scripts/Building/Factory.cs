@@ -20,4 +20,14 @@ public class Factory : Building, IProducer, IConsumer
 	{
 		throw new System.NotImplementedException();
 	}
+
+	public bool AcceptsResource(ResourceData resourceData)
+	{
+		throw new System.NotImplementedException();
+	}
+
+	public bool ProducesResource(ResourceData resourceData)
+	{
+		throw new System.NotImplementedException();
+	}
 }

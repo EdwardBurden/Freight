@@ -6,4 +6,5 @@ public interface IProducer
 {
 	public ResourceData[] GetProducedResources();
 	LandingPlatform GetLandingPlatform();
+	bool ProducesResource(ResourceData resourceData);
 }

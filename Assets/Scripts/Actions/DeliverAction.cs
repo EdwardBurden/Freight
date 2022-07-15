@@ -9,7 +9,7 @@ public class DeliverAction : ShipAction
 	private IConsumer consumer;
 	private ResourceData resourceData;
 
-	public DeliverAction(ShipActionDefintion shipActionDefintion, ShipObject shipObject, IConsumer target, ResourceData resourceTarget) : base(shipActionDefintion,shipObject)
+	public DeliverAction(ShipActionDefintion shipActionDefintion, ShipObject shipObject, IConsumer target, ResourceData resourceTarget) : base(shipActionDefintion, shipObject)
 	{
 		this.carryObject = shipObject.GetComponent<CarryObject>();
 		this.consumer = target;
@@ -26,10 +26,9 @@ public class DeliverAction : ShipAction
 		//Move
 		actionList.PushAction(new LookAtAction(position, shipObject, true));
 		actionList.PushAction(new SyncAction());
-		actionList.PushAction(new MoveToAction(position, shipObject, true));
+		actionList.PushAction(new AlignShipForDeliveryAction(shipObject, carryObject, resourceData, landingPlatform)); //block
 
 		//Deliver
-		actionList.PushAction(new AlignShipForDeliveryAction(shipObject, carryObject, resourceData, landingPlatform)); //block
 		actionList.PushAction(new AnimateLoadingPlatformOpenAction(landingPlatform));//not block
 		actionList.PushAction(new SyncAction());
 		actionList.PushAction(new DelayAction(2));
@@ -46,8 +45,6 @@ public class DeliverAction : ShipAction
 		base.OnInitialise();
 		if (!CheckShipIsValid() || !CheckProducerIsValid())
 		{
-			//TODO
-			//Alert User
 			actionList.Clear();
 			isFinished = true;
 		}
@@ -56,17 +53,21 @@ public class DeliverAction : ShipAction
 
 	private bool CheckShipIsValid()
 	{
-		//TODO
-		//check ship has the resource to deliver
+		if (!carryObject.HasFreightOfResource(resourceData))
+		{
+			NotificationManager.instance.AddNotification(shipObject, $"Cannot start Delivery because {shipObject.name} does not have any {resourceData.resourceName}");
+			return false;
+		}
 		return true;
-
 	}
 
 	private bool CheckProducerIsValid()
 	{
-		//TODO
-		//check consumer accepts the resource
+		if (!consumer.AcceptsResource(resourceData))
+		{
+			NotificationManager.instance.AddNotification(shipObject, $"Cannot start Delivery because {consumer.GetType().ToString()} does accept {resourceData.resourceName}");
+			return false;
+		}
 		return true;
-
 	}
 }

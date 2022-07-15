@@ -22,13 +22,13 @@ public class CollectAction : ShipAction
 	{
 		LandingPlatform landingPlatform = producer.GetLandingPlatform();
 		Vector3 position = landingPlatform.GetLandingPosition();
+
 		//Move
 		actionList.PushAction(new LookAtAction(position, shipObject, true));
 		actionList.PushAction(new SyncAction());
-		actionList.PushAction(new MoveToAction(position, shipObject, true));
+		actionList.PushAction(new AlignShipForCollectionAction(shipObject, carryObject, landingPlatform)); //block
 
 		//Collect
-		actionList.PushAction(new AlignShipForCollectionAction(shipObject, carryObject, landingPlatform)); //block
 		actionList.PushAction(new SpawnFreightAction(resourceData, landingPlatform)); //block
 		actionList.PushAction(new AnimateLoadingPlatformOpenAction(landingPlatform));    //not block
 		actionList.PushAction(new SyncAction());
@@ -45,7 +45,6 @@ public class CollectAction : ShipAction
 		base.OnInitialise();
 		if (!CheckShipIsValid() || !CheckProducerIsValid())
 		{
-			//TODO Alert User
 			actionList.Clear();
 			isFinished = true;
 		}
@@ -54,17 +53,21 @@ public class CollectAction : ShipAction
 
 	private bool CheckShipIsValid()
 	{
-		//TODO
-		//check ship has space to collect
+		if (!carryObject.HasStorageSpace())
+		{
+			NotificationManager.instance.AddNotification(shipObject, $"Cannot start collection because {shipObject.name} does not have any space for {resourceData.resourceName}");
+			return false;
+		}
 		return true;
-
 	}
 
 	private bool CheckProducerIsValid()
 	{
-		//TODO
-	 //check producer has the resource type
+		if (!producer.ProducesResource(resourceData))
+		{
+			NotificationManager.instance.AddNotification(shipObject, $"Cannot start Collection because {producer.GetType().ToString()} does produce {resourceData.resourceName}");
+			return false;
+		}
 		return true;
-
 	}
 }

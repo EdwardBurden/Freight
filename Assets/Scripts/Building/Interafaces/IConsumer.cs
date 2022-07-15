@@ -6,4 +6,5 @@ public interface IConsumer
 {
 	public ResourceData[] GetAcceptedResources();
 	LandingPlatform GetLandingPlatform();
+	bool AcceptsResource(ResourceData resourceData);
 }

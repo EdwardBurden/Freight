@@ -19,4 +19,17 @@ public class Farm : Building, IProducer
 	{
 		return produces;
 	}
+
+	public bool ProducesResource(ResourceData resourceData)
+	{
+		for (int i = 0; i < produces.Length; i++)
+		{
+			if (produces[i] == resourceData)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 }

@@ -25,6 +25,10 @@ public class CarryObject : MonoBehaviour //goes on ship for carrying stuff
 		return GetAllFreight().Find(x => x.resourceData == resourceData) != null;
 	}
 
+	public bool HasStorageSpace()
+	{
+		return GetFirstEmptyStorageTransform() != null;
+	}
 
 	public FreightObject GetFreightOfResource(ResourceData resourceData) //use to add to platform postion before landing at platforms
 	{

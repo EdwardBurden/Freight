@@ -13,6 +13,9 @@ public class ShipManager : Singleton<ShipManager>
 
 	private void Awake()
 	{
+
+		_instance = this;
+
 		MouseInteractionTracker.LeftClickNonInteractableEvent += DeSelectShipObject;
 		MouseInteractionTracker.LeftClickInteractableEvent += OnLeftClickInteractable;
 		MouseInteractionTracker.RightClickInteractableEvent += OnRightClickInteractable;

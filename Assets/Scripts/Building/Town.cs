@@ -20,4 +20,16 @@ public class Town : Building, IConsumer
 	{
 		return platform;
 	}
+
+	public bool AcceptsResource(ResourceData resourceData)
+	{
+		for (int i = 0; i < accepts.Length; i++)
+		{
+			if (accepts[i] == resourceData)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 }

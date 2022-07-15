@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UI;
 using UnityEngine;
 //TODO
 [CreateAssetMenu(menuName = "ScriptableObject/DeliverActionDefintion")]
@@ -17,18 +18,16 @@ public class DeliverActionDefintion : ShipActionDefintion
 		return true;
 	}
 
-
-
 	public override void OnOptionSelected(ShipActionSelectionInfo shipActionSelectionInfo, Action<ShipAction> callback)
 	{
-		//open slect resource ui , with callback (resource) =>  OnResourceSelected(shipObject, interactableObject ,clickPostion,resource , Action<ShipAction> callback);
-
+		IConsumer consumer = shipActionSelectionInfo.interactable.GetComponent<IConsumer>();
+		ResourceSelectScreen.Create(consumer.GetAcceptedResources(), shipActionSelectionInfo.clickPosition, (resource) => OnResourceSelected(shipActionSelectionInfo, resource, callback));
 	}
 
-	private void OnResourceSelected(ShipObject shipObject, InteractableObject interactableObject, Vector3 clickPostion, ResourceData resourceData, Action<ShipAction> callback)
+	private void OnResourceSelected(ShipActionSelectionInfo shipActionSelectionInfo, ResourceData resourceData, Action<ShipAction> callback)
 	{
-		IConsumer consumer = interactableObject.GetComponent<IConsumer>();
-		DeliverAction deliverAction = new DeliverAction(this,shipObject, consumer, resourceData);
+		IConsumer consumer = shipActionSelectionInfo.interactable.GetComponent<IConsumer>();
+		DeliverAction deliverAction = new DeliverAction(this, shipActionSelectionInfo.ship, consumer, resourceData);
 		callback?.Invoke(deliverAction);
 	}
 }

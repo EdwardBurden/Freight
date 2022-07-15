@@ -3,9 +3,13 @@
 using ActionLists;
 using System;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 public class ShipObject : InteractableObject
 {
+	public UnityEvent OnShipSelectedEvent;
+	public UnityEvent OnShipDeSelectedEvent;
+
 	private ActionList actionList = new ActionList();
 	private bool play = true;
 
@@ -13,9 +17,9 @@ public class ShipObject : InteractableObject
 	public int turnSpeed;
 	public ShipActionDefintion[] shipActions;
 
-	public virtual void OnShipSelected() { }
+	public virtual void OnShipSelected() { OnShipSelectedEvent?.Invoke(); }
 
-	public virtual void OnShipDeselected() { }
+	public virtual void OnShipDeselected() { OnShipDeSelectedEvent?.Invoke(); }
 
 	public void Push(ShipAction shipAction)
 	{
