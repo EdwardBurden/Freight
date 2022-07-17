@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class NotificationManager : Singleton<NotificationManager>
 {
-	public static event Action<Notification> NotificationAddedEvent;
-	public static event Action NotificationEmptyEvent;
+	public event Action<Notification> NotificationAddedEvent;
+	public event Action NotificationEmptyEvent;
 
 	private List<Notification> notifications = new List<Notification>();
 
@@ -15,9 +15,9 @@ public class NotificationManager : Singleton<NotificationManager>
 		_instance = this;
 	}
 
-	public void AddNotification(object sender, string message)
+	public void AddNotification(string sender, string message)
 	{
-		Notification notification = new Notification(sender.ToString(), message);
+		Notification notification = new Notification(sender, message);
 		notifications.Add(notification);
 		NotificationAddedEvent?.Invoke(notification);
 	}

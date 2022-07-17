@@ -5,20 +5,25 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using static InteractionUtils;
 
-public class MouseInteractionTracker : MonoBehaviour
+public class MouseInteractionTracker : Singleton<MouseInteractionTracker>
 {
 	[SerializeField]
 	private Camera mainCamera;
 
 	private InteractableObject localHoverObject;
 
-	public static event Action<InteractableObject> mouseHoveredOnInteractable;
-	public static event Action<InteractableObject> mouseHoveredOffInteractable;
+	public event Action<InteractableObject> mouseHoveredOnInteractable;
+	public event Action<InteractableObject> mouseHoveredOffInteractable;
 
-	public static event Action LeftClickNonInteractableEvent;
-	public static event Action RightClickNonInteractableEvent;
-	public static event Action<InteractableObject, Vector3> LeftClickInteractableEvent;
-	public static event Action<InteractableObject, Vector3> RightClickInteractableEvent;
+	public event Action LeftClickNonInteractableEvent;
+	public event Action RightClickNonInteractableEvent;
+	public event Action<InteractableObject, Vector3> LeftClickInteractableEvent;
+	public event Action<InteractableObject, Vector3> RightClickInteractableEvent;
+
+	private void Awake()
+	{
+		_instance = this;
+	}
 
 	private void Update()
 	{

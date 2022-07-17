@@ -7,7 +7,8 @@ namespace UI
 {
 	public class ExitMenuCatcher : MonoBehaviour, IPointerClickHandler
 	{
-		public UnityEvent OnClickEvent;
+		[SerializeField]
+		private UnityEvent OnClickEvent;
 
 
 		public void OnPointerClick(PointerEventData pointerEventData)

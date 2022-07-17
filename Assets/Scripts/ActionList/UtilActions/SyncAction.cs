@@ -9,7 +9,7 @@ public class SyncAction : Action
 
 	public override void OnUpdate()
 	{
-		if (owner.actions[0] == this)
+		if (owner.GetFrontAction() == this)
 		{
 			isFinished = true;
 		}

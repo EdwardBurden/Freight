@@ -13,15 +13,16 @@ public class NotificationPanel : Panel
 	[SerializeField]
 	private Transform list;
 
-	public void Awake()
+	protected override void Start()
 	{
-		NotificationManager.NotificationAddedEvent += NotificationManager_NotificationAddedEvent;
-		NotificationManager.NotificationEmptyEvent += NotificationManager_NotificationEmptyEvent;
+		base.Start();
+		NotificationManager.instance.NotificationAddedEvent += NotificationManager_NotificationAddedEvent;
+		NotificationManager.instance.NotificationEmptyEvent += NotificationManager_NotificationEmptyEvent;
 	}
 	private void OnDestroy()
 	{
-		NotificationManager.NotificationAddedEvent += NotificationManager_NotificationAddedEvent;
-		NotificationManager.NotificationEmptyEvent += NotificationManager_NotificationEmptyEvent;
+		NotificationManager.instance.NotificationAddedEvent += NotificationManager_NotificationAddedEvent;
+		NotificationManager.instance.NotificationEmptyEvent += NotificationManager_NotificationEmptyEvent;
 	}
 
 	private void NotificationManager_NotificationEmptyEvent()

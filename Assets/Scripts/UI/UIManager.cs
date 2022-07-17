@@ -12,7 +12,7 @@ namespace UI
 		//ship info
 		//building info
 		//reflects something in game very directly
-		public List<Panel> activePanels = new List<Panel>(); //add/ remove when necassry stays as long as they want, one one of the a panel type
+		//public List<Panel> activePanels = new List<Panel>(); //add/ remove when necassry stays as long as they want, one one of the a panel type
 
 		public List<Screen> screenHistory = new List<Screen>(); //only one screeen at a time, takes up large screen space, history so that they can be backed out of  
 

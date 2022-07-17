@@ -5,7 +5,7 @@ namespace ActionLists
 		public bool isInitialised;
 		public bool isFinished;
 		public bool isBlocking;
-		public ActionList owner;
+		public IActionList owner;
 
 		public Action(bool isBlocking = false)
 		{
@@ -14,7 +14,7 @@ namespace ActionLists
 			isInitialised = false;
 		}
 
-		public void SetOwner(ActionList actionList)
+		public void SetOwner(IActionList actionList)
 		{
 			owner = actionList;
 		}

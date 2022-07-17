@@ -8,17 +8,7 @@ namespace UI
 		[SerializeField]
 		protected GameObject root;
 
-		private void OnEnable()
-		{
-			//UIManager.instance.RegisterPanel(this);
-		}
-
-		private void OnDisable()
-		{
-			//UIManager.instance.RemovePanel(this);
-		}
-
-		private void Start()
+		protected virtual void Start()
 		{
 			Hide();
 		}

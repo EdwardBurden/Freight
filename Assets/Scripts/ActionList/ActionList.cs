@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace ActionLists
 {
-	public class ActionList
+	public class ActionList : IActionList
 	{
 		public List<Action> actions = new List<Action>();
 
@@ -50,6 +50,11 @@ namespace ActionLists
 		public void Clear()
 		{
 			actions.Clear();
+		}
+
+		public Action GetFrontAction()
+		{
+			return actions[0];
 		}
 	}
 }
