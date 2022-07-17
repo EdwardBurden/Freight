@@ -9,6 +9,8 @@ public class ShipSelectedPanel : Panel
 {
 	[SerializeField]
 	private TMP_Text shipNametext;
+	[SerializeField]
+	private TMP_Text actionsLeftText;
 
 	[SerializeField]
 	private SimpleButtonWidget playButton;
@@ -55,6 +57,7 @@ public class ShipSelectedPanel : Panel
 
 	private void Refresh()
 	{
+		actionsLeftText.text = $"{shipActionList.activelist.Count}/{shipActionList.maxActions}";
 		Clear(actionListTransform);
 		foreach (var item in shipActionList.activelist)
 		{

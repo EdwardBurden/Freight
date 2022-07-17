@@ -25,19 +25,15 @@ public class CollectAction : ShipAction
 
 		//Move
 		actionList.PushAction(new LookAtAction(position, shipObject, true));
-		actionList.PushAction(new SyncAction());
-		actionList.PushAction(new AlignShipForCollectionAction(shipObject, carryObject, landingPlatform)); //block
+		actionList.PushAction(new AlignShipForCollectionAction(shipObject, carryObject, landingPlatform)); 
 
 		//Collect
-		actionList.PushAction(new SpawnFreightAction(resourceData, landingPlatform)); //block
-		actionList.PushAction(new AnimateLoadingPlatformOpenAction(landingPlatform));    //not block
-		actionList.PushAction(new SyncAction());
-		actionList.PushAction(new DelayAction(2));
+		actionList.PushAction(new SpawnFreightAction(resourceData, landingPlatform));
+		actionList.PushAction(new AnimateLoadingPlatformOpenAction(landingPlatform));    
 
-		actionList.PushAction(new ParentFreightToShipAction(landingPlatform, carryObject)); //block
-		actionList.PushAction(new AnimateLoadingPlatformCloseAction(landingPlatform)); //not block
+		actionList.PushAction(new ParentFreightToShipAction(landingPlatform, carryObject)); 
+		actionList.PushAction(new AnimateLoadingPlatformCloseAction(landingPlatform)); 
 		actionList.PushAction(new SyncAction());
-		actionList.PushAction(new DelayAction(2));
 	}
 
 	public override void OnInitialise()

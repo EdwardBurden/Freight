@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class LandingPlatform : MonoBehaviour
 {
+	public event Action OpenAnimationCompleteEvent;
+	public event Action CloseAnimationCompleteEvent;
+
 	[SerializeField]
 	private GameObject freightSpawnTransform;
 
@@ -29,5 +32,17 @@ public class LandingPlatform : MonoBehaviour
 	internal GameObject GetActiveFreight()
 	{
 		return freightSpawnTransform.transform.GetChild(0).gameObject;
+	}
+
+	public void OpenAniamtionComplete()
+	{
+
+		OpenAnimationCompleteEvent?.Invoke();
+	}
+
+	public void CloseAniamtionComplete()
+	{
+		CloseAnimationCompleteEvent?.Invoke();
+
 	}
 }

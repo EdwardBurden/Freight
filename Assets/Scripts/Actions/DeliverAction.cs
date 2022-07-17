@@ -26,17 +26,14 @@ public class DeliverAction : ShipAction
 		//Move
 		actionList.PushAction(new LookAtAction(position, shipObject, true));
 		actionList.PushAction(new SyncAction());
-		actionList.PushAction(new AlignShipForDeliveryAction(shipObject, carryObject, resourceData, landingPlatform)); //block
+		actionList.PushAction(new AlignShipForDeliveryAction(shipObject, carryObject, resourceData, landingPlatform));
 
 		//Deliver
-		actionList.PushAction(new AnimateLoadingPlatformOpenAction(landingPlatform));//not block
-		actionList.PushAction(new SyncAction());
-		actionList.PushAction(new DelayAction(2));
+		actionList.PushAction(new AnimateLoadingPlatformOpenAction(landingPlatform));
 
-		actionList.PushAction(new ParentFreightToPlatformAction(landingPlatform, carryObject, resourceData));//block
-		actionList.PushAction(new AnimateLoadingPlatformCloseAction(landingPlatform)); //not block
+		actionList.PushAction(new ParentFreightToPlatformAction(landingPlatform, carryObject, resourceData));
+		actionList.PushAction(new AnimateLoadingPlatformCloseAction(landingPlatform));
 		actionList.PushAction(new SyncAction());
-		actionList.PushAction(new DelayAction(2));
 		actionList.PushAction(new DestoryFreightAction(landingPlatform));
 	}
 

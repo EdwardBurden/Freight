@@ -2,21 +2,27 @@ using UnityEngine;
 
 public class AnimateLoadingPlatformOpenAction : AnimateAction
 {
-	public AnimateLoadingPlatformOpenAction(LandingPlatform landingPlatform) : base(landingPlatform.GetComponent<Animator>())
+	LandingPlatform landingPlatform;
+	public AnimateLoadingPlatformOpenAction(LandingPlatform landingPlatform) : base(landingPlatform.GetComponent<Animator>() , true)
 	{
+		this.landingPlatform = landingPlatform;
 	}
 
 	public override void OnUpdate()
 	{
-		if (animator.GetCurrentAnimatorStateInfo(0).IsName("Open") && !AnimatorIsPlaying())
-		{
-			isFinished = true;
-		}
+		
 	}
 
 	public override void OnInitialise()
 	{
 		base.OnInitialise();
 		animator.SetBool("Open", true);
+		landingPlatform.OpenAnimationCompleteEvent += LandingPlatform_OpenAnimationCompleteEvent;
+	}
+
+	private void LandingPlatform_OpenAnimationCompleteEvent()
+	{
+		isFinished = true;
+		landingPlatform.OpenAnimationCompleteEvent -= LandingPlatform_OpenAnimationCompleteEvent;
 	}
 }
