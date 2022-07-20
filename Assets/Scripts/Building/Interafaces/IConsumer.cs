@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IConsumer 
 {
-	public ResourceData[] GetAcceptedResources();
-	LandingPlatform GetLandingPlatform();
-	bool AcceptsResource(ResourceData resourceData);
+	public ResourceDefintion[] GetAcceptedResources();
+	LandingPlatform GetConsumerLandingPlatform();
+	bool AcceptsResource(ResourceDefintion resourceData);
 }

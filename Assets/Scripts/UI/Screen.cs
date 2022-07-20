@@ -13,7 +13,12 @@ namespace UI
 			return obj.GetComponent<Screen>();
 		}
 
-		public virtual void Close()
+		public void CloseThis()
+		{
+			UIManager.instance.Close(this);
+		}
+
+		public virtual void Destroy()
 		{
 			Destroy(this.gameObject);
 		}

@@ -8,19 +8,19 @@ public class Farm : Building, IProducer
 	private LandingPlatform platform;
 
 	[SerializeField]
-	private ResourceData[] produces; //temp
+	private ResourceDefintion[] produces; 
 
-	public LandingPlatform GetLandingPlatform()
+	public LandingPlatform GetProducerLandingPlatform()
 	{
 		return platform;
 	}
 
-	public ResourceData[] GetProducedResources()
+	public ResourceDefintion[] GetProducedResources()
 	{
 		return produces;
 	}
 
-	public bool ProducesResource(ResourceData resourceData)
+	public bool ProducesResource(ResourceDefintion resourceData)
 	{
 		for (int i = 0; i < produces.Length; i++)
 		{

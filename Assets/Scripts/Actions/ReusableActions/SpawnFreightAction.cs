@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class SpawnFreightAction : Action
 {
-	private ResourceData resourceData;
+	private ResourceDefintion resourceData;
 	private LandingPlatform landingPlatform;
 
-	public SpawnFreightAction(ResourceData resourceData, LandingPlatform landingPlatform) : base(true)
+	public SpawnFreightAction(ResourceDefintion resourceData, LandingPlatform landingPlatform) : base(true)
 	{
 		this.resourceData = resourceData;
 		this.landingPlatform = landingPlatform;

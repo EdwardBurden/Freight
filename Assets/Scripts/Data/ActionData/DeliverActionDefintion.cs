@@ -24,7 +24,7 @@ public class DeliverActionDefintion : ShipActionDefintion
 		ResourceSelectScreen.Create(consumer.GetAcceptedResources(), shipActionSelectionInfo.clickPosition, (resource) => OnResourceSelected(shipActionSelectionInfo, resource, callback));
 	}
 
-	private void OnResourceSelected(ShipActionSelectionInfo shipActionSelectionInfo, ResourceData resourceData, Action<ShipAction> callback)
+	private void OnResourceSelected(ShipActionSelectionInfo shipActionSelectionInfo, ResourceDefintion resourceData, Action<ShipAction> callback)
 	{
 		IConsumer consumer = shipActionSelectionInfo.interactable.GetComponent<IConsumer>();
 		DeliverAction deliverAction = new DeliverAction(this, shipActionSelectionInfo.ship, consumer, resourceData);

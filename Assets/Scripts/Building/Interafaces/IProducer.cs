@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IProducer
 {
-	public ResourceData[] GetProducedResources();
-	LandingPlatform GetLandingPlatform();
-	bool ProducesResource(ResourceData resourceData);
+	public ResourceDefintion[] GetProducedResources();
+	LandingPlatform GetProducerLandingPlatform();
+	bool ProducesResource(ResourceDefintion resourceData);
 }

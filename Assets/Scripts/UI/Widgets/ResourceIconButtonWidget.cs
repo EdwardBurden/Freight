@@ -21,7 +21,7 @@ namespace UI
 		[SerializeField]
 		private Button button;
 
-		public void ShowResource(ResourceData resourceData, Action callback)
+		public void ShowResource(ResourceDefintion resourceData, Action callback)
 		{
 			text.text = resourceData.resourceName;
 			icon.sprite = resourceData.resourceIcon;

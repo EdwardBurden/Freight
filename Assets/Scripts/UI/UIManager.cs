@@ -48,7 +48,7 @@ namespace UI
 
 		public void Close(Screen screen)
 		{
-			screen.Close();
+			screen.Destroy();
 			screenHistory.Remove(screen);
 			TryCloseBackground();
 		}
@@ -56,8 +56,9 @@ namespace UI
 		public void BackScreen()
 		{
 			int index = screenHistory.Count - 1;
-			screenHistory[index].Close();
+			screenHistory[index].Destroy();
 			screenHistory.RemoveAt(index);
+			//show menu, implemt later
 			TryCloseBackground();
 		}
 

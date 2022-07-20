@@ -25,7 +25,7 @@ public class CollectActionDefintion : ShipActionDefintion
 		ResourceSelectScreen.Create(producer.GetProducedResources(), shipActionSelectionInfo.clickPosition, (resource) => OnResourceSelected(shipActionSelectionInfo, resource, callback));
 	}
 
-	private void OnResourceSelected(ShipActionSelectionInfo shipActionSelectionInfo, ResourceData resourceData, Action<ShipAction> callback)
+	private void OnResourceSelected(ShipActionSelectionInfo shipActionSelectionInfo, ResourceDefintion resourceData, Action<ShipAction> callback)
 	{
 		IProducer producer = shipActionSelectionInfo.interactable.GetComponent<IProducer>();
 		CollectAction collectAction = new CollectAction(this, shipActionSelectionInfo.ship, producer, resourceData);

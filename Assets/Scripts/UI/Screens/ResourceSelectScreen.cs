@@ -11,29 +11,29 @@ namespace UI
 		[SerializeField]
 		private Transform options;
 
-		private ResourceData[] resources;
-		private Action<ResourceData> callBack;
+		private ResourceDefintion[] resources;
+		private Action<ResourceDefintion> callBack;
 
-		public static void Create(ResourceData[] resources, Vector3 clickPosition, Action<ResourceData> callBack)
+		public static void Create(ResourceDefintion[] resources, Vector3 clickPosition, Action<ResourceDefintion> callBack)
 		{
 			ResourceSelectScreen screen = Screen.Open(PATH) as ResourceSelectScreen;
 			screen.Init(resources, clickPosition, callBack);
 			UIManager.instance.RegisterScreen(screen, false);
 		}
 
-		public void Init(ResourceData[] resources, Vector3 clickPosition, Action<ResourceData> callBack)
+		public void Init(ResourceDefintion[] resources, Vector3 clickPosition, Action<ResourceDefintion> callBack)
 		{
 			this.resources = resources;
 			this.callBack = callBack;
 			Clear(options);
 			Open(clickPosition);
-			foreach (ResourceData resource in resources)
+			foreach (ResourceDefintion resource in resources)
 			{
 				resource.CreateResourceSelectionButton(options, () => OptionSelected(resource));
 			}
 		}
 
-		private void OptionSelected(ResourceData resource)
+		private void OptionSelected(ResourceDefintion resource)
 		{
 			callBack?.Invoke(resource);
 		}

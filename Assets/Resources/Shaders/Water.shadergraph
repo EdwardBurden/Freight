@@ -3433,7 +3433,7 @@
     "m_Group": {
         "m_Id": "fe0c8dcb114647c09ab305f68b69130b"
     },
-    "m_Name": "textureMovement",
+    "m_Name": "TextureMovement",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {
@@ -4148,7 +4148,7 @@
     "m_Group": {
         "m_Id": "fe0c8dcb114647c09ab305f68b69130b"
     },
-    "m_Name": "textureMovement",
+    "m_Name": "TextureMovement",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {
@@ -4502,7 +4502,7 @@
     "m_Group": {
         "m_Id": ""
     },
-    "m_Name": "textureMovement",
+    "m_Name": "TextureMovement",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {

@@ -5,29 +5,63 @@ using UnityEngine;
 
 public class Factory : Building, IProducer, IConsumer
 {
-	public ResourceData[] GetAcceptedResources()
+	[SerializeField]
+	private LandingPlatform inputPlatform;
+
+	[SerializeField]
+	private LandingPlatform outputPlatform;
+
+
+	[SerializeField]
+	private ConversionDefintion conversion;
+
+
+	public ResourceDefintion[] GetAcceptedResources()
 	{
-		throw new System.NotImplementedException();
+		List<ResourceDefintion> resourceDefintions = new List<ResourceDefintion>();
+		foreach (ConversionInput input in conversion.inputs)
+		{
+			resourceDefintions.Add(input.resource);
+		}
+		return resourceDefintions.ToArray();
 	}
 
-	public LandingPlatform GetLandingPlatform()
+	public ResourceDefintion[] GetProducedResources()
 	{
-		throw new System.NotImplementedException();
+		return conversion.outputs;
 	}
 
-
-	public ResourceData[] GetProducedResources()
+	public LandingPlatform GetProducerLandingPlatform()
 	{
-		throw new System.NotImplementedException();
+		return outputPlatform;
 	}
 
-	public bool AcceptsResource(ResourceData resourceData)
+	public LandingPlatform GetConsumerLandingPlatform()
 	{
-		throw new System.NotImplementedException();
+		return inputPlatform;
 	}
 
-	public bool ProducesResource(ResourceData resourceData)
+	public bool AcceptsResource(ResourceDefintion resourceData)
 	{
-		throw new System.NotImplementedException();
+		for (int i = 0; i < conversion.inputs.Length; i++)
+		{
+			if (conversion.inputs[i].resource == resourceData)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public bool ProducesResource(ResourceDefintion resourceData)
+	{
+		for (int i = 0; i < conversion.outputs.Length; i++)
+		{
+			if (conversion.outputs[i] == resourceData)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 }

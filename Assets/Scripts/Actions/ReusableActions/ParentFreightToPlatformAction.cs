@@ -4,9 +4,9 @@ public class ParentFreightToPlatformAction : Action
 {
 	private LandingPlatform landingPlatform;
 	private CarryObject ship;
-	private ResourceData resourceData;
+	private ResourceDefintion resourceData;
 
-	public ParentFreightToPlatformAction(LandingPlatform landingPlatform, CarryObject ship, ResourceData resourceData)
+	public ParentFreightToPlatformAction(LandingPlatform landingPlatform, CarryObject ship, ResourceDefintion resourceData)
 	{
 		this.landingPlatform = landingPlatform;
 		this.ship = ship;

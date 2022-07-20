@@ -7,9 +7,9 @@ public class DeliverAction : ShipAction
 {
 	private CarryObject carryObject;
 	private IConsumer consumer;
-	private ResourceData resourceData;
+	private ResourceDefintion resourceData;
 
-	public DeliverAction(ShipActionDefintion shipActionDefintion, ShipObject shipObject, IConsumer target, ResourceData resourceTarget) : base(shipActionDefintion, shipObject)
+	public DeliverAction(ShipActionDefintion shipActionDefintion, ShipObject shipObject, IConsumer target, ResourceDefintion resourceTarget) : base(shipActionDefintion, shipObject)
 	{
 		this.carryObject = shipObject.GetComponent<CarryObject>();
 		this.consumer = target;
@@ -20,7 +20,7 @@ public class DeliverAction : ShipAction
 
 	private void CreateActions()
 	{
-		LandingPlatform landingPlatform = consumer.GetLandingPlatform();
+		LandingPlatform landingPlatform = consumer.GetConsumerLandingPlatform();
 		Vector3 position = landingPlatform.GetLandingPosition();
 
 		//Move

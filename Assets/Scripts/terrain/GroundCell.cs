@@ -5,7 +5,7 @@ using UnityEngine;
 //TODO
 public class GroundCell
 {
-	private ResourceData groundResource; //assigned at creation
+	private ResourceDefintion groundResource; //assigned at creation
 
    //has mesh material, connected ground info from when generated
 }

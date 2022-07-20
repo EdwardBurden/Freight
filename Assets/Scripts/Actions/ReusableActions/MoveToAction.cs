@@ -24,7 +24,7 @@ public class MoveToAction : ShipObjectAction
 
 	private bool IsAtLocation()
 	{
-		return Vector3.Distance(shipObject.transform.position, position) < 0.01f;
+		return Vector3.Distance(shipObject.transform.position, position) < 0.1f;
 	}
 
 	private void MoveTo()

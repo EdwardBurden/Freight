@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UI;
 using UnityEngine;
-//TODO
+
 [CreateAssetMenu(menuName = "ScriptableObject/ResourceData")]
-public class ResourceData : ScriptableObject
+public class ResourceDefintion : ScriptableObject
 {
 	public string resourceName;
 	public Sprite resourceIcon;

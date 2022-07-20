@@ -20,7 +20,7 @@ public class CarryObject : MonoBehaviour //goes on ship for carrying stuff
 		return freightObjects;
 	}
 
-	public bool HasFreightOfResource(ResourceData resourceData)
+	public bool HasFreightOfResource(ResourceDefintion resourceData)
 	{
 		return GetAllFreight().Find(x => x.resourceData == resourceData) != null;
 	}
@@ -30,13 +30,13 @@ public class CarryObject : MonoBehaviour //goes on ship for carrying stuff
 		return GetFirstEmptyStorageTransform() != null;
 	}
 
-	public FreightObject GetFreightOfResource(ResourceData resourceData) //use to add to platform postion before landing at platforms
+	public FreightObject GetFreightOfResource(ResourceDefintion resourceData) //use to add to platform postion before landing at platforms
 	{
 		FreightObject freightObject = GetAllFreight().Find(x => x.resourceData == resourceData);
 		return freightObject;
 	}
 
-	public Transform GetFirstStorageTransformOfResource(ResourceData resourceData) //use to add to platform postion before landing at platforms
+	public Transform GetFirstStorageTransformOfResource(ResourceDefintion resourceData) //use to add to platform postion before landing at platforms
 	{
 		FreightObject freightObject = GetAllFreight().Find(x => x.resourceData == resourceData);
 		return freightObject.transform.parent.transform;

@@ -9,19 +9,14 @@ public class Town : Building, IConsumer
 
 
 	[SerializeField]
-	private ResourceData[] accepts; //temp
+	private ResourceDefintion[] accepts;
 
-	public ResourceData[] GetAcceptedResources()
+	public ResourceDefintion[] GetAcceptedResources()
 	{
 		return accepts;
 	}
 
-	public LandingPlatform GetLandingPlatform()
-	{
-		return platform;
-	}
-
-	public bool AcceptsResource(ResourceData resourceData)
+	public bool AcceptsResource(ResourceDefintion resourceData)
 	{
 		for (int i = 0; i < accepts.Length; i++)
 		{
@@ -31,5 +26,10 @@ public class Town : Building, IConsumer
 			}
 		}
 		return false;
+	}
+
+	public LandingPlatform GetConsumerLandingPlatform()
+	{
+		return platform;
 	}
 }

@@ -9,9 +9,9 @@ public class AlignShipForDeliveryAction : HierarchicalAction
 	private CarryObject carryObject;
 	private LandingPlatform landingPlatform;
 	private Vector3 offset;
-	private ResourceData resourceData;
+	private ResourceDefintion resourceData;
 
-	public AlignShipForDeliveryAction(ShipObject shipObject, CarryObject carryObject, ResourceData resourceData, LandingPlatform landingPlatform) : base()
+	public AlignShipForDeliveryAction(ShipObject shipObject, CarryObject carryObject, ResourceDefintion resourceData, LandingPlatform landingPlatform) : base()
 	{
 		this.shipObject = shipObject;
 		this.carryObject = carryObject;

@@ -5,27 +5,32 @@ using UnityEngine;
 //TODO
 public class Market : Building, IConsumer, IProducer
 {
-	public ResourceData[] GetAcceptedResources()
+	public ResourceDefintion[] GetAcceptedResources()
 	{
 		throw new System.NotImplementedException();
 	}
 
-	public LandingPlatform GetLandingPlatform()
+	public LandingPlatform GetProducerLandingPlatform()
 	{
 		throw new System.NotImplementedException();
 	}
 
-	public ResourceData[] GetProducedResources()
+	public ResourceDefintion[] GetProducedResources()
 	{
 		throw new System.NotImplementedException();
 	}
 
-	public bool AcceptsResource(ResourceData resourceData)
+	public bool AcceptsResource(ResourceDefintion resourceData)
 	{
 		throw new System.NotImplementedException();
 	}
 
-	public bool ProducesResource(ResourceData resourceData)
+	public bool ProducesResource(ResourceDefintion resourceData)
+	{
+		throw new System.NotImplementedException();
+	}
+
+	public LandingPlatform GetConsumerLandingPlatform()
 	{
 		throw new System.NotImplementedException();
 	}

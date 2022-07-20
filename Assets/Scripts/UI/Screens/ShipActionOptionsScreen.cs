@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,9 +30,13 @@ namespace UI
 			this.callBack = callBack;
 			Clear(options);
 			Open(shipActionSelectionInfo.clickPosition);
-			foreach (ShipActionDefintion action in interactionActions)
+
+
+
+			foreach (ShipActionDefintion action in interactionActions.OrderBy(x => x.uiOrder))
 			{
-				action.CreateActionSelectionButton(options, () => OptionSelected(action));
+				ShipActionIconButtonWidget shipActionIconWidget = Instantiate(action.iconPrefab, options);
+				shipActionIconWidget.ShowAction(action, () => OptionSelected(action));
 			}
 
 		}

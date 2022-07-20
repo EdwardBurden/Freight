@@ -7,10 +7,10 @@ public class CollectAction : ShipAction
 {
 	private CarryObject carryObject;
 	private IProducer producer;
-	private ResourceData resourceData;
+	private ResourceDefintion resourceData;
 
 
-	public CollectAction(ShipActionDefintion shipActionDefintion, ShipObject shipObject, IProducer target, ResourceData resourceTarget) : base(shipActionDefintion, shipObject)
+	public CollectAction(ShipActionDefintion shipActionDefintion, ShipObject shipObject, IProducer target, ResourceDefintion resourceTarget) : base(shipActionDefintion, shipObject)
 	{
 		this.carryObject = shipObject.GetComponent<CarryObject>();
 		this.producer = target;
@@ -20,7 +20,7 @@ public class CollectAction : ShipAction
 
 	private void CreateActions()
 	{
-		LandingPlatform landingPlatform = producer.GetLandingPlatform();
+		LandingPlatform landingPlatform = producer.GetProducerLandingPlatform();
 		Vector3 position = landingPlatform.GetLandingPosition();
 
 		//Move
