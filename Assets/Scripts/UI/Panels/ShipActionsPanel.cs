@@ -5,7 +5,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShipSelectedPanel : Panel
+public class ShipActionsPanel : Panel
 {
 	[SerializeField]
 	private TMP_Text shipNametext;
@@ -51,7 +51,6 @@ public class ShipSelectedPanel : Panel
 		shipActionList.ActionPushedEvent += ShipActionList_ActionPushedEvent;
 
 		Show();
-		shipNametext.text = obj.shipName;
 		Refresh();
 	}
 

@@ -34,4 +34,9 @@ public class Market : Building, IConsumer, IProducer
 	{
 		throw new System.NotImplementedException();
 	}
+
+	public override string GetObjectName()
+	{
+		return "Market";//TODO
+	}
 }

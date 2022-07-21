@@ -32,4 +32,9 @@ public class Town : Building, IConsumer
 	{
 		return platform;
 	}
+
+	public override string GetObjectName()
+	{
+		return "Town";//TODO
+	}
 }

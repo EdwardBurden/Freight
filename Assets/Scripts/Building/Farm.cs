@@ -8,7 +8,7 @@ public class Farm : Building, IProducer
 	private LandingPlatform platform;
 
 	[SerializeField]
-	private ResourceDefintion[] produces; 
+	private ResourceDefintion[] produces;
 
 	public LandingPlatform GetProducerLandingPlatform()
 	{
@@ -32,4 +32,8 @@ public class Farm : Building, IProducer
 		return false;
 	}
 
+	public override string GetObjectName()
+	{
+		return "Farm";
+	}
 }

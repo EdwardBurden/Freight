@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 7487590425637725943}
   - component: {fileID: 7487590425637725942}
   - component: {fileID: 7487590425637725449}
-  - component: {fileID: 5547624844535551892}
   m_Layer: 0
   m_Name: Farm - Prod
   m_TagString: Untagged
@@ -113,27 +112,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26c17db5222304c40badd142e53ca1ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platform: {fileID: 8524479539199280681}
-  produces:
-  - {fileID: 11400000, guid: 1ee249951273d1c4994ec161801201b0, type: 2}
---- !u!114 &5547624844535551892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7487590425637725448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1e6c00258cff5446a5d7545e5754c33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   OnHoverEvent:
     m_PersistentCalls:
       m_Calls: []
   OffHoverEvent:
     m_PersistentCalls:
       m_Calls: []
+  hoverUIPrefab: {fileID: 2770650606235443413, guid: bd94b442b64d5ed45955568090ca421c, type: 3}
+  showHoverUiPanel: 1
+  platform: {fileID: 8524479539199280681}
+  produces:
+  - {fileID: 11400000, guid: 1ee249951273d1c4994ec161801201b0, type: 2}
 --- !u!1 &8359764338292366428
 GameObject:
   m_ObjectHideFlags: 0

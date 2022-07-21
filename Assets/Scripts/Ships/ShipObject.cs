@@ -39,4 +39,9 @@ public class ShipObject : InteractableObject
 	{
 		return actionList.activelist.Count < actionList.maxActions;
 	}
+
+	public override string GetObjectName()
+	{
+		return shipName;
+	}
 }

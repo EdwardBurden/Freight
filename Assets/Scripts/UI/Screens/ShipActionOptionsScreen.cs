@@ -9,7 +9,7 @@ namespace UI
 {//TODO
 	public class ShipActionOptionsScreen : Screen
 	{
-		public static string PATH = "Prefabs/UI/InteractionActionOptionsScreen";
+		public static string PATH = "Prefabs/UI/Screens/InteractionActionOptionsScreen";
 
 		[SerializeField]
 		private Transform options;

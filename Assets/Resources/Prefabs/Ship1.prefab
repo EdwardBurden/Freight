@@ -298,6 +298,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  hoverUIPrefab: {fileID: 3014086065030212185, guid: 6f29b56d4ceac1c4e9303fd7b0f4524a, type: 3}
+  showHoverUiPanel: 1
   OnShipSelectedEvent:
     m_PersistentCalls:
       m_Calls:
@@ -361,6 +363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e2026abccfde954f921d444a6feeaf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxActions: 3
 --- !u!1 &5542477084402147373
 GameObject:
   m_ObjectHideFlags: 0

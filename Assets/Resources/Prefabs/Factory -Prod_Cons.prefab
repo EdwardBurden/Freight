@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 1453830250109635107}
   - component: {fileID: 1453830250109635108}
   - component: {fileID: 1453830250109635109}
-  - component: {fileID: 990763228}
   m_Layer: 0
   m_Name: Factory -Prod_Cons
   m_TagString: Untagged
@@ -113,27 +112,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ef53f7ed06ac214abd19806176de579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputPlatform: {fileID: 8709918956351243813}
-  outputPlatform: {fileID: 6978591923663053279}
-  conversion: {fileID: 11400000, guid: 984e6064760bfa944a55ba0d5d4c41fc, type: 2}
---- !u!114 &990763228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1453830250109635110}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1e6c00258cff5446a5d7545e5754c33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   OnHoverEvent:
     m_PersistentCalls:
       m_Calls: []
   OffHoverEvent:
     m_PersistentCalls:
       m_Calls: []
+  hoverUIPrefab: {fileID: 2770650606235443413, guid: bd94b442b64d5ed45955568090ca421c, type: 3}
+  showHoverUiPanel: 1
+  inputPlatform: {fileID: 8709918956351243813}
+  outputPlatform: {fileID: 6978591923663053279}
+  conversion: {fileID: 11400000, guid: 984e6064760bfa944a55ba0d5d4c41fc, type: 2}
 --- !u!1001 &7545403027275915080
 PrefabInstance:
   m_ObjectHideFlags: 0

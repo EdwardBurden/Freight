@@ -64,4 +64,9 @@ public class Factory : Building, IProducer, IConsumer
 		}
 		return false;
 	}
+
+	public override string GetObjectName()
+	{
+		return "Factory";//TODO
+	}
 }
