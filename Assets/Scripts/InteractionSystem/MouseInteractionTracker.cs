@@ -38,7 +38,10 @@ public class MouseInteractionTracker : Singleton<MouseInteractionTracker>
 
 		CheckHoverObject(interactionInfo);
 		CheckClick(interactionInfo);
-		mousePostion?.Invoke(interactionInfo.hitInfo.point);
+		if (interactionInfo.focused)
+		{
+			mousePostion?.Invoke(interactionInfo.hitInfo.point);
+		}
 	}
 
 	private void CheckHoverObject(RayCastInfo<InteractableObject> rayCastInfo)

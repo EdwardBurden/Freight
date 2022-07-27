@@ -22,12 +22,13 @@ namespace UI
 		[SerializeField]
 		private Button button;
 
-		public void ShowAction(ShipActionDefintion actionDefintion, Action callback)
+		public void ShowAction(ShipActionDefintion actionDefintion, Action callback, bool interactive = true)
 		{
 			text.text = actionDefintion.actionName;
 			icon.sprite = actionDefintion.actionIcon;
 			backgroundIcon.color = actionDefintion.actionColor;
 			button.onClick.AddListener(() => callback());
+			button.interactable = interactive;
 		}
 	}
 }

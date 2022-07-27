@@ -22,8 +22,9 @@ public class MoveActionDefintion : ShipActionDefintion
 		//		when they click it gets the postion and returns here
 		//		and re enables ShipSelectionManager
 		//	throw new NotImplementedException();
-		//PreviewMoveAction previewMoveAction = Instantiate(previewMoveActionPrefab);
-		PreviewMoveAction.instance.Open(ship, (postion) => OnPreviewClick(ship, postion, callback));
+		PreviewMoveAction previewMoveAction = Instantiate(previewMoveActionPrefab);
+		previewMoveAction.Open(ship, (postion) => OnPreviewClick(ship, postion, callback));
+		//PreviewMoveAction.instance.Open(ship, (postion) => OnPreviewClick(ship, postion, callback));
 	}
 
 	private void OnPreviewClick(ShipObject shipObject, Vector3 position, Action<ShipAction> callback)

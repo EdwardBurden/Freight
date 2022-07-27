@@ -422,8 +422,10 @@ MonoBehaviour:
   pauseButton: {fileID: 5038858479970783072}
   repeatButton: {fileID: 8894638467319266872}
   noRepeatButton: {fileID: 935963406810183377}
+  addSprite: {fileID: 21300000, guid: 35e01ddfad39bf84e9160e7257d4fa86, type: 3}
   actionListTransform: {fileID: 4319123219846897021}
-  buttonWidget: {fileID: 7230138071748487761, guid: 7c40dca882bc43c449357664c56650c7, type: 3}
+  actionButtonWidgetPrefab: {fileID: 7230138071748487761, guid: 7c40dca882bc43c449357664c56650c7, type: 3}
+  addButtonPrefab: {fileID: 5929070296245268767, guid: b5f18e19e076f1140ade7712b27ea84c, type: 3}
 --- !u!1 &5552483545583132713
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,49 +4,54 @@ using System.Collections.Generic;
 using UI;
 using UnityEngine;
 
-public class PreviewMoveAction : Singleton<PreviewMoveAction> //or created in the scen froma prefab and killed when doen, can decide later
+public class PreviewMoveAction : MonoBehaviour //or created in the scen froma prefab and killed when doen, can decide later
 {
+	[SerializeField]
+	private Vector3 offset = new Vector3(0, 3, 0);
+
+	[SerializeField]
+	private LineRenderer lineRenderer;
+
 	private ShipObject shipObject;
 	private Action<Vector3> callback;
-
-	private GameObject cube;
-
 	private bool open;
 
 	private void Awake()
 	{
-		_instance = this;
+		lineRenderer.gameObject.SetActive(false);
 	}
 
-	public void RegisterEvents()
+	public void Start()
 	{
-		MouseInteractionTracker.instance.mousePostion += Instance_mousePostion;
+		ShipActionsPanel.ShipActionsPanelSelectionOpened += Close;
+		MouseInteractionTracker.instance.mousePostion += OnMousePostion;
 		MouseInteractionTracker.instance.LeftClickInteractableEvent += OnLeftClickInteractable;
 		MouseInteractionTracker.instance.RightClickInteractableEvent += OnRightClickInteractable;
 	}
 
-	private void Instance_mousePostion(Vector3 postion)
+	public void OnDestroy()
 	{
-		cube.transform.position = postion;
-	}
-
-	public void UnregisterEvents()
-	{
-		MouseInteractionTracker.instance.mousePostion -= Instance_mousePostion;
+		ShipActionsPanel.ShipActionsPanelSelectionOpened -= Close;
+		MouseInteractionTracker.instance.mousePostion -= OnMousePostion;
 		MouseInteractionTracker.instance.LeftClickInteractableEvent -= OnLeftClickInteractable;
 		MouseInteractionTracker.instance.RightClickInteractableEvent -= OnRightClickInteractable;
 	}
 
+	private void OnMousePostion(Vector3 postion)
+	{
+		lineRenderer.SetPosition(0, shipObject.gameObject.transform.position + offset);
+		lineRenderer.SetPosition(1, postion);
+	}
+
 	private void OnRightClickInteractable(InteractableObject arg1, Vector3 arg2)
 	{
-		//throw new NotImplementedException();
+		Close();
 	}
 
 	private void OnLeftClickInteractable(InteractableObject arg1, Vector3 arg2)
 	{
 		callback.Invoke(arg2);
 		Close();
-		//throw new NotImplementedException();
 	}
 
 	public void Open(ShipObject shipObject, Action<Vector3> callback)
@@ -55,22 +60,20 @@ public class PreviewMoveAction : Singleton<PreviewMoveAction> //or created in th
 		{
 			Close();
 		}
+
 		this.callback = callback;
 		this.shipObject = shipObject;
 		open = true;
-
+		lineRenderer.gameObject.SetActive(true);
 		ShipSelectionManager.instance.UnregisterEvents();
 		UIManager.instance.CloseAllScreens();
-		RegisterEvents();
-		cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		cube.GetComponent<Collider>().enabled = false;
 	}
 
 	private void Close()
 	{
 		open = false;
 		ShipSelectionManager.instance.RegisterEvents();
-		UnregisterEvents();
-		Destroy(cube.gameObject);
+		lineRenderer.gameObject.SetActive(false);
+		Destroy(this.gameObject);
 	}
 }

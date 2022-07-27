@@ -15,4 +15,5 @@ MonoBehaviour:
   actionName: Move
   actionIcon: {fileID: 21300000, guid: c7497394d7de05c41852f103491cff75, type: 3}
   actionColor: {r: 0.823, g: 0.20923729, b: 0.20923729, a: 1}
-  iconPrefab: {fileID: 7230138071748487761, guid: 7c40dca882bc43c449357664c56650c7, type: 3}
+  uiOrder: 0
+  previewMoveActionPrefab: {fileID: 5244719464296625539, guid: 6230fb8026d98404fb6834b751690f07, type: 3}

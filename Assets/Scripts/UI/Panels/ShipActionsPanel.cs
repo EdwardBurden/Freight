@@ -9,6 +9,8 @@ namespace UI
 {
 	public class ShipActionsPanel : Panel
 	{
+		public static event Action ShipActionsPanelSelectionOpened;
+
 		[SerializeField]
 		private TMP_Text shipNametext;
 		[SerializeField]
@@ -23,12 +25,17 @@ namespace UI
 		[SerializeField]
 		private SimpleButtonWidget noRepeatButton;
 
+		[SerializeField]
+		private Sprite addSprite;
 
 		[SerializeField]
 		private Transform actionListTransform;
 
 		[SerializeField]
-		private ShipActionsPanelActionButtonWidget buttonWidget; //re use for now, replace with dragbbl one later
+		private ShipActionIconButtonWidget actionButtonWidgetPrefab;
+
+		[SerializeField]
+		private SimpleButtonWidget addButtonPrefab;
 
 		private ShipObject shipObject;
 		private ShipActionList shipActionList => shipObject.GetComponent<ShipActionList>();
@@ -73,19 +80,33 @@ namespace UI
 		{
 			for (int i = 0; i < shipActionList.maxActions; i++)
 			{
-				ShipActionsPanelActionButtonWidget actionIcon = Instantiate(buttonWidget, actionListTransform);
 				if (i < shipActionList.actions.Count)
 				{
-					ShipAction shipAction = shipActionList.actions[i];
-					actionIcon.ShowAction(shipAction);
+					SpawnShipActionIconButton(shipActionList.actions[i]);
 				}
 				else
 				{
-					//SelectActionForPanelScreen.Create(shipObject.shipActions, (def) => OnShipActionSelected(def));
-					actionIcon.ShowAdd(() => SelectActionForPanelScreen.Create(shipObject.shipActions, (def) => OnShipActionSelected(def)));
+					SpawnAddbutton(i == shipActionList.actions.Count);
 				}
-				//actionIcon.ShowAction(obj.actionDefintion, () => Remove(obj));
 			}
+		}
+
+		private void SpawnShipActionIconButton(ShipAction shipAction)
+		{
+			ShipActionIconButtonWidget actionIcon = Instantiate(actionButtonWidgetPrefab, actionListTransform);
+			actionIcon.ShowAction(shipAction.actionDefintion, () => Remove(shipAction));
+		}
+		private void SpawnAddbutton(bool active)
+		{
+			SimpleButtonWidget addButton = Instantiate(addButtonPrefab, actionListTransform);
+			addButton.Init(Color.white, addSprite, AddClicked, active);
+		}
+
+
+		private void AddClicked()
+		{
+			SelectActionForPanelScreen.Create(shipObject.shipActions, (def) => OnShipActionSelected(def));
+			ShipActionsPanelSelectionOpened?.Invoke();
 		}
 
 		private void OnShipActionSelected(ShipActionDefintion shipActionDefintion)
@@ -96,17 +117,19 @@ namespace UI
 		private void OnShipActionCreated(ShipAction shipAction)
 		{
 			ShipObject shipObject = shipAction.shipObject;
-			shipObject.SetAction(shipAction);
+			shipObject.PushAction(shipAction);
 		}
 
-		/*	private void Remove(ShipAction shipAction)
-			{
-				shipActionList.RemoveAction(shipAction);
-				Refresh();
 
 
-			}
-		*/
+
+
+		private void Remove(ShipAction shipAction)
+		{
+			shipActionList.RemoveAction(shipAction);
+			Refresh();
+		}
+
 
 		private void OnActionPushed(ShipAction obj)
 		{

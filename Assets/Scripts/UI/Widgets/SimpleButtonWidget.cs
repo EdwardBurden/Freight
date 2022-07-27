@@ -16,12 +16,13 @@ namespace UI
 		[SerializeField]
 		private Image icon;
 
-		public void Init(Color color, Sprite sprite, Action callback)
+		public void Init(Color color, Sprite sprite, Action callback, bool interactable)
 		{
 			this.icon.sprite = sprite;
 			background.color = color;
 			button.onClick.RemoveAllListeners();
 			button.onClick.AddListener(() => callback());
+			button.interactable = interactable;
 		}
 
 		public void Init(Action callback)

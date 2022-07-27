@@ -15,8 +15,6 @@ public class ShipActionList : MonoBehaviour, IActionList
 	//use actions for ui, grey out when isfinished .When all finsihed reset list
 	public List<ShipAction> activelist => actions.Where(x => !x.isFinished).ToList(); //TODO remove linq
 
-	public int activeActionIndex => actions.IndexOf(activelist.First());
-
 	public bool repeat { get; private set; }
 	public bool paused { get; private set; }
 
@@ -84,7 +82,7 @@ public class ShipActionList : MonoBehaviour, IActionList
 
 		if (IsEmpty())
 		{
-			if (repeat)
+			if (repeat && actions.Count > 1)
 			{
 				ResetActions();
 			}
