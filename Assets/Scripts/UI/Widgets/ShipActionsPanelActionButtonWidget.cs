@@ -12,11 +12,21 @@ namespace UI
 		[SerializeField]
 		private Button addButton;
 
-		internal void Show(ShipAction shipAction)
+		[SerializeField]
+		private Transform actionIconSpawn;
+
+
+		internal void ShowAction(ShipAction shipAction)
 		{
 
-			transform.GetChild(0).gameObject.SetActive(shipAction == null);
-			transform.GetChild(1).gameObject.SetActive(shipAction != null);
+			addButton.gameObject.SetActive(false);
+			actionIconSpawn.gameObject.SetActive(true);
+		}
+
+		internal void ShowAdd()
+		{
+			addButton.gameObject.SetActive(true);
+			actionIconSpawn.gameObject.SetActive(false);
 		}
 
 		//[SerializeField]

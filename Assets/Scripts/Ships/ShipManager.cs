@@ -34,17 +34,16 @@ public class ShipManager : Singleton<ShipManager>
 	{
 		if (shipSelected != null && obj.gameObject != shipSelected.gameObject)
 		{
-			if (!shipSelected.CanPushAction())
-			{
-				return;
-			}
-
 			//TODO, if only option is move , then move
 			RightClickContextActionInfo shipActionSelectionInfo = new RightClickContextActionInfo(shipSelected, obj, worldClickPosition);
 			ShipActionDefintion[] interactionActions = GetAvailableActions(shipActionSelectionInfo);
 
+			if (interactionActions.Length == 1)
+			{
+				OnShipActionSelected(interactionActions[0], shipActionSelectionInfo);
+				return;
+			}
 			ShipActionSelectScreen.Create(shipActionSelectionInfo, interactionActions, OnShipActionSelected);
-
 		}
 	}
 
@@ -56,7 +55,7 @@ public class ShipManager : Singleton<ShipManager>
 	private void OnShipActionCreated(ShipAction shipAction)
 	{
 		ShipObject shipObject = shipAction.shipObject;
-		shipObject.PushAction(shipAction);
+		shipObject.SetAction(shipAction);
 		UIManager.instance.CloseAllScreens();
 		//Fire eVENT
 	}

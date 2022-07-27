@@ -44,4 +44,10 @@ public class ShipObject : InteractableObject
 	{
 		return shipName;
 	}
+
+	internal void SetAction(ShipAction shipAction)
+	{
+		actionList.ClearActions();
+		actionList.PushAction(shipAction);
+	}
 }

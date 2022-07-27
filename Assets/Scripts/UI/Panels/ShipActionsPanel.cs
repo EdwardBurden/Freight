@@ -71,13 +71,16 @@ namespace UI
 		{
 			for (int i = 0; i < shipActionList.maxActions; i++)
 			{
-				ShipAction shipAction = null;
+				ShipActionsPanelActionButtonWidget actionIcon = Instantiate(buttonWidget, actionListTransform);
 				if (i < shipActionList.actions.Count)
 				{
-					shipAction = shipActionList.actions[i];
+					ShipAction shipAction = shipActionList.actions[i];
+					actionIcon.ShowAction(shipAction);
 				}
-				ShipActionsPanelActionButtonWidget actionIcon = Instantiate(buttonWidget, actionListTransform);
-				actionIcon.Show(shipAction);
+				else
+				{
+					actionIcon.ShowAdd();
+				}
 				//actionIcon.ShowAction(obj.actionDefintion, () => Remove(obj));
 			}
 		}

@@ -28,6 +28,11 @@ public class ShipActionList : MonoBehaviour, IActionList
 		paused = false;
 	}
 
+	public void ClearActions()
+	{
+		actions.Clear(); //change later 
+	}
+
 	public void PushAction(ShipAction action)
 	{
 		action.SetOwner(this);
