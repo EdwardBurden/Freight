@@ -15,5 +15,10 @@ public abstract class ShipActionDefintion : ScriptableObject
 
 	public abstract void OnOptionSelectedFromActionsListPanel(ShipObject ship, Action<ShipAction> callback);//user has selected this action on action list panel, what to do next?
 
+	public virtual void OnDefaultRightClickMenuOption(RightClickContextActionInfo shipActionSelectionInfo, Action<ShipAction> callback)//user has selected this action on right click menu where its the only option, what to do next?
+	{
+		OnOptionSelectedFromRightClickMenu(shipActionSelectionInfo, callback);
+	} 
+
 	public abstract void OnOptionSelectedFromRightClickMenu(RightClickContextActionInfo shipActionSelectionInfo, Action<ShipAction> callback); //user has selected this action on right click menu, what to do next?
 }

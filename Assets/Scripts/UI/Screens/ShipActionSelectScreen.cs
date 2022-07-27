@@ -34,14 +34,11 @@ namespace UI
 			Clear(options);
 			Open(shipActionSelectionInfo.clickPosition);
 
-
-
 			foreach (ShipActionDefintion action in interactionActions.OrderBy(x => x.uiOrder))
 			{
 				ShipActionIconButtonWidget shipActionIconWidget = Instantiate(iconButtonWidget, options);
 				shipActionIconWidget.ShowAction(action, () => OptionSelected(action));
 			}
-
 		}
 
 		private void OptionSelected(ShipActionDefintion interactionOrder)

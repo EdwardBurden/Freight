@@ -19,15 +19,21 @@ public class CollectActionDefintion : ShipActionDefintion
 		return true;
 	}
 
+
+
 	public override void OnOptionSelectedFromActionsListPanel(ShipObject ship, Action<ShipAction> callback)
 	{
 		throw new NotImplementedException();
 	}
-
+	public override void OnDefaultRightClickMenuOption(RightClickContextActionInfo shipActionSelectionInfo, Action<ShipAction> callback)
+	{
+		IProducer producer = shipActionSelectionInfo.interactable.GetComponent<IProducer>();
+		ResourceSelectScreen.Create(producer.GetProducedResources(), shipActionSelectionInfo.clickPosition, (resource) => OnResourceSelected(shipActionSelectionInfo, resource, callback), true);
+	}
 	public override void OnOptionSelectedFromRightClickMenu(RightClickContextActionInfo shipActionSelectionInfo, Action<ShipAction> callback)
 	{
 		IProducer producer = shipActionSelectionInfo.interactable.GetComponent<IProducer>();
-		ResourceSelectScreen.Create(producer.GetProducedResources(), shipActionSelectionInfo.clickPosition, (resource) => OnResourceSelected(shipActionSelectionInfo, resource, callback));
+		ResourceSelectScreen.Create(producer.GetProducedResources(), shipActionSelectionInfo.clickPosition, (resource) => OnResourceSelected(shipActionSelectionInfo, resource, callback) , false);
 	}
 
 	private void OnResourceSelected(RightClickContextActionInfo shipActionSelectionInfo, ResourceDefintion resourceData, Action<ShipAction> callback)

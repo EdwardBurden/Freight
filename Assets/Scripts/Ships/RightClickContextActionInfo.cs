@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public struct RightClickContextActionInfo
+public class RightClickContextActionInfo
 {
 	public ShipObject ship;
 	public InteractableObject interactable;

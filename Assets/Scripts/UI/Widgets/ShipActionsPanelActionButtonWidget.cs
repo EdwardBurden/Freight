@@ -18,15 +18,17 @@ namespace UI
 
 		internal void ShowAction(ShipAction shipAction)
 		{
-
+			//spawn action icon, setuop remove button
 			addButton.gameObject.SetActive(false);
 			actionIconSpawn.gameObject.SetActive(true);
 		}
 
-		internal void ShowAdd()
+		internal void ShowAdd(Action action)
 		{
 			addButton.gameObject.SetActive(true);
 			actionIconSpawn.gameObject.SetActive(false);
+			addButton.onClick.RemoveAllListeners();
+			addButton.onClick.AddListener(() => action());
 		}
 
 		//[SerializeField]

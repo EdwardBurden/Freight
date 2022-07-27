@@ -48,6 +48,8 @@ public class ShipObject : InteractableObject
 	internal void SetAction(ShipAction shipAction)
 	{
 		actionList.ClearActions();
+		actionList.SetPaused(false);
+		actionList.SetRepeat(false);
 		actionList.PushAction(shipAction);
 	}
 }

@@ -14,11 +14,11 @@ namespace UI
 		private ResourceDefintion[] resources;
 		private Action<ResourceDefintion> callBack;
 
-		public static void Create(ResourceDefintion[] resources, Vector3 clickPosition, Action<ResourceDefintion> callBack)
+		public static void Create(ResourceDefintion[] resources, Vector3 clickPosition, Action<ResourceDefintion> callBack, bool closeOtherMenus)
 		{
 			ResourceSelectScreen screen = Screen.Open(PATH) as ResourceSelectScreen;
 			screen.Init(resources, clickPosition, callBack);
-			UIManager.instance.RegisterScreen(screen, false);
+			UIManager.instance.RegisterScreen(screen, closeOtherMenus);
 		}
 
 		public void Init(ResourceDefintion[] resources, Vector3 clickPosition, Action<ResourceDefintion> callBack)

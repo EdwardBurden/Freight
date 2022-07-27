@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using UI;
 using UnityEngine;
 
-public class ShipManager : Singleton<ShipManager>
+public class ShipSelectionManager : Singleton<ShipSelectionManager>
 {
 	public event Action<ShipObject> ShipSelectedEvent;
 	public event Action<ShipObject> ShipDeSelectedEvent;
 
 	private ShipObject shipSelected;  //object we have selected
+
 
 	private void Awake()
 	{
@@ -18,12 +19,22 @@ public class ShipManager : Singleton<ShipManager>
 
 	public void Start()
 	{
+		RegisterEvents();
+	}
+
+	private void OnDestroy()
+	{
+		UnregisterEvents();
+	}
+
+	public void RegisterEvents()
+	{
 		MouseInteractionTracker.instance.LeftClickNonInteractableEvent += DeSelectShipObject;
 		MouseInteractionTracker.instance.LeftClickInteractableEvent += OnLeftClickInteractable;
 		MouseInteractionTracker.instance.RightClickInteractableEvent += OnRightClickInteractable;
 	}
 
-	private void OnDestroy()
+	public void UnregisterEvents()
 	{
 		MouseInteractionTracker.instance.LeftClickNonInteractableEvent -= DeSelectShipObject;
 		MouseInteractionTracker.instance.LeftClickInteractableEvent -= OnLeftClickInteractable;
@@ -38,9 +49,15 @@ public class ShipManager : Singleton<ShipManager>
 			RightClickContextActionInfo shipActionSelectionInfo = new RightClickContextActionInfo(shipSelected, obj, worldClickPosition);
 			ShipActionDefintion[] interactionActions = GetAvailableActions(shipActionSelectionInfo);
 
+			if (interactionActions.Length == 0)
+			{
+				//Show none available
+				return;
+			}
+
 			if (interactionActions.Length == 1)
 			{
-				OnShipActionSelected(interactionActions[0], shipActionSelectionInfo);
+				interactionActions[0].OnDefaultRightClickMenuOption(shipActionSelectionInfo, OnShipActionCreated);
 				return;
 			}
 			ShipActionSelectScreen.Create(shipActionSelectionInfo, interactionActions, OnShipActionSelected);

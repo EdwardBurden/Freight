@@ -12,6 +12,8 @@ public class MouseInteractionTracker : Singleton<MouseInteractionTracker>
 
 	private InteractableObject localHoverObject;
 
+	public event Action<Vector3> mousePostion;
+
 	public event Action<InteractableObject> mouseHoveredOnInteractable;
 	public event Action<InteractableObject> mouseHoveredOffInteractable;
 
@@ -29,13 +31,14 @@ public class MouseInteractionTracker : Singleton<MouseInteractionTracker>
 	{
 		bool onUI = InteractionUtils.CheckIfObjectIsUIInFocus(Input.mousePosition);
 		RayCastInfo<InteractableObject> interactionInfo = InteractionUtils.CheckIfObjectIsInFocus<InteractableObject>(mainCamera);
-		if (onUI)
+		if (onUI) //maybe include this bool in the events rsather than block
 		{
 			return;
 		}
 
 		CheckHoverObject(interactionInfo);
 		CheckClick(interactionInfo);
+		mousePostion?.Invoke(interactionInfo.hitInfo.point);
 	}
 
 	private void CheckHoverObject(RayCastInfo<InteractableObject> rayCastInfo)

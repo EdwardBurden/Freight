@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -29,18 +30,19 @@ namespace UI
 		[SerializeField]
 		private ShipActionsPanelActionButtonWidget buttonWidget; //re use for now, replace with dragbbl one later
 
-		private ShipActionList shipActionList;
+		private ShipObject shipObject;
+		private ShipActionList shipActionList => shipObject.GetComponent<ShipActionList>();
 
 		protected override void Start()
 		{
 			base.Start();
-			ShipManager.instance.ShipSelectedEvent += OnShipSelected;
-			ShipManager.instance.ShipDeSelectedEvent += OnShipDeselected;
+			ShipSelectionManager.instance.ShipSelectedEvent += OnShipSelected;
+			ShipSelectionManager.instance.ShipDeSelectedEvent += OnShipDeselected;
 		}
 		private void OnDestroy()
 		{
-			ShipManager.instance.ShipSelectedEvent -= OnShipSelected;
-			ShipManager.instance.ShipDeSelectedEvent -= OnShipDeselected;
+			ShipSelectionManager.instance.ShipSelectedEvent -= OnShipSelected;
+			ShipSelectionManager.instance.ShipDeSelectedEvent -= OnShipDeselected;
 		}
 
 		private void Refresh()
@@ -79,10 +81,22 @@ namespace UI
 				}
 				else
 				{
-					actionIcon.ShowAdd();
+					//SelectActionForPanelScreen.Create(shipObject.shipActions, (def) => OnShipActionSelected(def));
+					actionIcon.ShowAdd(() => SelectActionForPanelScreen.Create(shipObject.shipActions, (def) => OnShipActionSelected(def)));
 				}
 				//actionIcon.ShowAction(obj.actionDefintion, () => Remove(obj));
 			}
+		}
+
+		private void OnShipActionSelected(ShipActionDefintion shipActionDefintion)
+		{
+			shipActionDefintion.OnOptionSelectedFromActionsListPanel(shipObject, OnShipActionCreated);
+		}
+
+		private void OnShipActionCreated(ShipAction shipAction)
+		{
+			ShipObject shipObject = shipAction.shipObject;
+			shipObject.SetAction(shipAction);
 		}
 
 		/*	private void Remove(ShipAction shipAction)
@@ -102,23 +116,21 @@ namespace UI
 		private void OnActionFailed(ShipAction obj)
 		{
 			Refresh();
-			//throw new System.NotImplementedException();
 		}
 
 		private void OnActionFinished(ShipAction obj)
 		{
 			Refresh();
-			//throw new System.NotImplementedException();
 		}
 
 		private void OnActionStarted(ShipAction obj)
 		{
 			Refresh();
-			//throw new System.NotImplementedException();
 		}
-		private void OnShipSelected(ShipObject obj)
+
+		private void OnShipSelected(ShipObject shipObject)
 		{
-			shipActionList = obj.GetComponent<ShipActionList>();
+			this.shipObject = shipObject;
 			shipActionList.ActionStartedEvent += OnActionStarted;
 			shipActionList.ActionFinishedEvent += OnActionFinished;
 			shipActionList.ActionFailedEvent += OnActionFailed;
@@ -135,8 +147,8 @@ namespace UI
 			shipActionList.ActionFinishedEvent -= OnActionFinished;
 			shipActionList.ActionFailedEvent -= OnActionFailed;
 			shipActionList.ActionPushedEvent -= OnActionPushed;
-			//register events from shipobject
 		}
+
 		protected void Clear(Transform transform)
 		{
 			foreach (Transform item in transform)
