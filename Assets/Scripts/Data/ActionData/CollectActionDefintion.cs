@@ -8,7 +8,7 @@ using UnityEngine;
 //TODO
 public class CollectActionDefintion : ShipActionDefintion
 {
-	public override bool CanShowOption(ShipActionSelectionInfo shipActionSelectionInfo)
+	public override bool CanShowOption(RightClickContextActionInfo shipActionSelectionInfo)
 	{
 		IProducer producer = shipActionSelectionInfo.interactable.GetComponent<IProducer>();
 		CarryObject carryBehaviour = shipActionSelectionInfo.ship.gameObject.GetComponent<CarryObject>();
@@ -19,13 +19,18 @@ public class CollectActionDefintion : ShipActionDefintion
 		return true;
 	}
 
-	public override void OnOptionSelected(ShipActionSelectionInfo shipActionSelectionInfo, Action<ShipAction> callback)
+	public override void OnOptionSelectedFromActionsListPanel(ShipObject ship, Action<ShipAction> callback)
+	{
+		throw new NotImplementedException();
+	}
+
+	public override void OnOptionSelectedFromRightClickMenu(RightClickContextActionInfo shipActionSelectionInfo, Action<ShipAction> callback)
 	{
 		IProducer producer = shipActionSelectionInfo.interactable.GetComponent<IProducer>();
 		ResourceSelectScreen.Create(producer.GetProducedResources(), shipActionSelectionInfo.clickPosition, (resource) => OnResourceSelected(shipActionSelectionInfo, resource, callback));
 	}
 
-	private void OnResourceSelected(ShipActionSelectionInfo shipActionSelectionInfo, ResourceDefintion resourceData, Action<ShipAction> callback)
+	private void OnResourceSelected(RightClickContextActionInfo shipActionSelectionInfo, ResourceDefintion resourceData, Action<ShipAction> callback)
 	{
 		IProducer producer = shipActionSelectionInfo.interactable.GetComponent<IProducer>();
 		CollectAction collectAction = new CollectAction(this, shipActionSelectionInfo.ship, producer, resourceData);

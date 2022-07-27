@@ -6,8 +6,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI
-{//TODO
-	public class ResourceIconButtonWidget : MonoBehaviour //can override for collect/deliver to show resource
+{//Used for when a user slects a resource in the ResourceSelectScreen
+	public class ResourceIconButtonWidget : MonoBehaviour 
 	{
 		[SerializeField]
 		private TMP_Text text;

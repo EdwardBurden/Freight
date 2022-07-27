@@ -4,128 +4,143 @@ using TMPro;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class ShipActionsPanel : Panel
+namespace UI
 {
-	[SerializeField]
-	private TMP_Text shipNametext;
-	[SerializeField]
-	private TMP_Text actionsLeftText;
-
-	[SerializeField]
-	private SimpleButtonWidget playButton;
-	[SerializeField]
-	private SimpleButtonWidget pauseButton;
-	[SerializeField]
-	private SimpleButtonWidget repeatButton;
-	[SerializeField]
-	private SimpleButtonWidget noRepeatButton;
-
-
-	[SerializeField]
-	private Transform actionListTransform;
-
-	[SerializeField]
-	private ShipActionIconButtonWidget buttonWidget; //re use for now, replace with dragbbl one later
-
-	private ShipActionList shipActionList;
-
-	protected override void Start()
+	public class ShipActionsPanel : Panel
 	{
-		base.Start();
-		ShipManager.instance.ShipSelectedEvent += ShipManager_ShipSelectedEvent;
-		ShipManager.instance.ShipDeSelectedEvent += ShipManager_ShipDeSelectedEvent1;
-	}
-	private void OnDestroy()
-	{
-		ShipManager.instance.ShipSelectedEvent -= ShipManager_ShipSelectedEvent;
-		ShipManager.instance.ShipDeSelectedEvent -= ShipManager_ShipDeSelectedEvent1;
-	}
+		[SerializeField]
+		private TMP_Text shipNametext;
+		[SerializeField]
+		private TMP_Text actionsLeftText;
 
-	private void ShipManager_ShipSelectedEvent(ShipObject obj)
-	{
-		shipActionList = obj.GetComponent<ShipActionList>();
-		shipActionList.ActionStartedEvent += ShipActionList_ActionStartedEvent;
-		shipActionList.ActionEndedEvent += ShipActionList_ActionEndedEvent;
-		shipActionList.ActionFailedEvent += ShipActionList_ActionFailedEvent;
-		shipActionList.ActionPushedEvent += ShipActionList_ActionPushedEvent;
+		[SerializeField]
+		private SimpleButtonWidget playButton;
+		[SerializeField]
+		private SimpleButtonWidget pauseButton;
+		[SerializeField]
+		private SimpleButtonWidget repeatButton;
+		[SerializeField]
+		private SimpleButtonWidget noRepeatButton;
 
-		Show();
-		Refresh();
-	}
 
-	private void Refresh()
-	{
-		actionsLeftText.text = $"{shipActionList.activelist.Count}/{shipActionList.maxActions}";
-		Clear(actionListTransform);
-		foreach (var item in shipActionList.activelist)
+		[SerializeField]
+		private Transform actionListTransform;
+
+		[SerializeField]
+		private ShipActionsPanelActionButtonWidget buttonWidget; //re use for now, replace with dragbbl one later
+
+		private ShipActionList shipActionList;
+
+		protected override void Start()
 		{
-			SpawnIcon(item);
+			base.Start();
+			ShipManager.instance.ShipSelectedEvent += OnShipSelected;
+			ShipManager.instance.ShipDeSelectedEvent += OnShipDeselected;
 		}
-		playButton.Init(() => { shipActionList.SetPaused(false); TogglePlayButtons(); });
-		pauseButton.Init(() => { shipActionList.SetPaused(true); TogglePlayButtons(); });
-		repeatButton.Init(() => { shipActionList.SetRepeat(false); ToggleRepeatButtons(); });
-		noRepeatButton.Init(() => { shipActionList.SetRepeat(true); ToggleRepeatButtons(); });
-		TogglePlayButtons();
-		ToggleRepeatButtons();
-	}
-
-	private void TogglePlayButtons()
-	{
-		playButton.gameObject.SetActive(shipActionList.paused);
-		pauseButton.gameObject.SetActive(!shipActionList.paused);
-	}
-	private void ToggleRepeatButtons()
-	{
-		repeatButton.gameObject.SetActive(shipActionList.repeat);
-		noRepeatButton.gameObject.SetActive(!shipActionList.repeat);
-	}
-
-	private void SpawnIcon(ShipAction obj)
-	{
-		ShipActionIconButtonWidget actionIcon = Instantiate(buttonWidget, actionListTransform);
-		actionIcon.ShowAction(obj.actionDefintion, null);
-	}
-
-
-	private void ShipActionList_ActionPushedEvent(ShipAction obj)
-	{
-		Refresh();
-	}
-
-	private void ShipActionList_ActionFailedEvent(ShipAction obj)
-	{
-		Refresh();
-		//throw new System.NotImplementedException();
-	}
-
-	private void ShipActionList_ActionEndedEvent(ShipAction obj)
-	{
-		Refresh();
-		//throw new System.NotImplementedException();
-	}
-
-	private void ShipActionList_ActionStartedEvent(ShipAction obj)
-	{
-		Refresh();
-		//throw new System.NotImplementedException();
-	}
-
-	private void ShipManager_ShipDeSelectedEvent1(ShipObject obj)
-	{
-		Hide();
-		shipActionList.ActionStartedEvent -= ShipActionList_ActionStartedEvent;
-		shipActionList.ActionEndedEvent -= ShipActionList_ActionEndedEvent;
-		shipActionList.ActionFailedEvent -= ShipActionList_ActionFailedEvent;
-		shipActionList.ActionPushedEvent -= ShipActionList_ActionPushedEvent;
-		//register events from shipobject
-	}
-	protected void Clear(Transform transform)
-	{
-		foreach (Transform item in transform)
+		private void OnDestroy()
 		{
-			Destroy(item.gameObject);
+			ShipManager.instance.ShipSelectedEvent -= OnShipSelected;
+			ShipManager.instance.ShipDeSelectedEvent -= OnShipDeselected;
 		}
-	}
 
+		private void Refresh()
+		{
+			actionsLeftText.text = $"{shipActionList.GetActionsPushedAmount()}/{shipActionList.maxActions}";
+			Clear(actionListTransform);
+			SpawnButtons();
+			playButton.Init(() => { shipActionList.SetPaused(false); TogglePlayButtons(); });
+			pauseButton.Init(() => { shipActionList.SetPaused(true); TogglePlayButtons(); });
+			repeatButton.Init(() => { shipActionList.SetRepeat(false); ToggleRepeatButtons(); });
+			noRepeatButton.Init(() => { shipActionList.SetRepeat(true); ToggleRepeatButtons(); });
+			TogglePlayButtons();
+			ToggleRepeatButtons();
+		}
+
+		private void TogglePlayButtons()
+		{
+			playButton.gameObject.SetActive(shipActionList.paused);
+			pauseButton.gameObject.SetActive(!shipActionList.paused);
+		}
+		private void ToggleRepeatButtons()
+		{
+			repeatButton.gameObject.SetActive(shipActionList.repeat);
+			noRepeatButton.gameObject.SetActive(!shipActionList.repeat);
+		}
+
+		private void SpawnButtons()
+		{
+			for (int i = 0; i < shipActionList.maxActions; i++)
+			{
+				ShipAction shipAction = null;
+				if (i < shipActionList.actions.Count)
+				{
+					shipAction = shipActionList.actions[i];
+				}
+				ShipActionsPanelActionButtonWidget actionIcon = Instantiate(buttonWidget, actionListTransform);
+				actionIcon.Show(shipAction);
+				//actionIcon.ShowAction(obj.actionDefintion, () => Remove(obj));
+			}
+		}
+
+		/*	private void Remove(ShipAction shipAction)
+			{
+				shipActionList.RemoveAction(shipAction);
+				Refresh();
+
+
+			}
+		*/
+
+		private void OnActionPushed(ShipAction obj)
+		{
+			Refresh();
+		}
+
+		private void OnActionFailed(ShipAction obj)
+		{
+			Refresh();
+			//throw new System.NotImplementedException();
+		}
+
+		private void OnActionFinished(ShipAction obj)
+		{
+			Refresh();
+			//throw new System.NotImplementedException();
+		}
+
+		private void OnActionStarted(ShipAction obj)
+		{
+			Refresh();
+			//throw new System.NotImplementedException();
+		}
+		private void OnShipSelected(ShipObject obj)
+		{
+			shipActionList = obj.GetComponent<ShipActionList>();
+			shipActionList.ActionStartedEvent += OnActionStarted;
+			shipActionList.ActionFinishedEvent += OnActionFinished;
+			shipActionList.ActionFailedEvent += OnActionFailed;
+			shipActionList.ActionPushedEvent += OnActionPushed;
+
+			Show();
+			Refresh();
+		}
+
+		private void OnShipDeselected(ShipObject obj)
+		{
+			Hide();
+			shipActionList.ActionStartedEvent -= OnActionStarted;
+			shipActionList.ActionFinishedEvent -= OnActionFinished;
+			shipActionList.ActionFailedEvent -= OnActionFailed;
+			shipActionList.ActionPushedEvent -= OnActionPushed;
+			//register events from shipobject
+		}
+		protected void Clear(Transform transform)
+		{
+			foreach (Transform item in transform)
+			{
+				Destroy(item.gameObject);
+			}
+		}
+
+	}
 }

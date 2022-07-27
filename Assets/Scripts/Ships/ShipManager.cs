@@ -40,17 +40,17 @@ public class ShipManager : Singleton<ShipManager>
 			}
 
 			//TODO, if only option is move , then move
-			ShipActionSelectionInfo shipActionSelectionInfo = new ShipActionSelectionInfo(shipSelected, obj, worldClickPosition);
+			RightClickContextActionInfo shipActionSelectionInfo = new RightClickContextActionInfo(shipSelected, obj, worldClickPosition);
 			ShipActionDefintion[] interactionActions = GetAvailableActions(shipActionSelectionInfo);
 
-			ShipActionOptionsScreen.Create(shipActionSelectionInfo, interactionActions, OnShipActionSelected);
+			ShipActionSelectScreen.Create(shipActionSelectionInfo, interactionActions, OnShipActionSelected);
 
 		}
 	}
 
-	private void OnShipActionSelected(ShipActionDefintion shipActionDefintion, ShipActionSelectionInfo shipActionSelectionInfo)
+	private void OnShipActionSelected(ShipActionDefintion shipActionDefintion, RightClickContextActionInfo shipActionSelectionInfo)
 	{
-		shipActionDefintion.OnOptionSelected(shipActionSelectionInfo, OnShipActionCreated);
+		shipActionDefintion.OnOptionSelectedFromRightClickMenu(shipActionSelectionInfo, OnShipActionCreated);
 	}
 
 	private void OnShipActionCreated(ShipAction shipAction)
@@ -61,7 +61,7 @@ public class ShipManager : Singleton<ShipManager>
 		//Fire eVENT
 	}
 
-	private ShipActionDefintion[] GetAvailableActions(ShipActionSelectionInfo shipActionSelectionInfo)
+	private ShipActionDefintion[] GetAvailableActions(RightClickContextActionInfo shipActionSelectionInfo)
 	{
 		List<ShipActionDefintion> orders = new List<ShipActionDefintion>();
 		foreach (ShipActionDefintion availableOrder in shipActionSelectionInfo.ship.shipActions)

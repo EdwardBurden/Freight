@@ -1,30 +1,15 @@
 using ActionLists;
 using UnityEngine;
 
-public abstract class AnimateAction : Action
+namespace ActionLists
 {
-	protected Animator animator;
-
-	public AnimateAction(Animator animator, bool isBlocking = false) : base(isBlocking)
+	public abstract class AnimateAction : Action
 	{
-		this.animator = animator;
-	}
+		protected Animator animator;
 
-	protected bool AnimatorIsPlaying()
-	{
-		return animator.GetCurrentAnimatorStateInfo(0).length > animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-	}
-
-	protected bool AnimatorIsPlaying(string stateName)
-	{
-		return AnimatorIsPlaying() && animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
-	}
-
-	protected bool isPlaying(string stateName)
-	{
-		if (animator.GetCurrentAnimatorStateInfo(0).IsName(stateName) && animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
-			return true;
-		else
-			return false;
+		public AnimateAction(Animator animator, bool isBlocking = false) : base(isBlocking)
+		{
+			this.animator = animator;
+		}
 	}
 }

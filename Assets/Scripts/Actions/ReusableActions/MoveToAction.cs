@@ -1,12 +1,14 @@
 using ActionLists;
 using UnityEngine;
 
-public class MoveToAction : ShipObjectAction
+public class MoveToAction : Action
 {
+	private ShipObject shipObject;
 	private Vector3 position;
 
-	public MoveToAction(Vector3 position, ShipObject shipObject, bool isBlocking) : base(shipObject, isBlocking)
+	public MoveToAction(Vector3 position, ShipObject shipObject, bool isBlocking) : base( isBlocking)
 	{
+		this.shipObject = shipObject;
 		this.position = position;
 	}
 

@@ -14,12 +14,13 @@ public class DeliverAction : ShipAction
 		this.carryObject = shipObject.GetComponent<CarryObject>();
 		this.consumer = target;
 		this.resourceData = resourceTarget;
-		CreateActions();
+		Reset();
 	}
 
 
-	private void CreateActions()
+	public override void Reset()
 	{
+		base.Reset();
 		LandingPlatform landingPlatform = consumer.GetConsumerLandingPlatform();
 		Vector3 position = landingPlatform.GetLandingPosition();
 
@@ -42,6 +43,7 @@ public class DeliverAction : ShipAction
 		base.OnInitialise();
 		if (!CheckShipIsValid() || !CheckProducerIsValid())
 		{
+			failed = true;
 			actionList.Clear();
 			isFinished = true;
 		}

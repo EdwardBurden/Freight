@@ -1,17 +1,19 @@
-using ActionLists;
 
-public class SyncAction : Action
+namespace ActionLists
 {
-	public SyncAction() : base(true)
+	public class SyncAction : Action
 	{
-
-	}
-
-	public override void OnUpdate()
-	{
-		if (owner.GetFrontAction() == this)
+		public SyncAction() : base(true)
 		{
-			isFinished = true;
+
+		}
+
+		public override void OnUpdate()
+		{
+			if (owner.GetFrontAction() == this)
+			{
+				isFinished = true;
+			}
 		}
 	}
 }

@@ -37,7 +37,7 @@ public class ShipObject : InteractableObject
 
 	internal bool CanPushAction()
 	{
-		return actionList.activelist.Count < actionList.maxActions;
+		return actionList.actions.Count < actionList.maxActions;
 	}
 
 	public override string GetObjectName()

@@ -1,11 +1,13 @@
 using ActionLists;
 using UnityEngine;
 
-public class RotateToAction : ShipObjectAction
+public class RotateToAction : Action
 {
-	Quaternion rotation;
-	public RotateToAction(Quaternion rotation, ShipObject shipObject, bool isBlocking = false) : base(shipObject, isBlocking)
+	private ShipObject shipObject;
+	private Quaternion rotation;
+	public RotateToAction(Quaternion rotation, ShipObject shipObject, bool isBlocking = false) : base(isBlocking)
 	{
+		this.shipObject = shipObject;
 		this.rotation = rotation;
 	}
 
@@ -29,6 +31,5 @@ public class RotateToAction : ShipObjectAction
 	private void RotateTo()
 	{
 		shipObject.transform.rotation = Quaternion.RotateTowards(shipObject.transform.rotation, rotation, shipObject.turnSpeed * Time.deltaTime);
-
 	}
 }

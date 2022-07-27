@@ -13,6 +13,14 @@ public abstract class ShipAction : HierarchicalAction
 		this.shipObject = shipObject;
 	}
 
+	public virtual void Reset()
+	{
+		isFinished = false;
+		isInitialised = false;
+		failed = false;
+		actionList.Clear();
+	}
+
 	public override void OnUpdate()
 	{
 		if (failed)
@@ -22,7 +30,12 @@ public abstract class ShipAction : HierarchicalAction
 		base.OnUpdate();
 	}
 
-	internal void OnFinish()
+	public virtual void OnFinish()
+	{
+		//throw new NotImplementedException();
+	}
+
+	public virtual void OnRemove()
 	{
 		//throw new NotImplementedException();
 	}

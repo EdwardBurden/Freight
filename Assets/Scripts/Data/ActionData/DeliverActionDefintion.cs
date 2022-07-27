@@ -7,7 +7,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/DeliverActionDefintion")]
 public class DeliverActionDefintion : ShipActionDefintion
 {
-	public override bool CanShowOption(ShipActionSelectionInfo shipActionSelectionInfo)
+	public override bool CanShowOption(RightClickContextActionInfo shipActionSelectionInfo)
 	{
 		IConsumer consumer = shipActionSelectionInfo.interactable.GetComponent<IConsumer>();
 		CarryObject carryBehaviour = shipActionSelectionInfo.ship.gameObject.GetComponent<CarryObject>();
@@ -18,13 +18,18 @@ public class DeliverActionDefintion : ShipActionDefintion
 		return true;
 	}
 
-	public override void OnOptionSelected(ShipActionSelectionInfo shipActionSelectionInfo, Action<ShipAction> callback)
+	public override void OnOptionSelectedFromActionsListPanel(ShipObject ship, Action<ShipAction> callback)
+	{
+		throw new NotImplementedException();
+	}
+
+	public override void OnOptionSelectedFromRightClickMenu(RightClickContextActionInfo shipActionSelectionInfo, Action<ShipAction> callback)
 	{
 		IConsumer consumer = shipActionSelectionInfo.interactable.GetComponent<IConsumer>();
 		ResourceSelectScreen.Create(consumer.GetAcceptedResources(), shipActionSelectionInfo.clickPosition, (resource) => OnResourceSelected(shipActionSelectionInfo, resource, callback));
 	}
 
-	private void OnResourceSelected(ShipActionSelectionInfo shipActionSelectionInfo, ResourceDefintion resourceData, Action<ShipAction> callback)
+	private void OnResourceSelected(RightClickContextActionInfo shipActionSelectionInfo, ResourceDefintion resourceData, Action<ShipAction> callback)
 	{
 		IConsumer consumer = shipActionSelectionInfo.interactable.GetComponent<IConsumer>();
 		DeliverAction deliverAction = new DeliverAction(this, shipActionSelectionInfo.ship, consumer, resourceData);

@@ -2,16 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ActionLists;
+using System.Linq;
 //TODO
 public class ShipActionList : MonoBehaviour, IActionList
 {
 	public event System.Action<ShipAction> ActionPushedEvent;
 	public event System.Action<ShipAction> ActionStartedEvent;
 	public event System.Action<ShipAction> ActionFailedEvent;
-	public event System.Action<ShipAction> ActionEndedEvent;
+	public event System.Action<ShipAction> ActionFinishedEvent;
 
-	public List<ShipAction> storedList = new List<ShipAction>();
-	public List<ShipAction> activelist = new List<ShipAction>();
+	public List<ShipAction> actions = new List<ShipAction>();
+	//use actions for ui, grey out when isfinished .When all finsihed reset list
+	public List<ShipAction> activelist => actions.Where(x => !x.isFinished).ToList(); //TODO remove linq
+
+	public int activeActionIndex => actions.IndexOf(activelist.First());
+
 	public bool repeat { get; private set; }
 	public bool paused { get; private set; }
 
@@ -26,14 +31,24 @@ public class ShipActionList : MonoBehaviour, IActionList
 	public void PushAction(ShipAction action)
 	{
 		action.SetOwner(this);
-		activelist.Add(action);
+		actions.Add(action);
 		ActionPushedEvent?.Invoke(action);
 	}
+
+	public void RemoveAction(ShipAction action)
+	{
+		action.OnRemove();
+		actions.Remove(action);
+	}
+
 	private void FinishAction(ShipAction shipAction)
 	{
 		shipAction.OnFinish();
-		activelist.Remove(shipAction);
-		ActionEndedEvent?.Invoke(shipAction);
+		if (!repeat)
+		{
+			actions.Remove(shipAction);
+		}
+		ActionFinishedEvent?.Invoke(shipAction);
 	}
 
 	private void InitialiseAction(ShipAction shipAction)
@@ -44,7 +59,9 @@ public class ShipActionList : MonoBehaviour, IActionList
 
 	private void ActionFailed(ShipAction shipAction)
 	{
-		activelist.Remove(shipAction);
+		paused = true;
+		repeat = false;
+		ResetActions();
 		ActionFailedEvent?.Invoke(shipAction);
 	}
 
@@ -62,8 +79,14 @@ public class ShipActionList : MonoBehaviour, IActionList
 
 		if (IsEmpty())
 		{
+			if (repeat)
+			{
+				ResetActions();
+			}
 			return;
+
 		}
+
 
 		int index = 0;
 		bool blocked = false;
@@ -93,6 +116,23 @@ public class ShipActionList : MonoBehaviour, IActionList
 				index++;
 			}
 		}
+	}
+
+	private void ResetActions()
+	{
+		foreach (var item in actions)
+		{
+			item.Reset();
+			item.isFinished = false;
+			item.isInitialised = false;
+			item.failed = false;
+		}
+
+	}
+
+	public int GetActionsPushedAmount()
+	{
+		return actions.Count;
 	}
 
 	internal void SetPaused(bool v)

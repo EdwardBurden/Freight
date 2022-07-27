@@ -1,18 +1,21 @@
 using ActionLists;
 using UnityEngine;
 
-public class LookAtAction : ShipObjectAction
+public class LookAtAction : Action
 {
+	private ShipObject shipObject;
+
 	private Vector3 target;
 
-	public LookAtAction(Vector3 position, ShipObject shipObject, bool isBlocking = false) : base(shipObject, isBlocking)
+	public LookAtAction(Vector3 position, ShipObject shipObject, bool isBlocking = false) : base( isBlocking)
 	{
+		this.shipObject = shipObject;
 		this.target = position;
 	}
 
 	public override void OnUpdate()
 	{
-		if (!IsLookingAtTarget(target))
+		if (!shipObject.gameObject.IsLookingAtTarget(target))
 		{
 			LookAt();
 		}
@@ -24,7 +27,7 @@ public class LookAtAction : ShipObjectAction
 
 	private void LookAt()
 	{
-		Quaternion look = Quaternion.LookRotation(GetDirection(target), Vector3.up);
+		Quaternion look = Quaternion.LookRotation(shipObject.gameObject.GetDirection(target), Vector3.up);
 		shipObject.transform.rotation = Quaternion.RotateTowards(shipObject.transform.rotation, look, shipObject.turnSpeed * Time.deltaTime);
 	}
 }

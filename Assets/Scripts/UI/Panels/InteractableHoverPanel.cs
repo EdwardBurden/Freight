@@ -3,50 +3,52 @@ using System.Collections.Generic;
 using TMPro;
 using UI;
 using UnityEngine;
-
-public class InteractableHoverPanel : Panel
+namespace UI
 {
-	public TMP_Text nameText;
-
-	[SerializeField]
-	private Transform body;
-
-	protected override void Start()
+	public class InteractableHoverPanel : Panel
 	{
-		base.Start();
-		MouseInteractionTracker.instance.mouseHoveredOnInteractable += Instance_mouseHoveredOnInteractable;
-		MouseInteractionTracker.instance.mouseHoveredOffInteractable += Instance_mouseHoveredOffInteractable;
-		//MUImanager on hover something in ui
-	}
+		public TMP_Text nameText;
 
-	private void Instance_mouseHoveredOffInteractable(InteractableObject obj)
-	{
-		Hide();
-	}
+		[SerializeField]
+		private Transform body;
 
-	private void Instance_mouseHoveredOnInteractable(InteractableObject obj)
-	{
-		if (!obj.showHoverUiPanel)
+		protected override void Start()
 		{
-			return;
+			base.Start();
+			MouseInteractionTracker.instance.mouseHoveredOnInteractable += Instance_mouseHoveredOnInteractable;
+			MouseInteractionTracker.instance.mouseHoveredOffInteractable += Instance_mouseHoveredOffInteractable;
+			//MUImanager on hover something in ui
 		}
 
-		Show();
-		Clear(body);
-		Instantiate(obj.hoverUIPrefab, body);
-		nameText.text = obj.GetObjectName();
-	}
-
-	private void OnDestroy()
-	{
-		MouseInteractionTracker.instance.mouseHoveredOnInteractable -= Instance_mouseHoveredOnInteractable;
-		MouseInteractionTracker.instance.mouseHoveredOffInteractable -= Instance_mouseHoveredOffInteractable;
-	}
-	protected void Clear(Transform transform)
-	{
-		foreach (Transform item in transform)
+		private void Instance_mouseHoveredOffInteractable(InteractableObject obj)
 		{
-			Destroy(item.gameObject);
+			Hide();
+		}
+
+		private void Instance_mouseHoveredOnInteractable(InteractableObject obj)
+		{
+			if (!obj.showHoverUiPanel)
+			{
+				return;
+			}
+
+			Show();
+			Clear(body);
+			Instantiate(obj.hoverUIPrefab, body);
+			nameText.text = obj.GetObjectName();
+		}
+
+		private void OnDestroy()
+		{
+			MouseInteractionTracker.instance.mouseHoveredOnInteractable -= Instance_mouseHoveredOnInteractable;
+			MouseInteractionTracker.instance.mouseHoveredOffInteractable -= Instance_mouseHoveredOffInteractable;
+		}
+		protected void Clear(Transform transform)
+		{
+			foreach (Transform item in transform)
+			{
+				Destroy(item.gameObject);
+			}
 		}
 	}
 }
