@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class CollectActionPreview : ActionPreview
 {
-	private Action<IProducer, Vector3> callback;
+	private Action<IProducer, ResourceDefintion> callback;
 
 	private void Awake()
 	{
@@ -18,27 +18,6 @@ public class CollectActionPreview : ActionPreview
 		MouseInteractionTracker.instance.mouseHoveredOnInteractable += OnMouseHoveredOnInteractable;
 		MouseInteractionTracker.instance.mouseHoveredOffInteractable += OnMouseHoveredOffInteractable;
 	}
-
-	private void OnMouseHoveredOffInteractable(InteractableObject interactableObject)
-	{
-		lineRenderer.startColor = Color.red;
-		lineRenderer.endColor = Color.red;
-		lineRenderer.SetPosition(0, shipObject.gameObject.transform.position + offset);
-		lineRenderer.SetPosition(1, shipObject.gameObject.transform.position + offset);
-	}
-
-	private void OnMouseHoveredOnInteractable(InteractableObject interactableObject)
-	{
-		IProducer producer = interactableObject.GetComponent<IProducer>(); //replace with chekcing the defintion can create 
-		if (producer != null)
-		{
-			lineRenderer.SetPosition(0, shipObject.gameObject.transform.position + offset);
-			lineRenderer.SetPosition(1, interactableObject.transform.position);
-			lineRenderer.startColor = Color.green;
-			lineRenderer.endColor = Color.green;
-		}
-	}
-
 	public override void OnDestroy()
 	{
 		base.OnDestroy();
@@ -46,9 +25,35 @@ public class CollectActionPreview : ActionPreview
 		MouseInteractionTracker.instance.mouseHoveredOffInteractable -= OnMouseHoveredOffInteractable;
 	}
 
+	private void OnMouseHoveredOffInteractable(InteractableObject interactableObject)
+	{
+		if (!updateLine)
+		{
+			return;
+		}
+		lineRenderer.startColor = Color.red;
+		lineRenderer.endColor = Color.red;
+	}
+
+	private void OnMouseHoveredOnInteractable(InteractableObject interactableObject)
+	{
+		if (!updateLine)
+		{
+			return;
+		}
+		IProducer producer = interactableObject.GetComponent<IProducer>(); //replace with chekcing the defintion can create 
+		if (producer != null)
+		{
+			lineRenderer.startColor = Color.green;
+			lineRenderer.endColor = Color.green;
+		}
+	}
+
+
+
 	protected override void OnRightClickInteractable(InteractableObject interactableObject, Vector3 pos)
 	{
-		Close();
+		Close(); //and close resource
 	}
 
 	protected override void OnLeftClickInteractable(InteractableObject interactableObject, Vector3 pos)
@@ -56,15 +61,26 @@ public class CollectActionPreview : ActionPreview
 		IProducer producer = interactableObject.GetComponent<IProducer>();
 		if (producer != null)
 		{
-			callback.Invoke(producer, pos);
-			Close();
+			OnPreviewClick(producer, pos);
+			//Close();
 		}
 	}
-	public void Open(ShipObject shipObject, Action<IProducer, Vector3> callback)
+	public void Open(ShipObject shipObject, Action<IProducer, ResourceDefintion> callback)
 	{
 		this.callback = callback;
 		this.shipObject = shipObject;
 		Open();
 	}
 
+	private void OnPreviewClick(IProducer producer, Vector3 clickPosition)
+	{
+		updateLine = false;
+		ResourceSelectScreen.Create(producer.GetProducedResources(), clickPosition, (resource) => OnResourceSelected(producer, resource), true);
+	}
+
+	private void OnResourceSelected(IProducer producer, ResourceDefintion resourceDefintion)
+	{
+		callback?.Invoke(producer, resourceDefintion);
+		Close();
+	}
 }

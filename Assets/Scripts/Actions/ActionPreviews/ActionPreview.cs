@@ -14,6 +14,9 @@ public abstract class ActionPreview : MonoBehaviour
 
 	protected ShipObject shipObject;
 
+	protected bool updateLine = true;
+	private Vector3 target;
+
 	private void Awake()
 	{
 		lineRenderer.gameObject.SetActive(false);
@@ -21,7 +24,6 @@ public abstract class ActionPreview : MonoBehaviour
 
 	public virtual void Start()
 	{
-		ShipActionsPanel.ShipActionsPanelSelectionOpened += Close;
 		MouseInteractionTracker.instance.mousePostion += OnMousePostion;
 		MouseInteractionTracker.instance.LeftClickInteractableEvent += OnLeftClickInteractable;
 		MouseInteractionTracker.instance.RightClickInteractableEvent += OnRightClickInteractable;
@@ -35,8 +37,12 @@ public abstract class ActionPreview : MonoBehaviour
 
 	protected virtual void OnMousePostion(Vector3 postion)
 	{
+		if (updateLine)
+		{
+			target = postion;
+		}
 		lineRenderer.SetPosition(0, shipObject.gameObject.transform.position + offset);
-		lineRenderer.SetPosition(1, postion);
+		lineRenderer.SetPosition(1, target);
 	}
 
 	protected virtual void Open()
@@ -46,16 +52,16 @@ public abstract class ActionPreview : MonoBehaviour
 		UIManager.instance.CloseAllScreens();
 	}
 
-	protected virtual void Close()
+	public virtual void Close()
 	{
 		ShipManager.instance.RegisterEvents();
 		lineRenderer.gameObject.SetActive(false);
 		Destroy(this.gameObject);
+		UIManager.instance.CloseAllScreens();
 	}
 
 	public virtual void OnDestroy()
 	{
-		ShipActionsPanel.ShipActionsPanelSelectionOpened -= Close;
 		MouseInteractionTracker.instance.mousePostion -= OnMousePostion;
 		MouseInteractionTracker.instance.LeftClickInteractableEvent -= OnLeftClickInteractable;
 		MouseInteractionTracker.instance.RightClickInteractableEvent -= OnRightClickInteractable;

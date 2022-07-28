@@ -20,14 +20,11 @@ public class DeliverActionDefintion : ShipActionDefintion
 		return true;
 	}
 
-	public override void OnOptionSelectedFromActionsListPanel(ShipObject ship, Action<ShipAction> callback)
+	public override ActionPreview CreateActionPreview(ShipObject ship, Action<ShipAction> callback)
 	{
 		DeliverActionPreview  deliverActionPreview = Instantiate(deliverActionPreviewPrefab);
-		deliverActionPreview.Open(ship, (consumer, position) => OnPreviewClick(ship, consumer, position, callback));
-	}
-	private void OnPreviewClick(ShipObject ship, IConsumer consumer, Vector3 clickPosition, Action<ShipAction> callback)
-	{
-		ResourceSelectScreen.Create(consumer.GetAcceptedResources(), clickPosition, (resource) => OnResourceSelected(ship, consumer, resource, callback), false);
+		deliverActionPreview.Open(ship, (consumer, resource) => OnResourceSelected(ship, consumer, resource, callback));
+		return deliverActionPreview;
 	}
 
 	public override void OnDefaultRightClickMenuOption(RightClickContextActionInfo shipActionSelectionInfo, Action<ShipAction> callback)

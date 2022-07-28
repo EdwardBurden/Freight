@@ -14,10 +14,11 @@ public class MoveActionDefintion : ShipActionDefintion
 		return true;
 	}
 
-	public override void OnOptionSelectedFromActionsListPanel(ShipObject ship, Action<ShipAction> callback)
+	public override ActionPreview CreateActionPreview(ShipObject ship, Action<ShipAction> callback)
 	{
 		MoveActionPreview previewMoveAction = Instantiate(previewMoveActionPrefab);
 		previewMoveAction.Open(ship, (postion) => OnPreviewClick(ship, postion, callback));
+		return previewMoveAction;
 	}
 
 	private void OnPreviewClick(ShipObject shipObject, Vector3 position, Action<ShipAction> callback)

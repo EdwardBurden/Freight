@@ -13,7 +13,7 @@ public abstract class ShipActionDefintion : ScriptableObject
 
 	public abstract bool CanShowOption(RightClickContextActionInfo shipActionSelectionInfo);
 
-	public abstract void OnOptionSelectedFromActionsListPanel(ShipObject ship, Action<ShipAction> callback);//user has selected this action on action list panel, what to do next?
+	public abstract ActionPreview CreateActionPreview(ShipObject ship, Action<ShipAction> callback);//user has selected this action on action list panel, what to do next?
 
 	public virtual void OnDefaultRightClickMenuOption(RightClickContextActionInfo shipActionSelectionInfo, Action<ShipAction> callback)//user has selected this action on right click menu where its the only option, what to do next?
 	{

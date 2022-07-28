@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace UI
 {//TODO
-	public class SelectActionForPanelScreen : Screen
+	public class SelectActionForPanelScreen : Screen //plan to remove this and make ShipActionSelectScreen work for both 
 	{
 		public static string PATH = "Prefabs/UI/Screens/SelectActionForPanelScreen";
 

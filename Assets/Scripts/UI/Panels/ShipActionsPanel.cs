@@ -9,13 +9,10 @@ namespace UI
 {
 	public class ShipActionsPanel : Panel
 	{
-		public static event Action ShipActionsPanelSelectionOpened;
-
 		[SerializeField]
 		private TMP_Text shipNametext;
 		[SerializeField]
 		private TMP_Text actionsLeftText;
-
 		[SerializeField]
 		private SimpleButtonWidget playButton;
 		[SerializeField]
@@ -24,21 +21,21 @@ namespace UI
 		private SimpleButtonWidget repeatButton;
 		[SerializeField]
 		private SimpleButtonWidget noRepeatButton;
-
 		[SerializeField]
 		private Sprite addSprite;
-
 		[SerializeField]
 		private Transform actionListTransform;
-
 		[SerializeField]
 		private ShipActionIconButtonWidget actionButtonWidgetPrefab;
-
 		[SerializeField]
 		private SimpleButtonWidget addButtonPrefab;
 
 		private ShipObject shipObject;
+
 		private ShipActionList shipActionList => shipObject.GetComponent<ShipActionList>();
+
+		private ActionPreview activePreview = null; //maybe move to shipmanager
+
 
 		protected override void Start()
 		{
@@ -105,13 +102,17 @@ namespace UI
 
 		private void AddClicked()
 		{
+			if (activePreview != null)
+			{
+				activePreview.Close();
+				activePreview = null;
+			}
 			SelectActionForPanelScreen.Create(shipObject.shipActions, (def) => OnShipActionSelected(def));
-			ShipActionsPanelSelectionOpened?.Invoke();
 		}
 
 		private void OnShipActionSelected(ShipActionDefintion shipActionDefintion)
 		{
-			shipActionDefintion.OnOptionSelectedFromActionsListPanel(shipObject, ShipManager.instance.PushShipsAction);
+			activePreview = shipActionDefintion.CreateActionPreview(shipObject, ShipManager.instance.PushShipsAction);
 		}
 
 		private void Remove(ShipAction shipAction) //shoudl go through ShipManager
@@ -151,6 +152,7 @@ namespace UI
 
 			Show();
 			Refresh();
+			//activePreview = null;
 		}
 
 		private void OnShipDeselected(ShipObject obj)

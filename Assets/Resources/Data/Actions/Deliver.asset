@@ -16,4 +16,4 @@ MonoBehaviour:
   actionIcon: {fileID: 21300000, guid: e5f8aa94c89bea04e8f1cfedc4fc6c6b, type: 3}
   actionColor: {r: 0.19926, g: 0.73800004, b: 0.63923097, a: 1}
   uiOrder: 1
-  iconPrefab: {fileID: 7230138071748487761, guid: 7c40dca882bc43c449357664c56650c7, type: 3}
+  deliverActionPreviewPrefab: {fileID: 4221908269387624673, guid: 60e51c0313b8f7a4cb0c004750321845, type: 3}

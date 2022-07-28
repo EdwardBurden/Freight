@@ -25,4 +25,5 @@ public class MoveActionPreview : ActionPreview //or created in the scen froma pr
 		this.shipObject = shipObject;
 		Open();
 	}
+
 }

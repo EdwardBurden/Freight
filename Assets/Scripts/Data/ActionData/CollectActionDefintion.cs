@@ -21,15 +21,11 @@ public class CollectActionDefintion : ShipActionDefintion
 		return true;
 	}
 
-	public override void OnOptionSelectedFromActionsListPanel(ShipObject ship, Action<ShipAction> callback)
+	public override ActionPreview CreateActionPreview(ShipObject ship, Action<ShipAction> callback)
 	{
 		CollectActionPreview previewMoveAction = Instantiate(collectActionPreviewprefab);
-		previewMoveAction.Open(ship, (producer, position) => OnPreviewClick(ship, producer, position, callback));
-	}
-
-	private void OnPreviewClick(ShipObject ship, IProducer producer, Vector3 clickPosition, Action<ShipAction> callback)
-	{
-		ResourceSelectScreen.Create(producer.GetProducedResources(), clickPosition, (resource) => OnResourceSelected(ship, producer, resource, callback), false);
+		previewMoveAction.Open(ship, (producer, resource) => OnResourceSelected(ship, producer, resource, callback));
+		return previewMoveAction;
 	}
 
 	public override void OnDefaultRightClickMenuOption(RightClickContextActionInfo shipActionSelectionInfo, Action<ShipAction> callback)
@@ -37,6 +33,7 @@ public class CollectActionDefintion : ShipActionDefintion
 		IProducer producer = shipActionSelectionInfo.interactable.GetComponent<IProducer>();
 		ResourceSelectScreen.Create(producer.GetProducedResources(), shipActionSelectionInfo.clickPosition, (resource) => OnResourceSelected(shipActionSelectionInfo, resource, callback), true);
 	}
+
 	public override void OnOptionSelectedFromRightClickMenu(RightClickContextActionInfo shipActionSelectionInfo, Action<ShipAction> callback)
 	{
 		IProducer producer = shipActionSelectionInfo.interactable.GetComponent<IProducer>();

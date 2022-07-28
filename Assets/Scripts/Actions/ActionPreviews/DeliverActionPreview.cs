@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class DeliverActionPreview : ActionPreview
 {
-	private Action<IConsumer, Vector3> callback;
+	private Action<IConsumer, ResourceDefintion> callback;
 
 	private void Awake()
 	{
@@ -56,16 +56,27 @@ public class DeliverActionPreview : ActionPreview
 		IConsumer consumer = interactableObject.GetComponent<IConsumer>();
 		if (consumer != null)
 		{
-			callback.Invoke(consumer, pos);
-			Close();
+			OnPreviewClick(consumer, pos);
+		//	Close();
 		}
 	}
 
-	public void Open(ShipObject shipObject, Action<IConsumer, Vector3> callback)
+	public void Open(ShipObject shipObject, Action<IConsumer, ResourceDefintion> callback)
 	{
 		this.callback = callback;
 		this.shipObject = shipObject;
 		Open();
 	}
 
+	private void OnPreviewClick(IConsumer consumer, Vector3 clickPosition)
+	{
+		//pause the linerenderer, listen to event for resourceselecter closing?
+		ResourceSelectScreen.Create(consumer.GetAcceptedResources(), clickPosition, (resource) => OnResourceSelected(consumer, resource), false);
+	}
+
+	private void OnResourceSelected(IConsumer consumer, ResourceDefintion resourceDefintion)
+	{
+		callback?.Invoke(consumer, resourceDefintion);
+		Close();
+	}
 }
