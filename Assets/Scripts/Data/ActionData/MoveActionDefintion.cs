@@ -7,7 +7,7 @@ using UnityEngine;
 public class MoveActionDefintion : ShipActionDefintion
 {
 	[SerializeReference]
-	private PreviewMoveAction previewMoveActionPrefab;
+	private MoveActionPreview previewMoveActionPrefab;
 
 	public override bool CanShowOption(RightClickContextActionInfo shipActionSelectionInfo)
 	{
@@ -16,21 +16,13 @@ public class MoveActionDefintion : ShipActionDefintion
 
 	public override void OnOptionSelectedFromActionsListPanel(ShipObject ship, Action<ShipAction> callback)
 	{
-		//open Spawn a prefab with a class that that subscribes to MouseInteractionTracker
-		//     it first stops ShipSelectionManager
-		//		and draws a line from the ship to where the user mouse is
-		//		when they click it gets the postion and returns here
-		//		and re enables ShipSelectionManager
-		//	throw new NotImplementedException();
-		PreviewMoveAction previewMoveAction = Instantiate(previewMoveActionPrefab);
+		MoveActionPreview previewMoveAction = Instantiate(previewMoveActionPrefab);
 		previewMoveAction.Open(ship, (postion) => OnPreviewClick(ship, postion, callback));
-		//PreviewMoveAction.instance.Open(ship, (postion) => OnPreviewClick(ship, postion, callback));
 	}
 
 	private void OnPreviewClick(ShipObject shipObject, Vector3 position, Action<ShipAction> callback)
 	{
 		callback.Invoke(new MoveAction(this, shipObject, position));
-
 	}
 
 	public override void OnOptionSelectedFromRightClickMenu(RightClickContextActionInfo shipActionSelectionInfo, Action<ShipAction> callback)

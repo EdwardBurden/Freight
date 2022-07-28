@@ -7,6 +7,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/DeliverActionDefintion")]
 public class DeliverActionDefintion : ShipActionDefintion
 {
+	[SerializeField]
+	private DeliverActionPreview  deliverActionPreviewPrefab;
 	public override bool CanShowOption(RightClickContextActionInfo shipActionSelectionInfo)
 	{
 		IConsumer consumer = shipActionSelectionInfo.interactable.GetComponent<IConsumer>();
@@ -20,7 +22,12 @@ public class DeliverActionDefintion : ShipActionDefintion
 
 	public override void OnOptionSelectedFromActionsListPanel(ShipObject ship, Action<ShipAction> callback)
 	{
-		throw new NotImplementedException();
+		DeliverActionPreview  deliverActionPreview = Instantiate(deliverActionPreviewPrefab);
+		deliverActionPreview.Open(ship, (consumer, position) => OnPreviewClick(ship, consumer, position, callback));
+	}
+	private void OnPreviewClick(ShipObject ship, IConsumer consumer, Vector3 clickPosition, Action<ShipAction> callback)
+	{
+		ResourceSelectScreen.Create(consumer.GetAcceptedResources(), clickPosition, (resource) => OnResourceSelected(ship, consumer, resource, callback), false);
 	}
 
 	public override void OnDefaultRightClickMenuOption(RightClickContextActionInfo shipActionSelectionInfo, Action<ShipAction> callback)
@@ -34,7 +41,11 @@ public class DeliverActionDefintion : ShipActionDefintion
 		IConsumer consumer = shipActionSelectionInfo.interactable.GetComponent<IConsumer>();
 		ResourceSelectScreen.Create(consumer.GetAcceptedResources(), shipActionSelectionInfo.clickPosition, (resource) => OnResourceSelected(shipActionSelectionInfo, resource, callback),false);
 	}
-
+	private void OnResourceSelected(ShipObject shipObject, IConsumer  consumer, ResourceDefintion resourceDefintion, Action<ShipAction> callback)
+	{
+		DeliverAction deliverAction = new DeliverAction(this, shipObject, consumer, resourceDefintion);
+		callback?.Invoke(deliverAction);
+	}
 	private void OnResourceSelected(RightClickContextActionInfo shipActionSelectionInfo, ResourceDefintion resourceData, Action<ShipAction> callback)
 	{
 		IConsumer consumer = shipActionSelectionInfo.interactable.GetComponent<IConsumer>();

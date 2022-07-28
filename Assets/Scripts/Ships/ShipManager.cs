@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UI;
 using UnityEngine;
 
-public class ShipSelectionManager : Singleton<ShipSelectionManager>
+public class ShipManager : Singleton<ShipManager>
 {
 	public event Action<ShipObject> ShipSelectedEvent;
 	public event Action<ShipObject> ShipDeSelectedEvent;
@@ -57,7 +57,7 @@ public class ShipSelectionManager : Singleton<ShipSelectionManager>
 
 			if (interactionActions.Length == 1)
 			{
-				interactionActions[0].OnDefaultRightClickMenuOption(shipActionSelectionInfo, OnShipActionCreated);
+				interactionActions[0].OnDefaultRightClickMenuOption(shipActionSelectionInfo, SetShipsAction);
 				return;
 			}
 			ShipActionSelectScreen.Create(shipActionSelectionInfo, interactionActions, OnShipActionSelected);
@@ -66,13 +66,21 @@ public class ShipSelectionManager : Singleton<ShipSelectionManager>
 
 	private void OnShipActionSelected(ShipActionDefintion shipActionDefintion, RightClickContextActionInfo shipActionSelectionInfo)
 	{
-		shipActionDefintion.OnOptionSelectedFromRightClickMenu(shipActionSelectionInfo, OnShipActionCreated);
+		shipActionDefintion.OnOptionSelectedFromRightClickMenu(shipActionSelectionInfo, SetShipsAction);
 	}
 
-	private void OnShipActionCreated(ShipAction shipAction)
+	public void SetShipsAction( ShipAction shipAction)
 	{
 		ShipObject shipObject = shipAction.shipObject;
 		shipObject.SetAction(shipAction);
+		UIManager.instance.CloseAllScreens();
+		//Fire eVENT
+	}
+
+	public void PushShipsAction(ShipAction shipAction)
+	{
+		ShipObject shipObject = shipAction.shipObject;
+		shipObject.PushAction(shipAction);
 		UIManager.instance.CloseAllScreens();
 		//Fire eVENT
 	}

@@ -43,13 +43,13 @@ namespace UI
 		protected override void Start()
 		{
 			base.Start();
-			ShipSelectionManager.instance.ShipSelectedEvent += OnShipSelected;
-			ShipSelectionManager.instance.ShipDeSelectedEvent += OnShipDeselected;
+			ShipManager.instance.ShipSelectedEvent += OnShipSelected;
+			ShipManager.instance.ShipDeSelectedEvent += OnShipDeselected;
 		}
 		private void OnDestroy()
 		{
-			ShipSelectionManager.instance.ShipSelectedEvent -= OnShipSelected;
-			ShipSelectionManager.instance.ShipDeSelectedEvent -= OnShipDeselected;
+			ShipManager.instance.ShipSelectedEvent -= OnShipSelected;
+			ShipManager.instance.ShipDeSelectedEvent -= OnShipDeselected;
 		}
 
 		private void Refresh()
@@ -111,20 +111,10 @@ namespace UI
 
 		private void OnShipActionSelected(ShipActionDefintion shipActionDefintion)
 		{
-			shipActionDefintion.OnOptionSelectedFromActionsListPanel(shipObject, OnShipActionCreated);
+			shipActionDefintion.OnOptionSelectedFromActionsListPanel(shipObject, ShipManager.instance.PushShipsAction);
 		}
 
-		private void OnShipActionCreated(ShipAction shipAction)
-		{
-			ShipObject shipObject = shipAction.shipObject;
-			shipObject.PushAction(shipAction);
-		}
-
-
-
-
-
-		private void Remove(ShipAction shipAction)
+		private void Remove(ShipAction shipAction) //shoudl go through ShipManager
 		{
 			shipActionList.RemoveAction(shipAction);
 			Refresh();

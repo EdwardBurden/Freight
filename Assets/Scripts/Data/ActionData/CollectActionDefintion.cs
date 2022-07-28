@@ -8,6 +8,8 @@ using UnityEngine;
 //TODO
 public class CollectActionDefintion : ShipActionDefintion
 {
+	[SerializeField]
+	private CollectActionPreview collectActionPreviewprefab;
 	public override bool CanShowOption(RightClickContextActionInfo shipActionSelectionInfo)
 	{
 		IProducer producer = shipActionSelectionInfo.interactable.GetComponent<IProducer>();
@@ -19,12 +21,17 @@ public class CollectActionDefintion : ShipActionDefintion
 		return true;
 	}
 
-
-
 	public override void OnOptionSelectedFromActionsListPanel(ShipObject ship, Action<ShipAction> callback)
 	{
-		throw new NotImplementedException();
+		CollectActionPreview previewMoveAction = Instantiate(collectActionPreviewprefab);
+		previewMoveAction.Open(ship, (producer, position) => OnPreviewClick(ship, producer, position, callback));
 	}
+
+	private void OnPreviewClick(ShipObject ship, IProducer producer, Vector3 clickPosition, Action<ShipAction> callback)
+	{
+		ResourceSelectScreen.Create(producer.GetProducedResources(), clickPosition, (resource) => OnResourceSelected(ship, producer, resource, callback), false);
+	}
+
 	public override void OnDefaultRightClickMenuOption(RightClickContextActionInfo shipActionSelectionInfo, Action<ShipAction> callback)
 	{
 		IProducer producer = shipActionSelectionInfo.interactable.GetComponent<IProducer>();
@@ -33,7 +40,13 @@ public class CollectActionDefintion : ShipActionDefintion
 	public override void OnOptionSelectedFromRightClickMenu(RightClickContextActionInfo shipActionSelectionInfo, Action<ShipAction> callback)
 	{
 		IProducer producer = shipActionSelectionInfo.interactable.GetComponent<IProducer>();
-		ResourceSelectScreen.Create(producer.GetProducedResources(), shipActionSelectionInfo.clickPosition, (resource) => OnResourceSelected(shipActionSelectionInfo, resource, callback) , false);
+		ResourceSelectScreen.Create(producer.GetProducedResources(), shipActionSelectionInfo.clickPosition, (resource) => OnResourceSelected(shipActionSelectionInfo, resource, callback), false);
+	}
+
+	private void OnResourceSelected(ShipObject shipObject, IProducer producer, ResourceDefintion resourceDefintion, Action<ShipAction> callback)
+	{
+		CollectAction collectAction = new CollectAction(this, shipObject, producer, resourceDefintion);
+		callback?.Invoke(collectAction);
 	}
 
 	private void OnResourceSelected(RightClickContextActionInfo shipActionSelectionInfo, ResourceDefintion resourceData, Action<ShipAction> callback)
