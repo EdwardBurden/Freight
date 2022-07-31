@@ -17,6 +17,7 @@ public class ShipObject : InteractableObject
 
 	public int speed; //TODO get from scriptable, add init 
 	public int turnSpeed;
+
 	public ShipActionDefintion[] shipActions;
 	public string shipName;
 
@@ -51,5 +52,18 @@ public class ShipObject : InteractableObject
 		actionList.SetPaused(false);
 		actionList.SetRepeat(false);
 		actionList.PushAction(shipAction);
+	}
+
+	public ShipActionDefintion[] GetAvailableActions(InteractableObject interactableObject, Vector3 position)
+	{
+		List<ShipActionDefintion> orders = new List<ShipActionDefintion>();
+		foreach (ShipActionDefintion availableOrder in shipActions)
+		{
+			if (availableOrder.CanBeCreated(this, interactableObject, position))
+			{
+				orders.Add(availableOrder);
+			}
+		}
+		return orders.ToArray();
 	}
 }

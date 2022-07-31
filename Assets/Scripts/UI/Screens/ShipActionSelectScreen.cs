@@ -17,22 +17,31 @@ namespace UI
 		[SerializeField]
 		private ShipActionIconButtonWidget iconButtonWidget;
 
-		private RightClickContextActionInfo shipActionSelectionInfo;
-		private Action<ShipActionDefintion, RightClickContextActionInfo> callBack;
+		private Vector3 position;
 
-		public static void Create(RightClickContextActionInfo shipActionSelectionInfo, ShipActionDefintion[] interactionActions, Action<ShipActionDefintion, RightClickContextActionInfo> callBack)
+
+		private Action<ShipActionDefintion> callBack;
+
+		public static void Create(Vector3 position, ShipActionDefintion[] interactionActions, Action<ShipActionDefintion> callBack, bool inScreenSpace = false)
 		{
 			ShipActionSelectScreen screen = Screen.Open(PATH) as ShipActionSelectScreen;
-			screen.Init(shipActionSelectionInfo, interactionActions, callBack);
+			screen.Init(position, inScreenSpace, interactionActions, callBack);
 			UIManager.instance.RegisterScreen(screen);
 		}
 
-		public void Init(RightClickContextActionInfo shipActionSelectionInfo, ShipActionDefintion[] interactionActions, Action<ShipActionDefintion, RightClickContextActionInfo> callBack)
+		public void Init(Vector3 position, bool inScreenSpace, ShipActionDefintion[] interactionActions, Action<ShipActionDefintion> callBack)
 		{
-			this.shipActionSelectionInfo = shipActionSelectionInfo;
+			this.position = position;
 			this.callBack = callBack;
 			Clear(options);
-			Open(shipActionSelectionInfo.clickPosition);
+			if (!inScreenSpace)
+			{
+				Open(position);
+			}
+			else
+			{
+				root.transform.GetComponent<RectTransform>().position = position;
+			}
 
 			foreach (ShipActionDefintion action in interactionActions.OrderBy(x => x.uiOrder))
 			{
@@ -43,7 +52,7 @@ namespace UI
 
 		private void OptionSelected(ShipActionDefintion interactionOrder)
 		{
-			callBack?.Invoke(interactionOrder, shipActionSelectionInfo);
+			callBack?.Invoke(interactionOrder);
 		}
 	}
 }

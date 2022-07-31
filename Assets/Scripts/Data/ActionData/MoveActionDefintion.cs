@@ -2,14 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//TODO
+
 [CreateAssetMenu(menuName = "ScriptableObject/MoveActionDefintion")]
 public class MoveActionDefintion : ShipActionDefintion
 {
 	[SerializeReference]
 	private MoveActionPreview previewMoveActionPrefab;
 
-	public override bool CanShowOption(RightClickContextActionInfo shipActionSelectionInfo)
+	public override bool CanBeCreated(ShipObject shipObject, InteractableObject interactableObject, Vector3 postion)
 	{
 		return true;
 	}
@@ -23,11 +23,13 @@ public class MoveActionDefintion : ShipActionDefintion
 
 	private void OnPreviewClick(ShipObject shipObject, Vector3 position, Action<ShipAction> callback)
 	{
-		callback.Invoke(new MoveAction(this, shipObject, position));
+		MoveAction moveAction = new MoveAction(this, shipObject, position);
+		callback.Invoke(moveAction);
 	}
 
-	public override void OnOptionSelectedFromRightClickMenu(RightClickContextActionInfo shipActionSelectionInfo, Action<ShipAction> callback)
+	public override void ActionSelected(ShipObject shipObject, InteractableObject interactableObject, Vector3 position, Action<ShipAction> callback)
 	{
-		callback.Invoke(new MoveAction(this, shipActionSelectionInfo.ship, shipActionSelectionInfo.clickPosition));
+		MoveAction moveAction = new MoveAction(this, shipObject, position);
+		callback.Invoke(moveAction);
 	}
 }

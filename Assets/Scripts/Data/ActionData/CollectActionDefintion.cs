@@ -3,17 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UI;
 using UnityEngine;
-[CreateAssetMenu(menuName = "ScriptableObject/CollectActionDefintion")]
 
-//TODO
+
+[CreateAssetMenu(menuName = "ScriptableObject/CollectActionDefintion")]
 public class CollectActionDefintion : ShipActionDefintion
 {
 	[SerializeField]
 	private CollectActionPreview collectActionPreviewprefab;
-	public override bool CanShowOption(RightClickContextActionInfo shipActionSelectionInfo)
+	public override bool CanBeCreated(ShipObject shipObject, InteractableObject interactableObject, Vector3 postion)
 	{
-		IProducer producer = shipActionSelectionInfo.interactable.GetComponent<IProducer>();
-		CarryObject carryBehaviour = shipActionSelectionInfo.ship.gameObject.GetComponent<CarryObject>();
+		IProducer producer = interactableObject.GetComponent<IProducer>();
+		CarryObject carryBehaviour = shipObject.GetComponent<CarryObject>();
 		if (producer == null || carryBehaviour == null)
 		{
 			return false;
@@ -27,29 +27,15 @@ public class CollectActionDefintion : ShipActionDefintion
 		previewMoveAction.Open(ship, (producer, resource) => OnResourceSelected(ship, producer, resource, callback));
 		return previewMoveAction;
 	}
-
-	public override void OnDefaultRightClickMenuOption(RightClickContextActionInfo shipActionSelectionInfo, Action<ShipAction> callback)
+	public override void ActionSelected(ShipObject shipObject, InteractableObject interactableObject, Vector3 clickPosition, Action<ShipAction> callback)
 	{
-		IProducer producer = shipActionSelectionInfo.interactable.GetComponent<IProducer>();
-		ResourceSelectScreen.Create(producer.GetProducedResources(), shipActionSelectionInfo.clickPosition, (resource) => OnResourceSelected(shipActionSelectionInfo, resource, callback), true);
-	}
-
-	public override void OnOptionSelectedFromRightClickMenu(RightClickContextActionInfo shipActionSelectionInfo, Action<ShipAction> callback)
-	{
-		IProducer producer = shipActionSelectionInfo.interactable.GetComponent<IProducer>();
-		ResourceSelectScreen.Create(producer.GetProducedResources(), shipActionSelectionInfo.clickPosition, (resource) => OnResourceSelected(shipActionSelectionInfo, resource, callback), false);
+		IProducer producer = interactableObject.GetComponent<IProducer>();
+		ResourceSelectScreen.Create(producer.GetProducedResources(), clickPosition, (resource) => OnResourceSelected(shipObject, producer, resource, callback), true);
 	}
 
 	private void OnResourceSelected(ShipObject shipObject, IProducer producer, ResourceDefintion resourceDefintion, Action<ShipAction> callback)
 	{
 		CollectAction collectAction = new CollectAction(this, shipObject, producer, resourceDefintion);
-		callback?.Invoke(collectAction);
-	}
-
-	private void OnResourceSelected(RightClickContextActionInfo shipActionSelectionInfo, ResourceDefintion resourceData, Action<ShipAction> callback)
-	{
-		IProducer producer = shipActionSelectionInfo.interactable.GetComponent<IProducer>();
-		CollectAction collectAction = new CollectAction(this, shipActionSelectionInfo.ship, producer, resourceData);
 		callback?.Invoke(collectAction);
 	}
 }

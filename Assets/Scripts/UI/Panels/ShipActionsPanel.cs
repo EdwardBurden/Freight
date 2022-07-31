@@ -10,7 +10,7 @@ namespace UI
 	public class ShipActionsPanel : Panel
 	{
 		[SerializeField]
-		private TMP_Text shipNametext;
+		private Transform selectScreenSpawn;
 		[SerializeField]
 		private TMP_Text actionsLeftText;
 		[SerializeField]
@@ -107,7 +107,8 @@ namespace UI
 				activePreview.Close();
 				activePreview = null;
 			}
-			SelectActionForPanelScreen.Create(shipObject.shipActions, (def) => OnShipActionSelected(def));
+			Vector3 pos = selectScreenSpawn.GetComponent<RectTransform>().position;
+			ShipActionSelectScreen.Create(pos, shipObject.shipActions, (def) => OnShipActionSelected(def), true);
 		}
 
 		private void OnShipActionSelected(ShipActionDefintion shipActionDefintion)

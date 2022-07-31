@@ -45,31 +45,29 @@ public class ShipManager : Singleton<ShipManager>
 	{
 		if (shipSelected != null && obj.gameObject != shipSelected.gameObject)
 		{
-			//TODO, if only option is move , then move
-			RightClickContextActionInfo shipActionSelectionInfo = new RightClickContextActionInfo(shipSelected, obj, worldClickPosition);
-			ShipActionDefintion[] interactionActions = GetAvailableActions(shipActionSelectionInfo);
+			ShipActionDefintion[] interactionActions = shipSelected.GetAvailableActions(obj, worldClickPosition);
 
 			if (interactionActions.Length == 0)
 			{
-				//Show none available
+				//Show none available //TODO
 				return;
 			}
 
 			if (interactionActions.Length == 1)
 			{
-				interactionActions[0].OnDefaultRightClickMenuOption(shipActionSelectionInfo, SetShipsAction);
+				interactionActions[0].ActionSelected(shipSelected, obj, worldClickPosition, SetShipsAction);
 				return;
 			}
-			ShipActionSelectScreen.Create(shipActionSelectionInfo, interactionActions, OnShipActionSelected);
+			ShipActionSelectScreen.Create(worldClickPosition, interactionActions, (def) => OnShipActionSelected(def, obj, worldClickPosition));
 		}
 	}
 
-	private void OnShipActionSelected(ShipActionDefintion shipActionDefintion, RightClickContextActionInfo shipActionSelectionInfo)
+	private void OnShipActionSelected(ShipActionDefintion shipActionDefintion, InteractableObject interactableObject, Vector3 pos)
 	{
-		shipActionDefintion.OnOptionSelectedFromRightClickMenu(shipActionSelectionInfo, SetShipsAction);
+		shipActionDefintion.ActionSelected(shipSelected, interactableObject, pos, SetShipsAction);
 	}
 
-	public void SetShipsAction( ShipAction shipAction)
+	public void SetShipsAction(ShipAction shipAction)
 	{
 		ShipObject shipObject = shipAction.shipObject;
 		shipObject.SetAction(shipAction);
@@ -83,19 +81,6 @@ public class ShipManager : Singleton<ShipManager>
 		shipObject.PushAction(shipAction);
 		UIManager.instance.CloseAllScreens();
 		//Fire eVENT
-	}
-
-	private ShipActionDefintion[] GetAvailableActions(RightClickContextActionInfo shipActionSelectionInfo)
-	{
-		List<ShipActionDefintion> orders = new List<ShipActionDefintion>();
-		foreach (ShipActionDefintion availableOrder in shipActionSelectionInfo.ship.shipActions)
-		{
-			if (availableOrder.CanShowOption(shipActionSelectionInfo))
-			{
-				orders.Add(availableOrder);
-			}
-		}
-		return orders.ToArray();
 	}
 
 	private void OnLeftClickInteractable(InteractableObject obj, Vector3 position)
