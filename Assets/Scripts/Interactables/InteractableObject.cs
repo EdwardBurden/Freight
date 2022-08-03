@@ -13,7 +13,6 @@ public abstract class InteractableObject : MonoBehaviour
 	private UnityEvent OffHoverEvent;
 
 	public GameObject hoverUIPrefab;
-	public bool showHoverUiPanel = false;
 
 	public abstract string GetObjectName();
 

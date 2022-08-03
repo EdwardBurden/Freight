@@ -27,8 +27,9 @@ namespace UI
 
 		private void Instance_mouseHoveredOnInteractable(InteractableObject obj)
 		{
-			if (!obj.showHoverUiPanel)
+			if (obj.hoverUIPrefab == null)
 			{
+				//Or draw generic
 				return;
 			}
 
