@@ -24,9 +24,9 @@ public abstract class ActionPreview : MonoBehaviour
 
 	public virtual void Start()
 	{
-		MouseInteractionTracker.instance.mousePostion += OnMousePostion;
-		MouseInteractionTracker.instance.LeftClickInteractableEvent += OnLeftClickInteractable;
-		MouseInteractionTracker.instance.RightClickInteractableEvent += OnRightClickInteractable;
+		InputManager.instance.mousePostion += OnMousePostion;
+		InputManager.instance.LeftClickInteractableEvent += OnLeftClickInteractable;
+		InputManager.instance.RightClickInteractableEvent += OnRightClickInteractable;
 	}
 
 	protected abstract void OnRightClickInteractable(InteractableObject arg1, Vector3 arg2);
@@ -62,8 +62,8 @@ public abstract class ActionPreview : MonoBehaviour
 
 	public virtual void OnDestroy()
 	{
-		MouseInteractionTracker.instance.mousePostion -= OnMousePostion;
-		MouseInteractionTracker.instance.LeftClickInteractableEvent -= OnLeftClickInteractable;
-		MouseInteractionTracker.instance.RightClickInteractableEvent -= OnRightClickInteractable;
+		InputManager.instance.mousePostion -= OnMousePostion;
+		InputManager.instance.LeftClickInteractableEvent -= OnLeftClickInteractable;
+		InputManager.instance.RightClickInteractableEvent -= OnRightClickInteractable;
 	}
 }

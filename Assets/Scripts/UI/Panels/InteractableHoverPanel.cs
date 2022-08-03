@@ -15,8 +15,8 @@ namespace UI
 		protected override void Start()
 		{
 			base.Start();
-			MouseInteractionTracker.instance.mouseHoveredOnInteractable += Instance_mouseHoveredOnInteractable;
-			MouseInteractionTracker.instance.mouseHoveredOffInteractable += Instance_mouseHoveredOffInteractable;
+			InputManager.instance.mouseHoveredOnInteractable += Instance_mouseHoveredOnInteractable;
+			InputManager.instance.mouseHoveredOffInteractable += Instance_mouseHoveredOffInteractable;
 			//MUImanager on hover something in ui
 		}
 
@@ -41,8 +41,8 @@ namespace UI
 
 		private void OnDestroy()
 		{
-			MouseInteractionTracker.instance.mouseHoveredOnInteractable -= Instance_mouseHoveredOnInteractable;
-			MouseInteractionTracker.instance.mouseHoveredOffInteractable -= Instance_mouseHoveredOffInteractable;
+			InputManager.instance.mouseHoveredOnInteractable -= Instance_mouseHoveredOnInteractable;
+			InputManager.instance.mouseHoveredOffInteractable -= Instance_mouseHoveredOffInteractable;
 		}
 		protected void Clear(Transform transform)
 		{

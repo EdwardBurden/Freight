@@ -29,16 +29,16 @@ public class ShipSelectionManager : Singleton<ShipSelectionManager>
 
 	public void RegisterEvents()
 	{
-		MouseInteractionTracker.instance.LeftClickNonInteractableEvent += DeSelectShipObject;
-		MouseInteractionTracker.instance.LeftClickInteractableEvent += OnLeftClickInteractable;
-		MouseInteractionTracker.instance.RightClickInteractableEvent += OnRightClickInteractable;
+		InputManager.instance.LeftClickNonInteractableEvent += DeSelectShipObject;
+		InputManager.instance.LeftClickInteractableEvent += OnLeftClickInteractable;
+		InputManager.instance.RightClickInteractableEvent += OnRightClickInteractable;
 	}
 
 	public void UnregisterEvents()
 	{
-		MouseInteractionTracker.instance.LeftClickNonInteractableEvent -= DeSelectShipObject;
-		MouseInteractionTracker.instance.LeftClickInteractableEvent -= OnLeftClickInteractable;
-		MouseInteractionTracker.instance.RightClickInteractableEvent -= OnRightClickInteractable;
+		InputManager.instance.LeftClickNonInteractableEvent -= DeSelectShipObject;
+		InputManager.instance.LeftClickInteractableEvent -= OnLeftClickInteractable;
+		InputManager.instance.RightClickInteractableEvent -= OnRightClickInteractable;
 	}
 
 	private void OnRightClickInteractable(InteractableObject obj, Vector3 worldClickPosition) //TODO move this out

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using static InteractionUtils;
 
-public class MouseInteractionTracker : Singleton<MouseInteractionTracker>
+public class InputManager : Singleton<InputManager>
 {
 	[SerializeField]
 	private Camera mainCamera;
