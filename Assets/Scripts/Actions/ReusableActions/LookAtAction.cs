@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class LookAtAction : Action
 {
-	private ShipObject shipObject;
+	private Ship shipObject;
 
 	private Vector3 target;
 
-	public LookAtAction(Vector3 position, ShipObject shipObject, bool isBlocking = false) : base( isBlocking)
+	public LookAtAction(Vector3 position, Ship shipObject, bool isBlocking = false) : base( isBlocking)
 	{
 		this.shipObject = shipObject;
 		this.target = position;

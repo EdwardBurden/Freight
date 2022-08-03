@@ -17,6 +17,4 @@ public class Singleton<T> : MonoBehaviour
 			return _instance;
 		}
 	}
-
-
 }

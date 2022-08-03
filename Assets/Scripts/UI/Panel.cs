@@ -13,12 +13,12 @@ namespace UI
 			Hide();
 		}
 
-		public void Show()
+		public virtual void Show()
 		{
 			root.SetActive(true);
 		}
 
-		public void Hide()
+		public virtual void Hide()
 		{
 			root.SetActive(false);
 		}

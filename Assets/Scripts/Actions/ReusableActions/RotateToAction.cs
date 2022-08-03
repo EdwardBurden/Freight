@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class RotateToAction : Action
 {
-	private ShipObject shipObject;
+	private Ship shipObject;
 	private Quaternion rotation;
-	public RotateToAction(Quaternion rotation, ShipObject shipObject, bool isBlocking = false) : base(isBlocking)
+	public RotateToAction(Quaternion rotation, Ship shipObject, bool isBlocking = false) : base(isBlocking)
 	{
 		this.shipObject = shipObject;
 		this.rotation = rotation;

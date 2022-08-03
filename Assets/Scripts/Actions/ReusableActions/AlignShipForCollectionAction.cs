@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class AlignShipForCollectionAction : HierarchicalAction
 {
-	private ShipObject shipObject;
+	private Ship shipObject;
 	private CarryObject carryObject;
 	private LandingPlatform landingPlatform;
 	private Vector3 offset;
 
-	public AlignShipForCollectionAction(ShipObject shipObject, CarryObject carryObject, LandingPlatform landingPlatform) : base()
+	public AlignShipForCollectionAction(Ship shipObject, CarryObject carryObject, LandingPlatform landingPlatform) : base()
 	{
 		this.shipObject = shipObject;
 		this.carryObject = carryObject;

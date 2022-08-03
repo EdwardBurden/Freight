@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class AlignShipForDeliveryAction : HierarchicalAction
 {
-	private ShipObject shipObject;
+	private Ship shipObject;
 	private CarryObject carryObject;
 	private LandingPlatform landingPlatform;
 	private Vector3 offset;
 	private ResourceDefintion resourceData;
 
-	public AlignShipForDeliveryAction(ShipObject shipObject, CarryObject carryObject, ResourceDefintion resourceData, LandingPlatform landingPlatform) : base()
+	public AlignShipForDeliveryAction(Ship shipObject, CarryObject carryObject, ResourceDefintion resourceData, LandingPlatform landingPlatform) : base()
 	{
 		this.shipObject = shipObject;
 		this.carryObject = carryObject;

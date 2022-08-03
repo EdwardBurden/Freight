@@ -3,7 +3,7 @@ using UnityEngine;
 public class MoveAction : ShipAction
 {
 	private Vector3 target;
-	public MoveAction(ShipActionDefintion shipActionDefintion, ShipObject shipObject, Vector3 target) : base(shipActionDefintion, shipObject)
+	public MoveAction(ShipActionDefintion shipActionDefintion, Ship shipObject, Vector3 target) : base(shipActionDefintion, shipObject)
 	{
 		this.target = target;
 		Reset();

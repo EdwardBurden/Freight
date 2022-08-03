@@ -5,9 +5,9 @@ public abstract class ShipAction : HierarchicalAction
 {
 	public bool failed = false;
 	public ShipActionDefintion actionDefintion;
-	public ShipObject shipObject;
+	public Ship shipObject;
 
-	public ShipAction(ShipActionDefintion shipActionDefintion, ShipObject shipObject) : base()
+	public ShipAction(ShipActionDefintion shipActionDefintion, Ship shipObject) : base()
 	{
 		actionDefintion = shipActionDefintion;
 		this.shipObject = shipObject;

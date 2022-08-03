@@ -10,7 +10,7 @@ public class CollectAction : ShipAction
 	private ResourceDefintion resourceData;
 
 
-	public CollectAction(ShipActionDefintion shipActionDefintion, ShipObject shipObject, IProducer target, ResourceDefintion resourceTarget) : base(shipActionDefintion, shipObject)
+	public CollectAction(ShipActionDefintion shipActionDefintion, Ship shipObject, IProducer target, ResourceDefintion resourceTarget) : base(shipActionDefintion, shipObject)
 	{
 		this.carryObject = shipObject.GetComponent<CarryObject>();
 		this.producer = target;

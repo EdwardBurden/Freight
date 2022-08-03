@@ -9,7 +9,7 @@ public class DeliverAction : ShipAction
 	private IConsumer consumer;
 	private ResourceDefintion resourceData;
 
-	public DeliverAction(ShipActionDefintion shipActionDefintion, ShipObject shipObject, IConsumer target, ResourceDefintion resourceTarget) : base(shipActionDefintion, shipObject)
+	public DeliverAction(ShipActionDefintion shipActionDefintion, Ship shipObject, IConsumer target, ResourceDefintion resourceTarget) : base(shipActionDefintion, shipObject)
 	{
 		this.carryObject = shipObject.GetComponent<CarryObject>();
 		this.consumer = target;
