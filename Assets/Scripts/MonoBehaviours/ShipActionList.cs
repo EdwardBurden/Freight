@@ -103,7 +103,7 @@ public class ShipActionList : MonoBehaviour, IActionList
 
 	public void RemoveAction(ShipAction action)
 	{
-		action.OnRemove();
+		//action.OnRemove();
 		actions.Remove(action);
 	}
 

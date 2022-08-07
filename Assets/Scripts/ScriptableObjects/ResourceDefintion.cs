@@ -12,6 +12,7 @@ public class ResourceDefintion : ScriptableObject
 	public Color resourceColor;
 	public ResourceIconButtonWidget iconPrefab;
 	public FreightObject freightPrefab;
+	public int price;
 
 	public ResourceIconButtonWidget CreateResourceSelectionButton(Transform options, Action callback)
 	{

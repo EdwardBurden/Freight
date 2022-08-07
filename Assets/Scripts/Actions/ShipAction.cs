@@ -30,13 +30,10 @@ public abstract class ShipAction : HierarchicalAction
 		base.OnUpdate();
 	}
 
-	public virtual void OnFinish()
-	{
-		//throw new NotImplementedException();
-	}
+	public abstract void OnFinish();
 
-	public virtual void OnRemove()
+	/*public virtual void OnRemove()
 	{
 		//throw new NotImplementedException();
-	}
+	}*/
 }

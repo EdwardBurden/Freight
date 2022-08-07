@@ -67,4 +67,9 @@ public class DeliverAction : ShipAction
 		}
 		return true;
 	}
+
+	public override void OnFinish()
+	{
+		WalletManager.instance.CreateAndAddSellTransaction(resourceData.price, consumer as Building, shipObject, resourceData);
+	}
 }

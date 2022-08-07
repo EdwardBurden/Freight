@@ -17,3 +17,4 @@ MonoBehaviour:
   resourceColor: {r: 0.90099996, g: 0.89025867, b: 0, a: 1}
   iconPrefab: {fileID: 3756753267502298690, guid: d4e37d3ce6cd9c14991a67063337ef64, type: 3}
   freightPrefab: {fileID: 2785265033204548586, guid: bc993f97bf207924eae676c79eacbb61, type: 3}
+  price: 450

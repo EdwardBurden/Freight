@@ -27,7 +27,6 @@ public class CollectAction : ShipAction
 			actionList.Clear();
 			isFinished = true;
 		}
-
 	}
 
 	private bool CheckShipIsValid()
@@ -67,5 +66,10 @@ public class CollectAction : ShipAction
 		actionList.PushAction(new ParentFreightToShipAction(landingPlatform, carryObject));
 		actionList.PushAction(new AnimateLoadingPlatformCloseAction(landingPlatform));
 		actionList.PushAction(new SyncAction());
+	}
+
+	public override void OnFinish()
+	{
+		WalletManager.instance.CreateAndAddBuyTransaction(resourceData.price, producer as Building, shipObject, resourceData);
 	}
 }

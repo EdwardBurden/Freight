@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AlignShipForDeliveryAction : HierarchicalAction
+public class AlignShipForDeliveryAction : HierarchicalAction //make into single actions if possible
 {
 	private Ship shipObject;
 	private CarryObject carryObject;

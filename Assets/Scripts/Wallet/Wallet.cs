@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wallet : MonoBehaviour
+public class Wallet
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public int credits { get; private set; }
+	public List<WalletTransaction> walletTransactions = new List<WalletTransaction>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public void AddTransaction(WalletTransaction transaction)
+	{
+		walletTransactions.Add(transaction);
+		credits = transaction.AmendCredits(credits);
+	}
 }

@@ -9,6 +9,10 @@ public class MoveAction : ShipAction
 		Reset();
 	}
 
+	public override void OnFinish()
+	{
+		//do nothing
+	}
 
 	public override void Reset()
 	{

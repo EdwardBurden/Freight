@@ -1086,6 +1086,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 1534646787}
     m_Modifications:
     - target: {fileID: 885501044475210392, guid: abb0b91e518d94d40a32f670e4c8f644, type: 3}
+      propertyPath: speed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 885501044475210392, guid: abb0b91e518d94d40a32f670e4c8f644, type: 3}
+      propertyPath: turnSpeed
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 885501044475210392, guid: abb0b91e518d94d40a32f670e4c8f644, type: 3}
       propertyPath: hoverUIPrefab
       value: 
       objectReference: {fileID: 3014086065030212185, guid: 6f29b56d4ceac1c4e9303fd7b0f4524a, type: 3}
@@ -1383,6 +1391,14 @@ PrefabInstance:
     - target: {fileID: 1193143057096125541, guid: 54ae5a51e1d076b42bf002d5c31604a9, type: 3}
       propertyPath: OnClickEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 1525933852}
+    - target: {fileID: 1193143057096125541, guid: 54ae5a51e1d076b42bf002d5c31604a9, type: 3}
+      propertyPath: OnClickEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CloseAllScreens
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193143057096125541, guid: 54ae5a51e1d076b42bf002d5c31604a9, type: 3}
+      propertyPath: OnClickEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI.UIManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1636345476397615911, guid: 54ae5a51e1d076b42bf002d5c31604a9, type: 3}
       propertyPath: m_AnchorMax.y
