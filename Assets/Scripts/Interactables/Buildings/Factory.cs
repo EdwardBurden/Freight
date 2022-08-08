@@ -6,6 +6,11 @@ using UnityEngine;
 public class Factory : Building, IProducer, IConsumer
 {
 	[SerializeField]
+	private float buyPriceModifier;//temp
+	[SerializeField]
+	private float sellPriceModifier;//temp
+
+	[SerializeField]
 	private LandingPlatform inputPlatform;
 
 	[SerializeField]
@@ -68,5 +73,14 @@ public class Factory : Building, IProducer, IConsumer
 	public override string GetObjectName()
 	{
 		return "Factory";//TODO
+	}
+	public int GetBuyPrice(ResourceDefintion resource)
+	{
+		return (int)(buyPriceModifier * resource.price);
+	}
+
+	public int GetSellPrice(ResourceDefintion resource)
+	{
+		return (int)(sellPriceModifier * resource.price);
 	}
 }

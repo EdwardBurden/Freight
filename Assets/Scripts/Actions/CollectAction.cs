@@ -70,6 +70,7 @@ public class CollectAction : ShipAction
 
 	public override void OnFinish()
 	{
-		WalletManager.instance.CreateAndAddBuyTransaction(resourceData.price, producer as Building, shipObject, resourceData);
+		int price = producer.GetSellPrice(resourceData);
+		WalletManager.instance.CreateAndAddBuyTransaction(price, producer as Building, shipObject, resourceData);
 	}
 }

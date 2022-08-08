@@ -5,6 +5,9 @@ using UnityEngine;
 public class Town : Building, IConsumer
 {
 	[SerializeField]
+	private float buyPriceModifier;//temp
+
+	[SerializeField]
 	private LandingPlatform platform;
 
 
@@ -36,5 +39,10 @@ public class Town : Building, IConsumer
 	public override string GetObjectName()
 	{
 		return "Town";//TODO
+	}
+
+	public int GetBuyPrice(ResourceDefintion resource)
+	{
+		return (int)(buyPriceModifier * resource.price);
 	}
 }
