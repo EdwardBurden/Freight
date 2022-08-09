@@ -2,10 +2,13 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace UI
 {
-	public class UIManager : Singleton<UIManager>
+	public class GameUIManager : Singleton<GameUIManager>
 	{
-		public Transform panelsTransform;
-		public Transform screentransform;
+		public Camera worldCamera;
+		public Camera uiCamera;
+
+		public Canvas panels;
+		public Canvas screens;
 		public GameObject backgroundClickCatcher;
 		//money
 		//orders

@@ -29,16 +29,16 @@ public class ShipSelectionManager : Singleton<ShipSelectionManager>
 
 	public void RegisterEvents()
 	{
-		InputManager.instance.LeftClickNonInteractableEvent += DeSelectShipObject;
-		InputManager.instance.LeftClickInteractableEvent += OnLeftClickInteractable;
-		InputManager.instance.RightClickInteractableEvent += OnRightClickInteractable;
+		GameInputManager.instance.LeftClickNonInteractableEvent += DeSelectShipObject;
+		GameInputManager.instance.LeftClickInteractableEvent += OnLeftClickInteractable;
+		GameInputManager.instance.RightClickInteractableEvent += OnRightClickInteractable;
 	}
 
 	public void UnregisterEvents()
 	{
-		InputManager.instance.LeftClickNonInteractableEvent -= DeSelectShipObject;
-		InputManager.instance.LeftClickInteractableEvent -= OnLeftClickInteractable;
-		InputManager.instance.RightClickInteractableEvent -= OnRightClickInteractable;
+		GameInputManager.instance.LeftClickNonInteractableEvent -= DeSelectShipObject;
+		GameInputManager.instance.LeftClickInteractableEvent -= OnLeftClickInteractable;
+		GameInputManager.instance.RightClickInteractableEvent -= OnRightClickInteractable;
 	}
 
 	private void OnRightClickInteractable(InteractableObject obj, Vector3 worldClickPosition) //TODO move this out
@@ -71,7 +71,7 @@ public class ShipSelectionManager : Singleton<ShipSelectionManager>
 	{
 		Ship shipObject = shipAction.shipObject;
 		shipObject.SetAction(shipAction);
-		UIManager.instance.CloseAllScreens();
+		GameUIManager.instance.CloseAllScreens();
 		//Fire eVENT
 	}
 
@@ -79,7 +79,7 @@ public class ShipSelectionManager : Singleton<ShipSelectionManager>
 	{
 		Ship shipObject = shipAction.shipObject;
 		shipObject.PushAction(shipAction);
-		UIManager.instance.CloseAllScreens();
+		GameUIManager.instance.CloseAllScreens();
 		//Fire eVENT
 	}
 

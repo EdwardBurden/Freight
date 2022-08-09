@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using static InteractionUtils;
 
-public class InputManager : Singleton<InputManager>
+public class GameInputManager : Singleton<GameInputManager>
 {
 	[SerializeField]
 	private Camera mainCamera;

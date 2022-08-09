@@ -5,17 +5,18 @@ namespace UI
 {
 	public abstract class Screen : MonoBehaviour
 	{
+
 		[SerializeField]
 		public GameObject root;
 		public static Screen Open(string path)
 		{
-			GameObject obj = Instantiate(Resources.Load<GameObject>(path), UIManager.instance.screentransform);
+			GameObject obj = Instantiate(Resources.Load<GameObject>(path), GameUIManager.instance.screens.transform);
 			return obj.GetComponent<Screen>();
 		}
 
 		public void CloseThis()
 		{
-			UIManager.instance.Close(this);
+			GameUIManager.instance.Close(this);
 		}
 
 		public virtual void Destroy()
@@ -43,8 +44,9 @@ namespace UI
 
 		protected void Open(Vector3 positionInWorld)
 		{
-			Vector3 hit = Camera.main.WorldToScreenPoint(positionInWorld);
-			root.transform.GetComponent<RectTransform>().position = hit;
+			root.transform.GetComponent<RectTransform>().anchoredPosition = UIUtils.GetAnchoredPostionFromWorldSpacePoint(positionInWorld, GameUIManager.instance.screens);
+			//Vector3 hit = GameUIManager.instance.uiCamera.WorldToScreenPoint(positionInWorld);
+			//root.transform.GetComponent<RectTransform>().position = hit;
 		}
 	}
 }

@@ -7,15 +7,11 @@ namespace UI
 {
 	public class ExitMenuCatcher : MonoBehaviour, IPointerClickHandler
 	{
-		[SerializeField]
-		private UnityEvent OnClickEvent;
-
-
 		public void OnPointerClick(PointerEventData pointerEventData)
 		{
 			if (pointerEventData.button == PointerEventData.InputButton.Left)
 			{
-				OnClickEvent?.Invoke();
+				GameUIManager.instance.CloseAllScreens();
 				Debug.Log(name + " BackgroundClickCatcher Clicked!");
 			}
 			//Output to console the clicked GameObject's name and the following message. You can replace this with your own actions for when clicking the GameObject.
@@ -23,7 +19,7 @@ namespace UI
 		}
 		private void OnMouseDown()
 		{
-			OnClickEvent?.Invoke();
+			GameUIManager.instance.CloseAllScreens();
 		}
 	}
 }

@@ -24,9 +24,9 @@ public abstract class ActionPreview : MonoBehaviour
 
 	public virtual void Start()
 	{
-		InputManager.instance.mousePostion += OnMousePostion;
-		InputManager.instance.LeftClickInteractableEvent += OnLeftClickInteractable;
-		InputManager.instance.RightClickInteractableEvent += OnRightClickInteractable;
+		GameInputManager.instance.mousePostion += OnMousePostion;
+		GameInputManager.instance.LeftClickInteractableEvent += OnLeftClickInteractable;
+		GameInputManager.instance.RightClickInteractableEvent += OnRightClickInteractable;
 	}
 
 	protected abstract void OnRightClickInteractable(InteractableObject arg1, Vector3 arg2);
@@ -49,7 +49,7 @@ public abstract class ActionPreview : MonoBehaviour
 	{
 		lineRenderer.gameObject.SetActive(true);
 		ShipSelectionManager.instance.UnregisterEvents();
-		UIManager.instance.CloseAllScreens();
+		GameUIManager.instance.CloseAllScreens();
 	}
 
 	public virtual void Close()
@@ -57,13 +57,13 @@ public abstract class ActionPreview : MonoBehaviour
 		ShipSelectionManager.instance.RegisterEvents();
 		lineRenderer.gameObject.SetActive(false);
 		Destroy(this.gameObject);
-		UIManager.instance.CloseAllScreens();
+		GameUIManager.instance.CloseAllScreens();
 	}
 
 	public virtual void OnDestroy()
 	{
-		InputManager.instance.mousePostion -= OnMousePostion;
-		InputManager.instance.LeftClickInteractableEvent -= OnLeftClickInteractable;
-		InputManager.instance.RightClickInteractableEvent -= OnRightClickInteractable;
+		GameInputManager.instance.mousePostion -= OnMousePostion;
+		GameInputManager.instance.LeftClickInteractableEvent -= OnLeftClickInteractable;
+		GameInputManager.instance.RightClickInteractableEvent -= OnRightClickInteractable;
 	}
 }

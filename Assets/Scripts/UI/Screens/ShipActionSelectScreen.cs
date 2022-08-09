@@ -26,7 +26,7 @@ namespace UI
 		{
 			ShipActionSelectScreen screen = Screen.Open(PATH) as ShipActionSelectScreen;
 			screen.Init(position, inScreenSpace, interactionActions, callBack);
-			UIManager.instance.RegisterScreen(screen);
+			GameUIManager.instance.RegisterScreen(screen);
 		}
 
 		public void Init(Vector3 position, bool inScreenSpace, ShipActionDefintion[] interactionActions, Action<ShipActionDefintion> callBack)
