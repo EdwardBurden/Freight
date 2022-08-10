@@ -21,4 +21,9 @@ public class SellTransaction : WalletTransaction
 	{
 		return creditsTotal + creditChange;
 	}
+
+	public override Transform GetTransactionLocation()
+	{
+		return soldTo.transform;
+	}
 }

@@ -16,7 +16,7 @@ public class ExampleShip : Ship
 		this.shipAction = shipAction;
 	}
 
-	private void Update()
+	private void Update() // temp for now, needs to be able to use finsih and init same as freightship
 	{
 		if (shipAction == null)
 		{

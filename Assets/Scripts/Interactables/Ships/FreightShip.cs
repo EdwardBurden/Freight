@@ -7,7 +7,6 @@ public class FreightShip : Ship
 {
 	[SerializeField]
 	private ShipActionList actionList;
-	public int MaxActions = 3;
 
 	private void Awake()
 	{

@@ -1,12 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UI;
 using UnityEngine;
 
 public class WalletManager : Singleton<WalletManager>
 {
 	public event Action<WalletTransaction, int> TransactionAddedEvent;
 
+	[SerializeField]
+	public TransactionCompleteInScene transactionIndicatorPrefab;
 	private Wallet wallet;
 
 	public void Awake()
@@ -25,6 +28,7 @@ public class WalletManager : Singleton<WalletManager>
 		BuyTransaction buyTransaction = new BuyTransaction(DateTime.Now, amount, building, ship, resource);
 		wallet.AddTransaction(buyTransaction);
 		TransactionAddedEvent?.Invoke(buyTransaction, wallet.credits);
+		CreateTransactionCompletePopup(buyTransaction);
 	}
 
 	public void CreateAndAddSellTransaction(int amount, Building building, Ship ship, ResourceDefintion resource)
@@ -32,6 +36,13 @@ public class WalletManager : Singleton<WalletManager>
 		SellTransaction sellTransaction = new SellTransaction(DateTime.Now, amount, building, ship, resource);
 		wallet.AddTransaction(sellTransaction);
 		TransactionAddedEvent?.Invoke(sellTransaction, wallet.credits);
+		CreateTransactionCompletePopup(sellTransaction);
+	}
+
+	private void CreateTransactionCompletePopup(WalletTransaction walletTransaction)
+	{
+		TransactionCompleteInScene transactionCompleteInScene = GameUIManager.instance.CreateInScene(transactionIndicatorPrefab, walletTransaction.GetTransactionLocation()) as TransactionCompleteInScene;
+		transactionCompleteInScene.SetText(walletTransaction);
 	}
 
 }

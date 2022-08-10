@@ -21,4 +21,9 @@ public class BuyTransaction : WalletTransaction
 	{
 		return creditsTotal - creditChange;
 	}
+
+	public override Transform GetTransactionLocation()
+	{
+		return boughtFrom.transform;
+	}
 }

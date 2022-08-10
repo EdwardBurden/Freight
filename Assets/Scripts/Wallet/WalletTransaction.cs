@@ -21,4 +21,6 @@ public abstract class WalletTransaction
 
 	public abstract int AmendCredits(int creditsTotal);
 
+	public abstract Transform GetTransactionLocation();
+
 }
