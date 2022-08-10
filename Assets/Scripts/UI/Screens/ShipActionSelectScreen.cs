@@ -24,26 +24,35 @@ namespace UI
 
 		public static void Create(Vector3 position, ShipActionDefintion[] interactionActions, Action<ShipActionDefintion> callBack, bool inScreenSpace = false)
 		{
-			ShipActionSelectScreen screen = Screen.Open(PATH) as ShipActionSelectScreen;
+			ShipActionSelectScreen screen = GameUIManager.instance.OpenScreen(PATH) as ShipActionSelectScreen;
 			screen.Init(position, inScreenSpace, interactionActions, callBack);
-			GameUIManager.instance.RegisterScreen(screen);
 		}
 
 		public void Init(Vector3 position, bool inScreenSpace, ShipActionDefintion[] interactionActions, Action<ShipActionDefintion> callBack)
 		{
 			this.position = position;
 			this.callBack = callBack;
-			Clear(options);
+
+			GameObjectUtils.Clear(options);
+			SetPosition(inScreenSpace);
+			ShowActions(interactionActions);
+		}
+
+		private void SetPosition(bool inScreenSpace)
+		{
 			if (!inScreenSpace)
 			{
-				Open(position);
+				SetRootPostion(position);
 			}
 			else
 			{
 				root.transform.GetComponent<RectTransform>().position = position;
 			}
+		}
 
-			foreach (ShipActionDefintion action in interactionActions.OrderBy(x => x.uiOrder))
+		private void ShowActions(ShipActionDefintion[] shipActionDefintions)
+		{
+			foreach (ShipActionDefintion action in shipActionDefintions.OrderBy(x => x.uiOrder))
 			{
 				ShipActionIconButtonWidget shipActionIconWidget = Instantiate(iconButtonWidget, options);
 				shipActionIconWidget.ShowAction(action, () => OptionSelected(action));

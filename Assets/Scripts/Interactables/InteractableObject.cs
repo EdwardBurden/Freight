@@ -8,22 +8,28 @@ using UnityEngine.Events;
 public abstract class InteractableObject : MonoBehaviour
 {
 	[SerializeField]
-	private UnityEvent OnHoverEvent;
-	[SerializeField]
-	private UnityEvent OffHoverEvent;
+	private InScene hoverUIPrefab;
+	public bool showHoverInfo;
 
-	public GameObject hoverUIPrefab;
+	private InteractableHoverInScene hoverUI;
 
 	public abstract string GetObjectName();
 
 	public virtual void OffHover()
 	{
-		OffHoverEvent?.Invoke();
+		if (hoverUI != null)
+		{
+			Destroy(hoverUI.gameObject);
+		}
 	}
 
 	public virtual void OnHover()
 	{
-		OnHoverEvent?.Invoke();
+		if (showHoverInfo)
+		{
+			hoverUI = GameUIManager.instance.CreateInScene(hoverUIPrefab, this.transform) as InteractableHoverInScene;
+			hoverUI.OnHover(this);
+		}
 	}
 
 }

@@ -16,17 +16,22 @@ namespace UI
 
 		public static void Create(ResourceDefintion[] resources, Vector3 clickPosition, Action<ResourceDefintion> callBack, bool closeOtherMenus)
 		{
-			ResourceSelectScreen screen = Screen.Open(PATH) as ResourceSelectScreen;
+			ResourceSelectScreen screen = GameUIManager.instance.OpenScreen(PATH, closeOtherMenus) as ResourceSelectScreen;
 			screen.Init(resources, clickPosition, callBack);
-			GameUIManager.instance.RegisterScreen(screen, closeOtherMenus);
 		}
 
 		public void Init(ResourceDefintion[] resources, Vector3 clickPosition, Action<ResourceDefintion> callBack)
 		{
 			this.resources = resources;
 			this.callBack = callBack;
-			Clear(options);
-			Open(clickPosition);
+
+			GameObjectUtils.Clear(options);
+			SetRootPostion(clickPosition);
+			ShowResoures();
+		}
+
+		private void ShowResoures()
+		{
 			foreach (ResourceDefintion resource in resources)
 			{
 				resource.CreateResourceSelectionButton(options, () => OptionSelected(resource));

@@ -14,9 +14,8 @@ namespace UI
 		[SerializeField]
 		private Transform list;
 
-		protected override void Start()
+		protected  void Start()
 		{
-			base.Start();
 			NotificationManager.instance.NotificationAddedEvent += NotificationManager_NotificationAddedEvent;
 			NotificationManager.instance.NotificationEmptyEvent += NotificationManager_NotificationEmptyEvent;
 		}

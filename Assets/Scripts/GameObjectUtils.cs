@@ -16,4 +16,12 @@ public static class GameObjectUtils
 		Vector3 direction = target - gameObject.transform.position;
 		return direction;
 	}
+
+	public static void Clear(Transform transform)
+	{
+		foreach (Transform item in transform)
+		{
+			GameObject.Destroy(item.gameObject);
+		}
+	}
 }

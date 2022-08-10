@@ -8,7 +8,7 @@ namespace UI
 		[SerializeField]
 		protected GameObject root;
 
-		protected virtual void Start()
+		protected  void Awake()
 		{
 			Hide();
 		}

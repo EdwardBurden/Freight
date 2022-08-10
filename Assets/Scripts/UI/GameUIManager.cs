@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 namespace UI
@@ -7,25 +8,33 @@ namespace UI
 		public Camera worldCamera;
 		public Camera uiCamera;
 
+		public Canvas inSceneCanvas;
 		public Canvas panels;
 		public Canvas screens;
 		public GameObject backgroundClickCatcher;
-		//money
-		//orders
-		//ship info
-		//building info
-		//reflects something in game very directly
-		//public List<Panel> activePanels = new List<Panel>(); //add/ remove when necassry stays as long as they want, one one of the a panel type
 
 		public List<Screen> screenHistory = new List<Screen>(); //only one screeen at a time, takes up large screen space, history so that they can be backed out of  
 
+		public InScene CreateInScene(InScene prefab, Transform transform)
+		{
+			InScene inScene = Instantiate(prefab, inSceneCanvas.transform).GetComponent<InScene>();
+			inScene.SetFollow(transform);
+			return inScene;
+		}
 
 		private void Awake()
 		{
 			_instance = this;
 		}
 
-		public void RegisterScreen(Screen screen, bool closeOthers = true)
+		public Screen OpenScreen(string path, bool closeOthers = true)
+		{
+			Screen screen = Instantiate(Resources.Load<GameObject>(path), screens.transform).GetComponent<Screen>();
+			RegisterScreen(screen, closeOthers);
+			return screen;
+		}
+
+		private void RegisterScreen(Screen screen, bool closeOthers)
 		{
 			if (closeOthers)
 			{
@@ -51,18 +60,15 @@ namespace UI
 
 		public void Close(Screen screen)
 		{
-			screen.Destroy();
+			Destroy(screen.gameObject);
 			screenHistory.Remove(screen);
 			TryCloseBackground();
 		}
 
-		public void BackScreen()
+		public void Back()
 		{
 			int index = screenHistory.Count - 1;
-			screenHistory[index].Destroy();
-			screenHistory.RemoveAt(index);
-			//show menu, implemt later
-			TryCloseBackground();
+			Close(screenHistory[index]);
 		}
 
 		private void TryCloseBackground()

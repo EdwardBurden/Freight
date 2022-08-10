@@ -37,9 +37,8 @@ namespace UI
 		private ActionPreview activePreview = null; //maybe move to shipmanager
 
 
-		protected override void Start()
+		protected  void Start()
 		{
-			base.Start();
 			ShipSelectionManager.instance.ShipSelectedEvent += OnShipSelected;
 			ShipSelectionManager.instance.ShipDeSelectedEvent += OnShipDeselected;
 		}

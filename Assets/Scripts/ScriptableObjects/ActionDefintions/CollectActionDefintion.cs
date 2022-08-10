@@ -30,7 +30,7 @@ public class CollectActionDefintion : ShipActionDefintion
 	public override void ActionSelected(Ship shipObject, InteractableObject interactableObject, Vector3 clickPosition, Action<ShipAction> callback)
 	{
 		IProducer producer = interactableObject.GetComponent<IProducer>();
-		ResourceSelectScreen.Create(producer.GetProducedResources(), clickPosition, (resource) => OnResourceSelected(shipObject, producer, resource, callback), true);
+		ResourceSelectScreen.Create(producer.GetProducedResources(), clickPosition, (resource) => OnResourceSelected(shipObject, producer, resource, callback), false);
 	}
 
 	private void OnResourceSelected(Ship shipObject, IProducer producer, ResourceDefintion resourceDefintion, Action<ShipAction> callback)
