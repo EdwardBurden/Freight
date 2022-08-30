@@ -1,20 +1,8 @@
 fileFormatVersion: 2
-guid: cbd82a5f2c19ffd4c9df6f3143708747
+guid: 3fb40ba30829b8c479c08f68703683c7
 ModelImporter:
   serializedVersion: 21202
-  internalIDToNameTable:
-  - first:
-      74: -6822224701056955847
-    second: Cube.001|Fly
-  - first:
-      74: 3843843061927169284
-    second: Cube.001|PickUp
-  - first:
-      74: -2216119772101221707
-    second: Cube.004|Fly
-  - first:
-      74: -953591199194261577
-    second: Cube.004|PickUp
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -78,7 +66,7 @@ ModelImporter:
     secondaryUVMinLightmapResolution: 40
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
-    useFileScale: 1
+    useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
