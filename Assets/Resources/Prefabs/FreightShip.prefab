@@ -548,7 +548,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 1d4f9fb31bb3fa7499fc365650d3e45f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -709,7 +709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e2026abccfde954f921d444a6feeaf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxActions: 3
+  maxActions: 2
 --- !u!114 &885501044475210392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -722,29 +722,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9d58a07fa3e43e40933fd49a7f031db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnHoverEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OffHoverEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  hoverUIPrefab: {fileID: 0}
-  showHoverUiPanel: 0
+  hoverUIPrefab: {fileID: 234753750589598935, guid: ae65448598d6f4743bd4d43b4a5b7178, type: 3}
+  showHoverInfo: 1
   OnShipSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
   OnShipDeSelectedEvent:
     m_PersistentCalls:
       m_Calls: []
-  speed: 5
-  turnSpeed: 5
+  speed: 10
+  turnSpeed: 40
   shipActions:
   - {fileID: 11400000, guid: a103b71af81881a43a58f9aa882f2fcc, type: 2}
   - {fileID: 11400000, guid: 4928bd6d119345c44884ee566c8e0f05, type: 2}
   - {fileID: 11400000, guid: af1f7bd45c6eb0b47a343b495fb5a251, type: 2}
-  shipName: Mister Ship
+  shipName: Columbus
   actionList: {fileID: 0}
-  MaxActions: 3
 --- !u!1 &6543914242243055157
 GameObject:
   m_ObjectHideFlags: 0

@@ -110,11 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5efacd52b0151240b7486d6b7e4f100, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnHoverEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OffHoverEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  hoverUIPrefab: {fileID: 2770650606235443413, guid: bd94b442b64d5ed45955568090ca421c, type: 3}
-  showHoverUiPanel: 1
+  hoverUIPrefab: {fileID: 234753750589598935, guid: ae65448598d6f4743bd4d43b4a5b7178, type: 3}
+  showHoverInfo: 1
+  buyPriceModifier: 1.1
+  sellPriceModifier: 0.7
