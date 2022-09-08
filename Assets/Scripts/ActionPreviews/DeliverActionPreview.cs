@@ -15,8 +15,8 @@ public class DeliverActionPreview : ActionPreview
 	public override void Start()
 	{
 		base.Start();
-		GameInputManager.instance.mouseHoveredOnInteractable += OnMouseHoveredOnInteractable;
-		GameInputManager.instance.mouseHoveredOffInteractable += OnMouseHoveredOffInteractable;
+		MouseInput.mouseHoveredOnInteractable += OnMouseHoveredOnInteractable;
+		MouseInput.mouseHoveredOffInteractable += OnMouseHoveredOffInteractable;
 	}
 
 	private void OnMouseHoveredOffInteractable(InteractableObject interactableObject)
@@ -42,8 +42,8 @@ public class DeliverActionPreview : ActionPreview
 	public override void OnDestroy()
 	{
 		base.OnDestroy();
-		GameInputManager.instance.mouseHoveredOnInteractable -= OnMouseHoveredOnInteractable;
-		GameInputManager.instance.mouseHoveredOffInteractable -= OnMouseHoveredOffInteractable;
+		MouseInput.mouseHoveredOnInteractable -= OnMouseHoveredOnInteractable;
+		MouseInput.mouseHoveredOffInteractable -= OnMouseHoveredOffInteractable;
 	}
 
 	protected override void OnRightClickInteractable(InteractableObject interactableObject, Vector3 pos)

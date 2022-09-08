@@ -15,14 +15,14 @@ public class CollectActionPreview : ActionPreview
 	public override void Start()
 	{
 		base.Start();
-		GameInputManager.instance.mouseHoveredOnInteractable += OnMouseHoveredOnInteractable;
-		GameInputManager.instance.mouseHoveredOffInteractable += OnMouseHoveredOffInteractable;
+		MouseInput.mouseHoveredOnInteractable += OnMouseHoveredOnInteractable;
+		MouseInput.mouseHoveredOffInteractable += OnMouseHoveredOffInteractable;
 	}
 	public override void OnDestroy()
 	{
 		base.OnDestroy();
-		GameInputManager.instance.mouseHoveredOnInteractable -= OnMouseHoveredOnInteractable;
-		GameInputManager.instance.mouseHoveredOffInteractable -= OnMouseHoveredOffInteractable;
+		MouseInput.mouseHoveredOnInteractable -= OnMouseHoveredOnInteractable;
+		MouseInput.mouseHoveredOffInteractable -= OnMouseHoveredOffInteractable;
 	}
 
 	private void OnMouseHoveredOffInteractable(InteractableObject interactableObject)

@@ -11,8 +11,8 @@ namespace UI
 
 		private void Start()
 		{
-			WalletManager.instance.TransactionAddedEvent += Instance_TransactionAddedEvent;
-			priceField.text = WalletManager.instance.GetCreditsTotal().ToString();
+			Wallet.TransactionAddedEvent += Instance_TransactionAddedEvent;
+			priceField.text = SystemsManager.instance.wallet.GetCreditsTotal().ToString();
 		}
 
 		private void Instance_TransactionAddedEvent(WalletTransaction transaction, int credits)
@@ -22,7 +22,7 @@ namespace UI
 
 		private void OnDestroy()
 		{
-			WalletManager.instance.TransactionAddedEvent -= Instance_TransactionAddedEvent;
+			Wallet.TransactionAddedEvent -= Instance_TransactionAddedEvent;
 		}
 	}
 }

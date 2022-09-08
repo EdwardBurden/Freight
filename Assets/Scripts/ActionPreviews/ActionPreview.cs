@@ -24,9 +24,8 @@ public abstract class ActionPreview : MonoBehaviour
 
 	public virtual void Start()
 	{
-		GameInputManager.instance.mousePostion += OnMousePostion;
-		GameInputManager.instance.LeftClickInteractableEvent += OnLeftClickInteractable;
-		GameInputManager.instance.RightClickInteractableEvent += OnRightClickInteractable;
+		MouseInput.LeftClickInteractableEvent += OnLeftClickInteractable;
+		MouseInput.RightClickInteractableEvent += OnRightClickInteractable;
 	}
 
 	protected abstract void OnRightClickInteractable(InteractableObject arg1, Vector3 arg2);
@@ -34,6 +33,16 @@ public abstract class ActionPreview : MonoBehaviour
 
 	protected abstract void OnLeftClickInteractable(InteractableObject arg1, Vector3 arg2);
 
+
+	private void Update()
+	{
+		if (updateLine)
+		{
+			target = MouseInput.mousePostion;
+		}
+		lineRenderer.SetPosition(0, shipObject.gameObject.transform.position + offset);
+		lineRenderer.SetPosition(1, target);
+	}
 
 	protected virtual void OnMousePostion(Vector3 postion)
 	{
@@ -48,13 +57,13 @@ public abstract class ActionPreview : MonoBehaviour
 	protected virtual void Open()
 	{
 		lineRenderer.gameObject.SetActive(true);
-		ShipSelectionManager.instance.UnregisterEvents();
+		SystemsManager.instance.shipSelector.UnregisterEvents();
 		GameUIManager.instance.CloseAllScreens();
 	}
 
 	public virtual void Close()
 	{
-		ShipSelectionManager.instance.RegisterEvents();
+		FindObjectOfType<ShipSelector>().RegisterEvents();
 		lineRenderer.gameObject.SetActive(false);
 		Destroy(this.gameObject);
 		GameUIManager.instance.CloseAllScreens();
@@ -62,8 +71,7 @@ public abstract class ActionPreview : MonoBehaviour
 
 	public virtual void OnDestroy()
 	{
-		GameInputManager.instance.mousePostion -= OnMousePostion;
-		GameInputManager.instance.LeftClickInteractableEvent -= OnLeftClickInteractable;
-		GameInputManager.instance.RightClickInteractableEvent -= OnRightClickInteractable;
+		MouseInput.LeftClickInteractableEvent -= OnLeftClickInteractable;
+		MouseInput.RightClickInteractableEvent -= OnRightClickInteractable;
 	}
 }

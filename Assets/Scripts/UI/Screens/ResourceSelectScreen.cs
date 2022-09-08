@@ -6,7 +6,7 @@ namespace UI
 {
 	public class ResourceSelectScreen : Screen
 	{
-		public static string PATH = "Prefabs/UI/Screens/ResourceSelectScreen";
+		public static string PATH = "UI/Screens/ResourceSelectScreen";
 
 		[SerializeField]
 		private Transform options;

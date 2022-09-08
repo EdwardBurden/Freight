@@ -39,13 +39,13 @@ namespace UI
 
 		protected  void Start()
 		{
-			ShipSelectionManager.instance.ShipSelectedEvent += OnShipSelected;
-			ShipSelectionManager.instance.ShipDeSelectedEvent += OnShipDeselected;
+			ShipSelector.ShipSelectedEvent += OnShipSelected;
+			ShipSelector.ShipDeSelectedEvent += OnShipDeselected;
 		}
 		private void OnDestroy()
 		{
-			ShipSelectionManager.instance.ShipSelectedEvent -= OnShipSelected;
-			ShipSelectionManager.instance.ShipDeSelectedEvent -= OnShipDeselected;
+			ShipSelector.ShipSelectedEvent -= OnShipSelected;
+			ShipSelector.ShipDeSelectedEvent -= OnShipDeselected;
 		}
 
 		private void Refresh()
@@ -112,7 +112,8 @@ namespace UI
 
 		private void OnShipActionSelected(ShipActionDefintion shipActionDefintion)
 		{
-			activePreview = shipActionDefintion.CreateActionPreview(ship, ShipSelectionManager.instance.PushShipsAction);
+			ShipSelector shipSelectionManager = FindObjectOfType<ShipSelector>();
+			activePreview = shipActionDefintion.CreateActionPreview(ship, shipSelectionManager.PushShipsAction);
 		}
 
 		private void Remove(ShipAction shipAction)
