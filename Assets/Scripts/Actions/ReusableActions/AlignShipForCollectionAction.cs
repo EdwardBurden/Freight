@@ -25,4 +25,5 @@ public class AlignShipForCollectionAction : HierarchicalAction
 		actionList.PushAction(new MoveToAction(position - (rotation * offset), shipObject, true));
 		actionList.PushAction(new RotateToAction(rotation, shipObject, true)); 
 	}
+
 }

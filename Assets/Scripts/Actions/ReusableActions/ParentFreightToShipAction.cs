@@ -22,5 +22,8 @@ public class ParentFreightToShipAction : Action
 		base.OnInitialise();
 		GameObject freight = landingPlatform.GetActiveFreight();
 		freight.transform.parent = ship.GetFirstEmptyStorageTransform();
+		freight.transform.localPosition = Vector3.zero;
+		freight.transform.localRotation = Quaternion.identity;
+
 	}
 }
