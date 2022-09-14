@@ -11,8 +11,10 @@ public class MapGenerator : MonoBehaviour
 	[Header("Map Surface")]
 	public GameObject waterPrefab;
 	public GameObject groundPrefab;
+	public GameObject borderprefab;
 	public Transform waterTransfrom;
 	public Transform groundTransfrom;
+	public Transform borderTransform;
 	public int waterHeight;
 
 	private void Start()
@@ -56,6 +58,24 @@ public class MapGenerator : MonoBehaviour
 				Vector3 water = ground + new Vector3(0, waterHeight, 0);
 				Instantiate(waterPrefab, water, Quaternion.identity, waterTransfrom);
 				Instantiate(groundPrefab, ground, Quaternion.identity, groundTransfrom);
+
+
+				if (i == 0)
+				{
+					Instantiate(borderprefab, water, Quaternion.Euler(0, 270, 0), borderTransform);
+				}
+				if (j == 0)
+				{
+					Instantiate(borderprefab, water, Quaternion.Euler(0, 180, 0), borderTransform);
+				}
+				if (i == mapGenerationSettings.mapSize.x - 1)
+				{
+					Instantiate(borderprefab, water, Quaternion.Euler(0, 90, 0), borderTransform);
+				}
+				if (j == mapGenerationSettings.mapSize.y - 1)
+				{
+					Instantiate(borderprefab, water, Quaternion.Euler(0, 0, 0), waterTransfrom);
+				}
 			}
 		}
 
