@@ -17,29 +17,47 @@ public class MapGenerator : MonoBehaviour
 	public Transform borderTransform;
 	public int waterHeight;
 
+	[Header("island Generation")]
+	public GameObject pointPrefab; //temp
+
 	private void Start()
 	{
 		Generate(settings[0]);//test
 	}
 
+	private Vector3 GetMapCenterOffset(MapGenerationSettings mapGenerationSettings)
+	{
+		float xOffset = (mapGenerationSettings.mapSize.x / 2.0f) * TILESIZE;
+		float yOffset = (mapGenerationSettings.mapSize.y / 2.0f) * TILESIZE;
+		return new Vector3(xOffset, 0, yOffset);
+	}
+
 	public void Generate(MapGenerationSettings mapGenerationSettings)
 	{
-		MapGenerationData mapGenerationData = CreateGenerationData(mapGenerationSettings);
-
-
-
-
+		CreateGenerationData(mapGenerationSettings);
 		InstatiateMapSurface(mapGenerationSettings);
 	}
 
 	private MapGenerationData CreateGenerationData(MapGenerationSettings mapGenerationSettings)
 	{
+	//	StartCoroutine(CreateRandomPoints(mapGenerationSettings, mapGenerationSettings.mapSize * TILESIZE, mapGenerationSettings.islandRadius));
+		Vector3 offset = GetMapCenterOffset(mapGenerationSettings);
+	  List<Vector2> points = PoissonSampling.CreateRandomPoints(mapGenerationSettings.mapSize * TILESIZE, mapGenerationSettings.islandRadius);
+		foreach (Vector2 point in points)
+		{
+			Vector3 worldSpacepoint = new Vector3(point.x, 0, point.y);
+			Instantiate(pointPrefab, worldSpacepoint - (offset), Quaternion.Euler(0, 0, 0));
+		}
+
 		//Create data with:
 		//Island spawn points
 		//Block spawn points
 		//voronoi info
 		return null;
 	}
+
+	
+
 
 	private void InstatiateMapSurface(MapGenerationSettings mapGenerationSettings)
 	{
@@ -60,7 +78,7 @@ public class MapGenerator : MonoBehaviour
 				Instantiate(groundPrefab, ground, Quaternion.identity, groundTransfrom);
 
 
-				if (i == 0)
+			/*	if (i == 0)
 				{
 					Instantiate(borderprefab, water, Quaternion.Euler(0, 270, 0), borderTransform);
 				}
@@ -74,8 +92,9 @@ public class MapGenerator : MonoBehaviour
 				}
 				if (j == mapGenerationSettings.mapSize.y - 1)
 				{
-					Instantiate(borderprefab, water, Quaternion.Euler(0, 0, 0), waterTransfrom);
+					Instantiate(borderprefab, water, Quaternion.Euler(0, 0, 0), borderTransform);
 				}
+			*/
 			}
 		}
 

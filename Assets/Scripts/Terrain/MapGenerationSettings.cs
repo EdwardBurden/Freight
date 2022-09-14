@@ -10,8 +10,5 @@ public class MapGenerationSettings : ScriptableObject
 	public Vector2 mapSize;
 
 	//Islands
-	public int minIslands;
-	public int maxislands;
-
-
+	public int islandRadius = 10;
 }

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: LargeMapSettings
   m_EditorClassIdentifier: 
   settingsName: Large
-  mapSize: {x: 100, y: 100}
+  mapSize: {x: 30, y: 30}
   minIslands: 0
   maxislands: 0

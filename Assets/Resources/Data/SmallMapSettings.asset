@@ -14,5 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settingsName: Small
   mapSize: {x: 10, y: 10}
-  minIslands: 0
-  maxislands: 0
+  islandRadius: 30
