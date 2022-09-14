@@ -4,9 +4,5 @@ using UnityEngine;
 
 public class IslandBlock : MonoBehaviour
 {
-	[SerializeField]
-	public GameObject buildingSpawnPoint;
-
-	[SerializeField]
-	private int spanwMinRadius;
+	
 }
