@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,10 +16,14 @@ public class MapGenerator : MonoBehaviour
 	public Transform waterTransfrom;
 	public Transform groundTransfrom;
 	public Transform borderTransform;
+	public Transform islandsTransform;
 	public int waterHeight;
 
 	[Header("island Generation")]
 	public GameObject pointPrefab; //temp
+
+
+
 
 	private void Start()
 	{
@@ -34,29 +39,48 @@ public class MapGenerator : MonoBehaviour
 
 	public void Generate(MapGenerationSettings mapGenerationSettings)
 	{
-		CreateGenerationData(mapGenerationSettings);
+		MapGenerationData mapGenerationData = CreateGenerationData(mapGenerationSettings);
 		InstatiateMapSurface(mapGenerationSettings);
+		InstatiateIslands(mapGenerationSettings, mapGenerationData);
+	}
+
+	private void InstatiateIslands(MapGenerationSettings mapGenerationSettings, MapGenerationData mapGenerationData)
+	{
+		Vector3 offset = GetMapCenterOffset(mapGenerationSettings);
+		foreach (IslandGenerationData island in mapGenerationData.islandGenerationDatas)
+		{
+			Vector3 worldSpacepoint = new Vector3(island.center.x, 0, island.center.y) - offset;
+			Instantiate(pointPrefab, worldSpacepoint, Quaternion.Euler(0, 0, 0), islandsTransform);
+			foreach (Vector2 spot in island.spots)
+			{
+				GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+				Vector3 spot3d = new Vector3(spot.x, 4, spot.y) - (new Vector3(mapGenerationSettings.islandSize.x / 2.0f, 0, mapGenerationSettings.islandSize.y / 2.0f));
+				gameObject.transform.position = spot3d + worldSpacepoint;
+			}
+		}
 	}
 
 	private MapGenerationData CreateGenerationData(MapGenerationSettings mapGenerationSettings)
 	{
-	//	StartCoroutine(CreateRandomPoints(mapGenerationSettings, mapGenerationSettings.mapSize * TILESIZE, mapGenerationSettings.islandRadius));
-		Vector3 offset = GetMapCenterOffset(mapGenerationSettings);
-	  List<Vector2> points = PoissonSampling.CreateRandomPoints(mapGenerationSettings.mapSize * TILESIZE, mapGenerationSettings.islandRadius);
-		foreach (Vector2 point in points)
+		MapGenerationData mapGenerationData = new MapGenerationData();
+		List<Vector2> islandpoints = PoissonSampling.CreateRandomPoints(mapGenerationSettings.mapSize * TILESIZE, mapGenerationSettings.islandRadius);
+		foreach (Vector2 islandpoint in islandpoints)
 		{
-			Vector3 worldSpacepoint = new Vector3(point.x, 0, point.y);
-			Instantiate(pointPrefab, worldSpacepoint - (offset), Quaternion.Euler(0, 0, 0));
+			IslandGenerationData islandData = CreateIslandData(islandpoint, mapGenerationSettings.islandSize, mapGenerationSettings.islandSpotRadius);
+			mapGenerationData.islandGenerationDatas.Add(islandData);
 		}
-
-		//Create data with:
-		//Island spawn points
-		//Block spawn points
-		//voronoi info
-		return null;
+		return mapGenerationData;
 	}
 
-	
+	private IslandGenerationData CreateIslandData(Vector2 islandPoint, Vector2 area, float spotRadius)
+	{
+		IslandGenerationData islandGenerationData = new IslandGenerationData();
+		islandGenerationData.center = islandPoint;
+		List<Vector2> islandpoints = PoissonSampling.CreateRandomPoints(area, spotRadius); //put 1 soemthwere later
+
+		islandGenerationData.spots = islandpoints;
+		return islandGenerationData;
+	}
 
 
 	private void InstatiateMapSurface(MapGenerationSettings mapGenerationSettings)
@@ -78,7 +102,7 @@ public class MapGenerator : MonoBehaviour
 				Instantiate(groundPrefab, ground, Quaternion.identity, groundTransfrom);
 
 
-			/*	if (i == 0)
+				if (i == 0)
 				{
 					Instantiate(borderprefab, water, Quaternion.Euler(0, 270, 0), borderTransform);
 				}
@@ -94,7 +118,7 @@ public class MapGenerator : MonoBehaviour
 				{
 					Instantiate(borderprefab, water, Quaternion.Euler(0, 0, 0), borderTransform);
 				}
-			*/
+
 			}
 		}
 

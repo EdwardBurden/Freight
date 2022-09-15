@@ -5,10 +5,14 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/MapGenerationSettings")]
 public class MapGenerationSettings : ScriptableObject
 {
-	//General
+	[Header("Map")]
 	public string settingsName; //smal,medium,large
 	public Vector2 mapSize;
-
-	//Islands
 	public int islandRadius = 10;
+
+
+
+	[Header("island")]
+	public Vector2 islandSize;
+	public int islandSpotRadius = 10;
 }

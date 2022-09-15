@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: LargeMapSettings
   m_EditorClassIdentifier: 
   settingsName: Large
-  mapSize: {x: 30, y: 30}
-  minIslands: 0
-  maxislands: 0
+  mapSize: {x: 50, y: 50}
+  islandRadius: 70
+  islandSize: {x: 30, y: 30}
+  islandSpotRadius: 10
