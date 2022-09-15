@@ -15,5 +15,5 @@ MonoBehaviour:
   settingsName: Small
   mapSize: {x: 10, y: 10}
   islandRadius: 40
-  islandSize: {x: 15, y: 15}
-  islandSpotRadius: 5
+  islandSize: {x: 30, y: 30}
+  islandSpotRadius: 7
