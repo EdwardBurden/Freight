@@ -51,15 +51,22 @@ public class MapGenerator : MonoBehaviour
 		{
 			Vector3 worldSpacepoint = new Vector3(island.center.x, 0, island.center.y) - offset;
 			GameObject islandbase = Instantiate(pointPrefab, worldSpacepoint, Quaternion.Euler(0, 0, 0), islandsTransform);
-			foreach (Vector2 spot in island.spots)
+			/*foreach (Vector2 spot in island.spots)
 			{
 				GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-				Vector3 spot3d = new Vector3(spot.x, 4, spot.y) - (new Vector3(mapGenerationSettings.islandSize.x / 2.0f, 0, mapGenerationSettings.islandSize.y / 2.0f));
+				Vector3 spot3d = new Vector3(spot.x, 4, spot.y) - MapGeneration.GetAreaOffset(mapGenerationSettings.islandSize);
 				gameObject.transform.position = spot3d + worldSpacepoint;
-			}
+			}*/
 			foreach (var item in island.voronoiCells)
 			{
-				DrawMesh(islandbase.transform, item, island.center.ToVector3());
+				GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+				Vector3 spot3d = item.sitePos - MapGeneration.GetAreaOffset(mapGenerationSettings.islandSize);
+				gameObject.transform.position = spot3d + worldSpacepoint;
+				InteractionUtils.RayCastInfo<IslandBase> raycastHit = InteractionUtils.FindFirstObjectHit<IslandBase>(spot3d + worldSpacepoint + new Vector3(0,10,0), Vector3.down);
+				if (raycastHit.focused && raycastHit.focusObject == islandbase.GetComponentInChildren<IslandBase>())
+				{
+					DrawMesh(islandbase.transform, item, island.center.ToVector3());
+				}
 			}
 		}
 	}
@@ -143,14 +150,15 @@ public class MapGenerator : MonoBehaviour
 
 		//	float dist = Vector2.Distance(voronoiCell.sitePos.xz(), Vector2.zero);
 		//	int height = Random.Range(1, 5);
-
-		Mesh mesh = MapGeneration.CreateVoronoiMesh(voronoiCell, (h + 2));
+		float sample = Mathf.PerlinNoise(voronoiCell.sitePos.x * 300, voronoiCell.sitePos.y * 300) * 10;
+		Mesh mesh = MapGeneration.CreateVoronoiMesh(voronoiCell, Mathf.CeilToInt(sample) + 2);
 
 		MeshFilter meshFilter = gameObject.AddComponent<MeshFilter>();
 		MeshRenderer meshRenderer = gameObject.AddComponent<MeshRenderer>();
 		meshRenderer.material = materials[h];
 		gameObject.transform.parent = parent;
 		gameObject.transform.position = center - MapGeneration.GetAreaOffset(settings[0].islandSize) - GetMapCenterOffset(settings[0]);
+
 		meshFilter.mesh = mesh;
 	}
 

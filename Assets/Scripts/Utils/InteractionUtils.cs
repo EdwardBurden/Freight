@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public static class InteractionUtils
 {
-	public struct RayCastInfo<T> where T : MonoBehaviour
+	public struct RayCastInfo<T> where T : MonoBehaviour //to move
 	{
 		public bool focused; //True if Monobehaviour looking for exists in raycasts
 		public T focusObject; //The Monobehaviour looked for, closest first
@@ -16,6 +16,32 @@ public static class InteractionUtils
 			hitInfo = info;
 			focusObject = focusobject;
 		}
+	}
+
+	public static RayCastInfo<T> FindFirstObjectHit<T>(Vector3 startpostion, Vector3 direction, float distance = 100) where T : MonoBehaviour
+	{
+		RaycastHit hit = new RaycastHit();
+		bool inSight = false;
+		T foundObject = null;
+		Ray ray = new Ray(startpostion, direction);
+		RaycastHit[] raycasts = Physics.RaycastAll(ray);
+		for (int i = 0; i < raycasts.Length; i++)
+		{
+			if (raycasts[i].distance < distance)
+			{
+				distance = raycasts[i].distance;
+				T foundobject = raycasts[i].collider.gameObject.GetComponent<T>();
+				if (foundobject)
+				{
+					inSight = true;
+					hit = raycasts[i];
+					foundObject = foundobject;
+				}
+				else
+					inSight = false;
+			}
+		}
+		return new RayCastInfo<T>(inSight, hit, foundObject);
 	}
 
 	public static RayCastInfo<T> CheckIfObjectIsInFocus<T>(Camera camera) where T : MonoBehaviour
@@ -41,9 +67,6 @@ public static class InteractionUtils
 				else
 					inSight = false;
 			}
-
-
-
 		}
 		return new RayCastInfo<T>(inSight, hit, foundObject);
 	}
@@ -64,9 +87,6 @@ public static class InteractionUtils
 		}
 		return false;
 	}
-
-
-
 
 	public static Vector2 xz(this Vector3 vv)
 	{

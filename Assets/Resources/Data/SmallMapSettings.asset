@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SmallMapSettings
   m_EditorClassIdentifier: 
   settingsName: Small
-  mapSize: {x: 10, y: 10}
-  islandRadius: 40
+  mapSize: {x: 20, y: 20}
+  islandRadius: 50
   islandSize: {x: 30, y: 30}
   islandSpotRadius: 7
