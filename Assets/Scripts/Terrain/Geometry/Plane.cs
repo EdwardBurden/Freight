@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Plane
+namespace Terrain
 {
-    public Vector3 pos;
-
-    public Vector3 normal;
-
-    public Plane(Vector3 pos, Vector3 normal)
+    public class Plane
     {
-        this.pos = pos;
+        public Vector3 pos;
 
-        this.normal = normal;
+        public Vector3 normal;
+
+        public Plane(Vector3 pos, Vector3 normal)
+        {
+            this.pos = pos;
+
+            this.normal = normal;
+        }
     }
 }
