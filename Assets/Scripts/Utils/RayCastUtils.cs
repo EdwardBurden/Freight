@@ -3,21 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public static class InteractionUtils
+public struct RayCastInfo<T> where T : MonoBehaviour //to move
 {
-	public struct RayCastInfo<T> where T : MonoBehaviour //to move
+	public bool focused; //True if Monobehaviour looking for exists in raycasts
+	public T focusObject; //The Monobehaviour looked for, closest first
+	public RaycastHit hitInfo;
+	public RayCastInfo(bool focus, RaycastHit info, T focusobject)
 	{
-		public bool focused; //True if Monobehaviour looking for exists in raycasts
-		public T focusObject; //The Monobehaviour looked for, closest first
-		public RaycastHit hitInfo;
-		public RayCastInfo(bool focus, RaycastHit info, T focusobject)
-		{
-			focused = focus;
-			hitInfo = info;
-			focusObject = focusobject;
-		}
+		focused = focus;
+		hitInfo = info;
+		focusObject = focusobject;
 	}
+}
 
+
+public static class RayCastUtils 
+{
 	public static RayCastInfo<T> FindFirstObjectHit<T>(Vector3 startpostion, Vector3 direction, float distance = 100) where T : MonoBehaviour
 	{
 		RaycastHit hit = new RaycastHit();
@@ -86,17 +87,5 @@ public static class InteractionUtils
 			}
 		}
 		return false;
-	}
-
-	public static Vector2 xz(this Vector3 vv)
-	{
-		return new Vector2(vv.x, vv.z);
-	}
-
-	public static float FlatDistanceTo(this Vector3 from, Vector3 unto)
-	{
-		Vector2 a = from.xz();
-		Vector2 b = unto.xz();
-		return Vector2.Distance(a, b);
 	}
 }

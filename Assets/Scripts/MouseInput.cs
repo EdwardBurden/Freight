@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using static InteractionUtils;
 
 public class MouseInput : MonoBehaviour
 {
@@ -24,8 +23,8 @@ public class MouseInput : MonoBehaviour
 
 	private void Update()
 	{
-		bool onUI = InteractionUtils.CheckIfObjectIsUIInFocus(Input.mousePosition);
-		RayCastInfo<InteractableObject> interactionInfo = InteractionUtils.CheckIfObjectIsInFocus<InteractableObject>(mainCamera);
+		bool onUI = RayCastUtils.CheckIfObjectIsUIInFocus(Input.mousePosition);
+		RayCastInfo<InteractableObject> interactionInfo = RayCastUtils.CheckIfObjectIsInFocus<InteractableObject>(mainCamera);
 		if (onUI) //maybe include this bool in the events rsather than block
 		{
 			return;

@@ -134,7 +134,7 @@ public class MapGenerator : MonoBehaviour
 			foreach (VoronoiCell voronoiCell in island.voronoiCells)
 			{
 				Vector3 sitePos = voronoiCell.sitePos - MapGeneration.GetAreaOffset(settings.islandSize) + basePosition;
-				InteractionUtils.RayCastInfo<IslandBase> raycastHit = InteractionUtils.FindFirstObjectHit<IslandBase>(sitePos + new Vector3(0, 10, 0), Vector3.down);
+				RayCastInfo<IslandBase> raycastHit = RayCastUtils.FindFirstObjectHit<IslandBase>(sitePos + new Vector3(0, 10, 0), Vector3.down);
 				if (raycastHit.focused && raycastHit.focusObject == islandbase.GetComponentInChildren<IslandBase>())
 				{
 					float distance = Vector3.Distance(sitePos, basePosition);

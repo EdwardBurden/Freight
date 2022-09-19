@@ -323,7 +323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settings:
-  - {fileID: 11400000, guid: 39d674fedcc27984f865c57138c90418, type: 2}
+  - {fileID: 11400000, guid: 4e1e067e45a68cc449147e9014d0b7d8, type: 2}
   waterPrefab: {fileID: 5826492768471692525, guid: 62493000eef240d45b8b8c76d22fed66, type: 3}
   groundPrefab: {fileID: 2623220625640263467, guid: b3b452ff3167ccc4da8b7ab4d373304b, type: 3}
   borderprefab: {fileID: 5136050868830633989, guid: be92126f8613d5f4cac49ee2eafbb67d, type: 3}
