@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: LargeMapSettings
   m_EditorClassIdentifier: 
   settingsName: Large
-  mapSize: {x: 20, y: 20}
-  islandRadius: 70
+  mapSize: {x: 40, y: 40}
+  islandRadius: 50
+  bases:
+  - {fileID: 5661687393432853912, guid: fb918cd1bd185514eb6a99b751de42b5, type: 3}
   islandSize: {x: 30, y: 30}
-  islandSpotRadius: 5
+  islandPointRadius: 10
