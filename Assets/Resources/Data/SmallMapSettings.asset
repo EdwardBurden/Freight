@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20824b5f0e94cd4097e2e5492932bd8, type: 3}
+  m_Name: SmallMapSettings
+  m_EditorClassIdentifier: 
+  settingsName: Small
+  mapSize: {x: 20, y: 20}
+  islandRadius: 50
+  bases:
+  - {fileID: 5661687393432853912, guid: fb918cd1bd185514eb6a99b751de42b5, type: 3}
+  islandSize: {x: 30, y: 30}
+  islandSpotRadius: 7
