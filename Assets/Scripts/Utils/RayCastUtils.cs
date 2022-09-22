@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public struct RayCastInfo<T> where T : MonoBehaviour //to move
 {
@@ -50,7 +51,7 @@ public static class RayCastUtils
 		RaycastHit hit = new RaycastHit();
 		bool inSight = false;
 		T foundObject = null;
-		Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+		Ray ray = camera.ScreenPointToRay(Mouse.current.position.ReadValue());
 		float distance = 10000;
 		RaycastHit[] raycasts = Physics.RaycastAll(ray);
 		for (int i = 0; i < raycasts.Length; i++)

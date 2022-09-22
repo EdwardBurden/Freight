@@ -18,4 +18,4 @@ MonoBehaviour:
   bases:
   - {fileID: 5661687393432853912, guid: fb918cd1bd185514eb6a99b751de42b5, type: 3}
   islandSize: {x: 30, y: 30}
-  islandSpotRadius: 7
+  islandPointRadius: 7

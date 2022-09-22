@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class MouseInput : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class MouseInput : MonoBehaviour
 
 	private void Update()
 	{
-		bool onUI = RayCastUtils.CheckIfObjectIsUIInFocus(Input.mousePosition);
+		bool onUI = RayCastUtils.CheckIfObjectIsUIInFocus(Mouse.current.position.ReadValue());
 		RayCastInfo<InteractableObject> interactionInfo = RayCastUtils.CheckIfObjectIsInFocus<InteractableObject>(mainCamera);
 		if (onUI) //maybe include this bool in the events rsather than block
 		{
@@ -63,14 +64,14 @@ public class MouseInput : MonoBehaviour
 	private void CheckClick(RayCastInfo<InteractableObject> rayCastInfo) //for now only handle clicking on one object
 	{
 		//https://github.com/EdwardBurden/FUBAR/blob/master/Assets/Assets/Scripts/Battle/Selection/SelectionController.cs
-		if (Input.GetMouseButtonDown(0))
+		/*if (Mouse.current.leftButton.(0))
 		{
 			OnLeftClickObject(rayCastInfo);
 		}
 		if (Input.GetMouseButtonDown(1))
 		{
 			OnRightClickObject(rayCastInfo);
-		}
+		}*/
 	}
 
 	private void OnHoverObject(InteractableObject interactableObject)

@@ -12,9 +12,9 @@ public static class UIUtils
 
 		adjustedPosition.x *= canvasRect.rect.width / (float)GameUIManager.instance.worldCamera.pixelWidth;
 		adjustedPosition.y *= canvasRect.rect.height / (float)GameUIManager.instance.worldCamera.pixelHeight;
-		Debug.Log(adjustedPosition);
+		//Debug.Log(adjustedPosition);
 		// set it
-		Debug.Log(adjustedPosition - canvasRect.sizeDelta / 2f);
+		//Debug.Log(adjustedPosition - canvasRect.sizeDelta / 2f);
 		return adjustedPosition - canvasRect.sizeDelta / 2f;
 	}
 }
