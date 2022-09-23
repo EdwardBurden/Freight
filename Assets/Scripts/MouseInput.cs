@@ -7,9 +7,6 @@ using UnityEngine.InputSystem;
 
 public class MouseInput : MonoBehaviour
 {
-	[SerializeField]
-	private Camera mainCamera;
-
 	private GameControls inputActions;
 	private InteractableObject localHoverObject;
 
@@ -43,7 +40,7 @@ public class MouseInput : MonoBehaviour
 	private void Update()
 	{
 		bool onUI = RayCastUtils.CheckIfObjectIsUIInFocus(Mouse.current.position.ReadValue());
-		RayCastInfo<InteractableObject> interactionInfo = RayCastUtils.CheckIfObjectIsInFocus<InteractableObject>(mainCamera);
+		RayCastInfo<InteractableObject> interactionInfo = RayCastUtils.CheckIfObjectIsInFocus<InteractableObject>(Camera.main);
 		if (onUI) //maybe include this bool in the events rsather than block
 		{
 			return;
