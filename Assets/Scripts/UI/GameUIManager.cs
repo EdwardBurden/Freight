@@ -5,8 +5,6 @@ namespace UI
 {
 	public class GameUIManager : Singleton<GameUIManager>
 	{
-		public Camera uiCamera;
-
 		public Canvas inSceneCanvas;
 		public Canvas panels;
 		public Canvas screens;

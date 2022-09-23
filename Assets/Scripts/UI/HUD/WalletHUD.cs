@@ -12,7 +12,8 @@ namespace UI
 		private void Start()
 		{
 			Wallet.TransactionAddedEvent += Instance_TransactionAddedEvent;
-			priceField.text = SystemsManager.instance.wallet.GetCreditsTotal().ToString();
+			Wallet wallet = GameObject.FindObjectOfType<Wallet>();
+			priceField.text = wallet.GetCreditsTotal().ToString();
 		}
 
 		private void Instance_TransactionAddedEvent(WalletTransaction transaction, int credits)

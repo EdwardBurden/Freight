@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//todo, remove singleton, use event from shipaction list monobehaviour to get error output.
 public class NotificationManager : Singleton<NotificationManager>
 {
 	public event Action<Notification> NotificationAddedEvent;

@@ -87,7 +87,7 @@ MonoBehaviour:
   minHeight: 5
   maxHeight: 90
   zoomSpeed: 10
-  forwardZoomAmount: 1.5
+  forwardZoomAmount: 1.2
   maxRotationSpeed: 0.2
   camera: {fileID: 1527976875456008304}
   cameraBase: {fileID: 1527976874198086033}

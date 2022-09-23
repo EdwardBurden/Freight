@@ -71,7 +71,7 @@ public class DeliverAction : ShipAction
 	public override void OnFinish()
 	{
 		int price = consumer.GetBuyPrice(resourceData);
-		Wallet wallet = SystemsManager.instance.wallet;
+		Wallet wallet = GameObject.FindObjectOfType<Wallet>(); //temp fx
 		wallet.CreateAndAddSellTransaction(price, consumer as Building, shipObject, resourceData);
 	}
 }
