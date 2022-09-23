@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class MouseInput : MonoBehaviour
 {
-	[SerializeField]
-	private Camera mainCamera;
-
+	private GameControls inputActions;
 	private InteractableObject localHoverObject;
+
 
 	public static Vector3 mousePostion;
 
@@ -21,10 +21,26 @@ public class MouseInput : MonoBehaviour
 	public static event Action<InteractableObject, Vector3> LeftClickInteractableEvent;
 	public static event Action<InteractableObject, Vector3> RightClickInteractableEvent;
 
+
+	private void Awake()
+	{
+		inputActions = new GameControls();
+	}
+
+	private void OnEnable()
+	{
+		inputActions.Interactions.Enable();
+	}
+
+	private void OnDisable()
+	{
+		inputActions.Interactions.Disable();
+	}
+
 	private void Update()
 	{
-		bool onUI = RayCastUtils.CheckIfObjectIsUIInFocus(Input.mousePosition);
-		RayCastInfo<InteractableObject> interactionInfo = RayCastUtils.CheckIfObjectIsInFocus<InteractableObject>(mainCamera);
+		bool onUI = RayCastUtils.CheckIfObjectIsUIInFocus(Mouse.current.position.ReadValue());
+		RayCastInfo<InteractableObject> interactionInfo = RayCastUtils.CheckIfObjectIsInFocus<InteractableObject>(Camera.main);
 		if (onUI) //maybe include this bool in the events rsather than block
 		{
 			return;
@@ -63,11 +79,11 @@ public class MouseInput : MonoBehaviour
 	private void CheckClick(RayCastInfo<InteractableObject> rayCastInfo) //for now only handle clicking on one object
 	{
 		//https://github.com/EdwardBurden/FUBAR/blob/master/Assets/Assets/Scripts/Battle/Selection/SelectionController.cs
-		if (Input.GetMouseButtonDown(0))
+		if (inputActions.Interactions.Select.WasPerformedThisFrame())
 		{
 			OnLeftClickObject(rayCastInfo);
 		}
-		if (Input.GetMouseButtonDown(1))
+		if (inputActions.Interactions.ImmediateOrder.WasPerformedThisFrame())
 		{
 			OnRightClickObject(rayCastInfo);
 		}
