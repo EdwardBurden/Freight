@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
-	private CameraControlActions cameraActions;
+	private GameControls gameControls;
 	private InputAction movement;
 
 	[Header("Input")]
@@ -32,6 +32,8 @@ public class CameraController : MonoBehaviour
 	private float maxHeight = 50f;
 	[SerializeField]
 	private float zoomSpeed = 2f;
+	[SerializeField]
+	private float forwardZoomAmount = 0.1f;
 
 	[Header("Rotation")]
 	[SerializeField]
@@ -60,40 +62,40 @@ public class CameraController : MonoBehaviour
 
 	private void Awake()
 	{
-		cameraActions = new CameraControlActions();
+		gameControls = new GameControls();
 		cameraTransform = camera.transform;
 	}
 
 	private void OnEnable()
 	{
-		zoomHeight = camera.transform.localPosition.y;
+		zoomHeight = cameraBase.transform.localPosition.y;
 		cameraTransform.LookAt(lookTarget);
 
 		lastPosition = this.transform.position;
 
-		movement = cameraActions.Camera.Movement;
-		cameraActions.Camera.RotateCamera.performed += RotateCamera;
-		//	cameraActions.Camera.ZoomCamera.performed += ZoomCamera;
-		cameraActions.Camera.Enable();
+		movement = gameControls.Camera.Movement;
+		gameControls.Camera.RotateCamera.performed += RotateCamera;
+		gameControls.Camera.ZoomCamera.performed += ZoomCamera;
+		gameControls.Camera.Enable();
 	}
 
 	private void OnDisable()
 	{
-		cameraActions.Camera.RotateCamera.performed -= RotateCamera;
-		//	cameraActions.Camera.ZoomCamera.performed -= ZoomCamera;
-		cameraActions.Camera.Disable();
+		gameControls.Camera.RotateCamera.performed -= RotateCamera;
+		gameControls.Camera.ZoomCamera.performed -= ZoomCamera;
+		gameControls.Camera.Disable();
 	}
 
 	private void Update()
 	{
 		//inputs
 		GetKeyboardMovement();
-		//DragCamera();
+		DragCamera();
 
 		//move base and camera objects
 		UpdateVelocity();
 		UpdateBasePosition();
-		//	UpdateCameraPosition();
+		UpdateCameraPosition();
 	}
 
 	private void UpdateVelocity()
@@ -107,11 +109,6 @@ public class CameraController : MonoBehaviour
 	{
 		Vector2 inputValue = movement.ReadValue<Vector2>();
 		movementInputValue = Vector2.SmoothDamp(movementInputValue, inputValue, ref smoothInputVelocity, smoothInputSpeed);
-		Debug.Log("input:" +inputValue);
-		Debug.Log("smooth input :" + movementInputValue);
-		//	inputValue = inputValue.normalized;
-
-
 
 		if (movementInputValue.sqrMagnitude > 0.1f)
 		{
@@ -133,7 +130,7 @@ public class CameraController : MonoBehaviour
 			if (Mouse.current.rightButton.wasPressedThisFrame)
 				startDrag = ray.GetPoint(distance);
 			else
-				targetDirection += startDrag - ray.GetPoint(distance);
+				targetDirection = startDrag - ray.GetPoint(distance);
 		}
 	}
 
@@ -143,46 +140,37 @@ public class CameraController : MonoBehaviour
 	{
 		if (targetDirection.sqrMagnitude > 0.1f)
 		{
-			//create a ramp up or acceleration
 			speed = Mathf.Lerp(speed, maxSpeed, Time.deltaTime * acceleration);
 			transform.position += targetDirection * speed * Time.deltaTime;
 		}
 		else
 		{
-			//	targetDirection = Vector3.zero;
-			//create smooth slow down
 			horizontalVelocity = Vector3.Lerp(horizontalVelocity, Vector3.zero, Time.deltaTime * damping);
 			transform.position += horizontalVelocity * Time.deltaTime;
 		}
 		targetDirection = Vector3.zero;
-		//reset for next frame
-		//targetPosition = Vector3.zero;
 	}
 
 	private void ZoomCamera(InputAction.CallbackContext obj)
 	{
-		float inputValue = obj.ReadValue<Vector2>().y / 100f;
+		float inputValue = -obj.ReadValue<Vector2>().y / 100f;
 
 		if (Mathf.Abs(inputValue) > 0.1f)
 		{
-			zoomHeight = cameraTransform.localPosition.y + inputValue * stepSize;
-
-			if (zoomHeight < minHeight)
-				zoomHeight = minHeight;
-			else if (zoomHeight > maxHeight)
-				zoomHeight = maxHeight;
+			zoomHeight = cameraBase.localPosition.y + inputValue * stepSize;
+			zoomHeight = Mathf.Clamp(zoomHeight, minHeight, maxHeight);
 		}
 	}
 
 	private void UpdateCameraPosition()
 	{
 		//set zoom target
-		Vector3 zoomTarget = new Vector3(cameraTransform.localPosition.x, zoomHeight, cameraTransform.localPosition.z);
+		//Vector3 zoomTarget = new Vector3(cameraBase.localPosition.x, zoomHeight, cameraBase.localPosition.z);
 		//add vector for forward/backward zoom
-		zoomTarget -= zoomSpeed * (zoomHeight - cameraTransform.localPosition.y) * Vector3.forward;
+		Vector3 zoomForwardDistance = new Vector3(cameraBase.localPosition.x, zoomHeight, -zoomHeight * forwardZoomAmount); //testing now
 
-		cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, zoomTarget, Time.deltaTime * zoomDampening);
-		cameraTransform.LookAt(this.transform);
+		cameraBase.localPosition = Vector3.Lerp(cameraBase.localPosition, zoomForwardDistance, Time.deltaTime * zoomDampening);
+		cameraTransform.LookAt(lookTarget);
 	}
 
 	private void RotateCamera(InputAction.CallbackContext obj)

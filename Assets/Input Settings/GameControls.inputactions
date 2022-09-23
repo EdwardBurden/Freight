@@ -123,6 +123,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Interactions",
+            "id": "358063a1-9afe-421a-80dd-6f3eee2b9879",
+            "actions": [
+                {
+                    "name": "Select",
+                    "type": "Button",
+                    "id": "1703c29c-b0b4-4ccc-afd8-b0f55a039a54",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ImmediateOrder",
+                    "type": "Button",
+                    "id": "e028ee4c-f36e-4f55-897a-2bd779a809ec",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "dc7d84fc-35e8-4fec-8c79-c54014e0cbc5",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d11d7cba-55d6-4e52-8632-e3b7aad8ce7b",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ImmediateOrder",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
