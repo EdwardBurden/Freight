@@ -67,7 +67,7 @@ public class ShipSelector : MonoBehaviour
 	{
 		Ship shipObject = shipAction.shipObject;
 		shipObject.SetAction(shipAction);
-		GameUIManager.instance.CloseAllScreens();
+		UIManager.instance.CloseAllScreens();
 		//Fire eVENT
 	}
 
@@ -75,7 +75,7 @@ public class ShipSelector : MonoBehaviour
 	{
 		Ship shipObject = shipAction.shipObject;
 		shipObject.PushAction(shipAction);
-		GameUIManager.instance.CloseAllScreens();
+		UIManager.instance.CloseAllScreens();
 		//Fire eVENT
 	}
 

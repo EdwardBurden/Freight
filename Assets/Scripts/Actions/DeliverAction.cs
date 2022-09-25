@@ -52,7 +52,7 @@ public class DeliverAction : ShipAction
 	{
 		if (!carryObject.HasFreightOfResource(resourceData))
 		{
-			NotificationManager.instance.AddNotification(shipObject.shipName, $"Cannot start Delivery because {shipObject.name} does not have any {resourceData.resourceName}");
+			Notifications.instance.AddNotification(shipObject.shipName, $"Cannot start Delivery because {shipObject.name} does not have any {resourceData.resourceName}");
 			return false;
 		}
 		return true;
@@ -62,7 +62,7 @@ public class DeliverAction : ShipAction
 	{
 		if (!consumer.AcceptsResource(resourceData))
 		{
-			NotificationManager.instance.AddNotification(shipObject.shipName, $"Cannot start Delivery because {consumer.GetType().ToString()} does accept {resourceData.resourceName}");
+			Notifications.instance.AddNotification(shipObject.shipName, $"Cannot start Delivery because {consumer.GetType().ToString()} does accept {resourceData.resourceName}");
 			return false;
 		}
 		return true;

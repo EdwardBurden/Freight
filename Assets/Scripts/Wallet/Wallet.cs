@@ -40,7 +40,7 @@ public class Wallet : MonoBehaviour
 
 	private void CreateTransactionCompletePopup(WalletTransaction walletTransaction)
 	{
-		TransactionCompleteInScene transactionCompleteInScene = GameUIManager.instance.CreateInScene(transactionIndicatorPrefab, walletTransaction.GetTransactionLocation()) as TransactionCompleteInScene;
+		TransactionCompleteInScene transactionCompleteInScene = UIManager.instance.CreateInScene(transactionIndicatorPrefab, walletTransaction.GetTransactionLocation()) as TransactionCompleteInScene;
 		transactionCompleteInScene.SetText(walletTransaction);
 	}
 
