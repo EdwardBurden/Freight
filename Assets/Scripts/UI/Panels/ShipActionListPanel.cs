@@ -34,18 +34,16 @@ namespace UI
 
 		private Ship ship => shipActionList.GetComponent<Ship>();
 
-		private ActionPreview activePreview = null; //maybe move to shipmanager
 
-
-		protected  void Start()
+		protected void Start()
 		{
-			ShipSelector.ShipSelectedEvent += OnShipSelected;
-			ShipSelector.ShipDeSelectedEvent += OnShipDeselected;
+			ShipSelectionController.ShipSelectedEvent += OnShipSelected;
+			ShipSelectionController.ShipDeSelectedEvent += OnShipDeselected;
 		}
 		private void OnDestroy()
 		{
-			ShipSelector.ShipSelectedEvent -= OnShipSelected;
-			ShipSelector.ShipDeSelectedEvent -= OnShipDeselected;
+			ShipSelectionController.ShipSelectedEvent -= OnShipSelected;
+			ShipSelectionController.ShipDeSelectedEvent -= OnShipDeselected;
 		}
 
 		private void Refresh()
@@ -101,19 +99,15 @@ namespace UI
 
 		private void AddClicked()
 		{
-			if (activePreview != null)
-			{
-				activePreview.Close();
-				activePreview = null;
-			}
+			ActionPreviewController.instance.RemoveActionPreview();
 			Vector3 pos = selectScreenSpawn.GetComponent<RectTransform>().position;
 			ShipActionSelectScreen.Create(pos, ship.shipActions, (def) => OnShipActionSelected(def), true);
 		}
 
 		private void OnShipActionSelected(ShipActionDefintion shipActionDefintion)
 		{
-			ShipSelector shipSelectionManager = FindObjectOfType<ShipSelector>();
-			activePreview = shipActionDefintion.CreateActionPreview(ship, shipSelectionManager.PushShipsAction);
+			ShipSelectionController shipSelection = FindObjectOfType<ShipSelectionController>();
+			shipActionDefintion.CreateActionPreview(ship, shipSelection.PushShipsAction);
 		}
 
 		private void Remove(ShipAction shipAction)

@@ -21,12 +21,15 @@ public class CollectActionDefintion : ShipActionDefintion
 		return true;
 	}
 
-	public override ActionPreview CreateActionPreview(Ship ship, Action<ShipAction> callback)
+	public override void CreateActionPreview(Ship ship, Action<ShipAction> callback)
 	{
-		CollectActionPreview previewMoveAction = Instantiate(collectActionPreviewprefab);
-		previewMoveAction.Open(ship, (producer, resource) => OnResourceSelected(ship, producer, resource, callback));
-		return previewMoveAction;
+		CollectActionPreview collectActionPreview = Instantiate(collectActionPreviewprefab);
+		collectActionPreview.Init(ship);
+		collectActionPreview.callback = (producer, resource) => OnResourceSelected(ship, producer, resource, callback);
+
+		ActionPreviewController.instance.SetActionPreview(collectActionPreview);
 	}
+
 	public override void ActionSelected(Ship shipObject, InteractableObject interactableObject, Vector3 clickPosition, Action<ShipAction> callback)
 	{
 		IProducer producer = interactableObject.GetComponent<IProducer>();

@@ -6,24 +6,16 @@ using UnityEngine;
 
 public class MoveActionPreview : ActionPreview //or created in the scen froma prefab and killed when doen, can decide later
 {
-	private Action<Vector3> callback;
+	public Action<Vector3> callback;
 
-	protected override void OnRightClickInteractable(InteractableObject interactableObject, Vector3 position)
+	public override void OnRightClickInteractable(InteractableObject interactableObject, Vector3 position)
 	{
-		Close();
+		ActionPreviewController.instance.FinishActionPreview();
 	}
 
-	protected override void OnLeftClickInteractable(InteractableObject interactableObject, Vector3 position)
+	public override void OnLeftClickInteractable(InteractableObject interactableObject, Vector3 position)
 	{
-		callback.Invoke(position);
-		Close();
+		RaiseFinsihedEvent();
+		callback?.Invoke(position);
 	}
-
-	public void Open(Ship shipObject, Action<Vector3> callback)
-	{
-		this.callback = callback;
-		this.shipObject = shipObject;
-		Open();
-	}
-
 }

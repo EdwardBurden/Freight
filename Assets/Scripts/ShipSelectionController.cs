@@ -2,7 +2,7 @@ using System;
 using UI;
 using UnityEngine;
 
-public class ShipSelector : MonoBehaviour
+public class ShipSelectionController : Singleton<ShipSelectionController>
 {
 	public static event Action<Ship> ShipSelectedEvent;
 	public static event Action<Ship> ShipDeSelectedEvent;
@@ -10,25 +10,19 @@ public class ShipSelector : MonoBehaviour
 	[HideInInspector]
 	public Ship shipSelected;
 
-
-	public void Start()
+	private void Awake()
 	{
-		RegisterEvents();
+		_instance = this;
 	}
 
-	private void OnDestroy()
-	{
-		UnregisterEvents();
-	}
-
-	public void RegisterEvents()
+	public void OnEnable()
 	{
 		MouseInput.LeftClickNonInteractableEvent += DeSelectShipObject;
 		MouseInput.LeftClickInteractableEvent += OnLeftClickInteractable;
 		MouseInput.RightClickInteractableEvent += OnRightClickInteractable;
 	}
 
-	public void UnregisterEvents()
+	public void OnDisable()
 	{
 		MouseInput.LeftClickNonInteractableEvent -= DeSelectShipObject;
 		MouseInput.LeftClickInteractableEvent -= OnLeftClickInteractable;

@@ -17,24 +17,24 @@ public abstract class ActionPreview : MonoBehaviour
 	protected bool updateLine = true;
 	private Vector3 target;
 
+	public event Action FinishedPreviewEvent;
+
 	private void Awake()
 	{
-		lineRenderer.gameObject.SetActive(false);
+		lineRenderer.gameObject.SetActive(true);
 	}
 
-	public virtual void Start()
+	public abstract void OnRightClickInteractable(InteractableObject arg1, Vector3 arg2);
+
+
+	public abstract void OnLeftClickInteractable(InteractableObject arg1, Vector3 arg2);
+
+	public void Init(Ship shipObject)
 	{
-		MouseInput.LeftClickInteractableEvent += OnLeftClickInteractable;
-		MouseInput.RightClickInteractableEvent += OnRightClickInteractable;
+		this.shipObject = shipObject;
 	}
 
-	protected abstract void OnRightClickInteractable(InteractableObject arg1, Vector3 arg2);
-
-
-	protected abstract void OnLeftClickInteractable(InteractableObject arg1, Vector3 arg2);
-
-
-	private void Update()
+	public void UpdatePreview()
 	{
 		if (updateLine)
 		{
@@ -54,24 +54,9 @@ public abstract class ActionPreview : MonoBehaviour
 		lineRenderer.SetPosition(1, target);
 	}
 
-	protected virtual void Open()
+	public void RaiseFinsihedEvent()
 	{
-		lineRenderer.gameObject.SetActive(true);
-		FindObjectOfType<ShipSelector>().UnregisterEvents();
-		UIManager.instance.CloseAllScreens();
-	}
+		FinishedPreviewEvent?.Invoke();
 
-	public virtual void Close()
-	{
-		FindObjectOfType<ShipSelector>().RegisterEvents();
-		lineRenderer.gameObject.SetActive(false);
-		Destroy(this.gameObject);
-		UIManager.instance.CloseAllScreens();
-	}
-
-	public virtual void OnDestroy()
-	{
-		MouseInput.LeftClickInteractableEvent -= OnLeftClickInteractable;
-		MouseInput.RightClickInteractableEvent -= OnRightClickInteractable;
 	}
 }

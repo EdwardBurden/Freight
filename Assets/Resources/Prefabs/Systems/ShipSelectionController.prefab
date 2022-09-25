@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1769240764645305976}
   - component: {fileID: 2652602170816826035}
   m_Layer: 0
-  m_Name: ShipSelector
+  m_Name: ShipSelectionController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
