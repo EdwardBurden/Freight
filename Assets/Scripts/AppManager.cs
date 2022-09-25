@@ -9,7 +9,6 @@ public class AppManager : Singleton<AppManager>
 	private void Awake()
 	{
 		_instance = this;
-		DontDestroyOnLoad(this);
 	}
 
 	public void OpenGameScene()
@@ -19,16 +18,13 @@ public class AppManager : Singleton<AppManager>
 
 	private void OnGameSceneLoaded()
 	{
-		//probaly want to make this better 
-		GameManager.instance.StartNewGame();
-		//get gamemanager in scene
-		//gamemanager.startscene
+		//probaly want to make this better at some point
+		GameManager.instance.StartNewGame(); 
 	}
 
-	private IEnumerator OpenSceneWithLoading(string sceneName, Action callback) //to be changed
+	private IEnumerator OpenSceneWithLoading(string sceneName, Action callback) //to be imporved
 	{
 		Scene current = SceneManager.GetActiveScene();
-		//	AsyncOperation main = SceneManager.UnloadSceneAsync(current.name);
 		AsyncOperation loading = SceneManager.LoadSceneAsync("loading");
 		while (!loading.isDone)
 		{

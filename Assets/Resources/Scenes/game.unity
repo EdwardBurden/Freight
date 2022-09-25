@@ -366,6 +366,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fba270e00edfaa4bb58c958e219b999, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startShipPrefab: {fileID: 3270510250017182720, guid: 7bbc8dade33ee3b43b6c086abcdddef2, type: 3}
+  gameUIPanels:
+  - {fileID: 3133125329871508136, guid: 557e558dbbcc3d049b4be232226fb851, type: 3}
+  - {fileID: 3601647277799643173, guid: 20437368d91d3a54081f051547e2476a, type: 3}
   mapGenerator: {fileID: 567249197}
 --- !u!4 &876638793
 Transform:

@@ -17,10 +17,18 @@ public class UIManager : Singleton<UIManager>
 	private void Awake()
 	{
 		_instance = this;
-		DontDestroyOnLoad(this);
 		ClearAllUI();
 	}
 
+	public void ClearAllUI()
+	{
+		GameObjectUtils.Clear(panels.transform);
+		CloseAllScreens();
+		DisableHUD();
+	}
+
+
+	//Hud
 	public void EnableHUD()
 	{
 		HUD.gameObject.SetActive(true);
@@ -32,23 +40,21 @@ public class UIManager : Singleton<UIManager>
 		HUD.gameObject.SetActive(false);
 	}
 
-	public void AddPanel(GameObject prefab) //called from 
-	{
 
+	//Panel
+	internal void AddPanels(List<Panel> gameUIPanels)
+	{
+		foreach (Panel panelPrefab in gameUIPanels)
+		{
+			AddPanel(panelPrefab);
+		}
 
 	}
 
-	public void ClearAllUI()
+	public void AddPanel(Panel prefab) //called from 
 	{
-		//clear screens
-		//clear panels
-		//clear in game
-		//disbale hud
-		CloseAllScreens();
-		DisableHUD();
+		Panel panel = Instantiate(prefab, panels.transform).GetComponent<Panel>();
 	}
-
-
 
 
 	//InScene
@@ -58,8 +64,6 @@ public class UIManager : Singleton<UIManager>
 		inSceneUI.SetFollow(transform);
 		return inSceneUI;
 	}
-
-
 
 
 	//Screens
