@@ -16,13 +16,13 @@ namespace UI
 
 		protected  void Start()
 		{
-			NotificationManager.instance.NotificationAddedEvent += NotificationManager_NotificationAddedEvent;
-			NotificationManager.instance.NotificationEmptyEvent += NotificationManager_NotificationEmptyEvent;
+			Notifications.instance.NotificationAddedEvent += NotificationManager_NotificationAddedEvent;
+			Notifications.instance.NotificationEmptyEvent += NotificationManager_NotificationEmptyEvent;
 		}
 		private void OnDestroy()
 		{
-			NotificationManager.instance.NotificationAddedEvent += NotificationManager_NotificationAddedEvent;
-			NotificationManager.instance.NotificationEmptyEvent += NotificationManager_NotificationEmptyEvent;
+			Notifications.instance.NotificationAddedEvent += NotificationManager_NotificationAddedEvent;
+			Notifications.instance.NotificationEmptyEvent += NotificationManager_NotificationEmptyEvent;
 		}
 
 		private void NotificationManager_NotificationEmptyEvent()
@@ -43,7 +43,7 @@ namespace UI
 		private void RemoveNotification(Notification notification, GameObject gameObject)
 		{
 			Destroy(gameObject);
-			NotificationManager.instance.RemoveNotification(notification);
+			Notifications.instance.RemoveNotification(notification);
 		}
 	}
 }

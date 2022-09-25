@@ -33,7 +33,7 @@ public class CollectAction : ShipAction
 	{
 		if (!carryObject.HasStorageSpace())
 		{
-			NotificationManager.instance.AddNotification(shipObject.shipName, $"Cannot start collection because {shipObject.name} does not have any space for {resourceData.resourceName}");
+			Notifications.instance.AddNotification(shipObject.shipName, $"Cannot start collection because {shipObject.name} does not have any space for {resourceData.resourceName}");
 			return false;
 		}
 		return true;
@@ -43,7 +43,7 @@ public class CollectAction : ShipAction
 	{
 		if (!producer.ProducesResource(resourceData))
 		{
-			NotificationManager.instance.AddNotification(shipObject.shipName, $"Cannot start Collection because {producer.GetType().ToString()} does produce {resourceData.resourceName}");
+			Notifications.instance.AddNotification(shipObject.shipName, $"Cannot start Collection because {producer.GetType().ToString()} does produce {resourceData.resourceName}");
 			return false;
 		}
 		return true;
@@ -71,7 +71,7 @@ public class CollectAction : ShipAction
 	public override void OnFinish()
 	{
 		int price = producer.GetSellPrice(resourceData);
-		Wallet wallet = SystemsManager.instance.wallet;
+		Wallet wallet = GameObject.FindObjectOfType<Wallet>();
 		wallet.CreateAndAddBuyTransaction(price, producer as Building, shipObject, resourceData);
 	}
 }

@@ -27,7 +27,7 @@ public abstract class InteractableObject : MonoBehaviour
 	{
 		if (showHoverInfo)
 		{
-			hoverUI = GameUIManager.instance.CreateInScene(hoverUIPrefab, this.transform) as InteractableHoverInScene;
+			hoverUI = UIManager.instance.CreateInScene(hoverUIPrefab, this.transform) as InteractableHoverInScene;
 			hoverUI.OnHover(this);
 		}
 	}

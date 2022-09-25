@@ -57,8 +57,8 @@ public abstract class ActionPreview : MonoBehaviour
 	protected virtual void Open()
 	{
 		lineRenderer.gameObject.SetActive(true);
-		SystemsManager.instance.shipSelector.UnregisterEvents();
-		GameUIManager.instance.CloseAllScreens();
+		FindObjectOfType<ShipSelector>().UnregisterEvents();
+		UIManager.instance.CloseAllScreens();
 	}
 
 	public virtual void Close()
@@ -66,7 +66,7 @@ public abstract class ActionPreview : MonoBehaviour
 		FindObjectOfType<ShipSelector>().RegisterEvents();
 		lineRenderer.gameObject.SetActive(false);
 		Destroy(this.gameObject);
-		GameUIManager.instance.CloseAllScreens();
+		UIManager.instance.CloseAllScreens();
 	}
 
 	public virtual void OnDestroy()
