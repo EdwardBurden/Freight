@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4879069527737826707}
   - component: {fileID: 2785265033204548586}
   m_Layer: 0
-  m_Name: Freight1
+  m_Name: ExampleFreight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+
 namespace UI
 {
-	public class ExitMenuCatcher : MonoBehaviour, IPointerClickHandler
+	public class CloseAllScreensScreen : MonoBehaviour, IPointerClickHandler
 	{
 		public void OnPointerClick(PointerEventData pointerEventData)
 		{

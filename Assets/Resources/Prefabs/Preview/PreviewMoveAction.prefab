@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 5244719464296625596}
   - component: {fileID: 5244719464296625539}
   m_Layer: 0
-  m_Name: PreviewMovement
+  m_Name: PreviewMoveAction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
