@@ -16,7 +16,23 @@ public class Notifications : Singleton<Notifications>
 		_instance = this;
 	}
 
-	public void AddNotification(string sender, string message)
+	private void OnEnable()
+	{
+		ShipOrderQueue.OrderFailedEvent += ShipOrderFailed;
+	}
+
+	private void OnDisable()
+	{
+		ShipOrderQueue.OrderFailedEvent -= ShipOrderFailed;
+	}
+
+
+	private void ShipOrderFailed(ShipOrder obj, string message)
+	{
+		AddNotification(obj.shipObject.shipName, message);
+	}
+
+	private void AddNotification(string sender, string message)
 	{
 		Notification notification = new Notification(sender, message);
 		notifications.Add(notification);

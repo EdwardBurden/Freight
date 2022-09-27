@@ -14,24 +14,21 @@ public class MoveActionDefintion : ShipActionDefintion
 		return true;
 	}
 
-	public override void CreateActionPreview(Ship ship, Action<ShipAction> callback)
+	public override void CreateActionPreview(Ship ship, Action<ShipOrder> callback)
 	{
-		MoveActionPreview previewMoveAction = Instantiate(previewMoveActionPrefab);
-		previewMoveAction.Init(ship);
+		MoveActionPreview previewMoveAction = ActionPreviewController.instance.CreateActionPreview(ship, previewMoveActionPrefab) as MoveActionPreview;
 		previewMoveAction.callback = (postion) => OnPreviewClick(ship, postion, callback);
-
-		ActionPreviewController.instance.SetActionPreview(previewMoveAction);
 	}
 
-	private void OnPreviewClick(Ship shipObject, Vector3 position, Action<ShipAction> callback)
+	private void OnPreviewClick(Ship shipObject, Vector3 position, Action<ShipOrder> callback)
 	{
-		MoveAction moveAction = new MoveAction(this, shipObject, position);
+		MoveOrder moveAction = new MoveOrder(this, shipObject, position);
 		callback.Invoke(moveAction);
 	}
 
-	public override void ActionSelected(Ship shipObject, InteractableObject interactableObject, Vector3 position, Action<ShipAction> callback)
+	public override void ActionSelected(Ship shipObject, InteractableObject interactableObject, Vector3 position, Action<ShipOrder> callback)
 	{
-		MoveAction moveAction = new MoveAction(this, shipObject, position);
+		MoveOrder moveAction = new MoveOrder(this, shipObject, position);
 		callback.Invoke(moveAction);
 	}
 }

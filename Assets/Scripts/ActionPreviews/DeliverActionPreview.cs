@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UI;
 using UnityEngine;
 
@@ -30,7 +28,7 @@ public class DeliverActionPreview : ActionPreview
 
 	private void OnMouseHoveredOnInteractable(InteractableObject interactableObject)
 	{
-		IConsumer consumer = interactableObject.GetComponent<IConsumer>(); //replace with chekcing the defintion can create 
+		IConsumer consumer = interactableObject.GetComponent<IConsumer>();
 		if (consumer != null)
 		{
 			lineRenderer.SetPosition(0, shipObject.gameObject.transform.position + offset);
@@ -42,7 +40,7 @@ public class DeliverActionPreview : ActionPreview
 
 	public override void OnRightClickInteractable(InteractableObject interactableObject, Vector3 pos)
 	{
-		ActionPreviewController.instance.FinishActionPreview();
+		RaiseFinishedEvent();
 	}
 
 	public override void OnLeftClickInteractable(InteractableObject interactableObject, Vector3 pos)
@@ -56,7 +54,7 @@ public class DeliverActionPreview : ActionPreview
 
 	private void OnResourceSelected(IConsumer consumer, ResourceDefintion resourceDefintion)
 	{
-		RaiseFinsihedEvent();
+		RaiseFinishedEvent();
 		callback?.Invoke(consumer, resourceDefintion);
 	}
 }

@@ -373,6 +373,7 @@ MonoBehaviour:
   - {fileID: 3133125329871508136, guid: 557e558dbbcc3d049b4be232226fb851, type: 3}
   - {fileID: 3601647277799643173, guid: 20437368d91d3a54081f051547e2476a, type: 3}
   mapGenerator: {fileID: 567249197}
+  startlocal: 1
 --- !u!4 &876638793
 Transform:
   m_ObjectHideFlags: 0

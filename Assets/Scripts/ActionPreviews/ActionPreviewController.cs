@@ -1,13 +1,11 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ActionPreviewController : Singleton<ActionPreviewController>
 {
-	public static event Action preivewComplete;
+	public static event Action PreviewComplete;
 
-	private ActionPreview currentActionPreview;
+	private ActionPreview currentPreview;
 
 	private void Awake()
 	{
@@ -26,47 +24,48 @@ public class ActionPreviewController : Singleton<ActionPreviewController>
 		MouseInput.RightClickInteractableEvent -= OnRightClickInteractable;
 	}
 
-	private void OnRightClickInteractable(InteractableObject arg1, Vector3 arg2)
+	public void Update()
 	{
-		currentActionPreview?.OnRightClickInteractable(arg1, arg2);
+		if (currentPreview != null)
+		{
+			currentPreview.UpdatePreview();
+		}
 	}
 
-	private void OnLeftClickInteractable(InteractableObject arg1, Vector3 arg2)
+	private void OnRightClickInteractable(InteractableObject interactableObject, Vector3 worldMousePosition)
 	{
-		currentActionPreview?.OnLeftClickInteractable(arg1, arg2);
+		currentPreview?.OnRightClickInteractable(interactableObject, worldMousePosition);
 	}
 
-	public void SetActionPreview(ActionPreview actionPreview)
+	private void OnLeftClickInteractable(InteractableObject interactableObject, Vector3 worldMousePosition)
 	{
-		RemoveActionPreview();
-		currentActionPreview = actionPreview;
-		currentActionPreview.FinishedPreviewEvent += FinishActionPreview;
-		currentActionPreview.transform.parent = this.transform;
+		currentPreview?.OnLeftClickInteractable(interactableObject, worldMousePosition);
+	}
+
+	public ActionPreview CreateActionPreview(Ship ship, ActionPreview actionPreviewPrefab)
+	{
+		DestroyCurrentPreview();
+		currentPreview = Instantiate(actionPreviewPrefab, this.transform);
+		currentPreview.Init(ship);
+		currentPreview.FinishedPreviewEvent += FinishActionPreview;
 		GameManager.instance.SetInputToPreviewMode();
 		UIManager.instance.CloseAllScreens();
+		return currentPreview;
 	}
 
 	public void FinishActionPreview()
 	{
-		currentActionPreview.FinishedPreviewEvent -= FinishActionPreview;
+		currentPreview.FinishedPreviewEvent -= FinishActionPreview;
 		GameManager.instance.SetInputToSelectionMode();
 		UIManager.instance.CloseAllScreens();
-		RemoveActionPreview();
+		DestroyCurrentPreview();
 	}
 
-	public void RemoveActionPreview()
+	public void DestroyCurrentPreview()
 	{
-		if (currentActionPreview != null)
+		if (currentPreview != null)
 		{
-			Destroy(currentActionPreview.gameObject);
-		}
-	}
-
-	public void Update()
-	{
-		if (currentActionPreview != null)
-		{
-			currentActionPreview.UpdatePreview();
+			Destroy(currentPreview.gameObject);
 		}
 	}
 }

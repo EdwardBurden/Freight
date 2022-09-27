@@ -1,4 +1,3 @@
-using ActionLists;
 using UnityEngine;
 
 namespace ActionLists
@@ -7,7 +6,7 @@ namespace ActionLists
 	{
 		protected Animator animator;
 
-		public AnimateAction(Animator animator, bool isBlocking = false) : base(isBlocking)
+		public AnimateAction(Animator animator) : base(true)
 		{
 			this.animator = animator;
 		}

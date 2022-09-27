@@ -55,7 +55,7 @@ public class ShipSelectionController : Singleton<ShipSelectionController>
 		shipActionDefintion.ActionSelected(shipSelected, interactableObject, pos, SetShipsAction);
 	}
 
-	public void SetShipsAction(ShipAction shipAction) //TODO move this out
+	public void SetShipsAction(ShipOrder shipAction) //TODO move this out
 	{
 		Ship shipObject = shipAction.shipObject;
 		shipObject.SetAction(shipAction);
@@ -63,7 +63,7 @@ public class ShipSelectionController : Singleton<ShipSelectionController>
 		//Fire eVENT
 	}
 
-	public void PushShipsAction(ShipAction shipAction) //TODO move this out
+	public void PushShipsAction(ShipOrder shipAction) //TODO move this out
 	{
 		Ship shipObject = shipAction.shipObject;
 		shipObject.PushAction(shipAction);

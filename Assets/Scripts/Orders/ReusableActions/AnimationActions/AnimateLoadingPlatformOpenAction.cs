@@ -4,7 +4,7 @@ using UnityEngine;
 public class AnimateLoadingPlatformOpenAction : AnimateAction
 {
 	LandingPlatform landingPlatform;
-	public AnimateLoadingPlatformOpenAction(LandingPlatform landingPlatform) : base(landingPlatform.GetComponent<Animator>() , true)
+	public AnimateLoadingPlatformOpenAction(LandingPlatform landingPlatform) : base(landingPlatform.GetComponent<Animator>())
 	{
 		this.landingPlatform = landingPlatform;
 	}

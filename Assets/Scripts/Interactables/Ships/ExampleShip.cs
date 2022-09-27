@@ -4,20 +4,22 @@ using UnityEngine;
 
 public class ExampleShip : Ship
 {
-	ShipAction shipAction;
+	ShipOrder shipAction;
 
-	public override void PushAction(ShipAction shipAction)
+	public override void PushAction(ShipOrder shipAction)
 	{
 		this.shipAction = shipAction;
 	}
 
-	public override void SetAction(ShipAction shipAction)
+	public override void SetAction(ShipOrder shipAction)
 	{
 		this.shipAction = shipAction;
 	}
 
 	private void Update() // temp for now, needs to be able to use finsih and init same as freightship
 	{
+		//TODO
+		/*
 		if (shipAction == null)
 		{
 			return;
@@ -26,7 +28,7 @@ public class ExampleShip : Ship
 		bool blocked = false;
 		while (!blocked)
 		{
-			if (!shipAction.isInitialised)
+			if (!shipAction.started)
 			{
 				shipAction.OnInitialise();
 			}
@@ -36,6 +38,6 @@ public class ExampleShip : Ship
 			{
 				shipAction = null;
 			}
-		}
+		}*/
 	}
 }

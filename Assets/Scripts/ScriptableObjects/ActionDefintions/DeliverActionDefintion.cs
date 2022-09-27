@@ -21,22 +21,19 @@ public class DeliverActionDefintion : ShipActionDefintion
 		return true;
 	}
 
-	public override void CreateActionPreview(Ship ship, Action<ShipAction> callback)
+	public override void CreateActionPreview(Ship ship, Action<ShipOrder> callback)
 	{
-		DeliverActionPreview deliverActionPreview = Instantiate(deliverActionPreviewPrefab);
-		deliverActionPreview.Init(ship);
+		DeliverActionPreview deliverActionPreview = ActionPreviewController.instance.CreateActionPreview(ship, deliverActionPreviewPrefab) as DeliverActionPreview;
 		deliverActionPreview.callback = (consumer, resource) => OnResourceSelected(ship, consumer, resource, callback);
-
-		ActionPreviewController.instance.SetActionPreview(deliverActionPreview);
 	}
 
-	public override void ActionSelected(Ship shipObject, InteractableObject interactableObject, Vector3 clickPosition, Action<ShipAction> callback)
+	public override void ActionSelected(Ship shipObject, InteractableObject interactableObject, Vector3 clickPosition, Action<ShipOrder> callback)
 	{
 		IConsumer consumer = interactableObject.GetComponent<IConsumer>();
 		ResourceSelectScreen.Create(consumer.GetAcceptedResources(), clickPosition, (resource) => OnResourceSelected(shipObject, consumer, resource, callback), false);
 	}
 
-	private void OnResourceSelected(Ship shipObject, IConsumer consumer, ResourceDefintion resourceDefintion, Action<ShipAction> callback)
+	private void OnResourceSelected(Ship shipObject, IConsumer consumer, ResourceDefintion resourceDefintion, Action<ShipOrder> callback)
 	{
 		DeliverAction deliverAction = new DeliverAction(this, shipObject, consumer, resourceDefintion);
 		callback?.Invoke(deliverAction);

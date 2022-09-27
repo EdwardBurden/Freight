@@ -1,11 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UI;
 using UnityEngine;
 
 public abstract class ActionPreview : MonoBehaviour
 {
+	public event Action FinishedPreviewEvent;
+
 	[SerializeField]
 	protected Vector3 offset = new Vector3(0, 3, 0);
 
@@ -13,21 +12,16 @@ public abstract class ActionPreview : MonoBehaviour
 	protected LineRenderer lineRenderer;
 
 	protected Ship shipObject;
-
-	protected bool updateLine = true;
-	private Vector3 target;
-
-	public event Action FinishedPreviewEvent;
+	protected Vector3 target;
 
 	private void Awake()
 	{
 		lineRenderer.gameObject.SetActive(true);
 	}
 
-	public abstract void OnRightClickInteractable(InteractableObject arg1, Vector3 arg2);
+	public abstract void OnRightClickInteractable(InteractableObject interactableObject, Vector3 worldMousePosition);
 
-
-	public abstract void OnLeftClickInteractable(InteractableObject arg1, Vector3 arg2);
+	public abstract void OnLeftClickInteractable(InteractableObject interactableObject, Vector3 worldMousePosition);
 
 	public void Init(Ship shipObject)
 	{
@@ -36,27 +30,13 @@ public abstract class ActionPreview : MonoBehaviour
 
 	public void UpdatePreview()
 	{
-		if (updateLine)
-		{
-			target = MouseInput.mousePostion;
-		}
+		target = MouseInput.worldMousePosition;
 		lineRenderer.SetPosition(0, shipObject.gameObject.transform.position + offset);
 		lineRenderer.SetPosition(1, target);
 	}
 
-	protected virtual void OnMousePostion(Vector3 postion)
-	{
-		if (updateLine)
-		{
-			target = postion;
-		}
-		lineRenderer.SetPosition(0, shipObject.gameObject.transform.position + offset);
-		lineRenderer.SetPosition(1, target);
-	}
-
-	public void RaiseFinsihedEvent()
+	public void RaiseFinishedEvent()
 	{
 		FinishedPreviewEvent?.Invoke();
-
 	}
 }

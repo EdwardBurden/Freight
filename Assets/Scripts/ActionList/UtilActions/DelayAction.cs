@@ -1,4 +1,3 @@
-using ActionLists;
 using UnityEngine;
 
 namespace ActionLists

@@ -30,9 +30,9 @@ public abstract class Ship : InteractableObject
 	{
 		return shipName;
 	}
-	public abstract void PushAction(ShipAction shipAction);
+	public abstract void PushAction(ShipOrder shipAction);
 
-	public abstract void SetAction(ShipAction shipAction);
+	public abstract void SetAction(ShipOrder shipAction);
 
 	public ShipActionDefintion[] GetAvailableActions(InteractableObject interactableObject, Vector3 position)
 	{

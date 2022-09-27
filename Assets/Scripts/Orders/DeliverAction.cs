@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeliverAction : ShipAction
+public class DeliverAction : ShipOrder
 {
 	private CarryObject carryObject;
 	private IConsumer consumer;
@@ -14,36 +14,33 @@ public class DeliverAction : ShipAction
 		this.carryObject = shipObject.GetComponent<CarryObject>();
 		this.consumer = target;
 		this.resourceData = resourceTarget;
-		Reset();
 	}
 
 
-	public override void Reset()
+	public override void Setup()
 	{
-		base.Reset();
+		base.Setup();
 		LandingPlatform landingPlatform = consumer.GetConsumerLandingPlatform();
 		Vector3 position = landingPlatform.GetLandingPosition();
 
 		//Move
-		actionList.PushAction(new LookAtAction(position, shipObject, true));
-		actionList.PushAction(new AlignShipForDeliveryAction(shipObject, carryObject, resourceData, landingPlatform));
+		childList.PushAction(new LookAtAction(position, shipObject, true));
+		childList.PushAction(new AlignShipForDeliveryAction(shipObject, carryObject, resourceData, landingPlatform));
 
 		//Deliver
-		actionList.PushAction(new AnimateLoadingPlatformOpenAction(landingPlatform));
-		actionList.PushAction(new ParentFreightToPlatformAction(landingPlatform, carryObject, resourceData));
-		actionList.PushAction(new AnimateLoadingPlatformCloseAction(landingPlatform));
-		actionList.PushAction(new SyncAction());
-		actionList.PushAction(new DestoryFreightAction(landingPlatform));
+		childList.PushAction(new AnimateLoadingPlatformOpenAction(landingPlatform));
+		childList.PushAction(new ParentFreightToPlatformAction(landingPlatform, carryObject, resourceData));
+		childList.PushAction(new AnimateLoadingPlatformCloseAction(landingPlatform));
+		childList.PushAction(new SyncAction());
+		childList.PushAction(new DestoryFreightAction(landingPlatform));
 	}
 
-	public override void OnInitialise()
+	public override void Start()
 	{
-		base.OnInitialise();
+		base.Start();
 		if (!CheckShipIsValid() || !CheckProducerIsValid())
 		{
-			failed = true;
-			actionList.Clear();
-			isFinished = true;
+			RaiseFailEvent("Deliver error");
 		}
 
 	}
@@ -52,7 +49,7 @@ public class DeliverAction : ShipAction
 	{
 		if (!carryObject.HasFreightOfResource(resourceData))
 		{
-			Notifications.instance.AddNotification(shipObject.shipName, $"Cannot start Delivery because {shipObject.name} does not have any {resourceData.resourceName}");
+			//Notifications.instance.AddNotification(shipObject.shipName, $"Cannot start Delivery because {shipObject.name} does not have any {resourceData.resourceName}");
 			return false;
 		}
 		return true;
@@ -62,13 +59,13 @@ public class DeliverAction : ShipAction
 	{
 		if (!consumer.AcceptsResource(resourceData))
 		{
-			Notifications.instance.AddNotification(shipObject.shipName, $"Cannot start Delivery because {consumer.GetType().ToString()} does accept {resourceData.resourceName}");
+			//Notifications.instance.AddNotification(shipObject.shipName, $"Cannot start Delivery because {consumer.GetType().ToString()} does accept {resourceData.resourceName}");
 			return false;
 		}
 		return true;
 	}
 
-	public override void OnFinish()
+	public override void Finish()
 	{
 		int price = consumer.GetBuyPrice(resourceData);
 		Wallet wallet = GameObject.FindObjectOfType<Wallet>(); //temp fx

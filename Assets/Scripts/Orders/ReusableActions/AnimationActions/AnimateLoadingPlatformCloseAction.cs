@@ -4,7 +4,7 @@ using UnityEngine;
 public class AnimateLoadingPlatformCloseAction : AnimateAction
 {
 	LandingPlatform landingPlatform;
-	public AnimateLoadingPlatformCloseAction(LandingPlatform landingPlatform) : base(landingPlatform.GetComponent<Animator>(), true)
+	public AnimateLoadingPlatformCloseAction(LandingPlatform landingPlatform) : base(landingPlatform.GetComponent<Animator>())
 	{
 		this.landingPlatform = landingPlatform;
 	}
