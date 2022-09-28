@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public enum ResourceCategory
 {
 	Mined, //has to be on the static ground type of the cell

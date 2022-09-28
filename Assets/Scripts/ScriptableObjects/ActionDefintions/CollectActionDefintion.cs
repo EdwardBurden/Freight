@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UI;
 using UnityEngine;
-
 
 [CreateAssetMenu(menuName = "ScriptableObject/CollectActionDefintion")]
 public class CollectActionDefintion : ShipActionDefintion

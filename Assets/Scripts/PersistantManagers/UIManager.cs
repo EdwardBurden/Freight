@@ -6,13 +6,18 @@ using Screen = UI.Screen;
 
 public class UIManager : Singleton<UIManager>
 {
+	[SerializeReference]
 	public Canvas inScene;
+	[SerializeReference]
 	public Canvas HUD;
+	[SerializeReference]
 	public Canvas panels;
+	[SerializeReference]
 	public Canvas screens;
-	public GameObject backgroundClickCatcher;
+	[SerializeReference]
+	private GameObject backgroundClickCatcher;
 
-	public List<Screen> screenHistory = new List<Screen>(); //only one screeen at a time, takes up large screen space, history so that they can be backed out of  
+	public List<Screen> screenHistory = new List<Screen>();
 
 	private void Awake()
 	{

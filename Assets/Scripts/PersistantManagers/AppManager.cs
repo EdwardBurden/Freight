@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,7 +17,7 @@ public class AppManager : Singleton<AppManager>
 
 	private void OnGameSceneLoaded()
 	{
-		//probaly want to make this better at some point
+		//TODO probaly want to make this better at some point
 		GameManager.instance.StartNewGame(); 
 	}
 

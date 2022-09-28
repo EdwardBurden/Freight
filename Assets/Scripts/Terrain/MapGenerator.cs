@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using Terrain;
 using UnityEngine;
@@ -36,16 +34,12 @@ public class MapGenerator : MonoBehaviour
 
 	private MapGenerationData generationData;
 
-	private Vector3 GetMapCenterOffset(MapGenerationSettings mapGenerationSettings)
-	{
-		return MapGeneration.GetAreaOffset(mapGenerationSettings.mapSize) * TILESIZE;
-	}
-
 	public void Generate() //temp
 	{
 		Generate(settings[0]);
 
 	}
+
 	public void Generate(MapGenerationSettings settings)
 	{
 		generationData = CreateGenerationData(settings);
@@ -161,5 +155,10 @@ public class MapGenerator : MonoBehaviour
 		meshRenderer.material = islandMaterials[materialIndex];
 		meshFilter.mesh = MapGeneration.CreateVoronoiMesh(voronoiCell, height);
 		return gameObject;
+	}
+
+	private Vector3 GetMapCenterOffset(MapGenerationSettings mapGenerationSettings)
+	{
+		return MapGeneration.GetAreaOffset(mapGenerationSettings.mapSize) * TILESIZE;
 	}
 }
