@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Terrain;
 using UI;
 using UnityEngine;
 
@@ -20,6 +21,10 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 	[SerializeField]
 	private MapGenerator mapGenerator;
 
+	[SerializeField]
+	private GameObject[] buildingTest;
+
+
 	public bool startlocal = false;
 
 	private void Awake()
@@ -35,18 +40,45 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 
 	public void StartNewGame()
 	{
-		mapGenerator?.Generate();
+		//Setup Game world
+		MapGenerationData mapGenerationData = mapGenerator?.Generate();
+		testBuildings(mapGenerationData);
+		testships();
 		//Place resources of map
 		//Place buildings on map
 		//initialse any systmes that need map info
 		//place player ship 
-		var ship = Instantiate(startShipPrefab);
-		ship.transform.position = new Vector3(0, 5, 0);
+
+		//SetUp UI
 		UIManager.instance.EnableHUD();
 		UIManager.instance.AddPanels(gameUIPanels);
+		//SetUpInput
 		SetInputToSelectionMode();
-		//UIManager. ADD GAme panels
-		//add game ui to uimanager /hud, panels etc
+	}
+
+	private void testBuildings(MapGenerationData mapGenerationData) //maybe go to buildingmanager class to make them?
+	{
+		foreach (IslandGenerationData islandGenerationData in mapGenerationData.islands)
+		{
+			for (int i = 0; i < islandGenerationData.cells.Count; i++)
+			{
+				int index = Random.Range(0, buildingTest.Length);
+				int rotation = Random.Range(0, 360);
+				GameObject building = Instantiate(buildingTest[index], islandGenerationData.cells[i].transform.GetChild(0));
+				building.transform.rotation = Quaternion.Euler(0, rotation, 0);
+				building.transform.localPosition = Vector3.zero;
+			}
+		}
+
+	}
+
+	private void testships() {
+		for (int i = 0; i < 5; i++)
+		{
+			var ship = Instantiate(startShipPrefab);
+			ship.transform.position = new Vector3(i*5, 5, 0);
+		}
+	
 	}
 
 	public void ExitGame()
