@@ -1,15 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Town : Building, IConsumer
 {
 	[SerializeField]
-	private float buyPriceModifier;//temp
+	private float buyPriceModifier;
 
 	[SerializeField]
 	private LandingPlatform platform;
-
 
 	[SerializeField]
 	private ResourceDefintion[] accepts;
@@ -38,7 +35,7 @@ public class Town : Building, IConsumer
 
 	public override string GetObjectName()
 	{
-		return "Town";//TODO
+		return "Town";
 	}
 
 	public int GetBuyPrice(ResourceDefintion resource)

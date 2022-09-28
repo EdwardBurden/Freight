@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class ShipOrderQueue : MonoBehaviour
 {
-	//TODO Clean these
+	//TODO remove static from these, or add ShipOrderQueue and o logic where picked up
 	public static event Action<ShipOrder> OrderPushedEvent;
 	public static event Action<ShipOrder> OrderStartedEvent;
-	public static event Action<ShipOrder,string> OrderFailedEvent;
+	public static event Action<ShipOrder, string> OrderFailedEvent;
 	public static event Action<ShipOrder> OrderFinishedEvent;
 
 	public List<ShipOrder> allOrders = new List<ShipOrder>();
@@ -15,7 +15,6 @@ public class ShipOrderQueue : MonoBehaviour
 
 	private List<ShipOrder> queuedOrders = new List<ShipOrder>();
 	private int queueIndex;
-	private ShipOrder activeOrder;
 
 
 	public bool repeat { get; set; }
@@ -49,15 +48,20 @@ public class ShipOrderQueue : MonoBehaviour
 			ShipOrder shipOrder = queuedOrders[0];
 			if (!shipOrder.started)
 			{
-				shipOrder.OrderFailedEvent += OnOrderFailed;
+				//shipOrder.OrderFailedEvent += OnOrderFailed;
 				shipOrder.Start();
 				OrderStartedEvent?.Invoke(shipOrder);
 			}
 			shipOrder.Update();
+			if (shipOrder.isFailed)
+			{
+				OnOrderFailed(shipOrder, shipOrder.failMessage);
+				return;
+			}
 			if (shipOrder.isFinished)
 			{
 				shipOrder.Finish();
-				shipOrder.OrderFailedEvent -= OnOrderFailed;
+				//shipOrder.OrderFailedEvent -= OnOrderFailed;
 				queuedOrders.RemoveAt(0);
 				if (!repeat)
 				{
@@ -97,14 +101,15 @@ public class ShipOrderQueue : MonoBehaviour
 	{
 		allOrders.Remove(action);
 		queuedOrders.Remove(action);
-		//maybe tell order to do somethign here, since its now not working
+		//TODO maybe tell order to do somethign here, since its now not working
 	}
 
 	private void OnOrderFailed(ShipOrder shipOrder, string error)
 	{
 		paused = true;
 		repeat = false;
-		//do something maybe
+		shipOrder.Setup();
+		//TODO do something maybe
 		OrderFailedEvent?.Invoke(shipOrder, error);
 	}
 

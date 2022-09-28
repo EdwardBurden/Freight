@@ -1,6 +1,4 @@
 using ActionLists;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DeliverAction : ShipOrder
@@ -15,7 +13,6 @@ public class DeliverAction : ShipOrder
 		this.consumer = target;
 		this.resourceData = resourceTarget;
 	}
-
 
 	public override void Setup()
 	{
@@ -38,37 +35,20 @@ public class DeliverAction : ShipOrder
 	public override void Start()
 	{
 		base.Start();
-		if (!CheckShipIsValid() || !CheckProducerIsValid())
-		{
-			RaiseFailEvent("Deliver error");
-		}
-
-	}
-
-	private bool CheckShipIsValid()
-	{
 		if (!carryObject.HasFreightOfResource(resourceData))
 		{
-			//Notifications.instance.AddNotification(shipObject.shipName, $"Cannot start Delivery because {shipObject.name} does not have any {resourceData.resourceName}");
-			return false;
+			RaiseFailEvent($"Cannot start Delivery because {shipObject.name} does not have any {resourceData.resourceName}");
 		}
-		return true;
-	}
-
-	private bool CheckProducerIsValid()
-	{
 		if (!consumer.AcceptsResource(resourceData))
 		{
-			//Notifications.instance.AddNotification(shipObject.shipName, $"Cannot start Delivery because {consumer.GetType().ToString()} does accept {resourceData.resourceName}");
-			return false;
+			RaiseFailEvent($"Cannot start Delivery because {consumer.GetType().ToString()} does accept {resourceData.resourceName}");
 		}
-		return true;
 	}
 
 	public override void Finish()
 	{
 		int price = consumer.GetBuyPrice(resourceData);
-		Wallet wallet = GameObject.FindObjectOfType<Wallet>(); //temp fx
+		Wallet wallet = GameObject.FindObjectOfType<Wallet>();
 		wallet.CreateAndAddSellTransaction(price, consumer as Building, shipObject, resourceData);
 	}
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 public class MoveOrder : ShipOrder
 {
 	private Vector3 target;
+
 	public MoveOrder(ShipActionDefintion shipActionDefintion, Ship shipObject, Vector3 target) : base(shipActionDefintion, shipObject)
 	{
 		this.target = target;

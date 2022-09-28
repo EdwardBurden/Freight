@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LandingPlatform : MonoBehaviour
@@ -14,35 +12,33 @@ public class LandingPlatform : MonoBehaviour
 	[SerializeField]
 	private GameObject landingSpot;
 
-	internal Vector3 GetLandingPosition()
+	public Vector3 GetLandingPosition()
 	{
 		return landingSpot.transform.position;
 	}
 
-	internal Quaternion GetLandingRotation()
+	public Quaternion GetLandingRotation()
 	{
 		return landingSpot.transform.rotation;
 	}
 
-	internal Transform GetFreightSpawnTransform()
+	public Transform GetFreightSpawnTransform()
 	{
 		return freightSpawnTransform.transform;
 	}
 
-	internal GameObject GetActiveFreight()
+	public GameObject GetActiveFreight()
 	{
 		return freightSpawnTransform.transform.GetChild(0).gameObject;
 	}
 
 	public void OpenAniamtionComplete()
 	{
-
 		OpenAnimationCompleteEvent?.Invoke();
 	}
 
 	public void CloseAniamtionComplete()
 	{
 		CloseAnimationCompleteEvent?.Invoke();
-
 	}
 }

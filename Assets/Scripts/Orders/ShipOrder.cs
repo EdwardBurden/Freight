@@ -3,13 +3,11 @@ using System;
 
 public abstract class ShipOrder
 {
-	//Events
-	public event Action<ShipOrder, string> OrderFailedEvent; //maybe on these
+	public event Action<ShipOrder, string> OrderFailedEvent;
 
-	//Data
+	public bool isFailed;
 	public bool isFinished;
 	public bool started;
-	//dont change
 	public ShipActionDefintion actionDefintion;
 	public Ship shipObject;
 
@@ -20,35 +18,38 @@ public abstract class ShipOrder
 	}
 
 	public ActionList childList = new ActionList();
+	internal string failMessage;
 
-	public virtual void Setup() //called from ShipOrderQueue, set actionlist for new/repeated orders
+	public virtual void Setup()
 	{
+		isFailed = false;
 		isFinished = false;
 		started = false;
+		childList.Clear();
 	}
 
-	public virtual void Start()//called from ShipOrderQueue, tells order to start
+	public virtual void Start()
 	{
 		started = true;
 	}
 
-	public virtual void Update()//called from ShipOrderQueue ,tells order to update
+	public virtual void Update()
 	{
-		if (!isFinished)
+		if (!isFinished && !isFailed)
 		{
 			childList.Update();
 			isFinished = childList.IsEmpty();
 		}
 	}
 
-	public virtual void Finish()//called from ShipOrderQueue , tells order to finish up wherever it is
+	public virtual void Finish()
 	{
-
 	}
 
-	protected void RaiseFailEvent(string error)
+	protected void RaiseFailEvent(string error) //testing
 	{
-		isFinished = true;
-		OrderFailedEvent?.Invoke(this, error);
+		isFailed = true;
+		failMessage = error;
+		//OrderFailedEvent?.Invoke(this, error);
 	}
 }

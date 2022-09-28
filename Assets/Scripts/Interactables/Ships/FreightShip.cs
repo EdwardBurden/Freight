@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(ShipOrderQueue))]
+[RequireComponent(typeof(CarryObject))]
 public class FreightShip : Ship
 {
 	[SerializeField]
@@ -18,7 +17,7 @@ public class FreightShip : Ship
 		actionList.PushAction(shipAction);
 	}
 
-	public override void SetAction(ShipOrder shipAction) //TODO
+	public override void SetAction(ShipOrder shipAction)
 	{
 		actionList.ClearActions();
 		actionList.paused = false;

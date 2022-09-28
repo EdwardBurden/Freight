@@ -1,8 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarryObject : MonoBehaviour //goes on ship for carrying stuff
+public class CarryObject : MonoBehaviour
 {
 	[SerializeField]
 	private Transform[] storageTransforms;
@@ -30,28 +29,27 @@ public class CarryObject : MonoBehaviour //goes on ship for carrying stuff
 		return GetFirstEmptyStorageTransform() != null;
 	}
 
-	public FreightObject GetFreightOfResource(ResourceDefintion resourceData) //use to add to platform postion before landing at platforms
+	public FreightObject GetFreightOfResource(ResourceDefintion resourceData)
 	{
 		FreightObject freightObject = GetAllFreight().Find(x => x.resourceData == resourceData);
 		return freightObject;
 	}
 
-	public Transform GetFirstStorageTransformOfResource(ResourceDefintion resourceData) //use to add to platform postion before landing at platforms
+	public Transform GetFirstStorageTransformOfResource(ResourceDefintion resourceData)
 	{
 		FreightObject freightObject = GetAllFreight().Find(x => x.resourceData == resourceData);
 		return freightObject.transform.parent.transform;
 	}
 
-	public Transform GetFirstEmptyStorageTransform() //use to add to platform postion before landing at platforms
+	public Transform GetFirstEmptyStorageTransform()
 	{
-		foreach (var item in storageTransforms)
+		foreach (Transform transform in storageTransforms)
 		{
-			if (item.childCount == 0)
+			if (transform.childCount == 0)
 			{
-				return item.transform;
+				return transform.transform;
 			}
 		}
 		return null;
 	}
-
 }

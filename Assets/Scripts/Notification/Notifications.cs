@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-//todo, remove singleton, use event from shipaction list monobehaviour to get error output.
 public class Notifications : Singleton<Notifications>
 {
 	public event Action<Notification> NotificationAddedEvent;
@@ -26,7 +23,6 @@ public class Notifications : Singleton<Notifications>
 		ShipOrderQueue.OrderFailedEvent -= ShipOrderFailed;
 	}
 
-
 	private void ShipOrderFailed(ShipOrder obj, string message)
 	{
 		AddNotification(obj.shipObject.shipName, message);
@@ -39,7 +35,7 @@ public class Notifications : Singleton<Notifications>
 		NotificationAddedEvent?.Invoke(notification);
 	}
 
-	public void RemoveNotification(Notification notification) //called from ui
+	public void RemoveNotification(Notification notification)
 	{
 		notifications.Remove(notification);
 		if (notifications.Count == 0)
@@ -47,5 +43,4 @@ public class Notifications : Singleton<Notifications>
 			NotificationEmptyEvent?.Invoke();
 		}
 	}
-
 }

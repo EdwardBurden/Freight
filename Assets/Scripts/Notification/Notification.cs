@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
-
 public struct Notification
 {
 	public string sender;
@@ -17,6 +12,5 @@ public struct Notification
 	public string FormatNotification()
 	{
 		return $"{sender} says : {message}";
-
 	}
 }
