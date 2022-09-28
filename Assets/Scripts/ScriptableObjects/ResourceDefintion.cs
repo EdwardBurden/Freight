@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UI;
 using UnityEngine;
 
@@ -13,6 +11,7 @@ public class ResourceDefintion : ScriptableObject
 	public ResourceIconButtonWidget iconPrefab;
 	public FreightObject freightPrefab;
 	public int price;
+	public ResourceCategory resourceCategory;
 
 	public ResourceIconButtonWidget CreateResourceSelectionButton(Transform options, Action callback)
 	{

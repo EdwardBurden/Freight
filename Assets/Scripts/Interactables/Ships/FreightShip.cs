@@ -1,24 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(ShipActionList))]
+[RequireComponent(typeof(ShipOrderQueue))]
+[RequireComponent(typeof(CarryObject))]
 public class FreightShip : Ship
 {
 	[SerializeField]
-	private ShipActionList actionList;
+	private ShipOrderQueue actionList;
 
 	private void Awake()
 	{
-		actionList = GetComponent<ShipActionList>();
+		actionList = GetComponent<ShipOrderQueue>();
 	}
 
-	public override void PushAction(ShipAction shipAction)
+	public override void PushAction(ShipOrder shipAction)
 	{
 		actionList.PushAction(shipAction);
 	}
 
-	public override void SetAction(ShipAction shipAction) //TODO
+	public override void SetAction(ShipOrder shipAction)
 	{
 		actionList.ClearActions();
 		actionList.paused = false;

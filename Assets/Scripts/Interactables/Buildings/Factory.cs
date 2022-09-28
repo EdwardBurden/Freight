@@ -1,21 +1,19 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//TODO
 
 public class Factory : Building, IProducer, IConsumer
 {
 	[SerializeField]
-	private float buyPriceModifier;//temp
+	private float buyPriceModifier;
+
 	[SerializeField]
-	private float sellPriceModifier;//temp
+	private float sellPriceModifier;
 
 	[SerializeField]
 	private LandingPlatform inputPlatform;
 
 	[SerializeField]
 	private LandingPlatform outputPlatform;
-
 
 	[SerializeField]
 	private ConversionDefintion conversion;
@@ -72,8 +70,9 @@ public class Factory : Building, IProducer, IConsumer
 
 	public override string GetObjectName()
 	{
-		return "Factory";//TODO
+		return "Factory";
 	}
+
 	public int GetBuyPrice(ResourceDefintion resource)
 	{
 		return (int)(buyPriceModifier * resource.price);

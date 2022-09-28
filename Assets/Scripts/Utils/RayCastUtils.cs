@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -17,8 +16,7 @@ public struct RayCastInfo<T> where T : MonoBehaviour //to move
 	}
 }
 
-
-public static class RayCastUtils 
+public static class RayCastUtils
 {
 	public static RayCastInfo<T> FindFirstObjectHit<T>(Vector3 startpostion, Vector3 direction, float distance = 100) where T : MonoBehaviour
 	{

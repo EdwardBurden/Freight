@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UI;
 using UnityEngine;
-using UnityEngine.Events;
 
 [SelectionBase]
 public abstract class InteractableObject : MonoBehaviour
@@ -31,5 +28,4 @@ public abstract class InteractableObject : MonoBehaviour
 			hoverUI.OnHover(this);
 		}
 	}
-
 }

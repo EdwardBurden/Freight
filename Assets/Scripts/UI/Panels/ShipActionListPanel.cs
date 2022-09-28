@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 namespace UI
 {
+	//beig clean up here
 	public class ShipActionListPanel : Panel
 	{
 		[SerializeField]
@@ -30,22 +31,20 @@ namespace UI
 		[SerializeField]
 		private SimpleButtonWidget addButtonPrefab;
 
-		private ShipActionList shipActionList;
+		private ShipOrderQueue shipActionList;
 
 		private Ship ship => shipActionList.GetComponent<Ship>();
 
-		private ActionPreview activePreview = null; //maybe move to shipmanager
 
-
-		protected  void Start()
+		protected void Start()
 		{
-			ShipSelector.ShipSelectedEvent += OnShipSelected;
-			ShipSelector.ShipDeSelectedEvent += OnShipDeselected;
+			ShipSelectionController.ShipSelectedEvent += OnShipSelected;
+			ShipSelectionController.ShipDeSelectedEvent += OnShipDeselected;
 		}
 		private void OnDestroy()
 		{
-			ShipSelector.ShipSelectedEvent -= OnShipSelected;
-			ShipSelector.ShipDeSelectedEvent -= OnShipDeselected;
+			ShipSelectionController.ShipSelectedEvent -= OnShipSelected;
+			ShipSelectionController.ShipDeSelectedEvent -= OnShipDeselected;
 		}
 
 		private void Refresh()
@@ -76,18 +75,18 @@ namespace UI
 		{
 			for (int i = 0; i < shipActionList.maxActions; i++)
 			{
-				if (i < shipActionList.actions.Count)
+				if (i < shipActionList.allOrders.Count)
 				{
-					SpawnShipActionIconButton(shipActionList.actions[i]);
+					SpawnShipActionIconButton(shipActionList.allOrders[i]);
 				}
 				else
 				{
-					SpawnAddbutton(i == shipActionList.actions.Count);
+					SpawnAddbutton(i == shipActionList.allOrders.Count);
 				}
 			}
 		}
 
-		private void SpawnShipActionIconButton(ShipAction shipAction)
+		private void SpawnShipActionIconButton(ShipOrder shipAction)
 		{
 			ShipActionIconButtonWidget actionIcon = Instantiate(actionButtonWidgetPrefab, actionListTransform);
 			actionIcon.ShowAction(shipAction.actionDefintion, () => Remove(shipAction));
@@ -101,44 +100,40 @@ namespace UI
 
 		private void AddClicked()
 		{
-			if (activePreview != null)
-			{
-				activePreview.Close();
-				activePreview = null;
-			}
+			ActionPreviewController.instance.DestroyCurrentPreview();
 			Vector3 pos = selectScreenSpawn.GetComponent<RectTransform>().position;
 			ShipActionSelectScreen.Create(pos, ship.shipActions, (def) => OnShipActionSelected(def), true);
 		}
 
 		private void OnShipActionSelected(ShipActionDefintion shipActionDefintion)
 		{
-			ShipSelector shipSelectionManager = FindObjectOfType<ShipSelector>();
-			activePreview = shipActionDefintion.CreateActionPreview(ship, shipSelectionManager.PushShipsAction);
+			ShipSelectionController shipSelection = FindObjectOfType<ShipSelectionController>();
+			shipActionDefintion.CreateActionPreview(ship, shipSelection.PushShipsAction);
 		}
 
-		private void Remove(ShipAction shipAction)
+		private void Remove(ShipOrder shipAction)
 		{
 			shipActionList.RemoveAction(shipAction);
 			Refresh();
 		}
 
 
-		private void OnActionPushed(ShipAction obj)
+		private void OnActionPushed(ShipOrder obj)
 		{
 			Refresh();
 		}
 
-		private void OnActionFailed(ShipAction obj)
+		private void OnActionFailed(ShipOrder obj,string message)
 		{
 			Refresh();
 		}
 
-		private void OnActionFinished(ShipAction obj)
+		private void OnActionFinished(ShipOrder obj)
 		{
 			Refresh();
 		}
 
-		private void OnActionStarted(ShipAction obj)
+		private void OnActionStarted(ShipOrder obj)
 		{
 			Refresh();
 		}
@@ -146,7 +141,7 @@ namespace UI
 		private void OnShipSelected(Ship shipObject)
 		{
 			Hide();
-			ShipActionList shipActionList = shipObject.GetComponent<ShipActionList>();
+			ShipOrderQueue shipActionList = shipObject.GetComponent<ShipOrderQueue>();
 			if (shipActionList == null)
 			{
 				return;
@@ -162,10 +157,10 @@ namespace UI
 
 		public override void Show()
 		{
-			shipActionList.ActionStartedEvent += OnActionStarted;
-			shipActionList.ActionFinishedEvent += OnActionFinished;
-			shipActionList.ActionFailedEvent += OnActionFailed;
-			shipActionList.ActionPushedEvent += OnActionPushed;
+			ShipOrderQueue.OrderStartedEvent += OnActionStarted;
+			ShipOrderQueue.OrderFinishedEvent += OnActionFinished;
+			ShipOrderQueue.OrderFailedEvent += OnActionFailed;
+			ShipOrderQueue.OrderPushedEvent += OnActionPushed;
 			Refresh();
 			base.Show();
 		}
@@ -175,10 +170,10 @@ namespace UI
 			base.Hide();
 			if (shipActionList != null)
 			{
-				shipActionList.ActionStartedEvent -= OnActionStarted;
-				shipActionList.ActionFinishedEvent -= OnActionFinished;
-				shipActionList.ActionFailedEvent -= OnActionFailed;
-				shipActionList.ActionPushedEvent -= OnActionPushed;
+				ShipOrderQueue.OrderStartedEvent -= OnActionStarted;
+				ShipOrderQueue.OrderFinishedEvent -= OnActionFinished;
+				ShipOrderQueue.OrderFailedEvent -= OnActionFailed;
+				ShipOrderQueue.OrderPushedEvent -= OnActionPushed;
 			}
 		}
 

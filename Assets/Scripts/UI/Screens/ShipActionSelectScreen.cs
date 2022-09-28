@@ -6,7 +6,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI
-{//TODO
+{
+	//TODO make into inscene
+	//TODO create duplciate for when used in panel that is screen
 	public class ShipActionSelectScreen : Screen
 	{
 		public static string PATH = "UI/Screens/ShipActionSelectScreen";
@@ -18,7 +20,7 @@ namespace UI
 		private ShipActionIconButtonWidget iconButtonWidget;
 
 		private Vector3 position;
-
+		private bool inScreenSpace;
 
 		private Action<ShipActionDefintion> callBack;
 
@@ -32,10 +34,15 @@ namespace UI
 		{
 			this.position = position;
 			this.callBack = callBack;
-
+			this.inScreenSpace = inScreenSpace;
 			GameObjectUtils.Clear(options);
-			SetPosition(inScreenSpace);
 			ShowActions(interactionActions);
+		}
+
+
+		private void Update()
+		{
+			SetPosition(inScreenSpace);
 		}
 
 		private void SetPosition(bool inScreenSpace)

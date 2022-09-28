@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class MouseInput : MonoBehaviour
@@ -11,7 +8,7 @@ public class MouseInput : MonoBehaviour
 	private InteractableObject localHoverObject;
 
 
-	public static Vector3 mousePostion;
+	public static Vector3 worldMousePosition;
 
 	public static event Action<InteractableObject> mouseHoveredOnInteractable;
 	public static event Action<InteractableObject> mouseHoveredOffInteractable;
@@ -50,7 +47,7 @@ public class MouseInput : MonoBehaviour
 		CheckClick(interactionInfo);
 		if (interactionInfo.focused)
 		{
-			mousePostion = interactionInfo.hitInfo.point ;
+			worldMousePosition = interactionInfo.hitInfo.point ;
 		}
 	}
 

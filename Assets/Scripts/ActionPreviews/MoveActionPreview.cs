@@ -1,29 +1,18 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UI;
 using UnityEngine;
 
-public class MoveActionPreview : ActionPreview //or created in the scen froma prefab and killed when doen, can decide later
+public class MoveActionPreview : ActionPreview
 {
-	private Action<Vector3> callback;
+	public Action<Vector3> callback;
 
-	protected override void OnRightClickInteractable(InteractableObject interactableObject, Vector3 position)
+	public override void OnRightClickInteractable(InteractableObject interactableObject, Vector3 position)
 	{
-		Close();
+		RaiseFinishedEvent();
 	}
 
-	protected override void OnLeftClickInteractable(InteractableObject interactableObject, Vector3 position)
+	public override void OnLeftClickInteractable(InteractableObject interactableObject, Vector3 position)
 	{
-		callback.Invoke(position);
-		Close();
+		RaiseFinishedEvent();
+		callback?.Invoke(position);
 	}
-
-	public void Open(Ship shipObject, Action<Vector3> callback)
-	{
-		this.callback = callback;
-		this.shipObject = shipObject;
-		Open();
-	}
-
 }

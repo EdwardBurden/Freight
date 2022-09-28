@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using UnityEngine.Events;
 using UnityEngine;
@@ -10,7 +9,6 @@ public abstract class Ship : InteractableObject
 	[SerializeField]
 	private UnityEvent OnShipDeSelectedEvent;
 
-	//TODO get from scriptable, add init 
 	public int speed;
 	public int turnSpeed;
 	public ShipActionDefintion[] shipActions;
@@ -30,9 +28,10 @@ public abstract class Ship : InteractableObject
 	{
 		return shipName;
 	}
-	public abstract void PushAction(ShipAction shipAction);
 
-	public abstract void SetAction(ShipAction shipAction);
+	public abstract void PushAction(ShipOrder shipAction);
+
+	public abstract void SetAction(ShipOrder shipAction);
 
 	public ShipActionDefintion[] GetAvailableActions(InteractableObject interactableObject, Vector3 position)
 	{

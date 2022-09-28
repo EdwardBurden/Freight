@@ -622,8 +622,8 @@ GameObject:
   - component: {fileID: 885501044570567568}
   - component: {fileID: 5532429463241224121}
   - component: {fileID: 4347867399214846154}
-  - component: {fileID: 4196157636050829901}
   - component: {fileID: 885501044475210392}
+  - component: {fileID: 1818678012182869218}
   m_Layer: 0
   m_Name: FreightShip
   m_TagString: Untagged
@@ -697,19 +697,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 4, z: 7}
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &4196157636050829901
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5748329122806239033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e2026abccfde954f921d444a6feeaf4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxActions: 2
 --- !u!114 &885501044475210392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -738,6 +725,19 @@ MonoBehaviour:
   - {fileID: 11400000, guid: af1f7bd45c6eb0b47a343b495fb5a251, type: 2}
   shipName: Columbus
   actionList: {fileID: 0}
+--- !u!114 &1818678012182869218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5748329122806239033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2df28b11ad5e8944af6ffac5723602f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxActions: 0
 --- !u!1 &6543914242243055157
 GameObject:
   m_ObjectHideFlags: 0

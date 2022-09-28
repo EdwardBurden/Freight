@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace UI
 {
+	//TODO make into inscene
 	public class ResourceSelectScreen : Screen
 	{
 		public static string PATH = "UI/Screens/ResourceSelectScreen";
@@ -12,6 +13,7 @@ namespace UI
 		private Transform options;
 
 		private ResourceDefintion[] resources;
+		private Vector3 clickPosition;
 		private Action<ResourceDefintion> callBack;
 
 		public static void Create(ResourceDefintion[] resources, Vector3 clickPosition, Action<ResourceDefintion> callBack, bool closeOtherMenus)
@@ -24,10 +26,14 @@ namespace UI
 		{
 			this.resources = resources;
 			this.callBack = callBack;
-
+			this.clickPosition = clickPosition;
 			GameObjectUtils.Clear(options);
-			SetRootPostion(clickPosition);
 			ShowResoures();
+		}
+
+		private void Update()
+		{
+			SetRootPostion(clickPosition);
 		}
 
 		private void ShowResoures()

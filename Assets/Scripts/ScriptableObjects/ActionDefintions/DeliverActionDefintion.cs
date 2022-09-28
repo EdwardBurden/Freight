@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UI;
 using UnityEngine;
-//TODO
+
 [CreateAssetMenu(menuName = "ScriptableObject/DeliverActionDefintion")]
 public class DeliverActionDefintion : ShipActionDefintion
 {
@@ -21,20 +19,19 @@ public class DeliverActionDefintion : ShipActionDefintion
 		return true;
 	}
 
-	public override ActionPreview CreateActionPreview(Ship ship, Action<ShipAction> callback)
+	public override void CreateActionPreview(Ship ship, Action<ShipOrder> callback)
 	{
-		DeliverActionPreview deliverActionPreview = Instantiate(deliverActionPreviewPrefab);
-		deliverActionPreview.Open(ship, (consumer, resource) => OnResourceSelected(ship, consumer, resource, callback));
-		return deliverActionPreview;
+		DeliverActionPreview deliverActionPreview = ActionPreviewController.instance.CreateActionPreview(ship, deliverActionPreviewPrefab) as DeliverActionPreview;
+		deliverActionPreview.callback = (consumer, resource) => OnResourceSelected(ship, consumer, resource, callback);
 	}
 
-	public override void ActionSelected(Ship shipObject, InteractableObject interactableObject, Vector3 clickPosition, Action<ShipAction> callback)
+	public override void ActionSelected(Ship shipObject, InteractableObject interactableObject, Vector3 clickPosition, Action<ShipOrder> callback)
 	{
 		IConsumer consumer = interactableObject.GetComponent<IConsumer>();
 		ResourceSelectScreen.Create(consumer.GetAcceptedResources(), clickPosition, (resource) => OnResourceSelected(shipObject, consumer, resource, callback), false);
 	}
 
-	private void OnResourceSelected(Ship shipObject, IConsumer consumer, ResourceDefintion resourceDefintion, Action<ShipAction> callback)
+	private void OnResourceSelected(Ship shipObject, IConsumer consumer, ResourceDefintion resourceDefintion, Action<ShipOrder> callback)
 	{
 		DeliverAction deliverAction = new DeliverAction(this, shipObject, consumer, resourceDefintion);
 		callback?.Invoke(deliverAction);

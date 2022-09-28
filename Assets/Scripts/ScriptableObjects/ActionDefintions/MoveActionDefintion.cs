@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObject/MoveActionDefintion")]
@@ -14,22 +12,21 @@ public class MoveActionDefintion : ShipActionDefintion
 		return true;
 	}
 
-	public override ActionPreview CreateActionPreview(Ship ship, Action<ShipAction> callback)
+	public override void CreateActionPreview(Ship ship, Action<ShipOrder> callback)
 	{
-		MoveActionPreview previewMoveAction = Instantiate(previewMoveActionPrefab);
-		previewMoveAction.Open(ship, (postion) => OnPreviewClick(ship, postion, callback));
-		return previewMoveAction;
+		MoveActionPreview previewMoveAction = ActionPreviewController.instance.CreateActionPreview(ship, previewMoveActionPrefab) as MoveActionPreview;
+		previewMoveAction.callback = (postion) => OnPreviewClick(ship, postion, callback);
 	}
 
-	private void OnPreviewClick(Ship shipObject, Vector3 position, Action<ShipAction> callback)
+	private void OnPreviewClick(Ship shipObject, Vector3 position, Action<ShipOrder> callback)
 	{
-		MoveAction moveAction = new MoveAction(this, shipObject, position);
+		MoveOrder moveAction = new MoveOrder(this, shipObject, position);
 		callback.Invoke(moveAction);
 	}
 
-	public override void ActionSelected(Ship shipObject, InteractableObject interactableObject, Vector3 position, Action<ShipAction> callback)
+	public override void ActionSelected(Ship shipObject, InteractableObject interactableObject, Vector3 position, Action<ShipOrder> callback)
 	{
-		MoveAction moveAction = new MoveAction(this, shipObject, position);
+		MoveOrder moveAction = new MoveOrder(this, shipObject, position);
 		callback.Invoke(moveAction);
 	}
 }

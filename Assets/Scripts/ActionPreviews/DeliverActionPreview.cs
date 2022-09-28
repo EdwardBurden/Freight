@@ -1,22 +1,21 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UI;
 using UnityEngine;
 
 public class DeliverActionPreview : ActionPreview
 {
-	private Action<IConsumer, ResourceDefintion> callback;
+	public Action<IConsumer, ResourceDefintion> callback;
 
-	private void Awake()
+	public void Start()
 	{
-		lineRenderer.gameObject.SetActive(false);
-	}
-	public override void Start()
-	{
-		base.Start();
 		MouseInput.mouseHoveredOnInteractable += OnMouseHoveredOnInteractable;
 		MouseInput.mouseHoveredOffInteractable += OnMouseHoveredOffInteractable;
+	}
+
+	public void OnDestroy()
+	{
+		MouseInput.mouseHoveredOnInteractable -= OnMouseHoveredOnInteractable;
+		MouseInput.mouseHoveredOffInteractable -= OnMouseHoveredOffInteractable;
 	}
 
 	private void OnMouseHoveredOffInteractable(InteractableObject interactableObject)
@@ -29,7 +28,7 @@ public class DeliverActionPreview : ActionPreview
 
 	private void OnMouseHoveredOnInteractable(InteractableObject interactableObject)
 	{
-		IConsumer consumer = interactableObject.GetComponent<IConsumer>(); //replace with chekcing the defintion can create 
+		IConsumer consumer = interactableObject.GetComponent<IConsumer>();
 		if (consumer != null)
 		{
 			lineRenderer.SetPosition(0, shipObject.gameObject.transform.position + offset);
@@ -39,44 +38,23 @@ public class DeliverActionPreview : ActionPreview
 		}
 	}
 
-	public override void OnDestroy()
+	public override void OnRightClickInteractable(InteractableObject interactableObject, Vector3 pos)
 	{
-		base.OnDestroy();
-		MouseInput.mouseHoveredOnInteractable -= OnMouseHoveredOnInteractable;
-		MouseInput.mouseHoveredOffInteractable -= OnMouseHoveredOffInteractable;
+		RaiseFinishedEvent();
 	}
 
-	protected override void OnRightClickInteractable(InteractableObject interactableObject, Vector3 pos)
-	{
-		Close();
-	}
-
-	protected override void OnLeftClickInteractable(InteractableObject interactableObject, Vector3 pos)
+	public override void OnLeftClickInteractable(InteractableObject interactableObject, Vector3 pos)
 	{
 		IConsumer consumer = interactableObject.GetComponent<IConsumer>();
 		if (consumer != null)
 		{
-			OnPreviewClick(consumer, pos);
-		//	Close();
+			ResourceSelectScreen.Create(consumer.GetAcceptedResources(), pos, (resource) => OnResourceSelected(consumer, resource), true);
 		}
-	}
-
-	public void Open(Ship shipObject, Action<IConsumer, ResourceDefintion> callback)
-	{
-		this.callback = callback;
-		this.shipObject = shipObject;
-		Open();
-	}
-
-	private void OnPreviewClick(IConsumer consumer, Vector3 clickPosition)
-	{
-		//pause the linerenderer, listen to event for resourceselecter closing?
-		ResourceSelectScreen.Create(consumer.GetAcceptedResources(), clickPosition, (resource) => OnResourceSelected(consumer, resource), false);
 	}
 
 	private void OnResourceSelected(IConsumer consumer, ResourceDefintion resourceDefintion)
 	{
+		RaiseFinishedEvent();
 		callback?.Invoke(consumer, resourceDefintion);
-		Close();
 	}
 }
