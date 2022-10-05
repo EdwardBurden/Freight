@@ -7,8 +7,7 @@ public class ShipSelectionController : Singleton<ShipSelectionController>
 	public static event Action<Ship> ShipSelectedEvent;
 	public static event Action<Ship> ShipDeSelectedEvent;
 
-	[HideInInspector]
-	public Ship shipSelected;
+	private Ship shipSelected;
 
 	private void Awake()
 	{
@@ -89,7 +88,6 @@ public class ShipSelectionController : Singleton<ShipSelectionController>
 	{
 
 		this.shipSelected = shipObject;
-		this.shipSelected.OnShipSelected();
 		ShipSelectedEvent?.Invoke(shipObject);
 
 	}
@@ -98,7 +96,6 @@ public class ShipSelectionController : Singleton<ShipSelectionController>
 	{
 		if (shipSelected != null)
 		{
-			shipSelected?.OnShipDeselected();
 			shipSelected = null;
 			ShipDeSelectedEvent?.Invoke(shipSelected);
 		}

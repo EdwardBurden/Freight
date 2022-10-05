@@ -4,25 +4,10 @@ using UnityEngine;
 
 public abstract class Ship : InteractableObject
 {
-	[SerializeField]
-	private UnityEvent OnShipSelectedEvent;
-	[SerializeField]
-	private UnityEvent OnShipDeSelectedEvent;
-
 	public int speed;
 	public int turnSpeed;
 	public ShipActionDefintion[] shipActions;
 	public string shipName;
-
-	public virtual void OnShipSelected()
-	{
-		OnShipSelectedEvent?.Invoke();
-	}
-
-	public virtual void OnShipDeselected()
-	{
-		OnShipDeSelectedEvent?.Invoke();
-	}
 
 	public override string GetObjectName()
 	{
