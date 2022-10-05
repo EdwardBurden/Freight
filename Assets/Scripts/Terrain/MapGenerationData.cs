@@ -4,6 +4,12 @@ namespace Terrain
 {
 	public class MapGenerationData
 	{
-		public List<IslandGenerationData> islands = new List<IslandGenerationData>();
+		public MapGenerationSettings settings;
+		public List<IslandGenerationData> islands;
+
+		public MapGenerationData(MapGenerationSettings settings)
+		{
+			this.settings = settings;
+		}
 	}
 }

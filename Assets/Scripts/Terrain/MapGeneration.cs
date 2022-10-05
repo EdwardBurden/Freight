@@ -27,7 +27,7 @@ namespace Terrain
 			return new Vector3(vector.x, 0, vector.y);
 		}
 
-		public static Mesh CreateVoronoiMesh(VoronoiCell voronoiCell, int height)
+		public static Mesh CreateVoronoiMesh(VoronoiCell voronoiCell, float height)
 		{
 			List<Vector3> vertices = new List<Vector3>();
 			List<int> triangles = new List<int>();
@@ -35,9 +35,9 @@ namespace Terrain
 			for (int i = 0; i < voronoiCell.triangles.Count; i++, p += 3)
 			{
 				Triangle triangle = voronoiCell.triangles[i];
-				vertices.Add(triangle.v1.position + new Vector3(0, height, 0));
-				vertices.Add(triangle.v2.position + new Vector3(0, height, 0));
-				vertices.Add(triangle.v3.position + new Vector3(0, height, 0));
+				vertices.Add(triangle.v1.position - voronoiCell.sitePos + new Vector3(0, height, 0));
+				vertices.Add(triangle.v2.position - voronoiCell.sitePos + new Vector3(0, height, 0));
+				vertices.Add(triangle.v3.position - voronoiCell.sitePos + new Vector3(0, height, 0));
 				triangles.Add(p);
 				triangles.Add(p + 1);
 				triangles.Add(p + 2);
@@ -45,13 +45,13 @@ namespace Terrain
 
 			for (int j = 0; j < voronoiCell.borderCoordinates.Count; j++)
 			{
-				Vector3 p3 = voronoiCell.borderCoordinates[j] + new Vector3(0, height, 0);
+				Vector3 p3 = voronoiCell.borderCoordinates[j] - voronoiCell.sitePos + new Vector3(0, height, 0);
 				int nextPoint = j + 1;
 				if (nextPoint >= voronoiCell.borderCoordinates.Count)
 				{
 					nextPoint = 0;
 				}
-				Vector3 p2 = voronoiCell.borderCoordinates[nextPoint] + new Vector3(0, height, 0);
+				Vector3 p2 = voronoiCell.borderCoordinates[nextPoint] - voronoiCell.sitePos + new Vector3(0, height, 0);
 				vertices.Add(p2 + new Vector3(0, -height, 0));
 				vertices.Add(p3);
 				vertices.Add(p2);

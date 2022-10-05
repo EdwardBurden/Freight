@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Terrain;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 public class MapGenerator : MonoBehaviour
 {
 	private const int TILESIZE = 10;
+	private const int MAX_EDGES_IN_WATER = 1;
 
 	[Header("Map Settings")]
 	[SerializeField]
@@ -32,34 +34,45 @@ public class MapGenerator : MonoBehaviour
 	[SerializeField]
 	private Material[] islandMaterials;
 
-	private MapGenerationData generationData;
+	[Header("Height")]
+	[SerializeField]
+	private int maxHeight;
+	[SerializeField]
+	private int minHeight;
+	[SerializeField]
+	private float heightCellDistanceModifier = 0.2f;
 
-	public void Generate() //temp
+
+	public MapGenerationData Generate() //temp
 	{
-		Generate(settings[0]);
-
+		return Generate(settings[0]);
 	}
 
-	public void Generate(MapGenerationSettings settings)
+	public MapGenerationData Generate(MapGenerationSettings settings)
 	{
-		generationData = CreateGenerationData(settings);
-		InstatiateMapSurface(settings);
-		InstatiateIslands(settings, generationData);
-	}
-
-	private MapGenerationData CreateGenerationData(MapGenerationSettings settings)
-	{
-		MapGenerationData mapGenerationData = new MapGenerationData();
-		List<Vector2> islandpoints = PoissonSampling.CreateRandomPoints(settings.mapSize * TILESIZE, settings.islandRadius);
-		foreach (Vector2 islandpoint in islandpoints)
-		{
-			IslandGenerationData islandData = CreateIslandData(islandpoint, settings.islandSize, settings.islandPointRadius);
-			mapGenerationData.islands.Add(islandData);
-		}
+		MapGenerationData mapGenerationData = new MapGenerationData(settings);
+		PlaceMapSurface(mapGenerationData.settings);
+		mapGenerationData.islands = CreateIslands(mapGenerationData.settings);
 		return mapGenerationData;
 	}
 
-	private IslandGenerationData CreateIslandData(Vector2 islandPoint, Vector2 area, float islandPointRadius)
+	private List<IslandGenerationData> CreateIslands(MapGenerationSettings settings)
+	{
+		Vector3 offset = MapGeneration.GetAreaOffset(settings.mapSize) * TILESIZE;
+		List<IslandGenerationData> islandGenerationDatas = new List<IslandGenerationData>();
+		List<Vector2> islandpoints = PoissonSampling.CreateRandomPoints(settings.mapSize * TILESIZE, settings.islandRadius);
+
+		foreach (Vector2 islandpoint in islandpoints)
+		{
+			IslandGenerationData islandData = CreateIsland(islandpoint, settings.islandSize, settings.islandPointRadius);
+			islandData.islandBase = PlaceIslandBase(settings, islandData, offset);
+			PlaceIsland(settings, islandData, offset);
+			islandGenerationDatas.Add(islandData);
+		}
+		return islandGenerationDatas;
+	}
+
+	private IslandGenerationData CreateIsland(Vector2 islandPoint, Vector2 area, float islandPointRadius)
 	{
 		List<Vector2> islandpoints = PoissonSampling.CreateRandomPoints(area, islandPointRadius);
 		List<Vertex> boundarypoints = islandpoints.ToVertices();
@@ -77,17 +90,18 @@ public class MapGenerator : MonoBehaviour
 		return data;
 	}
 
-	private void InstatiateMapSurface(MapGenerationSettings settings)
+	private void PlaceMapSurface(MapGenerationSettings settings)
 	{
+		Vector2 surfaceSize = settings.mapSize + new Vector2(settings.islandRadius / TILESIZE, settings.islandRadius / TILESIZE);
 		GameObjectUtils.Clear(waterTransfrom);
 		GameObjectUtils.Clear(groundTransfrom);
 		GameObjectUtils.Clear(borderTransform);
-		Vector3 mapOffset = GetMapCenterOffset(settings);
+		Vector3 mapOffset = MapGeneration.GetAreaOffset(surfaceSize) * TILESIZE;
 		float tileRadius = TILESIZE / 2.0f;
 		Vector3 offset = mapOffset - new Vector3(tileRadius, 0, tileRadius);
-		for (int i = 0; i < settings.mapSize.x; i++)
+		for (int i = 0; i < surfaceSize.x; i++)
 		{
-			for (int j = 0; j < settings.mapSize.y; j++)
+			for (int j = 0; j < surfaceSize.y; j++)
 			{
 				Vector3 pos = new Vector3(i, 0, j) * TILESIZE;
 				Vector3 ground = (pos - offset);
@@ -103,11 +117,11 @@ public class MapGenerator : MonoBehaviour
 				{
 					Instantiate(borderprefab, water, Quaternion.Euler(0, 180, 0), borderTransform);
 				}
-				if (i == settings.mapSize.x - 1)
+				if (i == surfaceSize.x - 1)
 				{
 					Instantiate(borderprefab, water, Quaternion.Euler(0, 90, 0), borderTransform);
 				}
-				if (j == settings.mapSize.y - 1)
+				if (j == surfaceSize.y - 1)
 				{
 					Instantiate(borderprefab, water, Quaternion.Euler(0, 0, 0), borderTransform);
 				}
@@ -116,49 +130,79 @@ public class MapGenerator : MonoBehaviour
 
 	}
 
-	private void InstatiateIslands(MapGenerationSettings settings, MapGenerationData data)
+	private GameObject PlaceIslandBase(MapGenerationSettings settings, IslandGenerationData island, Vector3 offset)
 	{
-		Vector3 offset = GetMapCenterOffset(settings);
-		foreach (IslandGenerationData island in data.islands)
-		{
-			int baseIndex = UnityEngine.Random.Range(0, settings.bases.Count);
-			Vector3 basePosition = new Vector3(island.center.x, 0, island.center.y) - offset;
-			GameObject islandbase = Instantiate(settings.bases[baseIndex], basePosition, Quaternion.Euler(0, 0, 0), islandsTransform);
+		int baseIndex = UnityEngine.Random.Range(0, settings.bases.Count);
+		float baseRotaion = UnityEngine.Random.Range(0, 360f);
+		Vector3 basePosition = new Vector3(island.center.x, 0, island.center.y) - offset;
+		return Instantiate(settings.bases[baseIndex], basePosition, Quaternion.Euler(0, baseRotaion, 0), islandsTransform);
+	}
 
-			foreach (VoronoiCell voronoiCell in island.voronoiCells)
+	private void PlaceIsland(MapGenerationSettings settings, IslandGenerationData island, Vector3 offset)
+	{
+		foreach (VoronoiCell voronoiCell in island.voronoiCells)
+		{
+			if (CanPlaceCell(voronoiCell, island.islandBase, settings))
 			{
-				Vector3 sitePos = voronoiCell.sitePos - MapGeneration.GetAreaOffset(settings.islandSize) + basePosition;
-				RayCastInfo<IslandBase> raycastHit = RayCastUtils.FindFirstObjectHit<IslandBase>(sitePos + new Vector3(0, 10, 0), Vector3.down);
-				if (raycastHit.focused && raycastHit.focusObject == islandbase.GetComponentInChildren<IslandBase>())
-				{
-					float distance = Vector3.Distance(sitePos, basePosition);
-					GameObject mesh = DrawMesh(settings, islandbase.transform, voronoiCell, basePosition, distance);
-					island.cells.Add(mesh);
-				}
+				Vector3 cellPosition = island.islandBase.transform.position - MapGeneration.GetAreaOffset(settings.islandSize) + voronoiCell.sitePos;
+				float height = CalculateCellHeight(cellPosition, island.islandBase.transform.position, settings.islandRadius);
+				GameObject mesh = CreateCellMesh(island.islandBase.transform, voronoiCell, cellPosition, height);
+				island.cells.Add(mesh);
 			}
 		}
+
 	}
 
-	private GameObject DrawMesh(MapGenerationSettings settings, Transform parent, VoronoiCell voronoiCell, Vector3 center, float distance)
+	private bool CanPlaceCell(VoronoiCell voronoiCell, GameObject islandBase, MapGenerationSettings settings)
 	{
-		GameObject gameObject = new GameObject("Cell");
-		gameObject.transform.parent = parent;
-		gameObject.transform.position = center - MapGeneration.GetAreaOffset(settings.islandSize);
+		int inWaterCount = 0;
+		Vector3 sitePos = voronoiCell.sitePos - MapGeneration.GetAreaOffset(settings.islandSize) + islandBase.transform.position;
+		RayCastInfo<IslandBase> raycastHit = RayCastUtils.FindFirstObjectHit<IslandBase>(sitePos + new Vector3(0, 10, 0), Vector3.down);
+		if (!raycastHit.focused || raycastHit.focusObject != islandBase.GetComponentInChildren<IslandBase>())
+		{
+			return false;
+		}
+		foreach (Vector3 borderCoord in voronoiCell.borderCoordinates)
+		{
+			Vector3 border = borderCoord - MapGeneration.GetAreaOffset(settings.islandSize) + islandBase.transform.position;
+			raycastHit = RayCastUtils.FindFirstObjectHit<IslandBase>(border + new Vector3(0, 10, 0), Vector3.down);
+			if (!raycastHit.focused || raycastHit.focusObject != islandBase.GetComponentInChildren<IslandBase>())
+			{
+				inWaterCount++;
+			}
+		}
+
+		return inWaterCount <= MAX_EDGES_IN_WATER;
+	}
+
+	private float CalculateCellHeight(Vector3 sitePos, Vector3 basePosition, float radius)
+	{
+		float distance = Vector3.Distance(sitePos, basePosition);
+		float distanceHeight = (radius / distance) * heightCellDistanceModifier; //make 0.2 and 0.8 a modifier
+		float perlinHeight = Mathf.PerlinNoise(sitePos.x * 300, sitePos.y * 300) * (maxHeight * (1 - heightCellDistanceModifier));
+		float height = Mathf.Clamp(distanceHeight + perlinHeight, minHeight, maxHeight);
+		return height;
+	}
+
+	private GameObject CreateCellMesh(Transform parent, VoronoiCell voronoiCell, Vector3 position, float height)
+	{
+		GameObject cellGameObject = new GameObject("Cell");
+		cellGameObject.transform.parent = parent;
+		cellGameObject.transform.position = position;
+
+		MeshFilter meshFilter = cellGameObject.AddComponent<MeshFilter>();
+		MeshRenderer meshRenderer = cellGameObject.AddComponent<MeshRenderer>();
 
 		int materialIndex = UnityEngine.Random.Range(0, islandMaterials.Length);
-		float distanceHeight = Mathf.Min(5, (settings.islandRadius / distance) * 0.2f);
-		float perlinHeight = Mathf.PerlinNoise(voronoiCell.sitePos.x * 300, voronoiCell.sitePos.y * 300) * 10;
-		int height = Mathf.CeilToInt(distanceHeight + perlinHeight);
+		int h = (Mathf.RoundToInt(height - minHeight / (float)(maxHeight)) + materialIndex) / 2;
 
-		MeshFilter meshFilter = gameObject.AddComponent<MeshFilter>();
-		MeshRenderer meshRenderer = gameObject.AddComponent<MeshRenderer>();
-		meshRenderer.material = islandMaterials[materialIndex];
+		int matindex = Mathf.Clamp(h, 0, islandMaterials.Length - 1);
+		meshRenderer.material = islandMaterials[matindex];
 		meshFilter.mesh = MapGeneration.CreateVoronoiMesh(voronoiCell, height);
-		return gameObject;
-	}
 
-	private Vector3 GetMapCenterOffset(MapGenerationSettings mapGenerationSettings)
-	{
-		return MapGeneration.GetAreaOffset(mapGenerationSettings.mapSize) * TILESIZE;
+		GameObject site = new GameObject("Site");
+		site.transform.parent = cellGameObject.transform;
+		site.transform.position = position + (Vector3.up * height);
+		return cellGameObject;
 	}
 }
