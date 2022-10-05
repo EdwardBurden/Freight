@@ -6,6 +6,7 @@ namespace Terrain
 	public class IslandGenerationData
 	{
 		//Useful 
+		public GameObject islandBase;
 		public Vector2 center;
 		public List<GameObject> cells = new List<GameObject>();
 

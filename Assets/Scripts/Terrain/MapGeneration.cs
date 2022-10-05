@@ -27,7 +27,7 @@ namespace Terrain
 			return new Vector3(vector.x, 0, vector.y);
 		}
 
-		public static Mesh CreateVoronoiMesh(VoronoiCell voronoiCell, int height)
+		public static Mesh CreateVoronoiMesh(VoronoiCell voronoiCell, float height)
 		{
 			List<Vector3> vertices = new List<Vector3>();
 			List<int> triangles = new List<int>();

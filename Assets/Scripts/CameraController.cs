@@ -56,7 +56,6 @@ public class CameraController : MonoBehaviour
 	private float zoomHeight;
 	private Vector3 horizontalVelocity;
 	private Vector3 lastPosition;
-	private Vector3 startDrag;
 
 	private void Awake()
 	{
@@ -88,7 +87,6 @@ public class CameraController : MonoBehaviour
 	{
 		//inputs
 		GetKeyboardMovement();
-		DragCamera();
 
 		//move base and camera objects
 		UpdateVelocity();
@@ -113,26 +111,6 @@ public class CameraController : MonoBehaviour
 			targetDirection += movementInputValue.x * GetCameraRight() + movementInputValue.y * GetCameraForward();
 		}
 	}
-
-	private void DragCamera()
-	{
-		if (!Mouse.current.rightButton.isPressed)
-			return;
-
-		//create plane to raycast to
-		Plane plane = new Plane(Vector3.up, Vector3.zero);
-		Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-
-		if (plane.Raycast(ray, out float distance))
-		{
-			if (Mouse.current.rightButton.wasPressedThisFrame)
-				startDrag = ray.GetPoint(distance);
-			else
-				targetDirection = startDrag - ray.GetPoint(distance);
-		}
-	}
-
-
 
 	private void UpdateBasePosition()
 	{

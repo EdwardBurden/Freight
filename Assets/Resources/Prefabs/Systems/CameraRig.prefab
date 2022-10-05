@@ -82,7 +82,7 @@ MonoBehaviour:
   maxSpeed: 30
   acceleration: 15
   damping: 10
-  stepSize: 7
+  stepSize: 4
   zoomDampening: 10
   minHeight: 5
   maxHeight: 90

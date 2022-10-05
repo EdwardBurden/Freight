@@ -173,11 +173,19 @@ MonoBehaviour:
   waterHeight: 1
   islandMaterials:
   - {fileID: 2100000, guid: 64fa30223b516ad48a6cc5b9c8868d3c, type: 2}
-  - {fileID: 2100000, guid: 3e3dce5ee99089e45bcafa275016effc, type: 2}
+  - {fileID: 2100000, guid: 90b724ff2f62e7544a6ebab02e7abb20, type: 2}
   - {fileID: 2100000, guid: 6dd2530a6924b9e4a81b9698950b4505, type: 2}
-  - {fileID: 2100000, guid: cf6c367a50529cc4cb28bf336ba97854, type: 2}
+  - {fileID: 2100000, guid: abe63f2e4d3198e4baa0d12af92e38ee, type: 2}
   - {fileID: 2100000, guid: 37a52fd0ee15fb241a2689cae2298e0e, type: 2}
+  - {fileID: 2100000, guid: d3cdf73eee5cbb747859a808365acac8, type: 2}
+  - {fileID: 2100000, guid: cf6c367a50529cc4cb28bf336ba97854, type: 2}
+  - {fileID: 2100000, guid: 4a91d41c093778647b819200ba33e578, type: 2}
+  - {fileID: 2100000, guid: 1bce4f4bef32f5848831da190bf0b062, type: 2}
   - {fileID: 2100000, guid: 398678be3509c8d41b27840332c13cd0, type: 2}
+  - {fileID: 2100000, guid: 3e3dce5ee99089e45bcafa275016effc, type: 2}
+  maxHeight: 10
+  minHeight: 2
+  heightCellDistanceModifier: 0.3
 --- !u!1 &8483260846387805495
 GameObject:
   m_ObjectHideFlags: 0
