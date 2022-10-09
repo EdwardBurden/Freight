@@ -69,6 +69,7 @@ namespace Terrain
 			triangleMesh.vertices = vertices.ToArray();
 			triangleMesh.triangles = triangles.ToArray();
 			triangleMesh.RecalculateNormals();
+			triangleMesh.RecalculateBounds();
 			return triangleMesh;
 		}
 
@@ -77,7 +78,7 @@ namespace Terrain
 			List<VoronoiCell> meshCells = new List<VoronoiCell>();
 			foreach (VoronoiCell voronoiCell in voronoiCells)
 			{
-				if (voronoiCell.borderCoordinates.Count == 0)
+				if (voronoiCell.borderCoordinates.Count < 3)
 				{
 					continue;
 				}

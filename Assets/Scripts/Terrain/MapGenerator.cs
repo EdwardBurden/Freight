@@ -69,6 +69,14 @@ public class MapGenerator : MonoBehaviour
 			PlaceIsland(settings, islandData, offset);
 			islandGenerationDatas.Add(islandData);
 		}
+		foreach (IslandGenerationData islandpoint in islandGenerationDatas)
+		{
+			foreach (GameObject item in islandpoint.cells)
+			{
+				item.AddComponent<MeshCollider>().sharedMesh = item.GetComponent<MeshFilter>().mesh;
+				item.AddComponent<Surface>();
+			}
+		}
 		return islandGenerationDatas;
 	}
 

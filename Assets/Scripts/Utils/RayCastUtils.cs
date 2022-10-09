@@ -18,6 +18,30 @@ public struct RayCastInfo<T> where T : MonoBehaviour //to move
 
 public static class RayCastUtils
 {
+	public static RayCastInfo<T> FindObjectHit<T>(Vector3 startpostion, Vector3 direction, float distance = 100) where T : MonoBehaviour
+	{
+		RaycastHit hit = new RaycastHit();
+		bool inSight = false;
+		T foundObject = null;
+		Ray ray = new Ray(startpostion, direction);
+		RaycastHit[] raycasts = Physics.RaycastAll(ray);
+		for (int i = 0; i < raycasts.Length; i++)
+		{
+			T foundobject = raycasts[i].collider.gameObject.GetComponent<T>();
+			if (foundobject)
+			{
+				if (raycasts[i].distance < distance)
+				{
+					distance = raycasts[i].distance;
+					inSight = true;
+					hit = raycasts[i];
+					foundObject = foundobject;
+				}
+			}
+		}
+		return new RayCastInfo<T>(inSight, hit, foundObject);
+	}
+
 	public static RayCastInfo<T> FindFirstObjectHit<T>(Vector3 startpostion, Vector3 direction, float distance = 100) where T : MonoBehaviour
 	{
 		RaycastHit hit = new RaycastHit();

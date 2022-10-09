@@ -34,7 +34,7 @@ public class ShipHighlightController : Singleton<ShipHighlightController>
 		{
 			return;
 		}
-		if (obj.GetComponent<Outline>() != selectOutline)
+		if (obj.GetComponentInChildren<Outline>() != selectOutline)
 		{
 			hoverOutline.OutlineColor = defaultColour;
 			hoverOutline = null;
@@ -43,9 +43,9 @@ public class ShipHighlightController : Singleton<ShipHighlightController>
 
 	private void MouseInput_mouseHoveredOnInteractable(InteractableObject obj)
 	{
-		if (obj is Ship && obj.GetComponent<Outline>() != selectOutline)
+		if (obj is Ship && obj.GetComponentInChildren<Outline>() != selectOutline)
 		{
-			hoverOutline = obj.gameObject.GetComponent<Outline>();
+			hoverOutline = obj.gameObject.GetComponentInChildren<Outline>();
 			hoverOutline.OutlineColor = hoverColour;
 		}
 	}
@@ -71,7 +71,7 @@ public class ShipHighlightController : Singleton<ShipHighlightController>
 
 	private void ShipSelectionController_ShipSelectedEvent(Ship obj)
 	{
-		selectOutline = obj.gameObject.GetComponent<Outline>();
+		selectOutline = obj.gameObject.GetComponentInChildren<Outline>();
 		selectOutline.OutlineColor = selctColour;
 		hoverOutline = null;
 	}

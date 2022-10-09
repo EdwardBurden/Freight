@@ -25,6 +25,7 @@ public class UIManager : Singleton<UIManager>
 		ClearAllUI();
 	}
 
+
 	public void ClearAllUI()
 	{
 		GameObjectUtils.Clear(panels.transform);
