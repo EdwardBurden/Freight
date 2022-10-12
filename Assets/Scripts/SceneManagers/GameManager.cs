@@ -79,6 +79,7 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 	{
 		actionPreviewController.enabled = true;
 		shipSelector.enabled = false;
+		buildingController.enabled = false;
 	}
 
 
@@ -86,6 +87,7 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 	{
 		actionPreviewController.enabled = false;
 		shipSelector.enabled = true;
+		buildingController.enabled = true;
 
 	}
 }

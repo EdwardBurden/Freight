@@ -19,17 +19,21 @@ public class DeliverAction : ShipOrder
 		base.Setup();
 		LandingPlatform landingPlatform = consumer.GetConsumerLandingPlatform();
 		Vector3 position = landingPlatform.GetLandingPosition();
+		Building building = (Building)consumer; ;
 
 		//Move
 		childList.PushAction(new LookAtAction(position, shipObject, true));
 		childList.PushAction(new AlignShipForDeliveryAction(shipObject, carryObject, resourceData, landingPlatform));
+		childList.PushAction(new WaitForBuildingTobeFreeAction(building));
 
 		//Deliver
+		childList.PushAction(new SetBuildingFreedomAction(building, false));
 		childList.PushAction(new AnimateLoadingPlatformOpenAction(landingPlatform));
 		childList.PushAction(new ParentFreightToPlatformAction(landingPlatform, carryObject, resourceData));
 		childList.PushAction(new AnimateLoadingPlatformCloseAction(landingPlatform));
-		childList.PushAction(new SyncAction());
+		childList.PushAction(new SetBuildingFreedomAction(building, true));	
 		childList.PushAction(new DestoryFreightAction(landingPlatform));
+		childList.PushAction(new SyncAction());
 	}
 
 	public override void Start()

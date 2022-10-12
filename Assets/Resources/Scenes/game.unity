@@ -372,6 +372,7 @@ MonoBehaviour:
   gameUIPanels:
   - {fileID: 3133125329871508136, guid: 557e558dbbcc3d049b4be232226fb851, type: 3}
   - {fileID: 3601647277799643173, guid: 20437368d91d3a54081f051547e2476a, type: 3}
+  - {fileID: 2435685748196493498, guid: df2f16e57b568d04a8f2d8d922ae9cd2, type: 3}
   mapGenerator: {fileID: 567249197}
   buildingController: {fileID: 969633077}
   startlocal: 1
@@ -865,7 +866,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6760519657417348670, guid: fc28802c2b971b34a9be010870b707ca, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6760519657417348670, guid: fc28802c2b971b34a9be010870b707ca, type: 3}
       propertyPath: m_LocalPosition.x
@@ -918,7 +919,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7622819376043566714, guid: 7feac664cb0056c4ab7278b7602eeb25, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7622819376043566714, guid: 7feac664cb0056c4ab7278b7602eeb25, type: 3}
       propertyPath: m_LocalPosition.x

@@ -2,15 +2,60 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Terrain;
+using System;
+using Random = UnityEngine.Random;
 
-public class BuildingController : MonoBehaviour
+public class BuildingController : Singleton<BuildingController>
 {
-	[SerializeField]
-	private List<Resources> allResources = new List<Resources>();
+	public static event Action<Building> BuildingSelectedEvent;
+	public static event Action<Building> BuildingDeSelectedEvent;
 
 	[SerializeField]
 	private GameObject[] buildingTest;
 
+	private Building buildingSelected;
+
+	private void Awake()
+	{
+		_instance = this;
+	}
+
+	public void OnEnable()
+	{
+		MouseInput.LeftClickNonInteractableEvent += DeSelectBuilding;
+		MouseInput.LeftClickInteractableEvent += OnLeftClickInteractable;
+	}
+
+	public void OnDisable()
+	{
+		MouseInput.LeftClickNonInteractableEvent -= DeSelectBuilding;
+		MouseInput.LeftClickInteractableEvent -= OnLeftClickInteractable;
+	}
+
+	private void DeSelectBuilding()
+	{
+		if (buildingSelected != null)
+		{
+			buildingSelected = null;
+			BuildingDeSelectedEvent?.Invoke(buildingSelected);
+		}
+	}
+
+	private void OnLeftClickInteractable(InteractableObject obj, Vector3 position)
+	{
+		Building building = obj.GetComponent<Building>();
+		DeSelectBuilding();
+		if (building != null)
+		{
+			SelectBuilding(building);
+		}
+	}
+
+	private void SelectBuilding(Building building)
+	{
+		this.buildingSelected = building;
+		BuildingSelectedEvent?.Invoke(buildingSelected);
+	}
 
 	public void DistributeBuildings(MapGenerationData mapGenerationData)
 	{
@@ -27,9 +72,5 @@ public class BuildingController : MonoBehaviour
 		}
 	}
 
-//	private 
-
-
-	//
 
 }

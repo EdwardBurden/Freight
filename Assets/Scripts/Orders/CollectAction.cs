@@ -19,18 +19,23 @@ public class CollectAction : ShipOrder
 		base.Setup();
 		LandingPlatform landingPlatform = producer.GetProducerLandingPlatform();
 		Vector3 position = landingPlatform.GetLandingPosition();
+		Building building = (Building)producer; ;
 
 		//Move
 		childList.PushAction(new LookAtAction(position, shipObject, true));
 		childList.PushAction(new AlignShipForCollectionAction(shipObject, carryObject, landingPlatform));
+		childList.PushAction(new WaitForBuildingTobeFreeAction(building));
 
 		//Collect
+		childList.PushAction(new SetBuildingFreedomAction(building, false));
 		childList.PushAction(new SpawnFreightAction(resourceData, landingPlatform));
 		childList.PushAction(new AnimateLoadingPlatformOpenAction(landingPlatform));
-
 		childList.PushAction(new ParentFreightToShipAction(landingPlatform, carryObject));
 		childList.PushAction(new AnimateLoadingPlatformCloseAction(landingPlatform));
+		childList.PushAction(new SetBuildingFreedomAction(building, true));
 		childList.PushAction(new SyncAction());
+
+
 	}
 
 	public override void Start()
