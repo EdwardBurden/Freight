@@ -21,7 +21,7 @@ namespace UI
 
 		protected void SetRootPostion(Vector3 positionInWorld)
 		{
-			root.transform.GetComponent<RectTransform>().anchoredPosition = UIUtils.GetAnchoredPostionFromWorldSpacePoint(positionInWorld, UIManager.instance.screens);
+			root.transform.GetComponent<RectTransform>().anchoredPosition = UIManager.instance.GetScreenPosition(positionInWorld);
 		}
 	}
 }

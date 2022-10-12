@@ -48,7 +48,7 @@ public class ActionPreviewController : Singleton<ActionPreviewController>
 		currentPreview = Instantiate(actionPreviewPrefab, this.transform);
 		currentPreview.Init(ship);
 		currentPreview.FinishedPreviewEvent += FinishActionPreview;
-		GameManager.instance.SetInputToPreviewMode();
+		GameSceneController.instance.SetInputToPreviewMode();
 		UIManager.instance.CloseAllScreens();
 		return currentPreview;
 	}
@@ -56,7 +56,7 @@ public class ActionPreviewController : Singleton<ActionPreviewController>
 	public void FinishActionPreview()
 	{
 		currentPreview.FinishedPreviewEvent -= FinishActionPreview;
-		GameManager.instance.SetInputToSelectionMode();
+		GameSceneController.instance.SetInputToSelectionMode();
 		UIManager.instance.CloseAllScreens();
 		DestroyCurrentPreview();
 	}

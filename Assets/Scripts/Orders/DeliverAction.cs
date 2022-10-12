@@ -51,7 +51,7 @@ public class DeliverAction : ShipOrder
 
 	public override void Finish()
 	{
-		Wallet wallet = GameObject.FindObjectOfType<Wallet>();
+		WalletController wallet = GameObject.FindObjectOfType<WalletController>();
 		wallet.CreateAndAddSellTransaction(resourceData.sellPrice, consumer as Building, shipObject, resourceData);
 	}
 }

@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 
-public class Notifications : Singleton<Notifications>
+public class NotificationsController : Singleton<NotificationsController>
 {
-	public event Action<Notification> NotificationAddedEvent;
-	public event Action NotificationEmptyEvent;
+	public static event Action<Notification> NotificationAddedEvent;
+	public static event Action NotificationEmptyEvent;
 
 	private List<Notification> notifications = new List<Notification>();
 

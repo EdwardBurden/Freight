@@ -4,8 +4,11 @@ using Terrain;
 using UI;
 using UnityEngine;
 
-public class GameManager : Singleton<GameManager> //but must b destoryed when leavign game scene
+public class GameSceneController : Singleton<GameSceneController> //but must b destoryed when leavign game scene
 {
+	[SerializeField]
+	private CameraController  cameraController;
+
 	[SerializeField]
 	private ActionPreviewController actionPreviewController;
 
@@ -14,9 +17,6 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 
 	[SerializeField]
 	private GameObject startShipPrefab;
-
-	[SerializeField]
-	private List<Panel> gameUIPanels = new List<Panel>();
 
 	[SerializeField]
 	private MapGenerator mapGenerator;
@@ -51,10 +51,7 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 		//Place buildings on map
 		//initialse any systmes that need map info
 		//place player ship 
-
-		//SetUp UI
-		UIManager.instance.EnableHUD();
-		UIManager.instance.AddPanels(gameUIPanels);
+		UIManager.instance.SetCamera(cameraController.GetCamera());
 		//SetUpInput
 		SetInputToSelectionMode();
 	}

@@ -14,15 +14,15 @@ namespace UI
 		[SerializeField]
 		private Transform list;
 
-		protected  void Start()
+		protected void OnEnable()
 		{
-			Notifications.instance.NotificationAddedEvent += NotificationManager_NotificationAddedEvent;
-			Notifications.instance.NotificationEmptyEvent += NotificationManager_NotificationEmptyEvent;
+			NotificationsController.NotificationAddedEvent += NotificationManager_NotificationAddedEvent;
+			NotificationsController.NotificationEmptyEvent += NotificationManager_NotificationEmptyEvent;
 		}
-		private void OnDestroy()
+		private void OnDisable()
 		{
-			Notifications.instance.NotificationAddedEvent += NotificationManager_NotificationAddedEvent;
-			Notifications.instance.NotificationEmptyEvent += NotificationManager_NotificationEmptyEvent;
+			NotificationsController.NotificationAddedEvent += NotificationManager_NotificationAddedEvent;
+			NotificationsController.NotificationEmptyEvent += NotificationManager_NotificationEmptyEvent;
 		}
 
 		private void NotificationManager_NotificationEmptyEvent()
@@ -43,7 +43,7 @@ namespace UI
 		private void RemoveNotification(Notification notification, GameObject gameObject)
 		{
 			Destroy(gameObject);
-			Notifications.instance.RemoveNotification(notification);
+			NotificationsController.instance.RemoveNotification(notification);
 		}
 	}
 }

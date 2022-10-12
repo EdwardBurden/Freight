@@ -19,6 +19,7 @@ public class MainMenuManager : Singleton<MainMenuManager>
 
 	public void OnSceneOpen()
 	{
+		UIManager.instance.SetCamera(Camera.main);
 		MainMenuScreen.Create();// ie UIManager.instance.OpenScreen(mainmenu)
 	}
 
@@ -26,11 +27,11 @@ public class MainMenuManager : Singleton<MainMenuManager>
 	{
 		UIManager.instance.CloseAllScreens();
 		AppManager.instance.OpenGameScene();
-	} 
+	}
 
 	public void OnExitGmeSelected()
 	{
 		AppManager.instance.CloseApplication();
-	} 
+	}
 
 }

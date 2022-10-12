@@ -3,65 +3,62 @@ using System.Collections.Generic;
 using UnityEngine;
 using UI;
 using Screen = UI.Screen;
+using UnityEngine.SceneManagement;
+using UnityEngine.Rendering.Universal;
 
 public class UIManager : Singleton<UIManager>
 {
 	[SerializeReference]
-	public Canvas inScene;
+	public Camera uiCamera;
 	[SerializeReference]
-	public Canvas HUD;
+	private Canvas inScene;
 	[SerializeReference]
-	public Canvas panels;
+	private Canvas HUD;
 	[SerializeReference]
-	public Canvas screens;
+	private Canvas panels;
+	[SerializeReference]
+	private Canvas screens;
 	[SerializeReference]
 	private GameObject backgroundClickCatcher;
+
+	public Vector2 GetInScenePosition(Vector3 position)
+	{
+		return UIUtils.GetAnchoredPostionFromWorldSpacePoint(position, inScene);
+	}
+
+	public Vector2 GetScreenPosition(Vector3 position)
+	{
+		return UIUtils.GetAnchoredPostionFromWorldSpacePoint(position, screens);
+	}
+
+
 
 	public List<Screen> screenHistory = new List<Screen>();
 
 	private void Awake()
 	{
 		_instance = this;
-		ClearAllUI();
 	}
 
+	public void SetCamera(Camera camera)
+	{
+		var cameraData = camera.GetUniversalAdditionalCameraData();
+		cameraData.cameraStack.Add(uiCamera);
+	}
 
 	public void ClearAllUI()
 	{
 		GameObjectUtils.Clear(panels.transform);
 		CloseAllScreens();
-		DisableHUD();
+		ToggleHUD(false);
 	}
 
 
 	//Hud
-	public void EnableHUD()
+	public void ToggleHUD(bool active)
 	{
-		HUD.gameObject.SetActive(true);
-
+		HUD.gameObject.SetActive(active);
 	}
-
-	public void DisableHUD()
-	{
-		HUD.gameObject.SetActive(false);
-	}
-
-
-	//Panel
-	internal void AddPanels(List<Panel> gameUIPanels)
-	{
-		foreach (Panel panelPrefab in gameUIPanels)
-		{
-			AddPanel(panelPrefab);
-		}
-
-	}
-
-	public void AddPanel(Panel prefab) //called from 
-	{
-		Panel panel = Instantiate(prefab, panels.transform).GetComponent<Panel>();
-	}
-
 
 	//InScene
 	public InScene CreateInScene(InScene prefab, Transform transform)
@@ -70,7 +67,6 @@ public class UIManager : Singleton<UIManager>
 		inSceneUI.SetFollow(transform);
 		return inSceneUI;
 	}
-
 
 	//Screens
 	public Screen OpenScreen(string path, bool closeOthers = true)

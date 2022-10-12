@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -39,7 +40,7 @@ public class CameraController : MonoBehaviour
 
 	[Header("Transforms")]
 	[SerializeField]
-	private Camera camera;
+	private Camera gameCamera;
 	[SerializeField]
 	private Transform cameraBase;
 	[SerializeField]
@@ -52,6 +53,12 @@ public class CameraController : MonoBehaviour
 
 	private float speed;
 	private Transform cameraTransform;
+
+	internal Camera GetCamera()
+	{
+		return gameCamera;
+	}
+
 	private Vector3 targetDirection;
 	private float zoomHeight;
 	private Vector3 horizontalVelocity;
@@ -60,7 +67,7 @@ public class CameraController : MonoBehaviour
 	private void Awake()
 	{
 		gameControls = new GameControls();
-		cameraTransform = camera.transform;
+		cameraTransform = gameCamera.transform;
 	}
 
 	private void OnEnable()

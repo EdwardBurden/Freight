@@ -9,11 +9,11 @@ namespace UI
 		[SerializeField]
 		private TMP_Text priceField;
 
-		private void Start()
+		private void OnEnable()
 		{
-			Wallet.TransactionAddedEvent += Instance_TransactionAddedEvent;
-			Wallet wallet = GameObject.FindObjectOfType<Wallet>();
-			priceField.text = wallet.GetCreditsTotal().ToString();
+			WalletController.TransactionAddedEvent += Instance_TransactionAddedEvent;
+			//Wallet wallet = GameObject.FindObjectOfType<Wallet>();
+			//priceField.text = wallet.GetCreditsTotal().ToString();
 		}
 
 		private void Instance_TransactionAddedEvent(WalletTransaction transaction, int credits)
@@ -21,9 +21,9 @@ namespace UI
 			priceField.text = credits.ToString();
 		}
 
-		private void OnDestroy()
+		private void OnDisable()
 		{
-			Wallet.TransactionAddedEvent -= Instance_TransactionAddedEvent;
+			WalletController.TransactionAddedEvent -= Instance_TransactionAddedEvent;
 		}
 	}
 }

@@ -1,45 +1,13 @@
-using System;
-using UI;
-using UnityEngine;
+using System.Collections.Generic;
 
-public class Wallet : MonoBehaviour
+public class Wallet //to be saved
 {
-	public static event Action<WalletTransaction, int> TransactionAddedEvent;
+	public int credits { get; private set; }
+	public List<WalletTransaction> walletTransactions = new List<WalletTransaction>();
 
-	[SerializeField]
-	public TransactionCompleteInScene transactionIndicatorPrefab;
-	private PlayerTransactions wallet;
-
-	public void Awake()
+	public void AddTransaction(WalletTransaction transaction)
 	{
-		wallet = new PlayerTransactions(); //temp
+		walletTransactions.Add(transaction);
+		credits = transaction.AmendCredits(credits);
 	}
-
-	public int GetCreditsTotal()
-	{
-		return wallet.credits;
-	}
-
-	public void CreateAndAddBuyTransaction(int amount, Building building, Ship ship, ResourceDefintion resource)
-	{
-		BuyTransaction buyTransaction = new BuyTransaction(DateTime.Now, amount, building, ship, resource);
-		wallet.AddTransaction(buyTransaction);
-		TransactionAddedEvent?.Invoke(buyTransaction, wallet.credits);
-		CreateTransactionCompletePopup(buyTransaction);
-	}
-
-	public void CreateAndAddSellTransaction(int amount, Building building, Ship ship, ResourceDefintion resource)
-	{
-		SellTransaction sellTransaction = new SellTransaction(DateTime.Now, amount, building, ship, resource);
-		wallet.AddTransaction(sellTransaction);
-		TransactionAddedEvent?.Invoke(sellTransaction, wallet.credits);
-		CreateTransactionCompletePopup(sellTransaction);
-	}
-
-	private void CreateTransactionCompletePopup(WalletTransaction walletTransaction)
-	{
-		TransactionCompleteInScene transactionCompleteInScene = UIManager.instance.CreateInScene(transactionIndicatorPrefab, walletTransaction.GetTransactionLocation()) as TransactionCompleteInScene;
-		transactionCompleteInScene.SetText(walletTransaction);
-	}
-
 }

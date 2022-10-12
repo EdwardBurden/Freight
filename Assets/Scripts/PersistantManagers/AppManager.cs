@@ -18,7 +18,7 @@ public class AppManager : Singleton<AppManager>
 	private void OnGameSceneLoaded()
 	{
 		//TODO probaly want to make this better at some point
-		GameManager.instance.StartNewGame(); 
+		GameSceneController.instance.StartNewGame(); 
 	}
 
 	private IEnumerator OpenSceneWithLoading(string sceneName, Action callback) //to be imporved

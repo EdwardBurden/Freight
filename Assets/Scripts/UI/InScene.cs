@@ -25,7 +25,7 @@ namespace UI
 
 		private void SetAnchor()
 		{
-			uiTransform.anchoredPosition = UIUtils.GetAnchoredPostionFromWorldSpacePoint(follow.position, UIManager.instance.inScene);
+			uiTransform.anchoredPosition = UIManager.instance.GetInScenePosition(follow.position);
 		}
 	}
 }
