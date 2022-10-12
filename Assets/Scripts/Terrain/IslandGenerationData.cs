@@ -8,7 +8,7 @@ namespace Terrain
 		//Useful 
 		public GameObject islandBase;
 		public Vector2 center;
-		public List<GameObject> cells = new List<GameObject>();
+		public List<IslandBlock> blocks = new List<IslandBlock>();
 
 		//Generation
 		public List<Vector2> allRandomPoints = new List<Vector2>();

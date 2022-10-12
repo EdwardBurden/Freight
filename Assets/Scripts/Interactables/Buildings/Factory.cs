@@ -4,34 +4,29 @@ using UnityEngine;
 public class Factory : Building, IProducer, IConsumer
 {
 	[SerializeField]
-	private float buyPriceModifier;
-
-	[SerializeField]
-	private float sellPriceModifier;
-
-	[SerializeField]
 	private LandingPlatform inputPlatform;
 
 	[SerializeField]
 	private LandingPlatform outputPlatform;
 
 	[SerializeField]
-	private ConversionDefintion conversion;
+	private ResourceDefintion[] produces;
+
+	[SerializeField]
+	private ResourceDefintion[] accepts;
+
+	[SerializeField]
+	private ConsumerWant[] consumerWants;
 
 
 	public ResourceDefintion[] GetAcceptedResources()
 	{
-		List<ResourceDefintion> resourceDefintions = new List<ResourceDefintion>();
-		foreach (ConversionInput input in conversion.inputs)
-		{
-			resourceDefintions.Add(input.resource);
-		}
-		return resourceDefintions.ToArray();
+		return accepts;
 	}
 
 	public ResourceDefintion[] GetProducedResources()
 	{
-		return conversion.outputs;
+		return produces;
 	}
 
 	public LandingPlatform GetProducerLandingPlatform()
@@ -46,9 +41,9 @@ public class Factory : Building, IProducer, IConsumer
 
 	public bool AcceptsResource(ResourceDefintion resourceData)
 	{
-		for (int i = 0; i < conversion.inputs.Length; i++)
+		for (int i = 0; i < accepts.Length; i++)
 		{
-			if (conversion.inputs[i].resource == resourceData)
+			if (accepts[i] == resourceData)
 			{
 				return true;
 			}
@@ -58,9 +53,9 @@ public class Factory : Building, IProducer, IConsumer
 
 	public bool ProducesResource(ResourceDefintion resourceData)
 	{
-		for (int i = 0; i < conversion.outputs.Length; i++)
+		for (int i = 0; i < produces.Length; i++)
 		{
-			if (conversion.outputs[i] == resourceData)
+			if (produces[i] == resourceData)
 			{
 				return true;
 			}
@@ -68,18 +63,18 @@ public class Factory : Building, IProducer, IConsumer
 		return false;
 	}
 
-	public override string GetObjectName()
+	public void SetAcceptedResources(ResourceDefintion[] resourceDefintions)
 	{
-		return "Factory";
+		this.accepts = resourceDefintions;
 	}
 
-	public int GetBuyPrice(ResourceDefintion resource)
+	public ConsumerWant[] GetWants()
 	{
-		return (int)(buyPriceModifier * resource.price);
+		return consumerWants;
 	}
 
-	public int GetSellPrice(ResourceDefintion resource)
+	public void SetWants(ConsumerWant[] consumerWants)
 	{
-		return (int)(sellPriceModifier * resource.price);
+		this.consumerWants = consumerWants;
 	}
 }

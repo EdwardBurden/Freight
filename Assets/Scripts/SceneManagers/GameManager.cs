@@ -22,10 +22,13 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 	private MapGenerator mapGenerator;
 
 	[SerializeField]
-	private GameObject[] buildingTest;
+	private BuildingController buildingController;
 
 
 	public bool startlocal = false;
+
+	private MapGenerationData gameGenerationData;
+
 
 	private void Awake()
 	{
@@ -41,8 +44,8 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 	public void StartNewGame()
 	{
 		//Setup Game world
-		MapGenerationData mapGenerationData = mapGenerator?.Generate();
-		testBuildings(mapGenerationData);
+		gameGenerationData = mapGenerator.Generate();
+		buildingController.DistributeBuildings(gameGenerationData);
 		testships();
 		//Place resources of map
 		//Place buildings on map
@@ -56,29 +59,13 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 		SetInputToSelectionMode();
 	}
 
-	private void testBuildings(MapGenerationData mapGenerationData) //maybe go to buildingmanager class to make them?
+	private void testships()
 	{
-		foreach (IslandGenerationData islandGenerationData in mapGenerationData.islands)
-		{
-			for (int i = 0; i < islandGenerationData.cells.Count; i++)
-			{
-				int index = Random.Range(0, buildingTest.Length);
-				int rotation = Random.Range(0, 360);
-				GameObject building = Instantiate(buildingTest[index], islandGenerationData.cells[i].transform.GetChild(0));
-				building.transform.rotation = Quaternion.Euler(0, rotation, 0);
-				building.transform.localPosition = Vector3.zero;
-			}
-		}
-
-	}
-
-	private void testships() {
 		for (int i = 0; i < 5; i++)
 		{
 			var ship = Instantiate(startShipPrefab);
-			ship.transform.position = new Vector3(i*5, 5, 0);
+			ship.transform.position = new Vector3(i * 5, 5, 0);
 		}
-	
 	}
 
 	public void ExitGame()

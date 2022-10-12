@@ -3,9 +3,6 @@ using UnityEngine;
 public class Farm : Building, IProducer
 {
 	[SerializeField]
-	private float sellPriceModifier;
-
-	[SerializeField]
 	private LandingPlatform platform;
 
 	[SerializeField]
@@ -31,15 +28,5 @@ public class Farm : Building, IProducer
 			}
 		}
 		return false;
-	}
-
-	public override string GetObjectName()
-	{
-		return "Farm";
-	}
-
-	public int GetSellPrice(ResourceDefintion resource)
-	{
-		return (int)(sellPriceModifier * resource.price);
 	}
 }

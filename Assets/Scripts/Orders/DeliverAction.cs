@@ -47,8 +47,7 @@ public class DeliverAction : ShipOrder
 
 	public override void Finish()
 	{
-		int price = consumer.GetBuyPrice(resourceData);
 		Wallet wallet = GameObject.FindObjectOfType<Wallet>();
-		wallet.CreateAndAddSellTransaction(price, consumer as Building, shipObject, resourceData);
+		wallet.CreateAndAddSellTransaction(resourceData.sellPrice, consumer as Building, shipObject, resourceData);
 	}
 }

@@ -71,10 +71,10 @@ public class MapGenerator : MonoBehaviour
 		}
 		foreach (IslandGenerationData islandpoint in islandGenerationDatas)
 		{
-			foreach (GameObject item in islandpoint.cells)
+			foreach (IslandBlock item in islandpoint.blocks)
 			{
-				item.AddComponent<MeshCollider>().sharedMesh = item.GetComponent<MeshFilter>().mesh;
-				item.AddComponent<Surface>();
+				item.gameObject.AddComponent<MeshCollider>().sharedMesh = item.GetComponent<MeshFilter>().mesh;
+				item.gameObject.AddComponent<Surface>();
 			}
 		}
 		return islandGenerationDatas;
@@ -154,8 +154,8 @@ public class MapGenerator : MonoBehaviour
 			{
 				Vector3 cellPosition = island.islandBase.transform.position - MapGeneration.GetAreaOffset(settings.islandSize) + voronoiCell.sitePos;
 				float height = CalculateCellHeight(cellPosition, island.islandBase.transform.position, settings.islandRadius);
-				GameObject mesh = CreateCellMesh(island.islandBase.transform, voronoiCell, cellPosition, height);
-				island.cells.Add(mesh);
+				IslandBlock mesh = CreateIslandBlock(island.islandBase.transform, voronoiCell, cellPosition, height);
+				island.blocks.Add(mesh);
 			}
 		}
 
@@ -192,9 +192,10 @@ public class MapGenerator : MonoBehaviour
 		return height;
 	}
 
-	private GameObject CreateCellMesh(Transform parent, VoronoiCell voronoiCell, Vector3 position, float height)
+	private IslandBlock CreateIslandBlock(Transform parent, VoronoiCell voronoiCell, Vector3 position, float height)
 	{
 		GameObject cellGameObject = new GameObject("Cell");
+		IslandBlock islandBlock = cellGameObject.AddComponent<IslandBlock>();
 		cellGameObject.transform.parent = parent;
 		cellGameObject.transform.position = position;
 
@@ -211,6 +212,7 @@ public class MapGenerator : MonoBehaviour
 		GameObject site = new GameObject("Site");
 		site.transform.parent = cellGameObject.transform;
 		site.transform.position = position + (Vector3.up * height);
-		return cellGameObject;
+		islandBlock.buildingSpawnPoint = site.transform;
+		return islandBlock;
 	}
 }

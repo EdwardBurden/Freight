@@ -49,8 +49,7 @@ public class CollectAction : ShipOrder
 
 	public override void Finish()
 	{
-		int price = producer.GetSellPrice(resourceData);
 		Wallet wallet = GameObject.FindObjectOfType<Wallet>();
-		wallet.CreateAndAddBuyTransaction(price, producer as Building, shipObject, resourceData);
+		wallet.CreateAndAddBuyTransaction(resourceData.buyPrice, producer as Building, shipObject, resourceData);
 	}
 }
