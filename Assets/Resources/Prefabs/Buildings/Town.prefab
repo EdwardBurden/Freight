@@ -348,6 +348,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 967e1c8a89df4924bb73cbe90b039352, type: 2}
   - {fileID: 11400000, guid: 910c24dfe37d85f4398a13580c5760e0, type: 2}
   - {fileID: 11400000, guid: e27ad184f03e8f24a99a0464cf95accf, type: 2}
+  consumerWants:
+  - resource: {fileID: 11400000, guid: e27ad184f03e8f24a99a0464cf95accf, type: 2}
+    amount: 5
+  - resource: {fileID: 11400000, guid: 967e1c8a89df4924bb73cbe90b039352, type: 2}
+    amount: 10
 --- !u!65 &667322553291242172
 BoxCollider:
   m_ObjectHideFlags: 0

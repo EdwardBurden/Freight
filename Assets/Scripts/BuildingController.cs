@@ -15,6 +15,8 @@ public class BuildingController : Singleton<BuildingController>
 
 	private Building buildingSelected;
 
+	private List<Building> buildings = new List<Building>();
+
 	private void Awake()
 	{
 		_instance = this;
@@ -68,9 +70,21 @@ public class BuildingController : Singleton<BuildingController>
 				GameObject building = Instantiate(buildingTest[index], islandGenerationData.blocks[i].transform.GetChild(0));
 				building.transform.rotation = Quaternion.Euler(0, rotation, 0);
 				building.transform.localPosition = Vector3.zero;
+				buildings.Add(building.GetComponent<Building>());
 			}
 		}
 	}
 
-
+	public IEnumerable<IConsumer> GetAllConsumerBuildings()
+	{
+		List<IConsumer> consumers = new List<IConsumer>();
+		for (int i = 0; i < buildings.Count; i++)
+		{
+			if (buildings[i] is IConsumer consumer)
+			{
+				consumers.Add(consumer);
+			}
+		}
+		return consumers;
+	}
 }

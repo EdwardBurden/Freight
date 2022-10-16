@@ -24,6 +24,9 @@ public class GameSceneController : Singleton<GameSceneController> //but must b d
 	[SerializeField]
 	private BuildingController buildingController;
 
+	[SerializeField]
+	private SeasonsController seasonsController;
+
 
 	public bool startlocal = false;
 
@@ -47,6 +50,7 @@ public class GameSceneController : Singleton<GameSceneController> //but must b d
 		gameGenerationData = mapGenerator.Generate();
 		buildingController.DistributeBuildings(gameGenerationData);
 		testships();
+		seasonsController.StartSeason();
 		//Place resources of map
 		//Place buildings on map
 		//initialse any systmes that need map info

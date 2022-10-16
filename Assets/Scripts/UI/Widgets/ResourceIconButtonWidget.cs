@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace UI
 {//Used for when a user slects a resource in the ResourceSelectScreen
-	public class ResourceIconButtonWidget : MonoBehaviour 
+	public class ResourceIconButtonWidget : MonoBehaviour
 	{
 		[SerializeField]
 		private TMP_Text text;
@@ -21,12 +21,17 @@ namespace UI
 		[SerializeField]
 		private Button button;
 
-		public void ShowResource(ResourceDefintion resourceData, Action callback)
+		public void ShowResource(ResourceDefintion resourceData, Action callback = null)
 		{
 			text.text = resourceData.resourceName;
 			icon.sprite = resourceData.resourceIcon;
 			backgroundIcon.color = resourceData.resourceColor;
-			button.onClick.AddListener(() => callback());
+
+			if (callback != null)
+			{
+				button.onClick.AddListener(() => callback());
+			}
+			button.interactable = callback != null;
 		}
 	}
 }

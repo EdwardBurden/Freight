@@ -8,9 +8,7 @@ public class Settlement : Building, IConsumer
 	[SerializeField]
 	private ResourceDefintion[] accepts;
 
-	[SerializeField]
-	private ConsumerWant[] consumerWants;
-
+	private ConsumerWants consumerWants;
 
 	public ResourceDefintion[] GetAcceptedResources()
 	{
@@ -35,12 +33,12 @@ public class Settlement : Building, IConsumer
 	}
 
 
-	public void SetWants(ConsumerWant[] consumerWants)
+	public void SetWants(ConsumerWants consumerWants)
 	{
 		this.consumerWants = consumerWants;
 	}
 
-	public ConsumerWant[] GetWants()
+	public ConsumerWants GetWants()
 	{
 		return consumerWants;
 	}

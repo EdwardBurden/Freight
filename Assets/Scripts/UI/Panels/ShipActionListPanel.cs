@@ -36,12 +36,12 @@ namespace UI
 		private Ship ship => shipActionList.GetComponent<Ship>();
 
 
-		protected void Start()
+		protected void OnEnable()
 		{
 			ShipSelectionController.ShipSelectedEvent += OnShipSelected;
 			ShipSelectionController.ShipDeSelectedEvent += OnShipDeselected;
 		}
-		private void OnDestroy()
+		private void OnDisable()
 		{
 			ShipSelectionController.ShipSelectedEvent -= OnShipSelected;
 			ShipSelectionController.ShipDeSelectedEvent -= OnShipDeselected;

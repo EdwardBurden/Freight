@@ -15,9 +15,8 @@ public class Factory : Building, IProducer, IConsumer
 	[SerializeField]
 	private ResourceDefintion[] accepts;
 
-	[SerializeField]
-	private ConsumerWant[] consumerWants;
 
+	private ConsumerWants consumerWants;
 
 	public ResourceDefintion[] GetAcceptedResources()
 	{
@@ -68,12 +67,12 @@ public class Factory : Building, IProducer, IConsumer
 		this.accepts = resourceDefintions;
 	}
 
-	public ConsumerWant[] GetWants()
+	public ConsumerWants GetWants()
 	{
 		return consumerWants;
 	}
 
-	public void SetWants(ConsumerWant[] consumerWants)
+	public void SetWants(ConsumerWants consumerWants)
 	{
 		this.consumerWants = consumerWants;
 	}
