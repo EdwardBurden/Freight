@@ -18,6 +18,7 @@ public class SeasonsController : Singleton<SeasonsController>
 	public static event Action<SeasonType> SeasonStartedEvent;
 	public static event Action<SeasonType> SeasonEndedEvent;
 
+	[SerializeField] private Transform light; //for testing atm
 	[SerializeField] private int seasonTimeInSeconds = 5;
 
 	private SeasonType? season = null;
@@ -77,33 +78,8 @@ public class SeasonsController : Singleton<SeasonsController>
 		{
 			season++;
 		}
-	}
 
-
-	private void TEST_SetConsumerWants(IConsumer consumer)
-	{
-		float rewardModifier = 0.2f;
-		int minWantAmount = 2;
-		int maxWantAmount = 15;
-
-
-
-		ResourceDefintion[] resources = consumer.GetAcceptedResources();
-		List<ConsumerWant> consumers = new List<ConsumerWant>();
-		float rewardAmount = 0;
-
-		for (int i = 0; i < resources.Length; i++)
-		{
-			float chance = Random.Range(0f, 1f);
-			if (chance > 0.5f)
-			{
-				int amount = Random.Range(minWantAmount, maxWantAmount);
-				consumers.Add(new ConsumerWant(resources[i], amount));
-				rewardAmount += resources[i].sellPrice;
-			}
-		}
-		rewardAmount *= rewardModifier;
-		SettlementWants consumerWants = new SettlementWants(consumers.ToArray(), rewardAmount);
-		consumer.SetWants(consumerWants);
+		float rotation = (float)season - (seasons.Length / 2.0f);
+		light.transform.localEulerAngles = (new Vector3(rotation * 20, rotation * 45, 0));
 	}
 }
