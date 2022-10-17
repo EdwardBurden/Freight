@@ -61,7 +61,7 @@ public class ConsumerPanel : Panel
 
 		GameObjectUtils.Clear(wantsTransform);
 		GameObjectUtils.Clear(acceptsTransform);
-		ConsumerWants consumerWants = consumer.GetWants();
+		SettlementWants consumerWants = consumer.GetWants();
 		foreach (ConsumerWant want in consumerWants.consumerWants)
 		{
 			AddConsumerWant(want);

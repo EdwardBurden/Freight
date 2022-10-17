@@ -37,7 +37,7 @@ public class SeasonsController : Singleton<SeasonsController>
 			}
 		}
 		rewardAmount *= rewardModifier;
-		ConsumerWants consumerWants = new ConsumerWants(consumers.ToArray(), rewardAmount);
+		SettlementWants consumerWants = new SettlementWants(consumers.ToArray(), rewardAmount);
 		consumer.SetWants(consumerWants);
 	}
 }

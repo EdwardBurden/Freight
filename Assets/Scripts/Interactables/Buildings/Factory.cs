@@ -16,7 +16,7 @@ public class Factory : Building, IProducer, IConsumer
 	private ResourceDefintion[] accepts;
 
 
-	private ConsumerWants consumerWants;
+	private SettlementWants consumerWants;
 
 	public ResourceDefintion[] GetAcceptedResources()
 	{
@@ -67,12 +67,12 @@ public class Factory : Building, IProducer, IConsumer
 		this.accepts = resourceDefintions;
 	}
 
-	public ConsumerWants GetWants()
+	public SettlementWants GetWants()
 	{
 		return consumerWants;
 	}
 
-	public void SetWants(ConsumerWants consumerWants)
+	public void SetWants(SettlementWants consumerWants)
 	{
 		this.consumerWants = consumerWants;
 	}

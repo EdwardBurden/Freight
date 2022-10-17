@@ -6,17 +6,11 @@ using UnityEngine;
 
 public class ProducerPanel : Panel
 {
-	[SerializeField]
-	private TMP_Text nameField;
+	[SerializeField] private TMP_Text nameField;
+	[SerializeField] private Transform producesTransfrom;
+	[SerializeField] private ResourceIconButtonWidget resourceIconButtonWidget;
 
 	private Building building;
-
-
-	[SerializeField]
-	private Transform wantsTransform;
-
-	[SerializeField]
-	private Transform acceptsTransform;
 
 	protected void OnEnable()
 	{
@@ -40,11 +34,26 @@ public class ProducerPanel : Panel
 		Hide();
 		if (obj is IProducer producer)
 		{
-			building = obj;
-			nameField.text = building.GetObjectName();
+			Refresh(obj, producer);
 			Show();
 		}
 	}
 
+	public void Refresh(Building building, IProducer producer)
+	{
+		this.building = building;
+		nameField.text = building.GetObjectName();
 
+		GameObjectUtils.Clear(producesTransfrom);
+		foreach (ResourceDefintion resource in producer.GetProducedResources())
+		{
+			AddProduce(resource);
+		}
+	}
+
+	private void AddProduce(ResourceDefintion resourceDefintion)
+	{
+		ResourceIconButtonWidget widget = Instantiate(resourceIconButtonWidget, producesTransfrom);
+		widget.ShowResource(resourceDefintion);
+	}
 }

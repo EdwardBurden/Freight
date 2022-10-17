@@ -5,9 +5,9 @@ public interface IConsumer
 	public void SetAcceptedResources(ResourceDefintion[] resourceDefintions);
 	public bool AcceptsResource(ResourceDefintion resourceData);
 	//Wants - giving wants will level up building
-	public ConsumerWants GetWants();
-	public void SetWants(ConsumerWants consumerWants);
-	//landing
+	public SettlementWants GetWants(); //move to settlement
+	public void SetWants(SettlementWants consumerWants); //move to settlement
+													   //landing
 	public LandingPlatform GetConsumerLandingPlatform();
 
 }
