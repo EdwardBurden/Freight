@@ -1,43 +1,85 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
+public enum SeasonType
+{
+	Spring,
+	Summer,
+	Autumn,
+	Winter
+}
 
 public class SeasonsController : Singleton<SeasonsController>
 {
-	//plan better system later
-	public float rewardModifier = 0.2f;
+	public static event Action<SeasonType> SeasonStartedEvent;
+	public static event Action<SeasonType> SeasonEndedEvent;
 
-	public int minWantAmount = 2;
-	public int maxWantAmount = 15;
+	[SerializeField] private Transform light; //for testing atm
+	[SerializeField] private int seasonTimeInSeconds = 5;
 
-	public void StartSeason()
+	private SeasonType? season = null;
+
+	private void Awake()
 	{
-		//to test
-		foreach (IConsumer consumer in BuildingController.instance.GetAllConsumerBuildings())
+		_instance = this;
+	}
+
+	private void OnEnable()
+	{
+		TimeController.SecondsChangeEvent += TimeController_SecondsChangeEvent;
+	}
+
+	private void OnDisable()
+	{
+		TimeController.SecondsChangeEvent -= TimeController_SecondsChangeEvent;
+	}
+
+	private void TimeController_SecondsChangeEvent(int seconds)
+	{
+		if ((seconds % seasonTimeInSeconds) == 0)
 		{
-			SetConsumerWants(consumer);
+			StartNextSeason();
 		}
 	}
 
-	private void SetConsumerWants(IConsumer consumer)
+	public void Init()
 	{
-		ResourceDefintion[] resources = consumer.GetAcceptedResources();
-		List<ConsumerWant> consumers = new List<ConsumerWant>();
-		float rewardAmount = 0;
+		season = null;
+	}
 
-		for (int i = 0; i < resources.Length; i++)
+	public void StartNextSeason()
+	{
+		if (season != null)
 		{
-			float chance = Random.Range(0f, 1f);
-			if (chance > 0.5f)
-			{
-				int amount = Random.Range(minWantAmount, maxWantAmount);
-				consumers.Add(new ConsumerWant(resources[i], amount));
-				rewardAmount += resources[i].sellPrice;
-			}
+			SeasonEndedEvent?.Invoke(season.Value);
 		}
-		rewardAmount *= rewardModifier;
-		SettlementWants consumerWants = new SettlementWants(consumers.ToArray(), rewardAmount);
-		consumer.SetWants(consumerWants);
+		UpdateSeason();
+		SeasonStartedEvent?.Invoke(season.Value);
+	}
+
+	private void UpdateSeason()
+	{
+		if (season == null)
+		{
+			season = SeasonType.Spring;
+			return;
+		}
+
+		Array seasons = Enum.GetValues(typeof(SeasonType));
+		if ((int)season.Value >= seasons.Length - 1)
+		{
+			season = SeasonType.Spring;
+		}
+		else
+		{
+			season++;
+		}
+
+		float rotation = (float)season - (seasons.Length / 2.0f);
+		light.transform.localEulerAngles = (new Vector3(rotation * 20, rotation * 45, 0));
 	}
 }

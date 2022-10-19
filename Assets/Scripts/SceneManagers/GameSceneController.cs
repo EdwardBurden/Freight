@@ -50,7 +50,7 @@ public class GameSceneController : Singleton<GameSceneController> //but must b d
 		gameGenerationData = mapGenerator.Generate();
 		buildingController.DistributeBuildings(gameGenerationData);
 		testships();
-		seasonsController.StartSeason();
+		seasonsController.StartNextSeason();
 		//Place resources of map
 		//Place buildings on map
 		//initialse any systmes that need map info

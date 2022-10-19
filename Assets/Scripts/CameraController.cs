@@ -80,6 +80,7 @@ public class CameraController : MonoBehaviour
 		movement = gameControls.Camera.Movement;
 		gameControls.Camera.RotateCamera.performed += RotateCamera;
 		gameControls.Camera.ZoomCamera.performed += ZoomCamera;
+
 		gameControls.Camera.Enable();
 	}
 
@@ -103,7 +104,7 @@ public class CameraController : MonoBehaviour
 
 	private void UpdateVelocity()
 	{
-		horizontalVelocity = (this.transform.position - lastPosition) / Time.deltaTime;
+		horizontalVelocity = (this.transform.position - lastPosition);
 		horizontalVelocity.y = 0f;
 		lastPosition = this.transform.position;
 	}
@@ -111,7 +112,7 @@ public class CameraController : MonoBehaviour
 	private void GetKeyboardMovement()
 	{
 		Vector2 inputValue = movement.ReadValue<Vector2>();
-		movementInputValue = Vector2.SmoothDamp(movementInputValue, inputValue, ref smoothInputVelocity, smoothInputSpeed);
+		movementInputValue = Vector2.SmoothDamp(movementInputValue, inputValue, ref smoothInputVelocity, smoothInputSpeed, 10, Time.unscaledDeltaTime);
 
 		if (movementInputValue.sqrMagnitude > 0.1f)
 		{
@@ -123,13 +124,13 @@ public class CameraController : MonoBehaviour
 	{
 		if (targetDirection.sqrMagnitude > 0.1f)
 		{
-			speed = Mathf.Lerp(speed, maxSpeed, Time.deltaTime * acceleration);
-			transform.position += targetDirection * speed * Time.deltaTime;
+			speed = Mathf.Lerp(speed, maxSpeed, Time.unscaledDeltaTime * acceleration);
+			transform.position += targetDirection * speed * Time.unscaledDeltaTime;
 		}
 		else
 		{
-			horizontalVelocity = Vector3.Lerp(horizontalVelocity, Vector3.zero, Time.deltaTime * damping);
-			transform.position += horizontalVelocity * Time.deltaTime;
+			horizontalVelocity = Vector3.Lerp(horizontalVelocity, Vector3.zero, Time.unscaledDeltaTime * damping);
+			transform.position += horizontalVelocity;
 		}
 		targetDirection = Vector3.zero;
 	}
@@ -152,7 +153,7 @@ public class CameraController : MonoBehaviour
 		//add vector for forward/backward zoom
 		Vector3 zoomForwardDistance = new Vector3(cameraBase.localPosition.x, zoomHeight, -zoomHeight * forwardZoomAmount); //testing now
 
-		cameraBase.localPosition = Vector3.Lerp(cameraBase.localPosition, zoomForwardDistance, Time.deltaTime * zoomDampening);
+		cameraBase.localPosition = Vector3.Lerp(cameraBase.localPosition, zoomForwardDistance, Time.unscaledDeltaTime * zoomDampening);
 		cameraTransform.LookAt(lookTarget);
 	}
 
