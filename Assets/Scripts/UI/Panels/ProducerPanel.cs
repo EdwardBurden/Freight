@@ -4,6 +4,7 @@ using TMPro;
 using UI;
 using UnityEngine;
 
+//TODO remove and replace with implomentation per building
 public class ProducerPanel : Panel
 {
 	[SerializeField] private TMP_Text nameField;

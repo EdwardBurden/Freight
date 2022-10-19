@@ -880,7 +880,7 @@ PrefabInstance:
     - target: {fileID: 2011165272907731194, guid: fc28802c2b971b34a9be010870b707ca, type: 3}
       propertyPath: buildingTest.Array.data[0]
       value: 
-      objectReference: {fileID: 1453830250109635110, guid: fcd5417531ef6fe45ae3d5865510e8fb, type: 3}
+      objectReference: {fileID: 7878513662307553180, guid: 595661d89ba8e6148a100ba1bafe2d08, type: 3}
     - target: {fileID: 2011165272907731194, guid: fc28802c2b971b34a9be010870b707ca, type: 3}
       propertyPath: buildingTest.Array.data[1]
       value: 
@@ -888,15 +888,19 @@ PrefabInstance:
     - target: {fileID: 2011165272907731194, guid: fc28802c2b971b34a9be010870b707ca, type: 3}
       propertyPath: buildingTest.Array.data[2]
       value: 
-      objectReference: {fileID: 7878513662307553180, guid: a95d7d6023b30d74792965ccd4f24fd1, type: 3}
+      objectReference: {fileID: 7487590425637725448, guid: 1111549d3307d584d8b3fa54462e1255, type: 3}
     - target: {fileID: 2011165272907731194, guid: fc28802c2b971b34a9be010870b707ca, type: 3}
       propertyPath: buildingTest.Array.data[3]
       value: 
-      objectReference: {fileID: 7878513662307553180, guid: af16c29e70aa6ba43925bb96764f4759, type: 3}
+      objectReference: {fileID: 7878513662307553180, guid: a95d7d6023b30d74792965ccd4f24fd1, type: 3}
     - target: {fileID: 2011165272907731194, guid: fc28802c2b971b34a9be010870b707ca, type: 3}
       propertyPath: buildingTest.Array.data[4]
       value: 
-      objectReference: {fileID: 7487590425637725448, guid: 1111549d3307d584d8b3fa54462e1255, type: 3}
+      objectReference: {fileID: 7878513662307553180, guid: af16c29e70aa6ba43925bb96764f4759, type: 3}
+    - target: {fileID: 2011165272907731194, guid: fc28802c2b971b34a9be010870b707ca, type: 3}
+      propertyPath: buildingTest.Array.data[5]
+      value: 
+      objectReference: {fileID: 7878513662307553180, guid: 595661d89ba8e6148a100ba1bafe2d08, type: 3}
     - target: {fileID: 6633883488221356350, guid: fc28802c2b971b34a9be010870b707ca, type: 3}
       propertyPath: m_Name
       value: BuildingController

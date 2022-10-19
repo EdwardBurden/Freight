@@ -6,6 +6,12 @@ public abstract class Building : InteractableObject
 	[SerializeField]
 	private string buildingName;
 
+	[SerializeField]
+	private Color buildingColor;
+
+	[SerializeField]
+	private Sprite buildingIcon;
+
 	private bool isFreeToUse = true;
 
 	public override string GetObjectName()
@@ -21,5 +27,15 @@ public abstract class Building : InteractableObject
 	public void SetBuildingFreedom(bool isFree)
 	{
 		isFreeToUse = isFree;
+	}
+
+	public Color GetBuildingColor()
+	{
+		return buildingColor;
+	}
+
+	public Sprite GetBuildingIcon()
+	{
+		return buildingIcon;
 	}
 }

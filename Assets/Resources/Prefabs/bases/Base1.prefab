@@ -128,19 +128,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5495902117074765545, guid: bb015dc0aa1824643a83fe5e04040b82, type: 3}
---- !u!114 &8490832293187078722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4696416968667611103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 091073df4defdae45a4e4bc63848e2e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 0
 --- !u!114 &2658548500705709294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,6 +142,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverUIPrefab: {fileID: 0}
   showHoverInfo: 0
+--- !u!114 &8490832293187078722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4696416968667611103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 091073df4defdae45a4e4bc63848e2e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  islandSize: {x: 60, y: 60}
+  islandPointRadius: 6
+  id: 0
 --- !u!4 &5361208755062891877 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: bb015dc0aa1824643a83fe5e04040b82, type: 3}
