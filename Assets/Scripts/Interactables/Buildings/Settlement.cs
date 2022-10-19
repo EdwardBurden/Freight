@@ -47,4 +47,10 @@ public class Settlement : Building, IConsumer
 	{
 		accepts = resourceDefintions;
 	}
+
+	public void BuyResourceFromShip(ResourceDefintion resource, Ship ship)
+	{
+		WalletController.instance.AddSellTransaction(resource.sellPrice, this, ship, resource);
+		//TODO Update stockpile by addign what is bought
+	}
 }

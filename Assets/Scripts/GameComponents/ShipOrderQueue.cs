@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ShipOrderQueue : MonoBehaviour
 {
-	//TODO remove static from these, or add ShipOrderQueue and o logic where picked up
 	public static event Action<ShipOrder> OrderPushedEvent;
 	public static event Action<ShipOrder> OrderStartedEvent;
 	public static event Action<ShipOrder, string> OrderFailedEvent;
@@ -48,7 +47,6 @@ public class ShipOrderQueue : MonoBehaviour
 			ShipOrder shipOrder = queuedOrders[0];
 			if (!shipOrder.started)
 			{
-				//shipOrder.OrderFailedEvent += OnOrderFailed;
 				shipOrder.Start();
 				OrderStartedEvent?.Invoke(shipOrder);
 			}
@@ -61,7 +59,6 @@ public class ShipOrderQueue : MonoBehaviour
 			if (shipOrder.isFinished)
 			{
 				shipOrder.Finish();
-				//shipOrder.OrderFailedEvent -= OnOrderFailed;
 				queuedOrders.RemoveAt(0);
 				if (!repeat)
 				{
@@ -87,6 +84,7 @@ public class ShipOrderQueue : MonoBehaviour
 		queueIndex = 0;
 		allOrders.Clear();
 		queuedOrders.Clear();
+		//TODO add calls to each order with Cancelled method in order 
 	}
 
 	public void PushAction(ShipOrder action)
@@ -101,6 +99,7 @@ public class ShipOrderQueue : MonoBehaviour
 	{
 		allOrders.Remove(action);
 		queuedOrders.Remove(action);
+		//TODO add calls to each order with Cancelled method in order 
 		//TODO maybe tell order to do somethign here, since its now not working
 	}
 

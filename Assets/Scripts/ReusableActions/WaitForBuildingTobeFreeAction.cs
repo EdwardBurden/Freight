@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaitForBuildingTobeFreeAction : Action
+public class WaitForBuildingToBeFreeAction : Action
 {
 	private Building building;
 
-	public WaitForBuildingTobeFreeAction(Building building) : base(true)
+	public WaitForBuildingToBeFreeAction(Building building) : base(true)
 	{
 		this.building = building;
 	}

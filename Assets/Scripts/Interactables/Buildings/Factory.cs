@@ -50,7 +50,7 @@ public class Factory : Building, IProducer, IConsumer
 		return false;
 	}
 
-	public bool ProducesResource(ResourceDefintion resourceData)
+	public bool CanProducesResource(ResourceDefintion resourceData)
 	{
 		for (int i = 0; i < produces.Length; i++)
 		{
@@ -75,5 +75,20 @@ public class Factory : Building, IProducer, IConsumer
 	public void SetWants(SettlementWants consumerWants)
 	{
 		this.consumerWants = consumerWants;
+	}
+
+	public void SellResourceToShip(ResourceDefintion resource, Ship ship)
+	{
+		throw new System.NotImplementedException();
+		//TODO Whent the player is able to buy, there is stock of the resource, they get it for free since they placed the input resources
+		//Update stockpile by removing one of resource taken
+	}
+
+	public void BuyResourceFromShip(ResourceDefintion resource, Ship ship)
+	{
+		throw new System.NotImplementedException();
+		//TODO Factory should accept his resource without paying out anything
+		//if they added resource then fufills the requirements trigger requirements fulfilled event, player can then start taking what is produced
+		//update stockpile
 	}
 }

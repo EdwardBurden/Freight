@@ -1,13 +1,13 @@
 using ActionLists;
 using UnityEngine;
 
-public class CollectAction : ShipOrder
+public class CollectOrder : ShipOrder
 {
 	private CarryObject carryObject;
 	private IProducer producer;
 	private ResourceDefintion resourceData;
 
-	public CollectAction(ShipActionDefintion shipActionDefintion, Ship shipObject, IProducer target, ResourceDefintion resourceTarget) : base(shipActionDefintion, shipObject)
+	public CollectOrder(ShipActionDefintion shipActionDefintion, Ship shipObject, IProducer target, ResourceDefintion resourceTarget) : base(shipActionDefintion, shipObject)
 	{
 		this.carryObject = shipObject.GetComponent<CarryObject>();
 		this.producer = target;
@@ -19,23 +19,26 @@ public class CollectAction : ShipOrder
 		base.Setup();
 		LandingPlatform landingPlatform = producer.GetProducerLandingPlatform();
 		Vector3 position = landingPlatform.GetLandingPosition();
-		Building building = (Building)producer; ;
+		Building building = (Building)producer;
 
 		//Move
 		childList.PushAction(new LookAtAction(position, shipObject, true));
 		childList.PushAction(new AlignShipForCollectionAction(shipObject, carryObject, landingPlatform));
-		childList.PushAction(new WaitForBuildingTobeFreeAction(building));
+
+		//wait
+		childList.PushAction(new WaitForBuildingToBeFreeAction(building));
+		childList.PushAction(new SetBuildingFreedomAction(building, false));
 
 		//Collect
-		childList.PushAction(new SetBuildingFreedomAction(building, false));
 		childList.PushAction(new SpawnFreightAction(resourceData, landingPlatform));
 		childList.PushAction(new AnimateLoadingPlatformOpenAction(landingPlatform));
+		childList.PushAction(new ShipBuyAction(producer, resourceData, shipObject));
 		childList.PushAction(new ParentFreightToShipAction(landingPlatform, carryObject));
 		childList.PushAction(new AnimateLoadingPlatformCloseAction(landingPlatform));
+
+		//Sync
 		childList.PushAction(new SetBuildingFreedomAction(building, true));
 		childList.PushAction(new SyncAction());
-
-
 	}
 
 	public override void Start()
@@ -46,15 +49,9 @@ public class CollectAction : ShipOrder
 			RaiseFailEvent($"Cannot start collection because {shipObject.name} does not have any space for {resourceData.resourceName}");
 
 		}
-		if (!producer.ProducesResource(resourceData))
+		if (!producer.CanProducesResource(resourceData))
 		{
 			RaiseFailEvent($"Cannot start Collection because {producer.GetType().ToString()} does produce {resourceData.resourceName}");
 		}
-	}
-
-	public override void Finish()
-	{
-		WalletController wallet = GameObject.FindObjectOfType<WalletController>();
-		wallet.CreateAndAddBuyTransaction(resourceData.buyPrice, producer as Building, shipObject, resourceData);
 	}
 }

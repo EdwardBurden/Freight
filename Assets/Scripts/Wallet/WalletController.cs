@@ -12,6 +12,7 @@ public class WalletController : Singleton<WalletController>
 
 	public void Awake()
 	{
+		_instance = this;
 		wallet = new Wallet(); //temp
 	}
 
@@ -20,7 +21,7 @@ public class WalletController : Singleton<WalletController>
 		return wallet.credits;
 	}
 
-	public void CreateAndAddBuyTransaction(int amount, Building building, Ship ship, ResourceDefintion resource)
+	public void AddBuyTransaction(int amount, Building building, Ship ship, ResourceDefintion resource)
 	{
 		BuyTransaction buyTransaction = new BuyTransaction(DateTime.Now, amount, building, ship, resource);
 		wallet.AddTransaction(buyTransaction);
@@ -28,7 +29,7 @@ public class WalletController : Singleton<WalletController>
 		CreateTransactionCompletePopup(buyTransaction);
 	}
 
-	public void CreateAndAddSellTransaction(int amount, Building building, Ship ship, ResourceDefintion resource)
+	public void AddSellTransaction(int amount, Building building, Ship ship, ResourceDefintion resource)
 	{
 		SellTransaction sellTransaction = new SellTransaction(DateTime.Now, amount, building, ship, resource);
 		wallet.AddTransaction(sellTransaction);

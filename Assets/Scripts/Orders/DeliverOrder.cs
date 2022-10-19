@@ -1,13 +1,14 @@
 using ActionLists;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class DeliverAction : ShipOrder
+public class DeliverOrder : ShipOrder
 {
 	private CarryObject carryObject;
 	private IConsumer consumer;
 	private ResourceDefintion resourceData;
 
-	public DeliverAction(ShipActionDefintion shipActionDefintion, Ship shipObject, IConsumer target, ResourceDefintion resourceTarget) : base(shipActionDefintion, shipObject)
+	public DeliverOrder(ShipActionDefintion shipActionDefintion, Ship shipObject, IConsumer target, ResourceDefintion resourceTarget) : base(shipActionDefintion, shipObject)
 	{
 		this.carryObject = shipObject.GetComponent<CarryObject>();
 		this.consumer = target;
@@ -19,20 +20,25 @@ public class DeliverAction : ShipOrder
 		base.Setup();
 		LandingPlatform landingPlatform = consumer.GetConsumerLandingPlatform();
 		Vector3 position = landingPlatform.GetLandingPosition();
-		Building building = (Building)consumer; ;
+		Building building = (Building)consumer;
 
 		//Move
 		childList.PushAction(new LookAtAction(position, shipObject, true));
 		childList.PushAction(new AlignShipForDeliveryAction(shipObject, carryObject, resourceData, landingPlatform));
-		childList.PushAction(new WaitForBuildingTobeFreeAction(building));
+
+		//Wait
+		childList.PushAction(new WaitForBuildingToBeFreeAction(building));
+		childList.PushAction(new SetBuildingFreedomAction(building, false));
 
 		//Deliver
-		childList.PushAction(new SetBuildingFreedomAction(building, false));
 		childList.PushAction(new AnimateLoadingPlatformOpenAction(landingPlatform));
 		childList.PushAction(new ParentFreightToPlatformAction(landingPlatform, carryObject, resourceData));
+		childList.PushAction(new ShipSellAction(consumer, resourceData, shipObject));
 		childList.PushAction(new AnimateLoadingPlatformCloseAction(landingPlatform));
-		childList.PushAction(new SetBuildingFreedomAction(building, true));	
 		childList.PushAction(new DestoryFreightAction(landingPlatform));
+
+		//Sync
+		childList.PushAction(new SetBuildingFreedomAction(building, true));
 		childList.PushAction(new SyncAction());
 	}
 
@@ -47,11 +53,5 @@ public class DeliverAction : ShipOrder
 		{
 			RaiseFailEvent($"Cannot start Delivery because {consumer.GetType().ToString()} does accept {resourceData.resourceName}");
 		}
-	}
-
-	public override void Finish()
-	{
-		WalletController wallet = GameObject.FindObjectOfType<WalletController>();
-		wallet.CreateAndAddSellTransaction(resourceData.sellPrice, consumer as Building, shipObject, resourceData);
 	}
 }
