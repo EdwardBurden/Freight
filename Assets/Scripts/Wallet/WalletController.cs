@@ -21,6 +21,14 @@ public class WalletController : Singleton<WalletController>
 		return wallet.credits;
 	}
 
+	public void AddBuildingPlacementTransaction(int amount, string oldBuildingName, Building newBuilding)
+	{
+		BuildingPlacementTransaction buildingPlacement = new BuildingPlacementTransaction(DateTime.Now, amount, oldBuildingName, newBuilding);
+		wallet.AddTransaction(buildingPlacement);
+		TransactionAddedEvent?.Invoke(buildingPlacement, wallet.credits);
+		CreateTransactionCompletePopup(buildingPlacement);
+	}
+
 	public void AddBuyTransaction(int amount, Building building, Ship ship, ResourceDefintion resource)
 	{
 		BuyTransaction buyTransaction = new BuyTransaction(DateTime.Now, amount, building, ship, resource);

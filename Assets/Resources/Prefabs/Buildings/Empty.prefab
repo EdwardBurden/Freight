@@ -62,6 +62,8 @@ MonoBehaviour:
   hoverUIPrefab: {fileID: 234753750589598935, guid: ae65448598d6f4743bd4d43b4a5b7178, type: 3}
   showHoverInfo: 1
   buildingName: Empty Plot
+  buildingColor: {r: 1, g: 1, b: 1, a: 1}
+  buildingIcon: {fileID: 0}
   options:
   - {fileID: 7878513662307553155, guid: a95d7d6023b30d74792965ccd4f24fd1, type: 3}
   - {fileID: 7487590425637725449, guid: 1111549d3307d584d8b3fa54462e1255, type: 3}

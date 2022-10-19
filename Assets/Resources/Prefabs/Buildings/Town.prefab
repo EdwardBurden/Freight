@@ -342,17 +342,14 @@ MonoBehaviour:
   hoverUIPrefab: {fileID: 234753750589598935, guid: ae65448598d6f4743bd4d43b4a5b7178, type: 3}
   showHoverInfo: 1
   buildingName: Town
+  buildingColor: {r: 0.6603774, g: 0.42647952, b: 0, a: 1}
+  buildingIcon: {fileID: 0}
   platform: {fileID: 5640313802130655098}
   accepts:
   - {fileID: 11400000, guid: cdae099e1fe6f6546b3adeb05bddd8af, type: 2}
   - {fileID: 11400000, guid: 967e1c8a89df4924bb73cbe90b039352, type: 2}
   - {fileID: 11400000, guid: 910c24dfe37d85f4398a13580c5760e0, type: 2}
   - {fileID: 11400000, guid: e27ad184f03e8f24a99a0464cf95accf, type: 2}
-  consumerWants:
-  - resource: {fileID: 11400000, guid: e27ad184f03e8f24a99a0464cf95accf, type: 2}
-    amount: 5
-  - resource: {fileID: 11400000, guid: 967e1c8a89df4924bb73cbe90b039352, type: 2}
-    amount: 10
 --- !u!65 &667322553291242172
 BoxCollider:
   m_ObjectHideFlags: 0

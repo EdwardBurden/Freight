@@ -14,20 +14,21 @@ public class EmptyPlotPanel : BuildingPanel
 
 	public void ChangeBuilding(Building selectedBuilding)
 	{
-		//TODO go to building, pay cost to build
-		//TODO go to building controller to replace
+		EmptyPlot empty = building as EmptyPlot;
+		empty.SwitchBuilding(selectedBuilding);
+		Hide();
 	}
 
 	protected override void OnBuildingSelected(Building building)
 	{
-		if (building is Empty empty)
+		if (building is EmptyPlot empty)
 		{
 			base.OnBuildingSelected(building);
 			ShowBuildingOptions(empty);
 		}
 	}
 
-	private void ShowBuildingOptions(Empty empty)
+	private void ShowBuildingOptions(EmptyPlot empty)
 	{
 		GameObjectUtils.Clear(buildingOptions);
 		foreach (Building building in empty.options)

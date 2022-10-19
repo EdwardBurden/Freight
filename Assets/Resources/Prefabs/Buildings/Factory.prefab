@@ -231,6 +231,8 @@ MonoBehaviour:
   hoverUIPrefab: {fileID: 234753750589598935, guid: ae65448598d6f4743bd4d43b4a5b7178, type: 3}
   showHoverInfo: 1
   buildingName: Factory
+  buildingColor: {r: 0, g: 0.15156436, b: 1, a: 1}
+  buildingIcon: {fileID: 0}
   inputPlatform: {fileID: 8709918956351243813}
   outputPlatform: {fileID: 6978591923663053279}
   produces:

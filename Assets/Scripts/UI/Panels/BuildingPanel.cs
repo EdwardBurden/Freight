@@ -10,7 +10,7 @@ public class BuildingPanel : Panel
 	[SerializeField]
 	private TMP_Text nameField;
 
-	Building building;
+	protected Building building;
 
 	protected void OnEnable()
 	{

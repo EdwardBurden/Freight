@@ -12,7 +12,11 @@ public abstract class Building : InteractableObject
 	[SerializeField]
 	private Sprite buildingIcon;
 
+	[SerializeField]
+	public int buildCost = 100;//TODO temp
+
 	private bool isFreeToUse = true;
+	public IslandBlock islandBlock; //TODO set in buildingcontroller
 
 	public override string GetObjectName()
 	{
