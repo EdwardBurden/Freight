@@ -3,8 +3,6 @@ using System;
 
 public abstract class ShipOrder
 {
-	public event Action<ShipOrder, string> OrderFailedEvent;
-
 	public bool isFailed;
 	public bool isFinished;
 	public bool started;
@@ -18,7 +16,7 @@ public abstract class ShipOrder
 	}
 
 	public ActionList childList = new ActionList();
-	internal string failMessage;
+	public string failMessage;
 
 	public virtual void Setup()
 	{
@@ -42,14 +40,20 @@ public abstract class ShipOrder
 		}
 	}
 
+	public virtual void Cancelled()
+	{
+		//use for when the order is extenrally cancelled by the user
+		//communicate with buildings and unhook and events before finsihing
+	}
+
 	public virtual void Finish()
 	{
+		//use for when order has succesfully finished, can be used to to unhook and events or send debug messages 
 	}
 
 	protected void RaiseFailEvent(string error) //testing
 	{
 		isFailed = true;
 		failMessage = error;
-		//OrderFailedEvent?.Invoke(this, error);
 	}
 }

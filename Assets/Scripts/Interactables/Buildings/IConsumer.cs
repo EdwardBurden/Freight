@@ -10,4 +10,6 @@ public interface IConsumer
 													   //landing
 	public LandingPlatform GetConsumerLandingPlatform();
 
+
+	public void BuyResourceFromShip(ResourceDefintion resource, Ship ship);
 }

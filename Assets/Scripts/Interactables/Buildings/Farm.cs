@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Farm : Building, IProducer
@@ -18,7 +19,7 @@ public class Farm : Building, IProducer
 		return produces;
 	}
 
-	public bool ProducesResource(ResourceDefintion resourceData)
+	public bool CanProducesResource(ResourceDefintion resourceData)
 	{
 		for (int i = 0; i < produces.Length; i++)
 		{
@@ -28,5 +29,11 @@ public class Farm : Building, IProducer
 			}
 		}
 		return false;
+	}
+
+	public void SellResourceToShip(ResourceDefintion resource, Ship ship)
+	{
+		WalletController.instance.AddBuyTransaction(resource.buyPrice, this, ship, resource);
+		//TODO Update stockpile by remoing one of what is sold
 	}
 }

@@ -1,6 +1,9 @@
 public interface IProducer
 {
-	public ResourceDefintion[] GetProducedResources();
 	public LandingPlatform GetProducerLandingPlatform();
-	public bool ProducesResource(ResourceDefintion resourceData);
+
+	public ResourceDefintion[] GetProducedResources();
+	public bool CanProducesResource(ResourceDefintion resourceData);
+
+	public void SellResourceToShip(ResourceDefintion resource, Ship ship);
 }

@@ -33,7 +33,7 @@ public class DeliverActionDefintion : ShipActionDefintion
 
 	private void OnResourceSelected(Ship shipObject, IConsumer consumer, ResourceDefintion resourceDefintion, Action<ShipOrder> callback)
 	{
-		DeliverAction deliverAction = new DeliverAction(this, shipObject, consumer, resourceDefintion);
+		DeliverOrder deliverAction = new DeliverOrder(this, shipObject, consumer, resourceDefintion);
 		callback?.Invoke(deliverAction);
 	}
 
