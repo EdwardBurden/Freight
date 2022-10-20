@@ -56,6 +56,7 @@ public class GameSceneController : Singleton<GameSceneController> //but must b d
 		//initialse any systmes that need map info
 		//place player ship 
 		UIManager.instance.SetCamera(cameraController.GetCamera());
+		UIManager.instance.ToggleHUD(true);
 		//SetUpInput
 		SetInputToSelectionMode();
 	}

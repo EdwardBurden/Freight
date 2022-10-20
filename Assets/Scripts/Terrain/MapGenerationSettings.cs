@@ -13,7 +13,7 @@ namespace Terrain
 
 		[Header("island")]
 		public List<GameObject> bases;
-		public Vector2 islandSize;
-		public int islandPointRadius = 10;
+	//	public Vector2 islandSize;
+	//	public int islandPointRadius = 10;
 	}
 }

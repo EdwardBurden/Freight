@@ -15,9 +15,6 @@ public class Factory : Building, IProducer, IConsumer
 	[SerializeField]
 	private ResourceDefintion[] accepts;
 
-
-	private SettlementWants consumerWants;
-
 	public ResourceDefintion[] GetAcceptedResources()
 	{
 		return accepts;
@@ -65,16 +62,6 @@ public class Factory : Building, IProducer, IConsumer
 	public void SetAcceptedResources(ResourceDefintion[] resourceDefintions)
 	{
 		this.accepts = resourceDefintions;
-	}
-
-	public SettlementWants GetWants()
-	{
-		return consumerWants;
-	}
-
-	public void SetWants(SettlementWants consumerWants)
-	{
-		this.consumerWants = consumerWants;
 	}
 
 	public void SellResourceToShip(ResourceDefintion resource, Ship ship)

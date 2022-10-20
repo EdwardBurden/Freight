@@ -4,12 +4,8 @@ public interface IConsumer
 	public ResourceDefintion[] GetAcceptedResources();
 	public void SetAcceptedResources(ResourceDefintion[] resourceDefintions);
 	public bool AcceptsResource(ResourceDefintion resourceData);
-	//Wants - giving wants will level up building
-	public SettlementWants GetWants(); //move to settlement
-	public void SetWants(SettlementWants consumerWants); //move to settlement
-													   //landing
+	//landing
 	public LandingPlatform GetConsumerLandingPlatform();
-
 
 	public void BuyResourceFromShip(ResourceDefintion resource, Ship ship);
 }

@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d20824b5f0e94cd4097e2e5492932bd8, type: 3}
-  m_Name: LargeMapSettings
+  m_Name: SmallMapSettings
   m_EditorClassIdentifier: 
-  settingsName: Large
-  mapSize: {x: 40, y: 40}
-  islandRadius: 70
+  settingsName: Small
+  mapSize: {x: 20, y: 20}
+  islandRadius: 50
   bases:
   - {fileID: 5661687393432853912, guid: fb918cd1bd185514eb6a99b751de42b5, type: 3}
   - {fileID: 5661687393432853912, guid: 223e2835a810371478646bd61bbb04ba, type: 3}
   - {fileID: 5661687393432853912, guid: 0eafe2be21b30724898f457d786513a2, type: 3}
-  islandSize: {x: 50, y: 50}
-  islandPointRadius: 5
+  - {fileID: 5661687393432853912, guid: cd8a62b09b8ce9643a3b2f93819832ad, type: 3}

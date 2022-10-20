@@ -38,6 +38,7 @@ public class UIManager : Singleton<UIManager>
 	private void Awake()
 	{
 		_instance = this;
+		ToggleHUD(false);
 	}
 
 	public void SetCamera(Camera camera)

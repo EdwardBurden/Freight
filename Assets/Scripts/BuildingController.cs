@@ -4,6 +4,18 @@ using UnityEngine;
 using Terrain;
 using System;
 using Random = UnityEngine.Random;
+using System.Transactions;
+using System.Linq;
+using Unity.VisualScripting;
+
+[Serializable]
+public class BuildingSpawnInfo
+{
+	public Building building;
+	public float spawnChance;
+	public int minSpawnAmount;
+	public int maxSpawnAmount;
+}
 
 public class BuildingController : Singleton<BuildingController>
 {
@@ -11,7 +23,10 @@ public class BuildingController : Singleton<BuildingController>
 	public static event Action<Building> BuildingDeSelectedEvent;
 
 	[SerializeField]
-	private GameObject[] buildingTest;
+	private BuildingSpawnInfo[] builindSpawnInfos;
+
+	[SerializeField]
+	private Building empty;
 
 	private Building buildingSelected;
 
@@ -61,18 +76,45 @@ public class BuildingController : Singleton<BuildingController>
 
 	public void DistributeBuildings(MapGenerationData mapGenerationData)
 	{
-		foreach (IslandGenerationData islandGenerationData in mapGenerationData.islands)
+		List<IslandBlock> islandBlocks = mapGenerationData.islands.SelectMany(x => x.blocks).OrderBy(x => Guid.NewGuid()).ToList(); //TODO Remove LINQ
+
+		foreach (BuildingSpawnInfo buildingSpawnInfo in builindSpawnInfos)
 		{
-			for (int i = 0; i < islandGenerationData.blocks.Count; i++)
+			int amount = Random.Range(buildingSpawnInfo.minSpawnAmount, buildingSpawnInfo.maxSpawnAmount);
+			for (int i = 0; i < amount; i++)
 			{
-				int index = Random.Range(0, buildingTest.Length);
-				int rotation = Random.Range(0, 360);
-				GameObject building = Instantiate(buildingTest[index], islandGenerationData.blocks[i].transform.GetChild(0));
-				building.transform.rotation = Quaternion.Euler(0, rotation, 0);
-				building.transform.localPosition = Vector3.zero;
-				buildings.Add(building.GetComponent<Building>());
+				AddBuilding(buildingSpawnInfo.building, islandBlocks[0]); //TODO improve so no index error if not enough space
+				islandBlocks.RemoveAt(0);
 			}
 		}
+
+		foreach (var item in islandBlocks)
+		{
+			bool placed = false;
+			foreach (BuildingSpawnInfo buildingSpawnInfo in builindSpawnInfos)
+			{
+				if (!placed && Random.Range(0f, 1f) < buildingSpawnInfo.spawnChance)
+				{
+					AddBuilding(buildingSpawnInfo.building, item);
+					placed = true;
+				}
+			}
+			if (!placed)
+			{
+				AddBuilding(empty, item);
+			}
+		}
+	}
+
+	private Building AddBuilding(Building buildingToPlace, IslandBlock islandBlock)
+	{
+		int rotation = Random.Range(0, 360);
+		Building building = Instantiate(buildingToPlace, islandBlock.buildingSpawnPoint);
+		building.islandBlock = islandBlock;
+		building.transform.rotation = Quaternion.Euler(0, rotation, 0);
+		building.transform.localPosition = Vector3.zero;
+		buildings.Add(building);
+		return building;
 	}
 
 	public IEnumerable<IConsumer> GetAllConsumerBuildings()
@@ -86,5 +128,14 @@ public class BuildingController : Singleton<BuildingController>
 			}
 		}
 		return consumers;
+	}
+
+	public Building ReplaceBuilding(Building currentbuilding, Building selectedBuilding)
+	{
+		IslandBlock islandBlock = currentbuilding.islandBlock;
+		GameObject.Destroy(currentbuilding.gameObject);
+		buildings.Remove(currentbuilding);
+		Building newBuilding = AddBuilding(selectedBuilding, islandBlock);
+		return newBuilding;
 	}
 }

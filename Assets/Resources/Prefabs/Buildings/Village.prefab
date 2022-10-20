@@ -171,6 +171,8 @@ MonoBehaviour:
   hoverUIPrefab: {fileID: 234753750589598935, guid: ae65448598d6f4743bd4d43b4a5b7178, type: 3}
   showHoverInfo: 1
   buildingName: Village
+  buildingColor: {r: 0.9811321, g: 0.87423605, b: 0, a: 1}
+  buildingIcon: {fileID: 0}
   platform: {fileID: 5640313802130655098}
   accepts:
   - {fileID: 11400000, guid: cdae099e1fe6f6546b3adeb05bddd8af, type: 2}

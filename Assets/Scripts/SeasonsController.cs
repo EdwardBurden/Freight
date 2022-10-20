@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 using Random = UnityEngine.Random;
 
 public enum SeasonType
@@ -18,7 +20,13 @@ public class SeasonsController : Singleton<SeasonsController>
 	public static event Action<SeasonType> SeasonStartedEvent;
 	public static event Action<SeasonType> SeasonEndedEvent;
 
-	[SerializeField] private Transform light; //for testing atm
+	[SerializeField] private Light light; //for testing atm
+	private Vector3 eulerstart;
+	private Vector3 eulerTarget;
+	private float lightUpdate = 0;
+	private float lightStartIntensity = 0;
+	private float lightTargetIntensity = 0;
+
 	[SerializeField] private int seasonTimeInSeconds = 5;
 
 	private SeasonType? season = null;
@@ -63,23 +71,42 @@ public class SeasonsController : Singleton<SeasonsController>
 
 	private void UpdateSeason()
 	{
-		if (season == null)
-		{
-			season = SeasonType.Spring;
-			return;
-		}
-
 		Array seasons = Enum.GetValues(typeof(SeasonType));
-		if ((int)season.Value >= seasons.Length - 1)
+		if (season == null)
 		{
 			season = SeasonType.Spring;
 		}
 		else
 		{
-			season++;
+			if ((int)season.Value >= seasons.Length - 1)
+			{
+				season = SeasonType.Spring;
+			}
+			else
+			{
+				season++;
+			}
 		}
 
-		float rotation = (float)season - (seasons.Length / 2.0f);
-		light.transform.localEulerAngles = (new Vector3(rotation * 20, rotation * 45, 0));
+		int round = Mathf.CeilToInt((int)season / 2.0f); //0 ,1 1, 2
+		round -= 1; // -1 , 0 , 0 ,1
+		round = Mathf.Abs(round); //1,0,0,1
+		float rotation = ((float)season + 1) / (float)seasons.Length;
+
+		lightStartIntensity = light.intensity;
+		lightTargetIntensity = (1 - round) + 0.5f;
+
+		eulerstart = light.transform.localEulerAngles;
+		eulerTarget = (new Vector3(light.transform.localEulerAngles.x, rotation * 360, 0));
+
+		lightUpdate = 0;
+	}
+
+	private void Update()
+	{
+		lightUpdate += Time.deltaTime / (seasonTimeInSeconds / 4.0f);
+		lightUpdate = Mathf.Min(1, lightUpdate);
+		light.transform.localEulerAngles = Vector3.Lerp(eulerstart, eulerTarget, lightUpdate);
+		light.intensity = Mathf.Lerp(lightStartIntensity, lightTargetIntensity, lightUpdate);
 	}
 }

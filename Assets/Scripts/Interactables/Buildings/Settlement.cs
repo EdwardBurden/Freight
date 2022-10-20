@@ -8,8 +8,6 @@ public class Settlement : Building, IConsumer
 	[SerializeField]
 	private ResourceDefintion[] accepts;
 
-	private SettlementWants consumerWants;
-
 	public ResourceDefintion[] GetAcceptedResources()
 	{
 		return accepts;
@@ -30,17 +28,6 @@ public class Settlement : Building, IConsumer
 	public LandingPlatform GetConsumerLandingPlatform()
 	{
 		return platform;
-	}
-
-
-	public void SetWants(SettlementWants consumerWants)
-	{
-		this.consumerWants = consumerWants;
-	}
-
-	public SettlementWants GetWants()
-	{
-		return consumerWants;
 	}
 
 	public void SetAcceptedResources(ResourceDefintion[] resourceDefintions)

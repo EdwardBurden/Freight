@@ -64,8 +64,10 @@ public class MapGenerator : MonoBehaviour
 
 		foreach (Vector2 islandpoint in islandpoints)
 		{
-			IslandGenerationData islandData = CreateIsland(islandpoint, settings.islandSize, settings.islandPointRadius);
-			islandData.islandBase = PlaceIslandBase(settings, islandData, offset);
+			GameObject baseGameObject = PlaceIslandBase(settings, islandpoint, offset);
+			IslandBase islandBase = baseGameObject.GetComponentInChildren<IslandBase>();
+			IslandGenerationData islandData = CreateIsland(islandpoint, islandBase.islandSize, islandBase.islandPointRadius);
+			islandData.islandBase = baseGameObject;
 			PlaceIsland(settings, islandData, offset);
 			islandGenerationDatas.Add(islandData);
 		}
@@ -138,11 +140,11 @@ public class MapGenerator : MonoBehaviour
 
 	}
 
-	private GameObject PlaceIslandBase(MapGenerationSettings settings, IslandGenerationData island, Vector3 offset)
+	private GameObject PlaceIslandBase(MapGenerationSettings settings, Vector3 island, Vector3 offset)
 	{
 		int baseIndex = UnityEngine.Random.Range(0, settings.bases.Count);
 		float baseRotaion = UnityEngine.Random.Range(0, 360f);
-		Vector3 basePosition = new Vector3(island.center.x, 0, island.center.y) - offset;
+		Vector3 basePosition = new Vector3(island.x, 0, island.y) - offset;
 		return Instantiate(settings.bases[baseIndex], basePosition, Quaternion.Euler(0, baseRotaion, 0), islandsTransform);
 	}
 
@@ -152,7 +154,8 @@ public class MapGenerator : MonoBehaviour
 		{
 			if (CanPlaceCell(voronoiCell, island.islandBase, settings))
 			{
-				Vector3 cellPosition = island.islandBase.transform.position - MapGeneration.GetAreaOffset(settings.islandSize) + voronoiCell.sitePos;
+				IslandBase islandbaseChild = island.islandBase.GetComponentInChildren<IslandBase>();
+				Vector3 cellPosition = island.islandBase.transform.position - MapGeneration.GetAreaOffset(islandbaseChild.islandSize) + voronoiCell.sitePos;
 				float height = CalculateCellHeight(cellPosition, island.islandBase.transform.position, settings.islandRadius);
 				IslandBlock mesh = CreateIslandBlock(island.islandBase.transform, voronoiCell, cellPosition, height);
 				island.blocks.Add(mesh);
@@ -163,18 +166,19 @@ public class MapGenerator : MonoBehaviour
 
 	private bool CanPlaceCell(VoronoiCell voronoiCell, GameObject islandBase, MapGenerationSettings settings)
 	{
+		IslandBase islandbaseChild = islandBase.GetComponentInChildren<IslandBase>();
 		int inWaterCount = 0;
-		Vector3 sitePos = voronoiCell.sitePos - MapGeneration.GetAreaOffset(settings.islandSize) + islandBase.transform.position;
+		Vector3 sitePos = voronoiCell.sitePos - MapGeneration.GetAreaOffset(islandbaseChild.islandSize) + islandBase.transform.position;
 		RayCastInfo<IslandBase> raycastHit = RayCastUtils.FindFirstObjectHit<IslandBase>(sitePos + new Vector3(0, 10, 0), Vector3.down);
-		if (!raycastHit.focused || raycastHit.focusObject != islandBase.GetComponentInChildren<IslandBase>())
+		if (!raycastHit.focused || raycastHit.focusObject != islandbaseChild)
 		{
 			return false;
 		}
 		foreach (Vector3 borderCoord in voronoiCell.borderCoordinates)
 		{
-			Vector3 border = borderCoord - MapGeneration.GetAreaOffset(settings.islandSize) + islandBase.transform.position;
+			Vector3 border = borderCoord - MapGeneration.GetAreaOffset(islandbaseChild.islandSize) + islandBase.transform.position;
 			raycastHit = RayCastUtils.FindFirstObjectHit<IslandBase>(border + new Vector3(0, 10, 0), Vector3.down);
-			if (!raycastHit.focused || raycastHit.focusObject != islandBase.GetComponentInChildren<IslandBase>())
+			if (!raycastHit.focused || raycastHit.focusObject != islandbaseChild)
 			{
 				inWaterCount++;
 			}
