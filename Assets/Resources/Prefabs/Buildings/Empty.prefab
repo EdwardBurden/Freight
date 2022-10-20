@@ -64,9 +64,14 @@ MonoBehaviour:
   buildingName: Empty Plot
   buildingColor: {r: 1, g: 1, b: 1, a: 1}
   buildingIcon: {fileID: 0}
+  buildCost: 100
+  islandBlock: {fileID: 0}
   options:
   - {fileID: 7878513662307553155, guid: a95d7d6023b30d74792965ccd4f24fd1, type: 3}
   - {fileID: 7487590425637725449, guid: 1111549d3307d584d8b3fa54462e1255, type: 3}
+  - {fileID: 7878513662307553155, guid: af16c29e70aa6ba43925bb96764f4759, type: 3}
+  - {fileID: 7487590425637725449, guid: ffc66f6273cbbb944a96da03d85eb99e, type: 3}
+  - {fileID: 1453830250109635109, guid: fcd5417531ef6fe45ae3d5865510e8fb, type: 3}
 --- !u!1 &8468621965111044093
 GameObject:
   m_ObjectHideFlags: 0

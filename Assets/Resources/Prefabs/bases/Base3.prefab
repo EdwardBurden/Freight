@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   islandSize: {x: 50, y: 50}
-  islandPointRadius: 6
+  islandPointRadius: 5
   id: 0
 --- !u!4 &8786117743795054105 stripped
 Transform:
