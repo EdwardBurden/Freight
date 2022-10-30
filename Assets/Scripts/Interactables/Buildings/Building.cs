@@ -16,7 +16,26 @@ public abstract class Building : InteractableObject
 	public int buildCost = 100;//TODO temp
 
 	private bool isFreeToUse = true;
+	[HideInInspector]
 	public IslandBlock islandBlock; //TODO set in buildingcontroller
+
+	private void OnEnable()
+	{
+		SeasonsController.SeasonStartedEvent += OnSeasonStart;
+		SeasonsController.SeasonEndedEvent += OnSeasonEnd;
+	}
+
+	private void OnDisable()
+	{
+		SeasonsController.SeasonStartedEvent -= OnSeasonStart;
+		SeasonsController.SeasonEndedEvent -= OnSeasonEnd;
+	}
+
+	protected virtual void OnSeasonStart(SeasonType obj) { }
+
+
+	protected virtual void OnSeasonEnd(SeasonType obj) { }
+
 
 	public override string GetObjectName()
 	{

@@ -5,7 +5,7 @@ using TMPro;
 using UI;
 using UnityEngine;
 
-public class BuildingPanel : Panel
+public abstract class BuildingPanel : Panel
 {
 	[SerializeField]
 	private TMP_Text nameField;

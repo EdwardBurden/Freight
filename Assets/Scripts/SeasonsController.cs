@@ -29,7 +29,7 @@ public class SeasonsController : Singleton<SeasonsController>
 
 	[SerializeField] private int seasonTimeInSeconds = 5;
 
-	private SeasonType? season = null;
+	public SeasonType? season = null;
 
 	private void Awake()
 	{

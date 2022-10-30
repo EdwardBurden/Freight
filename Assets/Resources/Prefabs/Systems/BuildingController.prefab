@@ -44,3 +44,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a54201652095fc4fad0124359d4f4ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  builindSpawnInfos:
+  - building: {fileID: 7487590425637725449, guid: ffc66f6273cbbb944a96da03d85eb99e, type: 3}
+    spawnChance: 0.005
+    minSpawnAmount: 2
+    maxSpawnAmount: 5
+  - building: {fileID: 7487590425637725449, guid: 1111549d3307d584d8b3fa54462e1255, type: 3}
+    spawnChance: 0.005
+    minSpawnAmount: 1
+    maxSpawnAmount: 3
+  - building: {fileID: 7878513662307553155, guid: a95d7d6023b30d74792965ccd4f24fd1, type: 3}
+    spawnChance: 0.01
+    minSpawnAmount: 2
+    maxSpawnAmount: 5
+  - building: {fileID: 7878513662307553155, guid: af16c29e70aa6ba43925bb96764f4759, type: 3}
+    spawnChance: 0.05
+    minSpawnAmount: 1
+    maxSpawnAmount: 10
+  - building: {fileID: 1453830250109635109, guid: fcd5417531ef6fe45ae3d5865510e8fb, type: 3}
+    spawnChance: 0.001
+    minSpawnAmount: 0
+    maxSpawnAmount: 1
+  empty: {fileID: 8491707964226704914, guid: 595661d89ba8e6148a100ba1bafe2d08, type: 3}
