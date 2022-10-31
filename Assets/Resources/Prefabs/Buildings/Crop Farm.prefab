@@ -679,9 +679,13 @@ MonoBehaviour:
   buildingName: Crop Farm
   buildingColor: {r: 1, g: 0, b: 0, a: 1}
   buildingIcon: {fileID: 0}
+  buildCost: 100
+  islandBlock: {fileID: 0}
   platform: {fileID: 8524479539199280681}
-  produces:
-  - {fileID: 11400000, guid: cdae099e1fe6f6546b3adeb05bddd8af, type: 2}
+  produce: {fileID: 11400000, guid: cdae099e1fe6f6546b3adeb05bddd8af, type: 2}
+  amountProducedPerAutumn: 14
+  amountLostPerSeason: 2
+  cropStored: 0
 --- !u!65 &6012992894038844276
 BoxCollider:
   m_ObjectHideFlags: 0

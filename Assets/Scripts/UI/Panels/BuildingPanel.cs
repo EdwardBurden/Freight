@@ -37,7 +37,7 @@ public abstract class BuildingPanel : Panel
 
 	public override void Show()
 	{
-		nameField.text = building.GetObjectName();
+		nameField.text = building.GetType() + " - " + building.GetObjectName();
 		base.Show();
 	}
 }

@@ -863,9 +863,13 @@ MonoBehaviour:
   buildingName: Pig Farm
   buildingColor: {r: 0.2444452, g: 1, b: 0, a: 1}
   buildingIcon: {fileID: 0}
+  buildCost: 100
+  islandBlock: {fileID: 0}
   platform: {fileID: 8524479539199280681}
-  produces:
-  - {fileID: 11400000, guid: 910c24dfe37d85f4398a13580c5760e0, type: 2}
+  produce: {fileID: 11400000, guid: 910c24dfe37d85f4398a13580c5760e0, type: 2}
+  amountProducedPerAutumn: 10
+  amountLostPerSeason: 2
+  cropStored: 0
 --- !u!65 &6012992894038844276
 BoxCollider:
   m_ObjectHideFlags: 0

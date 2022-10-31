@@ -7,7 +7,15 @@ public class Farm : Building, IProducer
 	private LandingPlatform platform;
 
 	[SerializeField]
-	private ResourceDefintion[] produces;
+	private ResourceDefintion produce;
+
+	[SerializeField]
+	private int amountProducedPerAutumn;
+	[SerializeField]
+	private int amountLostPerSeason;
+
+	[HideInInspector]
+	public int cropStored; //temp
 
 	public LandingPlatform GetProducerLandingPlatform()
 	{
@@ -16,24 +24,42 @@ public class Farm : Building, IProducer
 
 	public ResourceDefintion[] GetProducedResources()
 	{
-		return produces;
+		return new ResourceDefintion[] { produce };
 	}
 
 	public bool CanProducesResource(ResourceDefintion resourceData)
 	{
-		for (int i = 0; i < produces.Length; i++)
+		if (produce == resourceData && cropStored > 0)
 		{
-			if (produces[i] == resourceData)
-			{
-				return true;
-			}
+			return true;
 		}
 		return false;
 	}
 
 	public void SellResourceToShip(ResourceDefintion resource, Ship ship)
 	{
+		cropStored--;
 		WalletController.instance.AddBuyTransaction(resource.buyPrice, this, ship, resource);
 		//TODO Update stockpile by remoing one of what is sold
+	}
+
+	protected override void OnSeasonEnd(SeasonType obj)
+	{
+		//TODO
+		//Roll dice to destroy crop yield
+		//if destoryed, tell player with notifiication
+		cropStored -= amountLostPerSeason;
+		if (cropStored < 0)
+		{
+			cropStored = 0;
+		}
+	}
+
+	protected override void OnSeasonStart(SeasonType obj)
+	{
+		if (obj == SeasonType.Autumn)
+		{
+			cropStored += amountProducedPerAutumn;
+		}
 	}
 }
