@@ -860,6 +860,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverUIPrefab: {fileID: 234753750589598935, guid: ae65448598d6f4743bd4d43b4a5b7178, type: 3}
   showHoverInfo: 1
+  inWorldHoverUI: {fileID: 8046175600071760264, guid: 5ec65ded33080444194b0859881f5acb, type: 3}
   buildingName: Pig Farm
   buildingColor: {r: 0.2444452, g: 1, b: 0, a: 1}
   buildingIcon: {fileID: 0}

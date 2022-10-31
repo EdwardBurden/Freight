@@ -1165,7 +1165,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7233640816073952309, guid: 86d6d2ea6d7984b4b8a4d8b29b283c27, type: 3}
       propertyPath: m_Value
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7289187747485040931, guid: 86d6d2ea6d7984b4b8a4d8b29b283c27, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1327,7 +1327,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7233640816073952309, guid: 003bb2435a08b2e449dc550b5963fefa, type: 3}
       propertyPath: m_Value
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8855700482073921669, guid: 003bb2435a08b2e449dc550b5963fefa, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1982,6 +1982,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4561771658114672605}
     m_Modifications:
+    - target: {fileID: 4849346125281486628, guid: b91b39ea8b94e804d9442ccfebaf782b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4849346125281486628, guid: b91b39ea8b94e804d9442ccfebaf782b, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4849346125281486628, guid: b91b39ea8b94e804d9442ccfebaf782b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4849346125281486628, guid: b91b39ea8b94e804d9442ccfebaf782b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4849346125281486628, guid: b91b39ea8b94e804d9442ccfebaf782b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4849346125281486628, guid: b91b39ea8b94e804d9442ccfebaf782b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4914143757049535587, guid: b91b39ea8b94e804d9442ccfebaf782b, type: 3}
       propertyPath: m_Name
       value: FarmPanel

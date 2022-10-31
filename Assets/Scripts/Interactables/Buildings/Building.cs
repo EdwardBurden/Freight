@@ -4,6 +4,8 @@ using UnityEngine;
 public abstract class Building : InteractableObject
 {
 	[SerializeField]
+	private GameObject inWorldHoverUI;
+	[SerializeField]
 	private string buildingName;
 
 	[SerializeField]
@@ -18,6 +20,11 @@ public abstract class Building : InteractableObject
 	private bool isFreeToUse = true;
 	[HideInInspector]
 	public IslandBlock islandBlock; //TODO set in buildingcontroller
+
+	private void Start()
+	{
+		Instantiate(inWorldHoverUI, this.transform);
+	}
 
 	private void OnEnable()
 	{

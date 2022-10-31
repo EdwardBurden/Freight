@@ -21,6 +21,12 @@ namespace UI
 		[SerializeField]
 		private Button button;
 
+		private void Awake()
+		{
+			//button.interactable = false;
+		}
+
+
 		public void ShowResource(ResourceDefintion resourceData, Action callback = null)
 		{
 			text.text = resourceData.resourceName;
