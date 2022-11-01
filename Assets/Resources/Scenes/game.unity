@@ -589,6 +589,10 @@ PrefabInstance:
       propertyPath: field of view
       value: 35
       objectReference: {fileID: 0}
+    - target: {fileID: 1548499555999603323, guid: 5c70eba063070254b9ae3ac66df23434, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 23
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c70eba063070254b9ae3ac66df23434, type: 3}
 --- !u!1001 &2418798738657936348

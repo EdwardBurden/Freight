@@ -7,7 +7,7 @@ public class WalletController : Singleton<WalletController>
 	public static event Action<WalletTransaction, int> TransactionAddedEvent;
 
 	[SerializeField]
-	public TransactionCompleteInScene transactionIndicatorPrefab;
+	public TransactionComplete_InCamera transactionIndicatorPrefab;
 	private Wallet wallet;
 
 	public void Awake()
@@ -47,8 +47,8 @@ public class WalletController : Singleton<WalletController>
 
 	private void CreateTransactionCompletePopup(WalletTransaction walletTransaction)
 	{
-		TransactionCompleteInScene transactionCompleteInScene = UIManager.instance.CreateInScene(transactionIndicatorPrefab, walletTransaction.GetTransactionLocation()) as TransactionCompleteInScene;
-		transactionCompleteInScene.SetText(walletTransaction);
+		TransactionComplete_InCamera transactionCompleteInScene = UIManager.instance.CreateInScene(transactionIndicatorPrefab, walletTransaction.GetTransactionLocation()) as TransactionComplete_InCamera;
+		transactionCompleteInScene.ShowTransactionText(walletTransaction);
 	}
 
 }

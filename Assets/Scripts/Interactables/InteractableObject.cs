@@ -5,9 +5,9 @@ using UnityEngine;
 public abstract class InteractableObject : MonoBehaviour
 {
 	[SerializeField]
-	private InScene hoverUIPrefab;
+	private InteractableHover_InCamera hoverUIPrefab;
 
-	private InteractableHoverInScene hoverUI;
+	private InteractableHover_InCamera hoverUI;
 
 	public abstract string GetObjectName();
 
@@ -23,8 +23,8 @@ public abstract class InteractableObject : MonoBehaviour
 	{
 		if (hoverUIPrefab != null)
 		{
-			hoverUI = UIManager.instance.CreateInScene(hoverUIPrefab, this.transform) as InteractableHoverInScene;
-			hoverUI.OnHover(this);
+			hoverUI = UIManager.instance.CreateInScene(hoverUIPrefab, this.transform) as InteractableHover_InCamera;
+			hoverUI.ShowName(this);
 		}
 	}
 }

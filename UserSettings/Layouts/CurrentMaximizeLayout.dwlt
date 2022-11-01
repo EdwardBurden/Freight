@@ -23,7 +23,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 11451
+  controlID: 6387
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 11452
+  controlID: 6388
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 11453
+  controlID: 6389
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -224,9 +224,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: d8faffff
-      m_LastClickedID: -1320
-      m_ExpandedIDs: b872fcff4e76fdff8276fdffca8ffdffd68ffdff0890fdff0accfdff10ccfdff9c45ffffc6a0ffffcca0ffffd2a0ffff98f7ffff9ef7ffffdcfaffffe0fafffff0faffff20fbffff22fbfffff4ffffff
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: 22fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -242,7 +242,7 @@ MonoBehaviour:
         m_IsRenaming: 0
         m_OriginalEventType: 11
         m_IsRenamingFilename: 0
-        m_ClientGUIView: {fileID: 5}
+        m_ClientGUIView: {fileID: 7}
       m_SearchString: 
     m_ExpandedScenes: []
     m_CurrenRootInstanceID: 0
@@ -2225,9 +2225,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0, y: 53, z: -60}
+    m_Target: {x: -41.224045, y: 103.23888, z: -59.14459}
     speed: 2
-    m_Value: {x: 0, y: 53, z: -60}
+    m_Value: {x: -41.224045, y: 103.23888, z: -59.14459}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -2274,13 +2274,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.46607167, y: 0.13774142, z: -0.073731, w: 0.8708697}
+    m_Target: {x: 0.29205757, y: 0.012309862, z: -0.0037644221, w: 0.95633847}
     speed: 2
-    m_Value: {x: 0.466061, y: 0.13773826, z: -0.073729314, w: 0.8708498}
+    m_Value: {x: 0.29205078, y: 0.012309576, z: -0.0037643346, w: 0.95631623}
   m_Size:
-    m_Target: 12.124354
+    m_Target: 0.47404504
     speed: 2
-    m_Value: 12.124354
+    m_Value: 0.47404504
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -2298,7 +2298,7 @@ MonoBehaviour:
     m_FarClip: 10000
     m_DynamicClip: 1
     m_OcclusionCulling: 0
-  m_LastSceneViewRotation: {x: -0.29320633, y: -0.1907695, z: 0.059814543, w: -0.93493086}
+  m_LastSceneViewRotation: {x: 0.29205757, y: 0.012309862, z: -0.0037644221, w: 0.95633847}
   m_LastSceneViewOrtho: 0
   m_ReplacementShader: {fileID: 0}
   m_ReplacementString: 
@@ -2441,22 +2441,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Resources/Prefabs/Ships
+    - Assets/Resources/UI/InCamera
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 69
   m_LastFolders:
-  - Assets/Resources/Prefabs/Ships
+  - Assets/Resources/UI/InCamera
   m_LastFoldersGridSize: 69
   m_LastProjectPath: C:\Users\edwar\Documents\Freight
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 95}
-    m_SelectedIDs: 347b0000
-    m_LastClickedID: 31540
-    m_ExpandedIDs: 000000001c7800001e780000207800001a7b0000247b00004c7b0000369b000000ca9a3b
+    scrollPos: {x: 0, y: 192}
+    m_SelectedIDs: 487b0000
+    m_LastClickedID: 31560
+    m_ExpandedIDs: 00000000f8770000fa770000fc770000fe7700000078000002780000fc7a000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2484,7 +2484,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000001c7800001e78000020780000247b00004c7b0000369b000000ca9a3b
+    m_ExpandedIDs: 00000000f8770000fa770000fc770000fe770000007800000278000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2509,9 +2509,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: d8faffff
-    m_LastClickedInstanceID: -1320
-    m_HadKeyboardFocusLastEvent: 0
+    m_SelectedInstanceIDs: 
+    m_LastClickedInstanceID: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000dc6a0000d66a0000d46a0000cc6b00004c6d000000000000ea6d0000549e00009a70000036910000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -2598,4 +2598,4 @@ MonoBehaviour:
     m_SaveData: []
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 39722
+  m_LastSelectedObjectID: -1320

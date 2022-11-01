@@ -96,7 +96,7 @@ MonoBehaviour:
   inWorldHoverUI: {fileID: 8046175600071760264, guid: 5ec65ded33080444194b0859881f5acb, type: 3}
   buildingName: Well
   buildingColor: {r: 0.10635125, g: 0.7169812, b: 0, a: 1}
-  buildingIcon: {fileID: 0}
+  buildingIcon: {fileID: 21300000, guid: ce057be3dc2912a41b84c66b3abb3d02, type: 3}
   worldUITransform: {fileID: 2258092509097727475}
   buildCost: 100
   islandBlock: {fileID: 0}

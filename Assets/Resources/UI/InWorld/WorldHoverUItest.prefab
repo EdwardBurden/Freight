@@ -399,6 +399,7 @@ GameObject:
   - component: {fileID: 319289774277979186}
   - component: {fileID: 7572781373343383063}
   - component: {fileID: 6488633730359859202}
+  - component: {fileID: 6087193551775937262}
   m_Layer: 5
   m_Name: WorldHoverUItest
   m_TagString: Untagged
@@ -500,6 +501,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68b70d8e169f6ba4589166e239b647f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6087193551775937262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8046175600071760264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfb53d9d55d01e04ca0cdb8b22704ffe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameText: {fileID: 4017095972579940768}
+  storageText: {fileID: 908315438118766463}
+  resourceIconButtonWidget: {fileID: 6268712949968179144}
 --- !u!1001 &7123667693885831562
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -601,6 +617,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4e37d3ce6cd9c14991a67063337ef64, type: 3}
+--- !u!114 &6268712949968179144 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3756753267502298690, guid: d4e37d3ce6cd9c14991a67063337ef64, type: 3}
+  m_PrefabInstance: {fileID: 7123667693885831562}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6973d2b6df44ada469501e7ae1162263, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8857124106324478097 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1744733040434262299, guid: d4e37d3ce6cd9c14991a67063337ef64, type: 3}

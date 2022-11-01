@@ -6,25 +6,21 @@ public abstract class Building : InteractableObject
 {
 	[SerializeField]
 	private GameObject inWorldHoverUI;
-
 	[SerializeField]
 	private string buildingName;
-
 	[SerializeField]
 	private Color buildingColor;
-
 	[SerializeField]
 	private Sprite buildingIcon;
-
 	[SerializeField]
 	private Transform worldUITransform;
-
 	[SerializeField]
 	public int buildCost = 100;//TODO temp
 
-	private bool isFreeToUse = true;
 	[HideInInspector]
 	public IslandBlock islandBlock; //TODO set in buildingcontroller
+	private bool isFreeToUse = true;
+	protected GameObject inWorldUI;
 
 	private void OnEnable()
 	{
@@ -42,7 +38,7 @@ public abstract class Building : InteractableObject
 	{
 		if (inWorldHoverUI != null && worldUITransform != null)
 		{
-			Instantiate(inWorldHoverUI, worldUITransform);
+			inWorldUI =Instantiate(inWorldHoverUI, worldUITransform);
 		}
 	}
 

@@ -62,9 +62,9 @@ public class UIManager : Singleton<UIManager>
 	}
 
 	//InScene
-	public InScene CreateInScene(InScene prefab, Transform transform)
+	public InCamera CreateInScene(InCamera prefab, Transform transform)
 	{
-		InScene inSceneUI = Instantiate(prefab, inScene.transform).GetComponent<InScene>();
+		InCamera inSceneUI = Instantiate(prefab, inScene.transform).GetComponent<InCamera>();
 		inSceneUI.SetFollow(transform);
 		return inSceneUI;
 	}
