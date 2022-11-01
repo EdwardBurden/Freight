@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8718711189957023920
 Transform:
@@ -107,6 +107,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Islandbase2 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ea003f7d8bd9b0e4999bae1e1fdc229b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea003f7d8bd9b0e4999bae1e1fdc229b, type: 3}
 --- !u!1 &3962391979951799542 stripped
@@ -141,7 +145,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverUIPrefab: {fileID: 0}
-  showHoverInfo: 0
 --- !u!114 &7212398360288544800
 MonoBehaviour:
   m_ObjectHideFlags: 0

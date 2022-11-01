@@ -15,9 +15,10 @@ public class Mine : Building, IProducer
 	[HideInInspector]
 	public int storedOre; //temp
 
-	private void Start()
+	public override void OnBuildingPlaced()
 	{
 		storedOre = amountProducedPerSeason;
+		base.OnBuildingPlaced();
 	}
 
 	public bool CanProducesResource(ResourceDefintion resourceData)

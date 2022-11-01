@@ -113,6 +113,7 @@ public class BuildingController : Singleton<BuildingController>
 		building.islandBlock = islandBlock;
 		building.transform.rotation = Quaternion.Euler(0, rotation, 0);
 		building.transform.localPosition = Vector3.zero;
+		building.OnBuildingPlaced();
 		buildings.Add(building);
 		return building;
 	}

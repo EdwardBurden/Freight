@@ -161,10 +161,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7405682092259653069, guid: 974dfdb4fa455214d94d7585e246d498, type: 3}
-      propertyPath: settings.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 4e1e067e45a68cc449147e9014d0b7d8, type: 2}
     - target: {fileID: 8483260845814136635, guid: 974dfdb4fa455214d94d7585e246d498, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -586,8 +582,12 @@ PrefabInstance:
       value: CameraRig
       objectReference: {fileID: 0}
     - target: {fileID: 1548499555999603323, guid: 5c70eba063070254b9ae3ac66df23434, type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 2147483647
+      propertyPath: orthographic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1548499555999603323, guid: 5c70eba063070254b9ae3ac66df23434, type: 3}
+      propertyPath: field of view
+      value: 35
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c70eba063070254b9ae3ac66df23434, type: 3}

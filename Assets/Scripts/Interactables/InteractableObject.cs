@@ -6,7 +6,6 @@ public abstract class InteractableObject : MonoBehaviour
 {
 	[SerializeField]
 	private InScene hoverUIPrefab;
-	public bool showHoverInfo;
 
 	private InteractableHoverInScene hoverUI;
 
@@ -22,7 +21,7 @@ public abstract class InteractableObject : MonoBehaviour
 
 	public virtual void OnHover()
 	{
-		if (showHoverInfo)
+		if (hoverUIPrefab != null)
 		{
 			hoverUI = UIManager.instance.CreateInScene(hoverUIPrefab, this.transform) as InteractableHoverInScene;
 			hoverUI.OnHover(this);

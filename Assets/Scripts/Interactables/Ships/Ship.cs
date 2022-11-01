@@ -8,6 +8,7 @@ public abstract class Ship : InteractableObject
 	public int turnSpeed;
 	public ShipActionDefintion[] shipActions;
 	public string shipName;
+	public Outline outline;
 
 	public override string GetObjectName()
 	{

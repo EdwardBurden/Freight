@@ -20,60 +20,69 @@ public class ShipHighlightController : Singleton<ShipHighlightController>
 
 	private void OnEnable()
 	{
-		MouseInput.mouseHoveredOnInteractable += MouseInput_mouseHoveredOnInteractable;
-		MouseInput.mouseHoveredOffInteractable += MouseInput_mouseHoveredOffInteractable;
+		MouseInput.mouseHoveredOnInteractable += OnMouseOver;
+		MouseInput.mouseHoveredOffInteractable += OnMouseOff;
 
 
-		ShipSelectionController.ShipSelectedEvent += ShipSelectionController_ShipSelectedEvent;
-		ShipSelectionController.ShipDeSelectedEvent += ShipSelectionController_ShipDeSelectedEvent;
+		ShipSelectionController.ShipSelectedEvent += ShipSelected;
+		ShipSelectionController.ShipDeSelectedEvent += ShipDeselected;
 	}
 
-	private void MouseInput_mouseHoveredOffInteractable(InteractableObject obj)
+	private void OnMouseOff(InteractableObject interactableObject)
 	{
 		if (hoverOutline == null)
 		{
 			return;
 		}
-		if (obj.GetComponentInChildren<Outline>() != selectOutline)
+		if (interactableObject is Ship ship && ship.outline != selectOutline)
 		{
 			hoverOutline.OutlineColor = defaultColour;
+			hoverOutline.enabled = false;
 			hoverOutline = null;
 		}
 	}
 
-	private void MouseInput_mouseHoveredOnInteractable(InteractableObject obj)
+	private void OnMouseOver(InteractableObject interactableObject)
 	{
-		if (obj is Ship && obj.GetComponentInChildren<Outline>() != selectOutline)
+		if (interactableObject is Ship ship && ship.outline != selectOutline)
 		{
-			hoverOutline = obj.gameObject.GetComponentInChildren<Outline>();
+			hoverOutline = ship.outline;
 			hoverOutline.OutlineColor = hoverColour;
+			hoverOutline.enabled = true;
 		}
 	}
 
 	private void OnDisable()
 	{
-		MouseInput.mouseHoveredOnInteractable -= MouseInput_mouseHoveredOnInteractable;
-		MouseInput.mouseHoveredOffInteractable -= MouseInput_mouseHoveredOffInteractable;
+		MouseInput.mouseHoveredOnInteractable -= OnMouseOver;
+		MouseInput.mouseHoveredOffInteractable -= OnMouseOff;
 
-		ShipSelectionController.ShipSelectedEvent -= ShipSelectionController_ShipSelectedEvent;
-		ShipSelectionController.ShipDeSelectedEvent -= ShipSelectionController_ShipDeSelectedEvent;
+		ShipSelectionController.ShipSelectedEvent -= ShipSelected;
+		ShipSelectionController.ShipDeSelectedEvent -= ShipDeselected;
 	}
 
-	private void ShipSelectionController_ShipDeSelectedEvent(Ship obj)
+	private void ShipDeselected(Ship ship)
 	{
 		if (selectOutline == null)
 		{
 			return;
 		}
 		selectOutline.OutlineColor = defaultColour;
+		selectOutline.enabled = false;
 		selectOutline = null;
 	}
 
-	private void ShipSelectionController_ShipSelectedEvent(Ship obj)
+	private void ShipSelected(Ship ship)
 	{
-		selectOutline = obj.gameObject.GetComponentInChildren<Outline>();
+		if (hoverOutline != null)
+		{
+			hoverOutline.enabled = false;
+			hoverOutline = null;
+		}
+
+		selectOutline = ship.outline;
 		selectOutline.OutlineColor = selctColour;
-		hoverOutline = null;
+		selectOutline.enabled = true;
 	}
 
 }

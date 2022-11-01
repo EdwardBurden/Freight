@@ -1,10 +1,12 @@
 using System;
+using UI;
 using UnityEngine;
 
 public abstract class Building : InteractableObject
 {
 	[SerializeField]
 	private GameObject inWorldHoverUI;
+
 	[SerializeField]
 	private string buildingName;
 
@@ -15,16 +17,14 @@ public abstract class Building : InteractableObject
 	private Sprite buildingIcon;
 
 	[SerializeField]
+	private Transform worldUITransform;
+
+	[SerializeField]
 	public int buildCost = 100;//TODO temp
 
 	private bool isFreeToUse = true;
 	[HideInInspector]
 	public IslandBlock islandBlock; //TODO set in buildingcontroller
-
-	private void Start()
-	{
-		Instantiate(inWorldHoverUI, this.transform);
-	}
 
 	private void OnEnable()
 	{
@@ -36,6 +36,14 @@ public abstract class Building : InteractableObject
 	{
 		SeasonsController.SeasonStartedEvent -= OnSeasonStart;
 		SeasonsController.SeasonEndedEvent -= OnSeasonEnd;
+	}
+
+	public virtual void OnBuildingPlaced()
+	{
+		if (inWorldHoverUI != null && worldUITransform != null)
+		{
+			Instantiate(inWorldHoverUI, worldUITransform);
+		}
 	}
 
 	protected virtual void OnSeasonStart(SeasonType obj) { }

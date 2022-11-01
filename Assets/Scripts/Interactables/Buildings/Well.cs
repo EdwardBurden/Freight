@@ -15,9 +15,10 @@ public class Well : Building, IProducer
 	[HideInInspector]
 	public int waterStored; //temp
 
-	private void Start()
+	public override void OnBuildingPlaced()
 	{
 		waterStored = amountProducedPerSeason[(int)SeasonsController.instance.season];
+		base.OnBuildingPlaced();
 	}
 
 	public bool CanProducesResource(ResourceDefintion resourceData)
