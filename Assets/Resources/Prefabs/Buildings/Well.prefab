@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverUIPrefab: {fileID: 234753750589598935, guid: ae65448598d6f4743bd4d43b4a5b7178, type: 3}
-  inWorldHoverUI: {fileID: 8046175600071760264, guid: 5ec65ded33080444194b0859881f5acb, type: 3}
+  inWorldHoverUI: {fileID: 6087193551775937262, guid: 5ec65ded33080444194b0859881f5acb, type: 3}
   buildingName: Well
   buildingColor: {r: 0.10635125, g: 0.7169812, b: 0, a: 1}
   buildingIcon: {fileID: 21300000, guid: ce057be3dc2912a41b84c66b3abb3d02, type: 3}

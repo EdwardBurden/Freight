@@ -173,7 +173,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 120}
+  m_SizeDelta: {x: 200, y: 150}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &2863039470342506161
 CanvasRenderer:
@@ -553,7 +553,7 @@ MonoBehaviour:
   nameField: {fileID: 90467370141113863}
   waterStored: {fileID: 4027550454894474544}
   producesTransform: {fileID: 7905944215233015431}
-  resourceIconButtonWidget: {fileID: 3756753267502298690, guid: d4e37d3ce6cd9c14991a67063337ef64, type: 3}
+  expandedResourceWidget: {fileID: 7028016922876885464, guid: 8b9edc961a5b5fc439351e81b180f6d7, type: 3}
 --- !u!1 &5640639988804972882
 GameObject:
   m_ObjectHideFlags: 0

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45080435, g: 0.49899727, b: 0.56543386, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465807, g: 0.49641347, b: 0.5748175, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -309,14 +309,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 748354957}
-  m_LocalRotation: {x: 0.14324723, y: 0.69244516, z: -0.14324723, w: 0.69244516}
+  m_LocalRotation: {x: -0.39212057, y: 0.33804142, z: -0.1576313, w: -0.8409053}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 23.376, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 50, y: -403.8, z: 0}
 --- !u!114 &748354960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -591,7 +591,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1548499555999603323, guid: 5c70eba063070254b9ae3ac66df23434, type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 23
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c70eba063070254b9ae3ac66df23434, type: 3}
@@ -781,7 +781,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1643812287998670223, guid: 2090581acf3bce0408e60c7cda2ea64a, type: 3}
       propertyPath: seasonTimeInSeconds
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7110322293629645533, guid: 2090581acf3bce0408e60c7cda2ea64a, type: 3}
       propertyPath: m_Name

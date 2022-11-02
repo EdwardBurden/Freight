@@ -13,7 +13,7 @@ public class WellPanel : BuildingPanel
 	private Transform producesTransform;
 
 	[SerializeField]
-	private ResourceIconButtonWidget resourceIconButtonWidget;
+	private ExpandedResourceWidget expandedResourceWidget;
 
 	protected override void OnBuildingSelected(Building building)
 	{
@@ -28,8 +28,8 @@ public class WellPanel : BuildingPanel
 	{
 		GameObjectUtils.Clear(producesTransform);
 		ResourceDefintion resourceDefintion = well.GetProducedResources()[0];
-		ResourceIconButtonWidget widget = Instantiate(resourceIconButtonWidget, producesTransform);
-		widget.ShowResource(resourceDefintion, () => ShowResoucreDetail(resourceDefintion));
+		ExpandedResourceWidget widget = Instantiate(expandedResourceWidget, producesTransform);
+		widget.ShowResource(resourceDefintion, well.waterStored);
 
 		waterStored.text = well.waterStored.ToString();
 	}

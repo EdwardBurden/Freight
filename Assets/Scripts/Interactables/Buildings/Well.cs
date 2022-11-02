@@ -20,7 +20,6 @@ public class Well : Building, IProducer
 	{
 		waterStored = amountProducedPerSeason[(int)SeasonsController.instance.season];
 		base.OnBuildingPlaced();
-		UpdateUI();
 	}
 
 	public bool CanProducesResource(ResourceDefintion resourceData)
@@ -53,10 +52,10 @@ public class Well : Building, IProducer
 	protected override void OnSeasonStart(SeasonType obj)
 	{
 		waterStored += amountProducedPerSeason[(int)obj];
-		UpdateUI();
+		base.OnSeasonStart(obj);
 	}
 
-	private void UpdateUI()
+	protected override void UpdateUI()
 	{
 		WellBuildingDisplay_InWorld wellInWorldUI = inWorldUI.GetComponent<WellBuildingDisplay_InWorld>();
 		wellInWorldUI.UpdateUI(GetObjectName(), produce, waterStored);

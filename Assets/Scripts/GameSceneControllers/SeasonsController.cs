@@ -94,7 +94,7 @@ public class SeasonsController : Singleton<SeasonsController>
 		float rotation = ((float)season + 1) / (float)seasons.Length;
 
 		lightStartIntensity = light.intensity;
-		lightTargetIntensity = (1 - round) + 0.5f;
+		lightTargetIntensity = (1f - (round * 0.5f)) + 0.25f;
 
 		eulerstart = light.transform.localEulerAngles;
 		eulerTarget = (new Vector3(light.transform.localEulerAngles.x, rotation * 360, 0));
@@ -104,7 +104,7 @@ public class SeasonsController : Singleton<SeasonsController>
 
 	private void Update()
 	{
-		lightUpdate += Time.deltaTime / (seasonTimeInSeconds / 4.0f);
+		lightUpdate += Time.deltaTime / (seasonTimeInSeconds / 10.0f);
 		lightUpdate = Mathf.Min(1, lightUpdate);
 		light.transform.localEulerAngles = Vector3.Lerp(eulerstart, eulerTarget, lightUpdate);
 		light.intensity = Mathf.Lerp(lightStartIntensity, lightTargetIntensity, lightUpdate);

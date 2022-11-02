@@ -21,8 +21,8 @@ namespace UI
 		protected override void Follow()
 		{
 			Vector3 world = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-			Debug.Log(world);
-			Debug.Log(UIManager.instance.GetInScenePosition(world));
+			//Debug.Log(world);
+		//	Debug.Log(UIManager.instance.GetInScenePosition(world));
 
 			Vector2 movePos;
 			Canvas canvas = this.transform.parent.GetComponent<Canvas>();

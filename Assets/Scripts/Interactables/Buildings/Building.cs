@@ -1,11 +1,12 @@
 using System;
 using UI;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class Building : InteractableObject
 {
 	[SerializeField]
-	private GameObject inWorldHoverUI;
+	private InWorld inWorldHoverUI;
 	[SerializeField]
 	private string buildingName;
 	[SerializeField]
@@ -20,7 +21,7 @@ public abstract class Building : InteractableObject
 	[HideInInspector]
 	public IslandBlock islandBlock; //TODO set in buildingcontroller
 	private bool isFreeToUse = true;
-	protected GameObject inWorldUI;
+	protected InWorld inWorldUI;
 
 	private void OnEnable()
 	{
@@ -38,14 +39,15 @@ public abstract class Building : InteractableObject
 	{
 		if (inWorldHoverUI != null && worldUITransform != null)
 		{
-			inWorldUI =Instantiate(inWorldHoverUI, worldUITransform);
+			inWorldUI = Instantiate(inWorldHoverUI, worldUITransform);
 		}
+		UpdateUI();
 	}
 
-	protected virtual void OnSeasonStart(SeasonType obj) { }
+	protected virtual void OnSeasonStart(SeasonType obj) { UpdateUI(); }
 
 
-	protected virtual void OnSeasonEnd(SeasonType obj) { }
+	protected virtual void OnSeasonEnd(SeasonType obj) { UpdateUI(); }
 
 
 	public override string GetObjectName()
@@ -71,5 +73,27 @@ public abstract class Building : InteractableObject
 	public Sprite GetBuildingIcon()
 	{
 		return buildingIcon;
+	}
+
+	protected virtual void UpdateUI() { }
+
+	public override void OnHover()
+	{
+		base.OnHover();
+		if (inWorldUI != null)
+		{
+			WellBuildingDisplay_InWorld wellInWorldUI = inWorldUI.GetComponent<WellBuildingDisplay_InWorld>();
+			wellInWorldUI.OnBuildingHover();
+		}
+	}
+
+	public override void OffHover()
+	{
+		base.OffHover();
+		if (inWorldUI != null)
+		{
+			WellBuildingDisplay_InWorld wellInWorldUI = inWorldUI.GetComponent<WellBuildingDisplay_InWorld>();
+			wellInWorldUI.OffBuildingHover();
+		}
 	}
 }
