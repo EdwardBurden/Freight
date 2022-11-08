@@ -46,11 +46,11 @@ public class GameSceneController : Singleton<GameSceneController> //but must b d
 
 	public void StartNewGame()
 	{
+		seasonsController.StartNextSeason();
 		//Setup Game world
 		gameGenerationData = mapGenerator.Generate();
 		buildingController.DistributeBuildings(gameGenerationData);
 		testships();
-		seasonsController.StartNextSeason();
 		//Place resources of map
 		//Place buildings on map
 		//initialse any systmes that need map info
