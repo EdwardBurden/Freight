@@ -1,4 +1,5 @@
 using System;
+using UI;
 using UnityEngine;
 
 public class ActionPreviewController : Singleton<ActionPreviewController>
@@ -48,16 +49,16 @@ public class ActionPreviewController : Singleton<ActionPreviewController>
 		currentPreview = Instantiate(actionPreviewPrefab, this.transform);
 		currentPreview.Init(ship);
 		currentPreview.FinishedPreviewEvent += FinishActionPreview;
-		GameSceneController.instance.SetInputToPreviewMode();
-		//UIManager.instance.CloseAllScreens();
+		GameManager.instance.SetInputToPreviewMode();
+		GameUIController.instance.CloseAllScreens();
 		return currentPreview;
 	}
 
 	public void FinishActionPreview()
 	{
 		currentPreview.FinishedPreviewEvent -= FinishActionPreview;
-		GameSceneController.instance.SetInputToSelectionMode();
-		//UIManager.instance.CloseAllScreens();
+		GameManager.instance.SetInputToSelectionMode();
+		GameUIController.instance.CloseAllScreens();
 		DestroyCurrentPreview();
 	}
 

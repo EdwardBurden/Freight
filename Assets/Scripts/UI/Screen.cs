@@ -16,12 +16,12 @@ namespace UI
 		private void Start()
 		{
 			backbutton?.onClick.RemoveAllListeners();
-			//backbutton?.onClick.AddListener(() => UIManager.instance.BackOneScreen());
+			backbutton?.onClick.AddListener(() => GameUIController.instance.BackOneScreen());
 		}
 
 		protected void SetRootPostion(Vector3 positionInWorld)
 		{
-			//root.transform.GetComponent<RectTransform>().anchoredPosition = UIManager.instance.GetScreenPosition(positionInWorld);
+			root.transform.GetComponent<RectTransform>().anchoredPosition = GameUIController.instance.GetScreenPosition(positionInWorld);
 		}
 	}
 }

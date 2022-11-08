@@ -23,8 +23,8 @@ public abstract class InteractableObject : MonoBehaviour
 	{
 		if (hoverUIPrefab != null)
 		{
-			//hoverUI = UIManager.instance.CreateInScene(hoverUIPrefab, this.transform) as InteractableHover_InCamera;
-			//hoverUI.ShowName(this);
+			hoverUI = GameUIController.instance.CreateInScene(hoverUIPrefab, this.transform) as InteractableHover_InCamera;
+			hoverUI.ShowName(this);
 		}
 	}
 }

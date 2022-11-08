@@ -30,7 +30,7 @@ namespace UI
 
 		protected virtual void Follow()
 		{
-			//rectTransform.anchoredPosition = UIManager.instance.GetInScenePosition(follow.position);
+			rectTransform.anchoredPosition = GameUIController.instance.GetInScenePosition(follow.position);
 		}
 	}
 }

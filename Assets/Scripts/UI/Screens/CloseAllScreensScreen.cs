@@ -12,7 +12,7 @@ namespace UI
 		{
 			if (pointerEventData.button == PointerEventData.InputButton.Left)
 			{
-				//UIManager.instance.CloseAllScreens();
+				GameUIController.instance.CloseAllScreens();
 				Debug.Log(name + " BackgroundClickCatcher Clicked!");
 			}
 			//Output to console the clicked GameObject's name and the following message. You can replace this with your own actions for when clicking the GameObject.
@@ -20,7 +20,7 @@ namespace UI
 		}
 		private void OnMouseDown()
 		{
-			//UIManager.instance.CloseAllScreens();
+			GameUIController.instance.CloseAllScreens();
 		}
 	}
 }

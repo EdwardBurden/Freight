@@ -8,6 +8,35 @@ using UnityEngine.Rendering.Universal;
 
 public class UIManager : Singleton<UIManager>
 {
+	public Canvas loading;
 
-//swap out active scen ui controller, show loading screens while switching scenes/controllers
+	public IUIController activeController;
+
+	private void Awake()
+	{
+		_instance = this;
+		HideLoading();
+	}
+
+	public void SetController(IUIController uIController)
+	{
+		activeController?.Close();
+		activeController = uIController;
+		activeController.Open();
+	}
+
+	public void ShowLoading()
+	{
+
+		loading.enabled = true;
+	}
+
+	public void HideLoading()
+	{
+
+		loading.enabled = false;
+	}
+
+
+	//swap out active scen ui controller, show loading screens while switching scenes/controllers
 }

@@ -47,8 +47,8 @@ public class WalletController : Singleton<WalletController>
 
 	private void CreateTransactionCompletePopup(WalletTransaction walletTransaction)
 	{
-		//TransactionComplete_InCamera transactionCompleteInScene = UIManager.instance.CreateInScene(transactionIndicatorPrefab, walletTransaction.GetTransactionLocation()) as TransactionComplete_InCamera;
-		//transactionCompleteInScene.ShowTransactionText(walletTransaction);
+		TransactionComplete_InCamera transactionCompleteInScene = GameUIController.instance.CreateInScene(transactionIndicatorPrefab, walletTransaction.GetTransactionLocation()) as TransactionComplete_InCamera;
+		transactionCompleteInScene.ShowTransactionText(walletTransaction);
 	}
 
 }

@@ -45,6 +45,7 @@ public class MapGenerator : MonoBehaviour
 
 	public MapGenerationData Generate() //temp
 	{
+		//TODO make a courintiue with aniamting mesh movements when made for cool main menu effect
 		return Generate(settings[0]);
 	}
 

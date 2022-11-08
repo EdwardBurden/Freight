@@ -515,7 +515,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3066412250267210424}
   m_HandleRect: {fileID: 5078927669195849998}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2646,7 +2646,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3737735964129204138}
   m_HandleRect: {fileID: 6857565451293590556}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -4888,9 +4888,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4153495499879570372}
-  - component: {fileID: 4153495499879570379}
+  - component: {fileID: 7237833660995769088}
   m_Layer: 0
-  m_Name: GameSceneUIController
+  m_Name: GameUIController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4916,7 +4916,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4153495499879570379
+--- !u!114 &7237833660995769088
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

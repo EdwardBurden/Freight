@@ -1,10 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Terrain;
 using UI;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class GameSceneController : Singleton<GameSceneController> //but must b destoryed when leavign game scene
+public class GameManager : Singleton<GameManager> //but must b destoryed when leavign game scene
 {
 	[SerializeField]
 	private CameraController  cameraController;
@@ -27,8 +29,13 @@ public class GameSceneController : Singleton<GameSceneController> //but must b d
 	[SerializeField]
 	private SeasonsController seasonsController;
 
+	[SerializeField]
+	private GameUIController gameUIController;
 
-	public bool startlocal = false;
+	[SerializeField]
+	private MainMenuUIController mainMenuUIController;
+
+
 
 	private MapGenerationData gameGenerationData;
 
@@ -40,25 +47,30 @@ public class GameSceneController : Singleton<GameSceneController> //but must b d
 
 	private void Start()
 	{
-		if (startlocal)
-			StartNewGame();
+		GoToMainMenu();
+	}
+
+	public void GoToMainMenu()
+	{
+		cameraController.enabled = false;
+		UIManager.instance.SetController(mainMenuUIController);
+	}
+
+	public void EndGame() {
+		//seasonsController rest
+		//buildingController reset
+		//SetInputToSelectionMode();
 	}
 
 	public void StartNewGame()
 	{
 		seasonsController.StartNextSeason();
-		//Setup Game world
 		gameGenerationData = mapGenerator.Generate();
 		buildingController.DistributeBuildings(gameGenerationData);
 		testships();
-		//Place resources of map
-		//Place buildings on map
-		//initialse any systmes that need map info
-		//place player ship 
-		//UIManager.instance.SetCamera(cameraController.GetCamera());
-		//UIManager.instance.ToggleHUD(true);
-		//SetUpInput
 		SetInputToSelectionMode();
+		cameraController.enabled = true;
+		UIManager.instance.SetController(gameUIController);
 	}
 
 	private void testships()
@@ -91,5 +103,15 @@ public class GameSceneController : Singleton<GameSceneController> //but must b d
 		shipSelector.enabled = true;
 		buildingController.enabled = true;
 
+	}
+
+	internal void OnExitGameSelected()
+	{
+		AppManager.instance.CloseApplication();
+	}
+
+	internal void OnNewGameSelected()
+	{
+		StartNewGame();
 	}
 }

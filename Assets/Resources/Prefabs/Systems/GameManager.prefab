@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 5203445972811590723}
   - component: {fileID: 5245240370647675459}
   m_Layer: 0
-  m_Name: GameSceneController
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,12 +54,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraController: {fileID: 0}
-  actionPreviewController: {fileID: 0}
-  shipSelector: {fileID: 0}
+  actionPreviewController: {fileID: 4299895375243846661}
+  shipSelector: {fileID: 1565390425585161271}
   startShipPrefab: {fileID: 3270510250017182720, guid: 7bbc8dade33ee3b43b6c086abcdddef2, type: 3}
   mapGenerator: {fileID: 0}
-  buildingController: {fileID: 0}
-  seasonsController: {fileID: 0}
+  buildingController: {fileID: 599970579638667137}
+  seasonsController: {fileID: 5203445972811590723}
   startlocal: 1
 --- !u!114 &5176535221266868697
 MonoBehaviour:

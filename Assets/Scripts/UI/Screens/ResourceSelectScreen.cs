@@ -18,8 +18,8 @@ namespace UI
 
 		public static void Create(ResourceDefintion[] resources, Vector3 clickPosition, Action<ResourceDefintion> callBack, bool closeOtherMenus)
 		{
-			//ResourceSelectScreen screen = UIManager.instance.OpenScreen(PATH, closeOtherMenus) as ResourceSelectScreen;
-			//screen.Init(resources, clickPosition, callBack);
+			ResourceSelectScreen screen = GameUIController.instance.OpenScreen(PATH, closeOtherMenus) as ResourceSelectScreen;
+			screen.Init(resources, clickPosition, callBack);
 		}
 
 		public void Init(ResourceDefintion[] resources, Vector3 clickPosition, Action<ResourceDefintion> callBack)

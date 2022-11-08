@@ -7,7 +7,7 @@ namespace UI
 	{
 		private void Start()
 		{
-			//this.GetComponent<Canvas>().worldCamera = UIManager.instance.uiCamera;
+			this.GetComponent<Canvas>().worldCamera = GameUIController.instance.uiCamera;
 		}
 	}
 }

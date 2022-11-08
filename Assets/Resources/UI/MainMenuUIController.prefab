@@ -256,6 +256,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f844069f6e8f38346b532f684cd19cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiCamera: {fileID: 8495199610193686425}
+  menus: {fileID: 706415682649164977}
 --- !u!1001 &6564803383170213923
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -264,7 +266,7 @@ PrefabInstance:
     m_TransformParent: {fileID: 2076051121946015069}
     m_Modifications:
     - target: {fileID: 1209107468837459152, guid: 5b56b29df24100549be58152937a2255, type: 3}
-      propertyPath: m_SizeDelta.x
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2433998440630959344, guid: 5b56b29df24100549be58152937a2255, type: 3}
@@ -273,6 +275,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2433998440630959344, guid: 5b56b29df24100549be58152937a2255, type: 3}
       propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2433998440630959344, guid: 5b56b29df24100549be58152937a2255, type: 3}
+      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2433998440630959344, guid: 5b56b29df24100549be58152937a2255, type: 3}
@@ -285,7 +291,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4914143757049535587, guid: 5b56b29df24100549be58152937a2255, type: 3}
       propertyPath: m_Name
-      value: MainMenuScreen
+      value: MainMenu_Menu
       objectReference: {fileID: 0}
     - target: {fileID: 4914143757049535612, guid: 5b56b29df24100549be58152937a2255, type: 3}
       propertyPath: m_Pivot.x
@@ -377,6 +383,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7461682286128781724, guid: 5b56b29df24100549be58152937a2255, type: 3}
       propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7461682286128781724, guid: 5b56b29df24100549be58152937a2255, type: 3}
+      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7461682286128781724, guid: 5b56b29df24100549be58152937a2255, type: 3}

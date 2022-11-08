@@ -26,8 +26,8 @@ namespace UI
 
 		public static void Create(Vector3 position, ShipActionDefintion[] interactionActions, Action<ShipActionDefintion> callBack, bool inScreenSpace = false)
 		{
-			//ShipActionSelectScreen screen = UIManager.instance.OpenScreen(PATH) as ShipActionSelectScreen;
-			//screen.Init(position, inScreenSpace, interactionActions, callBack);
+			ShipActionSelectScreen screen = GameUIController.instance.OpenScreen(PATH) as ShipActionSelectScreen;
+			screen.Init(position, inScreenSpace, interactionActions, callBack);
 		}
 
 		public void Init(Vector3 position, bool inScreenSpace, ShipActionDefintion[] interactionActions, Action<ShipActionDefintion> callBack)

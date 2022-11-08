@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UI;
@@ -6,7 +7,7 @@ using UnityEngine.Rendering.Universal;
 namespace UI
 {
 
-	public class GameSceneUIController: MonoBehaviour
+	public class GameUIController : Singleton<GameUIController>, IUIController
 	{
 		[SerializeReference]
 		public Camera uiCamera;
@@ -37,27 +38,15 @@ namespace UI
 
 		private void Awake()
 		{
-			ToggleHUD(false);
-		}
-
-		public void SetCamera(Camera camera)
-		{
-			var cameraData = camera.GetUniversalAdditionalCameraData();
-			cameraData.cameraStack.Add(uiCamera);
-		}
-
-		public void ClearAllUI()
-		{
-			GameObjectUtils.Clear(panels.transform);
-			CloseAllScreens();
-			ToggleHUD(false);
+			_instance = this;
+			Close();
 		}
 
 
 		//Hud
 		public void ToggleHUD(bool active)
 		{
-			HUD.gameObject.SetActive(active);
+			HUD.enabled = active;
 		}
 
 		//InScene
@@ -94,6 +83,7 @@ namespace UI
 
 		public void CloseAllScreens()
 		{
+			//TODO check if this should be just close one instead
 			for (int i = screenHistory.Count - 1; i >= 0; i--)
 			{
 				CloseScreen(screenHistory[i]);
@@ -119,6 +109,20 @@ namespace UI
 			{
 				backgroundClickCatcher.SetActive(false);
 			}
+		}
+
+		public  void Open()
+		{
+			uiCamera.enabled = true;
+			ToggleHUD(true);
+		}
+
+		public  void Close()
+		{
+			CloseAllScreens();
+			ToggleHUD(false);
+			uiCamera.enabled = false;
+			//close all open panels nad menus
 		}
 	}
 }

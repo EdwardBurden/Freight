@@ -34,6 +34,10 @@ public class SeasonsController : Singleton<SeasonsController>
 	private void Awake()
 	{
 		_instance = this;
+		eulerstart = light.transform.localEulerAngles;
+		eulerTarget = eulerstart;
+		lightStartIntensity = light.intensity;
+		lightTargetIntensity = lightStartIntensity;
 	}
 
 	private void OnEnable()
@@ -97,7 +101,7 @@ public class SeasonsController : Singleton<SeasonsController>
 		lightTargetIntensity = (1f - (round * 0.5f)) + 0.25f;
 
 		eulerstart = light.transform.localEulerAngles;
-		eulerTarget = (new Vector3(light.transform.localEulerAngles.x, rotation * 360, 0));
+		eulerTarget = (new Vector3(eulerstart.x, rotation * 360, 0));
 
 		lightUpdate = 0;
 	}

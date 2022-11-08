@@ -7,16 +7,27 @@ using UnityEngine.Rendering.Universal;
 namespace UI
 {
 
-	public class MainMenuUIController : MonoBehaviour , IUIController
+	public class MainMenuUIController : MonoBehaviour, IUIController
 	{
-		internal void CloseMenus()
+		[SerializeReference]
+		public Camera uiCamera;
+		public Canvas menus;
+
+		private void Awake()
 		{
-			throw new NotImplementedException();
+			Close();
 		}
 
-		internal void SetCamera(Camera main) //move into seperate component
+		public void Close()
 		{
-			throw new NotImplementedException();
+			uiCamera.enabled = false;
+			menus.enabled = false;
+		}
+
+		public void Open()
+		{
+			uiCamera.enabled = true;
+			menus.enabled = true;
 		}
 	}
 }
