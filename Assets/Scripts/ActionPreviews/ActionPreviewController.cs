@@ -49,7 +49,7 @@ public class ActionPreviewController : Singleton<ActionPreviewController>
 		currentPreview.Init(ship);
 		currentPreview.FinishedPreviewEvent += FinishActionPreview;
 		GameSceneController.instance.SetInputToPreviewMode();
-		UIManager.instance.CloseAllScreens();
+		//UIManager.instance.CloseAllScreens();
 		return currentPreview;
 	}
 
@@ -57,7 +57,7 @@ public class ActionPreviewController : Singleton<ActionPreviewController>
 	{
 		currentPreview.FinishedPreviewEvent -= FinishActionPreview;
 		GameSceneController.instance.SetInputToSelectionMode();
-		UIManager.instance.CloseAllScreens();
+		//UIManager.instance.CloseAllScreens();
 		DestroyCurrentPreview();
 	}
 

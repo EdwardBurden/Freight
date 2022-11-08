@@ -4,8 +4,9 @@ using UI;
 using UnityEngine;
 
 //controls the main menu scene, opens main menu ui and controls flow
-public class MainMenuManager : Singleton<MainMenuManager>
+public class MainMenuSceneController : Singleton<MainMenuSceneController>
 {
+	[SerializeField] public MainMenuUIController mainMenuUIController;
 
 	private void Awake()
 	{
@@ -19,13 +20,11 @@ public class MainMenuManager : Singleton<MainMenuManager>
 
 	public void OnSceneOpen()
 	{
-		UIManager.instance.SetCamera(Camera.main);
-		MainMenuScreen.Create();// ie UIManager.instance.OpenScreen(mainmenu)
+		//set up background?
 	}
 
 	public void OnNewGameSelected()
 	{
-		UIManager.instance.CloseAllScreens();
 		AppManager.instance.OpenGameScene();
 	}
 

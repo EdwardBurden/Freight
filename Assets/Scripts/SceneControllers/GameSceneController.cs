@@ -55,8 +55,8 @@ public class GameSceneController : Singleton<GameSceneController> //but must b d
 		//Place buildings on map
 		//initialse any systmes that need map info
 		//place player ship 
-		UIManager.instance.SetCamera(cameraController.GetCamera());
-		UIManager.instance.ToggleHUD(true);
+		//UIManager.instance.SetCamera(cameraController.GetCamera());
+		//UIManager.instance.ToggleHUD(true);
 		//SetUpInput
 		SetInputToSelectionMode();
 	}
@@ -74,7 +74,7 @@ public class GameSceneController : Singleton<GameSceneController> //but must b d
 	{
 		//do this , do that
 		//etc
-		UIManager.instance.ClearAllUI();
+		//UIManager.instance.ClearAllUI();
 	}
 
 	public void SetInputToPreviewMode()

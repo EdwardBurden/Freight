@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI
-{
+{ //TODO , remove this class, move clickback function into seperate component
 	public abstract class Screen : MonoBehaviour
 	{
 		[SerializeField]
@@ -16,12 +16,12 @@ namespace UI
 		private void Start()
 		{
 			backbutton?.onClick.RemoveAllListeners();
-			backbutton?.onClick.AddListener(() => UIManager.instance.BackOneScreen());
+			//backbutton?.onClick.AddListener(() => UIManager.instance.BackOneScreen());
 		}
 
 		protected void SetRootPostion(Vector3 positionInWorld)
 		{
-			root.transform.GetComponent<RectTransform>().anchoredPosition = UIManager.instance.GetScreenPosition(positionInWorld);
+			//root.transform.GetComponent<RectTransform>().anchoredPosition = UIManager.instance.GetScreenPosition(positionInWorld);
 		}
 	}
 }

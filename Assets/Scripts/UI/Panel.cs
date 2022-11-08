@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace UI
 {
+	//TODO , remove this class
 	public class Panel : MonoBehaviour
 	{
 		[SerializeField]

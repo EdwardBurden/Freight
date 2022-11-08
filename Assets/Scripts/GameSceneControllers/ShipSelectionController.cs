@@ -58,7 +58,7 @@ public class ShipSelectionController : Singleton<ShipSelectionController>
 	{
 		Ship shipObject = shipAction.shipObject;
 		shipObject.SetAction(shipAction);
-		UIManager.instance.CloseAllScreens();
+	//	UIManager.instance.CloseAllScreens();
 		//Fire eVENT
 	}
 
@@ -66,7 +66,7 @@ public class ShipSelectionController : Singleton<ShipSelectionController>
 	{
 		Ship shipObject = shipAction.shipObject;
 		shipObject.PushAction(shipAction);
-		UIManager.instance.CloseAllScreens();
+		//UIManager.instance.CloseAllScreens();
 		//Fire eVENT
 	}
 

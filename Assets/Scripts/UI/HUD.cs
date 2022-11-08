@@ -5,5 +5,6 @@ namespace UI
 {
     public class HUD : MonoBehaviour
     {
-    }
+		//TODO , remove this class, move clickback function into seperate component
+	}
 }

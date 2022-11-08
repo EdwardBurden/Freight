@@ -5,6 +5,7 @@ namespace UI
 {
 	public class InCamera : MonoBehaviour
 	{
+		//TODO , remove this class, move follow function into seperate component
 		protected Transform follow;
 		protected RectTransform rectTransform;
 
@@ -29,7 +30,7 @@ namespace UI
 
 		protected virtual void Follow()
 		{
-			rectTransform.anchoredPosition = UIManager.instance.GetInScenePosition(follow.position);
+			//rectTransform.anchoredPosition = UIManager.instance.GetInScenePosition(follow.position);
 		}
 	}
 }
