@@ -10,24 +10,34 @@ namespace UI
 	{
 		[SerializeField] private TMP_Text secondsText;
 		[SerializeField] private TMP_Text minutesText;
-		[SerializeField] private Button toggleTimeButton;
+		[SerializeField] private Button playTimeButton;
+		[SerializeField] private Button pauseTimeButton;
 
 		private void OnEnable()
 		{
 			TimeController.SecondsChangeEvent += OnSecondChange;
 			TimeController.MinutesChangeEvent += OnMinuteChange;
+
+			GameManager.GameStartEvent += OnGameStart;
+
+			playTimeButton.onClick.AddListener(ToggleTime);
+			pauseTimeButton.onClick.AddListener(ToggleTime);
 		}
 
 		private void OnDisable()
 		{
 			TimeController.SecondsChangeEvent -= OnSecondChange;
 			TimeController.MinutesChangeEvent -= OnMinuteChange;
+
+			GameManager.GameStartEvent -= OnGameStart;
+
+			playTimeButton.onClick.RemoveAllListeners();
+			pauseTimeButton.onClick.RemoveAllListeners();
 		}
 
-		private void Start()
+		private void OnGameStart()
 		{
-			toggleTimeButton.onClick.RemoveAllListeners();
-			toggleTimeButton.onClick.AddListener(ToggleTime);
+			ToggleButtons();
 		}
 
 		private void ToggleTime()
@@ -40,7 +50,7 @@ namespace UI
 			{
 				TimeController.instance.PauseTime();
 			}
-
+			ToggleButtons();
 		}
 
 		private void OnMinuteChange(int minute)
@@ -52,6 +62,12 @@ namespace UI
 		private void OnSecondChange(int second)
 		{
 			secondsText.text = second.ToString();
+		}
+
+		private void ToggleButtons() {
+			pauseTimeButton.gameObject.SetActive(TimeController.instance.isPaused);
+			playTimeButton.gameObject.SetActive(!TimeController.instance.isPaused);
+
 		}
 	}
 }

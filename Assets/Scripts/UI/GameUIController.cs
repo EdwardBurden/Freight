@@ -124,5 +124,10 @@ namespace UI
 			uiCamera.enabled = false;
 			//close all open panels nad menus
 		}
+
+		internal void OpenSettings()
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

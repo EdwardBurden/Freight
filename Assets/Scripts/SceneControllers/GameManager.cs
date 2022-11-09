@@ -5,11 +5,17 @@ using Terrain;
 using UI;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class GameManager : Singleton<GameManager> //but must b destoryed when leavign game scene
 {
+	public static event Action GameStartEvent;
+
+
 	[SerializeField]
-	private CameraController  cameraController;
+	private CameraController cameraController;
+	[SerializeField]
+	private TimeController timeController;
 
 	[SerializeField]
 	private ActionPreviewController actionPreviewController;
@@ -56,21 +62,30 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 		UIManager.instance.SetController(mainMenuUIController);
 	}
 
-	public void EndGame() {
-		//seasonsController rest
-		//buildingController reset
-		//SetInputToSelectionMode();
+	public void EndGame()
+	{
+		mapGenerator.ClearMap();
+		foreach (var item in FindObjectsOfType<Ship>())
+		{
+			Destroy(item.gameObject);
+		}
+		timeController.ResumeTime();
+		//remove ships and rest ship selecter
+		//remove buildings and reset building controller
 	}
 
 	public void StartNewGame()
 	{
-		seasonsController.StartNextSeason();
+		cameraController.enabled = true;
+		timeController.StartTime();
+		seasonsController.Init();
 		gameGenerationData = mapGenerator.Generate();
 		buildingController.DistributeBuildings(gameGenerationData);
 		testships();
 		SetInputToSelectionMode();
-		cameraController.enabled = true;
 		UIManager.instance.SetController(gameUIController);
+
+		GameStartEvent?.Invoke();
 	}
 
 	private void testships()

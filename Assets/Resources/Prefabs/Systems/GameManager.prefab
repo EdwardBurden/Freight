@@ -60,7 +60,8 @@ MonoBehaviour:
   mapGenerator: {fileID: 0}
   buildingController: {fileID: 599970579638667137}
   seasonsController: {fileID: 5203445972811590723}
-  startlocal: 1
+  gameUIController: {fileID: 0}
+  mainMenuUIController: {fileID: 0}
 --- !u!114 &5176535221266868697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,7 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   light: {fileID: 0}
-  seasonTimeInSeconds: 5
+  seasonTimeInSeconds: 70
 --- !u!114 &5245240370647675459
 MonoBehaviour:
   m_ObjectHideFlags: 0

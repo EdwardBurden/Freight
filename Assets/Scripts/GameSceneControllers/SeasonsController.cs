@@ -61,6 +61,8 @@ public class SeasonsController : Singleton<SeasonsController>
 	public void Init()
 	{
 		season = null;
+
+		StartNextSeason();
 	}
 
 	public void StartNextSeason()
@@ -108,6 +110,7 @@ public class SeasonsController : Singleton<SeasonsController>
 
 	private void Update()
 	{
+		//TODo MOVE OUT
 		lightUpdate += Time.deltaTime / (seasonTimeInSeconds / 10.0f);
 		lightUpdate = Mathf.Min(1, lightUpdate);
 		light.transform.localEulerAngles = Vector3.Lerp(eulerstart, eulerTarget, lightUpdate);

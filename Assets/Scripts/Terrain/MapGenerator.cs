@@ -220,4 +220,12 @@ public class MapGenerator : MonoBehaviour
 		islandBlock.buildingSpawnPoint = site.transform;
 		return islandBlock;
 	}
+
+	internal void ClearMap()
+	{
+		GameObjectUtils.Clear(waterTransfrom);
+		GameObjectUtils.Clear(groundTransfrom);
+		GameObjectUtils.Clear(borderTransform);
+		GameObjectUtils.Clear(islandsTransform);
+	}
 }

@@ -24,16 +24,17 @@ public class TimeController : Singleton<TimeController>
 		this.fixedDeltaTime = Time.fixedDeltaTime;
 	}
 
-	private void Start()
+	private void OnEnable()
 	{
-		second = 0;
-		minute = 0;
-		timer = secondToRealTime;
-
+		isPaused = true;
 	}
 
 	private void Update()
 	{
+		if (isPaused)
+		{
+			return;
+		}
 		timer -= Time.deltaTime;
 
 		if (timer <= 0)
@@ -63,5 +64,13 @@ public class TimeController : Singleton<TimeController>
 		isPaused = false;
 		Time.timeScale = 1f;
 		Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
+	}
+
+	internal void StartTime()
+	{
+		second = 0;
+		minute = 0;
+		timer = secondToRealTime;
+		ResumeTime();
 	}
 }
