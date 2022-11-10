@@ -53,7 +53,8 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 
 	private void Start()
 	{
-		GoToMainMenu();
+		//	GoToMainMenu();
+		StartNewGame();
 	}
 
 	public void GoToMainMenu()

@@ -5,23 +5,19 @@ using UnityEngine;
 
 public abstract class Building : InteractableObject
 {
-	[SerializeField]
-	private InWorld inWorldHoverUI;
-	[SerializeField]
-	private string buildingName;
-	[SerializeField]
-	private Color buildingColor;
-	[SerializeField]
-	private Sprite buildingIcon;
-	[SerializeField]
-	private Transform worldUITransform;
-	[SerializeField]
-	public int buildCost = 100;//TODO temp
+	//summaryUI
+	[SerializeField] private SummaryBuilding_InCamera summaryUIPrefab;
+	[SerializeField] private Transform summaryUIAnchor;
+	private SummaryBuilding_InCamera summaryUI;
 
-	[HideInInspector]
-	public IslandBlock islandBlock; //TODO set in buildingcontroller
-	private bool isFreeToUse = true;
-	protected InWorld inWorldUI;
+	//Data
+	[SerializeField] private string buildingName;
+	[SerializeField] private Color buildingColor;
+	[SerializeField] private Sprite buildingIcon;
+	[SerializeField] public int buildCost = 100;
+
+	[HideInInspector] public IslandBlock islandBlock;
+	private bool isFreeToUse = true; //TODO replace with a queue of ships 
 
 	private void OnEnable()
 	{
@@ -35,19 +31,36 @@ public abstract class Building : InteractableObject
 		SeasonsController.SeasonEndedEvent -= OnSeasonEnd;
 	}
 
-	public virtual void OnBuildingPlaced()
+	private void OnDestroy()
 	{
-		if (inWorldHoverUI != null && worldUITransform != null)
+		if (summaryUI != null)
 		{
-			inWorldUI = Instantiate(inWorldHoverUI, worldUITransform);
+			//un hook event
+			//destory ui
 		}
-		UpdateUI();
 	}
 
-	protected virtual void OnSeasonStart(SeasonType obj) { UpdateUI(); }
+	public virtual void OnBuildingPlaced()
+	{
+		if (summaryUIPrefab != null && summaryUIAnchor != null)
+		{
+			summaryUI = GameUIController.instance.CreateInScene(summaryUIPrefab, summaryUIAnchor) as SummaryBuilding_InCamera;
+			summaryUI.Init(this);
+			//Hook up events
+		}
+		UpdateSummaryUI();
+	}
+
+	protected virtual void OnSeasonStart(SeasonType obj)
+	{
+		UpdateSummaryUI();
+	}
 
 
-	protected virtual void OnSeasonEnd(SeasonType obj) { UpdateUI(); }
+	protected virtual void OnSeasonEnd(SeasonType obj)
+	{
+		UpdateSummaryUI();
+	}
 
 
 	public override string GetObjectName()
@@ -75,14 +88,16 @@ public abstract class Building : InteractableObject
 		return buildingIcon;
 	}
 
-	protected virtual void UpdateUI() { }
+	protected virtual void UpdateSummaryUI()
+	{
+	}
 
 	public override void OnHover()
 	{
 		base.OnHover();
-		if (inWorldUI != null)
+		if (summaryUI != null)
 		{
-			WellBuildingDisplay_InWorld wellInWorldUI = inWorldUI.GetComponent<WellBuildingDisplay_InWorld>();
+			SummaryBuilding_InCamera wellInWorldUI = summaryUI.GetComponent<SummaryBuilding_InCamera>();
 			wellInWorldUI.OnBuildingHover();
 		}
 	}
@@ -90,9 +105,9 @@ public abstract class Building : InteractableObject
 	public override void OffHover()
 	{
 		base.OffHover();
-		if (inWorldUI != null)
+		if (summaryUI != null)
 		{
-			WellBuildingDisplay_InWorld wellInWorldUI = inWorldUI.GetComponent<WellBuildingDisplay_InWorld>();
+			SummaryBuilding_InCamera wellInWorldUI = summaryUI.GetComponent<SummaryBuilding_InCamera>();
 			wellInWorldUI.OffBuildingHover();
 		}
 	}

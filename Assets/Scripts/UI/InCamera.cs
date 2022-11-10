@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace UI
 {
-	public class InCamera : MonoBehaviour
+	public abstract class InCamera : MonoBehaviour
 	{
 		//TODO , remove this class, move follow function into seperate component
 		protected Transform follow;

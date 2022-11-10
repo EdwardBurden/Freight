@@ -45,7 +45,7 @@ public class Well : Building, IProducer
 	{
 		waterStored--; //temp
 		WalletController.instance.AddBuyTransaction(resource.buyPrice, this, ship, resource);
-		UpdateUI();
+		UpdateSummaryUI();
 		//TODO Update stockpile by remoing one of what is sold
 	}
 
@@ -55,9 +55,9 @@ public class Well : Building, IProducer
 		base.OnSeasonStart(obj);
 	}
 
-	protected override void UpdateUI()
+	protected override void UpdateSummaryUI()
 	{
-		WellBuildingDisplay_InWorld wellInWorldUI = inWorldUI.GetComponent<WellBuildingDisplay_InWorld>();
-		wellInWorldUI.UpdateUI(GetObjectName(), produce, waterStored);
+		//SummaryBuilding_InCamera wellInWorldUI = inWorldUI.GetComponent<SummaryBuilding_InCamera>();
+		//wellInWorldUI.UpdateUI(GetObjectName(), produce, waterStored);
 	}
 }

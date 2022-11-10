@@ -40,8 +40,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7878513662307553159}
-  - component: {fileID: 667322553291242172}
   - component: {fileID: 368036050391465932}
+  - component: {fileID: 667322553291242172}
   m_Layer: 0
   m_Name: Well
   m_TagString: Untagged
@@ -67,19 +67,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &667322553291242172
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7878513662307553180}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 5, y: 1, z: 5}
-  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &368036050391465932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,17 +80,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverUIPrefab: {fileID: 234753750589598935, guid: ae65448598d6f4743bd4d43b4a5b7178, type: 3}
-  inWorldHoverUI: {fileID: 6087193551775937262, guid: 5ec65ded33080444194b0859881f5acb, type: 3}
+  summaryUIPrefab: {fileID: 0}
+  summaryUIAnchor: {fileID: 2258092509097727475}
   buildingName: Well
   buildingColor: {r: 0.10635125, g: 0.7169812, b: 0, a: 1}
   buildingIcon: {fileID: 21300000, guid: ce057be3dc2912a41b84c66b3abb3d02, type: 3}
-  worldUITransform: {fileID: 2258092509097727475}
   buildCost: 100
   islandBlock: {fileID: 0}
   platform: {fileID: 982773467722387249}
   produce: {fileID: 11400000, guid: 967e1c8a89df4924bb73cbe90b039352, type: 2}
   amountProducedPerSeason: 02000000010000000500000003000000
   waterStored: 0
+--- !u!65 &667322553291242172
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7878513662307553180}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 1, z: 5}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1001 &2146794755620886108
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -164,7 +164,7 @@ PrefabInstance:
     - target: {fileID: 7405682092259653069, guid: 974dfdb4fa455214d94d7585e246d498, type: 3}
       propertyPath: settings.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 39d674fedcc27984f865c57138c90418, type: 2}
+      objectReference: {fileID: 11400000, guid: c45660457ccc90142963ebcc4eafe8c5, type: 2}
     - target: {fileID: 8483260845814136635, guid: 974dfdb4fa455214d94d7585e246d498, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -1260,7 +1260,7 @@ PrefabInstance:
       objectReference: {fileID: 836431680}
     - target: {fileID: 5678918674405169538, guid: e02d33825afd604418227c6d0c1e3aee, type: 3}
       propertyPath: m_Name
-      value: GameSceneController
+      value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 5678918674405169548, guid: e02d33825afd604418227c6d0c1e3aee, type: 3}
       propertyPath: m_RootOrder

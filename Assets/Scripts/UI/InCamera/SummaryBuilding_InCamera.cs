@@ -6,24 +6,18 @@ using UI;
 using UnityEngine;
 namespace UI
 {
-	public class WellBuildingDisplay_InWorld : InWorld
+	public  class SummaryBuilding_InCamera : InCamera
 	{
 		[SerializeField] private TMP_Text nameText;
 		[SerializeField] private TMP_Text storageText;
 		[SerializeField] private ResourceIconButtonWidget resourceIconButtonWidget;
 
 		private Vector3 startScale;
-		private Vector3 startPos;
 
-		private void Awake()
-		{
-			startScale = this.transform.localScale;
-			startScale = this.transform.localScale;
-		}
 
 		public void OnBuildingHover()
 		{
-			this.transform.localScale *= 3;
+			this.transform.localScale *= 1.5f;
 		}
 
 		public void OffBuildingHover()
@@ -37,6 +31,11 @@ namespace UI
 			nameText.text = name;
 			storageText.text = waterStored.ToString();
 			resourceIconButtonWidget.ShowResource(produce);
+		}
+
+		internal void Init(Building building)
+		{
+			startScale = this.transform.localScale;
 		}
 	}
 }
