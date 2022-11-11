@@ -17,6 +17,18 @@ public class Farm : Building, IProducer
 	[HideInInspector]
 	public int cropStored; //temp
 
+	private void OnEnable()
+	{
+		SeasonsController.SeasonStartedEvent += OnSeasonStart;
+		SeasonsController.SeasonEndedEvent += OnSeasonEnd;
+	}
+
+	private void OnDisable()
+	{
+		SeasonsController.SeasonStartedEvent -= OnSeasonStart;
+		SeasonsController.SeasonEndedEvent -= OnSeasonEnd;
+	}
+
 	public LandingPlatform GetProducerLandingPlatform()
 	{
 		return platform;
@@ -43,7 +55,7 @@ public class Farm : Building, IProducer
 		//TODO Update stockpile by remoing one of what is sold
 	}
 
-	protected override void OnSeasonEnd(SeasonType obj)
+	private  void OnSeasonEnd(SeasonType obj)
 	{
 		//TODO
 		//Roll dice to destroy crop yield
@@ -53,9 +65,10 @@ public class Farm : Building, IProducer
 		{
 			cropStored = 0;
 		}
+		//TODO tell ships in queue to stop
 	}
 
-	protected override void OnSeasonStart(SeasonType obj)
+	protected  void OnSeasonStart(SeasonType obj)
 	{
 		if (obj == SeasonType.Autumn)
 		{

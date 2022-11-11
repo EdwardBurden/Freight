@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UI;
@@ -6,15 +7,27 @@ using UnityEngine;
 
 public class Well : Building, IProducer
 {
+	public event Action<int> WaterStoredChangedEvent;
+
 	[SerializeField]
 	private LandingPlatform platform;
 	[SerializeField]
 	private ResourceDefintion produce;
 	[SerializeField]
-	private int[] amountProducedPerSeason; //45,80,85,34
+	public int[] amountProducedPerSeason; //45,80,85,34
 
 	[HideInInspector]
 	public int waterStored; //temp
+
+	private void OnEnable()
+	{
+		SeasonsController.SeasonStartedEvent += OnSeasonStart;
+	}
+
+	private void OnDisable()
+	{
+		SeasonsController.SeasonStartedEvent -= OnSeasonStart;
+	}
 
 	public override void OnBuildingPlaced()
 	{
@@ -43,21 +56,17 @@ public class Well : Building, IProducer
 
 	public void SellResourceToShip(ResourceDefintion resource, Ship ship)
 	{
-		waterStored--; //temp
 		WalletController.instance.AddBuyTransaction(resource.buyPrice, this, ship, resource);
-		UpdateSummaryUI();
-		//TODO Update stockpile by remoing one of what is sold
+
+		waterStored--;
+		StorageChanged();
+		WaterStoredChangedEvent?.Invoke(waterStored);
 	}
 
-	protected override void OnSeasonStart(SeasonType obj)
+	private  void OnSeasonStart(SeasonType seasonType)
 	{
-		waterStored += amountProducedPerSeason[(int)obj];
-		base.OnSeasonStart(obj);
-	}
-
-	protected override void UpdateSummaryUI()
-	{
-		//SummaryBuilding_InCamera wellInWorldUI = inWorldUI.GetComponent<SummaryBuilding_InCamera>();
-		//wellInWorldUI.UpdateUI(GetObjectName(), produce, waterStored);
+		waterStored += amountProducedPerSeason[(int)seasonType];
+		StorageChanged();
+		WaterStoredChangedEvent?.Invoke(waterStored);
 	}
 }

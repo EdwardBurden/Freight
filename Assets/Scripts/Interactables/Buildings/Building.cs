@@ -10,6 +10,9 @@ public abstract class Building : InteractableObject
 	[SerializeField] private Transform summaryUIAnchor;
 	private SummaryBuilding_InCamera summaryUI;
 
+	//Storage //TODO
+	[SerializeField] private StorageChanged_InCamera storageChangedPrefab;
+
 	//Data
 	[SerializeField] private string buildingName;
 	[SerializeField] private Color buildingColor;
@@ -18,18 +21,6 @@ public abstract class Building : InteractableObject
 
 	[HideInInspector] public IslandBlock islandBlock;
 	private bool isFreeToUse = true; //TODO replace with a queue of ships 
-
-	private void OnEnable()
-	{
-		SeasonsController.SeasonStartedEvent += OnSeasonStart;
-		SeasonsController.SeasonEndedEvent += OnSeasonEnd;
-	}
-
-	private void OnDisable()
-	{
-		SeasonsController.SeasonStartedEvent -= OnSeasonStart;
-		SeasonsController.SeasonEndedEvent -= OnSeasonEnd;
-	}
 
 	private void OnDestroy()
 	{
@@ -46,22 +37,13 @@ public abstract class Building : InteractableObject
 		{
 			summaryUI = GameUIController.instance.CreateInScene(summaryUIPrefab, summaryUIAnchor) as SummaryBuilding_InCamera;
 			summaryUI.Init(this);
-			//Hook up events
 		}
-		UpdateSummaryUI();
 	}
 
-	protected virtual void OnSeasonStart(SeasonType obj)
+	public void StorageChanged()
 	{
-		UpdateSummaryUI();
+		GameUIController.instance.CreateInScene(storageChangedPrefab, this.transform);
 	}
-
-
-	protected virtual void OnSeasonEnd(SeasonType obj)
-	{
-		UpdateSummaryUI();
-	}
-
 
 	public override string GetObjectName()
 	{
@@ -86,10 +68,6 @@ public abstract class Building : InteractableObject
 	public Sprite GetBuildingIcon()
 	{
 		return buildingIcon;
-	}
-
-	protected virtual void UpdateSummaryUI()
-	{
 	}
 
 	public override void OnHover()

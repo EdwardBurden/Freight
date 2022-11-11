@@ -6,7 +6,8 @@ using UI;
 using UnityEngine;
 namespace UI
 {
-	public  class SummaryBuilding_InCamera : InCamera
+	//TODO
+	public class SummaryBuilding_InCamera : InCamera
 	{
 		[SerializeField] private TMP_Text nameText;
 		[SerializeField] private TMP_Text storageText;

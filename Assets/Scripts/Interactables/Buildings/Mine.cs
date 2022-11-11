@@ -15,6 +15,18 @@ public class Mine : Building, IProducer
 	[HideInInspector]
 	public int storedOre; //temp
 
+	private void OnEnable()
+	{
+		SeasonsController.SeasonStartedEvent += OnSeasonStart;
+		SeasonsController.SeasonEndedEvent += OnSeasonEnd;
+	}
+
+	private void OnDisable()
+	{
+		SeasonsController.SeasonStartedEvent -= OnSeasonStart;
+		SeasonsController.SeasonEndedEvent -= OnSeasonEnd;
+	}
+
 	public override void OnBuildingPlaced()
 	{
 		storedOre = amountProducedPerSeason;
@@ -46,7 +58,7 @@ public class Mine : Building, IProducer
 		WalletController.instance.AddBuyTransaction(resource.buyPrice, this, ship, resource);
 	}
 
-	protected override void OnSeasonEnd(SeasonType obj)
+	private  void OnSeasonEnd(SeasonType obj)
 	{
 		//TODO
 		//Roll dice to destroy
@@ -54,7 +66,7 @@ public class Mine : Building, IProducer
 		//instead of replace building, replace prefab with destoryed one and change UI to hvae a repair button
 	}
 
-	protected override void OnSeasonStart(SeasonType obj)
+	private  void OnSeasonStart(SeasonType obj)
 	{
 		storedOre += amountProducedPerSeason;
 	}
