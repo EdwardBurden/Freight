@@ -4,40 +4,29 @@ using UnityEngine;
 using UI;
 using System;
 
-public class EmptyPlotPanel : BuildingPanel
+public class EmptyPlotPanel : BuildingPanel<EmptyPlot>
 {
-	[SerializeField]
-	private BuildingIconButtonWidget buildingIconButtonWidget;
+	[SerializeField] private BuildingIconButtonWidget buildingIconButtonWidget;
+	[SerializeField] private Transform buildingOptions;
 
-	[SerializeField]
-	private Transform buildingOptions;
+	public override void Show()
+	{
+		base.Show();
+		GameObjectUtils.Clear(buildingOptions);
+		foreach (BuildingDefintion building in building.GetOptions())
+		{
+			ShowBuildingoption(building);
+		}
+	}
 
-	public void ChangeBuilding(Building selectedBuilding)
+	public void ChangeBuilding(BuildingDefintion selectedBuilding)
 	{
 		EmptyPlot empty = building as EmptyPlot;
 		empty.SwitchBuilding(selectedBuilding);
 		Hide();
 	}
 
-	protected override void OnBuildingSelected(Building building)
-	{
-		if (building is EmptyPlot empty)
-		{
-			base.OnBuildingSelected(building);
-			ShowBuildingOptions(empty);
-		}
-	}
-
-	private void ShowBuildingOptions(EmptyPlot empty)
-	{
-		GameObjectUtils.Clear(buildingOptions);
-		foreach (Building building in empty.options)
-		{
-			ShowBuildingoption(building);
-		}
-	}
-
-	private void ShowBuildingoption(Building building)
+	private void ShowBuildingoption(BuildingDefintion building)
 	{
 		BuildingIconButtonWidget widget = Instantiate(buildingIconButtonWidget, buildingOptions);
 		widget.ShowBuilding(building, () => ChangeBuilding(building));

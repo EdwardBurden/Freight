@@ -90,6 +90,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &204088252011655767
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3562713806948084137}
+  m_Layer: 0
+  m_Name: summaryAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3562713806948084137
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204088252011655767}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 4.032, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7487590425637725941}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1794848763338967080
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,6 +669,7 @@ GameObject:
   - component: {fileID: 7487590425637725941}
   - component: {fileID: 7487590425637725449}
   - component: {fileID: 6012992894038844276}
+  - component: {fileID: 433045824828162453}
   m_Layer: 0
   m_Name: Crop Farm
   m_TagString: Untagged
@@ -659,6 +691,7 @@ Transform:
   m_Children:
   - {fileID: 9009125966194105490}
   - {fileID: 3151957238391641033}
+  - {fileID: 3562713806948084137}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -675,18 +708,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverUIPrefab: {fileID: 234753750589598935, guid: ae65448598d6f4743bd4d43b4a5b7178, type: 3}
-  showHoverInfo: 1
-  inWorldHoverUI: {fileID: 8046175600071760264, guid: 5ec65ded33080444194b0859881f5acb, type: 3}
-  buildingName: Crop Farm
-  buildingColor: {r: 1, g: 0, b: 0, a: 1}
-  buildingIcon: {fileID: 0}
-  buildCost: 100
+  summaryUIAnchor: {fileID: 3562713806948084137}
+  storage: {fileID: 433045824828162453}
   islandBlock: {fileID: 0}
   platform: {fileID: 8524479539199280681}
-  produce: {fileID: 11400000, guid: cdae099e1fe6f6546b3adeb05bddd8af, type: 2}
-  amountProducedPerAutumn: 14
-  amountLostPerSeason: 2
-  cropStored: 0
 --- !u!65 &6012992894038844276
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -700,6 +725,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.7097793, y: 1, z: 3.158062}
   m_Center: {x: -0.66557336, y: 0.5, z: 0.060132038}
+--- !u!114 &433045824828162453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7487590425637725448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 531ca1957e2910b4082fd3935e12ea1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7790384783676760700
 GameObject:
   m_ObjectHideFlags: 0

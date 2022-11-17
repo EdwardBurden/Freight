@@ -49,6 +49,7 @@ MonoBehaviour:
   hoverUIPrefab: {fileID: 234753750589598935, guid: ae65448598d6f4743bd4d43b4a5b7178, type: 3}
   summaryUIPrefab: {fileID: 0}
   summaryUIAnchor: {fileID: 0}
+  storageChangedPrefab: {fileID: 0}
   buildingName: Empty Plot
   buildingColor: {r: 1, g: 1, b: 1, a: 1}
   buildingIcon: {fileID: 0}
@@ -56,12 +57,7 @@ MonoBehaviour:
   islandBlock: {fileID: 0}
   options:
   - {fileID: 7878513662307553155, guid: a95d7d6023b30d74792965ccd4f24fd1, type: 3}
-  - {fileID: 7487590425637725449, guid: 1111549d3307d584d8b3fa54462e1255, type: 3}
-  - {fileID: 7878513662307553155, guid: af16c29e70aa6ba43925bb96764f4759, type: 3}
   - {fileID: 7487590425637725449, guid: ffc66f6273cbbb944a96da03d85eb99e, type: 3}
-  - {fileID: 1453830250109635109, guid: fcd5417531ef6fe45ae3d5865510e8fb, type: 3}
-  - {fileID: 368036050391465932, guid: 50bf8aa34a183684ab2b137dad6ccc25, type: 3}
-  - {fileID: 3129412492765259519, guid: 5790d93a105954247a2bba23e17f0feb, type: 3}
 --- !u!65 &667322553291242172
 BoxCollider:
   m_ObjectHideFlags: 0

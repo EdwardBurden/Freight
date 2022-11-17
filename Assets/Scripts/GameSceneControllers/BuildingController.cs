@@ -7,11 +7,13 @@ using Random = UnityEngine.Random;
 using System.Transactions;
 using System.Linq;
 using Unity.VisualScripting;
+using OpenCover.Framework.Model;
+using UI;
 
 [Serializable]
 public class BuildingSpawnInfo
 {
-	public Building building;
+	public BuildingDefintion building;
 	public float spawnChance;
 	public int minSpawnAmount;
 	public int maxSpawnAmount;
@@ -26,7 +28,7 @@ public class BuildingController : Singleton<BuildingController>
 	private BuildingSpawnInfo[] builindSpawnInfos;
 
 	[SerializeField]
-	private Building empty;
+	private BuildingDefintion empty;
 
 	private Building buildingSelected;
 
@@ -106,14 +108,14 @@ public class BuildingController : Singleton<BuildingController>
 		}
 	}
 
-	private Building AddBuilding(Building buildingToPlace, IslandBlock islandBlock)
+	private Building AddBuilding(BuildingDefintion buildingToPlace, IslandBlock islandBlock)
 	{
 		int rotation = Random.Range(0, 360);
-		Building building = Instantiate(buildingToPlace, islandBlock.buildingSpawnPoint);
+		Building building = Instantiate(buildingToPlace.buildingPrefab, islandBlock.buildingSpawnPoint);
 		building.islandBlock = islandBlock;
 		building.transform.rotation = Quaternion.Euler(0, rotation, 0);
 		building.transform.localPosition = Vector3.zero;
-		building.OnBuildingPlaced();
+		building.Init(buildingToPlace);
 		buildings.Add(building);
 		return building;
 	}
@@ -131,7 +133,7 @@ public class BuildingController : Singleton<BuildingController>
 		return consumers;
 	}
 
-	public Building ReplaceBuilding(Building currentbuilding, Building selectedBuilding)
+	public Building ReplaceBuilding(Building currentbuilding, BuildingDefintion selectedBuilding)
 	{
 		IslandBlock islandBlock = currentbuilding.islandBlock;
 		GameObject.Destroy(currentbuilding.gameObject);
@@ -139,4 +141,5 @@ public class BuildingController : Singleton<BuildingController>
 		Building newBuilding = AddBuilding(selectedBuilding, islandBlock);
 		return newBuilding;
 	}
+
 }

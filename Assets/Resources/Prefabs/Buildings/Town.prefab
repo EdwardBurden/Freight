@@ -171,6 +171,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &5881578451439462814
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2807097585713938179}
+  m_Layer: 0
+  m_Name: summaryAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2807097585713938179
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5881578451439462814}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 4.032, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7878513662307553159}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6638606648509399319
 GameObject:
   m_ObjectHideFlags: 0
@@ -303,6 +334,7 @@ GameObject:
   - component: {fileID: 7878513662307553159}
   - component: {fileID: 7878513662307553155}
   - component: {fileID: 667322553291242172}
+  - component: {fileID: 4641993059222504513}
   m_Layer: 0
   m_Name: Town
   m_TagString: Untagged
@@ -324,6 +356,7 @@ Transform:
   m_Children:
   - {fileID: 4975838945650367937}
   - {fileID: 7033311777860042080}
+  - {fileID: 2807097585713938179}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -340,19 +373,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverUIPrefab: {fileID: 234753750589598935, guid: ae65448598d6f4743bd4d43b4a5b7178, type: 3}
-  showHoverInfo: 1
-  inWorldHoverUI: {fileID: 8046175600071760264, guid: 5ec65ded33080444194b0859881f5acb, type: 3}
-  buildingName: Town
-  buildingColor: {r: 0.6603774, g: 0.42647952, b: 0, a: 1}
-  buildingIcon: {fileID: 0}
-  buildCost: 100
+  summaryUIAnchor: {fileID: 2807097585713938179}
   islandBlock: {fileID: 0}
   platform: {fileID: 5640313802130655098}
-  accepts:
-  - {fileID: 11400000, guid: cdae099e1fe6f6546b3adeb05bddd8af, type: 2}
-  - {fileID: 11400000, guid: 967e1c8a89df4924bb73cbe90b039352, type: 2}
-  - {fileID: 11400000, guid: 910c24dfe37d85f4398a13580c5760e0, type: 2}
-  - {fileID: 11400000, guid: e27ad184f03e8f24a99a0464cf95accf, type: 2}
+  storage: {fileID: 4641993059222504513}
 --- !u!65 &667322553291242172
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -366,6 +390,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 1, z: 5}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &4641993059222504513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7878513662307553180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 531ca1957e2910b4082fd3935e12ea1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8468621965111044093
 GameObject:
   m_ObjectHideFlags: 0

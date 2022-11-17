@@ -1,21 +1,13 @@
+using System;
 using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class Farm : Building, IProducer
 {
-	[SerializeField]
-	private LandingPlatform platform;
+	[SerializeField] private LandingPlatform platform;
 
-	[SerializeField]
-	private ResourceDefintion produce;
-
-	[SerializeField]
-	private int amountProducedPerAutumn;
-	[SerializeField]
-	private int amountLostPerSeason;
-
-	[HideInInspector]
-	public int cropStored; //temp
+	private FarmDefintion farmDefintion => buildingDefintion as FarmDefintion;
 
 	private void OnEnable()
 	{
@@ -36,43 +28,49 @@ public class Farm : Building, IProducer
 
 	public ResourceDefintion[] GetProducedResources()
 	{
-		return new ResourceDefintion[] { produce };
+		return new ResourceDefintion[]
+		{
+			farmDefintion.resourceProduced
+		};
 	}
 
 	public bool CanProducesResource(ResourceDefintion resourceData)
 	{
-		if (produce == resourceData && cropStored > 0)
-		{
-			return true;
-		}
-		return false;
+		return farmDefintion.CanProducesResource(resourceData) && HasStorageOfProduce(resourceData);
+	}
+
+	private bool HasStorageOfProduce(ResourceDefintion resourceData)
+	{
+		return storage.HasStorage(resourceData);
 	}
 
 	public void SellResourceToShip(ResourceDefintion resource, Ship ship)
 	{
-		cropStored--;
 		WalletController.instance.AddBuyTransaction(resource.buyPrice, this, ship, resource);
-		//TODO Update stockpile by remoing one of what is sold
+		storage.RemoveStorage(resource);
 	}
 
-	private  void OnSeasonEnd(SeasonType obj)
+	private void OnSeasonEnd(SeasonType obj)
 	{
-		//TODO
-		//Roll dice to destroy crop yield
-		//if destoryed, tell player with notifiication
-		cropStored -= amountLostPerSeason;
-		if (cropStored < 0)
-		{
-			cropStored = 0;
-		}
-		//TODO tell ships in queue to stop
+		storage.RemoveStorage(farmDefintion.resourceProduced, farmDefintion.amountLostPerSeason);
+		//more ot do later
 	}
 
-	protected  void OnSeasonStart(SeasonType obj)
+	protected void OnSeasonStart(SeasonType obj)
 	{
 		if (obj == SeasonType.Autumn)
 		{
-			cropStored += amountProducedPerAutumn;
+			storage.AddStorage(farmDefintion.resourceProduced, farmDefintion.amountProducedPerAutumn);
 		}
+	}
+
+	public int GetCropsStoredAmount()
+	{
+		return storage.GetStorage(farmDefintion.resourceProduced);
+	}
+
+	internal ResourceDefintion GetResourceProduced()
+	{
+		return farmDefintion.resourceProduced;
 	}
 }

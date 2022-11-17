@@ -692,14 +692,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraRig
       objectReference: {fileID: 0}
-    - target: {fileID: 1548499555999603323, guid: 5c70eba063070254b9ae3ac66df23434, type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 23
-      objectReference: {fileID: 0}
-    - target: {fileID: 5734175821019487756, guid: 5c70eba063070254b9ae3ac66df23434, type: 3}
-      propertyPath: m_Cameras.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 5734175821019487756, guid: 5c70eba063070254b9ae3ac66df23434, type: 3}
       propertyPath: m_Cameras.Array.data[0]
       value: 
@@ -837,12 +829,20 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3210157492473561203, guid: 7242f5b412973ac40bdd953ec024a0cd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.000055789948
+      objectReference: {fileID: 0}
     - target: {fileID: 3376074189258585063, guid: 7242f5b412973ac40bdd953ec024a0cd, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3376074189258585063, guid: 7242f5b412973ac40bdd953ec024a0cd, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3376074189258585063, guid: 7242f5b412973ac40bdd953ec024a0cd, type: 3}
+      propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3387624761279921809, guid: 7242f5b412973ac40bdd953ec024a0cd, type: 3}
@@ -1089,9 +1089,17 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8093539300885337913, guid: 7242f5b412973ac40bdd953ec024a0cd, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8215968359687283885, guid: 7242f5b412973ac40bdd953ec024a0cd, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215968359687283885, guid: 7242f5b412973ac40bdd953ec024a0cd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.00003159046
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7242f5b412973ac40bdd953ec024a0cd, type: 3}
@@ -1102,6 +1110,54 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 599970579638667137, guid: e02d33825afd604418227c6d0c1e3aee, type: 3}
+      propertyPath: empty
+      value: 
+      objectReference: {fileID: 11400000, guid: 192cb6eed19a0dd49a0f6645c1c0569e, type: 2}
+    - target: {fileID: 599970579638667137, guid: e02d33825afd604418227c6d0c1e3aee, type: 3}
+      propertyPath: builindSpawnInfos.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 599970579638667137, guid: e02d33825afd604418227c6d0c1e3aee, type: 3}
+      propertyPath: builindSpawnInfos.Array.data[0].building
+      value: 
+      objectReference: {fileID: 11400000, guid: 4617106870d5b604ea75aade8ae31e6f, type: 2}
+    - target: {fileID: 599970579638667137, guid: e02d33825afd604418227c6d0c1e3aee, type: 3}
+      propertyPath: builindSpawnInfos.Array.data[1].building
+      value: 
+      objectReference: {fileID: 11400000, guid: cc76772fbacfa814b9440d362342ff08, type: 2}
+    - target: {fileID: 599970579638667137, guid: e02d33825afd604418227c6d0c1e3aee, type: 3}
+      propertyPath: builindSpawnInfos.Array.data[3].building
+      value: 
+      objectReference: {fileID: 1453830250109635109, guid: fcd5417531ef6fe45ae3d5865510e8fb, type: 3}
+    - target: {fileID: 599970579638667137, guid: e02d33825afd604418227c6d0c1e3aee, type: 3}
+      propertyPath: builindSpawnInfos.Array.data[0].spawnChance
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 599970579638667137, guid: e02d33825afd604418227c6d0c1e3aee, type: 3}
+      propertyPath: builindSpawnInfos.Array.data[1].spawnChance
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 599970579638667137, guid: e02d33825afd604418227c6d0c1e3aee, type: 3}
+      propertyPath: builindSpawnInfos.Array.data[3].spawnChance
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 599970579638667137, guid: e02d33825afd604418227c6d0c1e3aee, type: 3}
+      propertyPath: builindSpawnInfos.Array.data[1].maxSpawnAmount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 599970579638667137, guid: e02d33825afd604418227c6d0c1e3aee, type: 3}
+      propertyPath: builindSpawnInfos.Array.data[1].minSpawnAmount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 599970579638667137, guid: e02d33825afd604418227c6d0c1e3aee, type: 3}
+      propertyPath: builindSpawnInfos.Array.data[3].maxSpawnAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 599970579638667137, guid: e02d33825afd604418227c6d0c1e3aee, type: 3}
+      propertyPath: builindSpawnInfos.Array.data[3].minSpawnAmount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5203445972811590723, guid: e02d33825afd604418227c6d0c1e3aee, type: 3}
       propertyPath: light
       value: 

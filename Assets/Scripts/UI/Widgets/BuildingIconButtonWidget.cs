@@ -19,11 +19,10 @@ public class BuildingIconButtonWidget : MonoBehaviour
 	[SerializeField]
 	private Button button;
 
-	public void ShowBuilding(Building building, Action callback = null)
+	public void ShowBuilding(BuildingDefintion building, Action callback = null)
 	{
-		text.text = building.GetObjectName();
-		icon.sprite = building.GetBuildingIcon();
-		backgroundIcon.color = building.GetBuildingColor();
+		text.text = building.buildingName;
+		icon.sprite = building.buildingIcon;
 
 		if (callback != null)
 		{

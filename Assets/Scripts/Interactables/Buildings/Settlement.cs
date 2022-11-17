@@ -2,27 +2,18 @@ using UnityEngine;
 
 public class Settlement : Building, IConsumer
 {
-	[SerializeField]
-	private LandingPlatform platform;
+	[SerializeField] private LandingPlatform platform;
 
-	[SerializeField]
-	private ResourceDefintion[] accepts;
+	private SettlementDefintion settlementDefintion => buildingDefintion as SettlementDefintion;
 
 	public ResourceDefintion[] GetAcceptedResources()
 	{
-		return accepts;
+		return settlementDefintion.resourcesAccepted;
 	}
 
 	public bool AcceptsResource(ResourceDefintion resourceData)
 	{
-		for (int i = 0; i < accepts.Length; i++)
-		{
-			if (accepts[i] == resourceData)
-			{
-				return true;
-			}
-		}
-		return false;
+		return settlementDefintion.AcceptsResource(resourceData);
 	}
 
 	public LandingPlatform GetConsumerLandingPlatform()
@@ -30,14 +21,9 @@ public class Settlement : Building, IConsumer
 		return platform;
 	}
 
-	public void SetAcceptedResources(ResourceDefintion[] resourceDefintions)
-	{
-		accepts = resourceDefintions;
-	}
-
 	public void BuyResourceFromShip(ResourceDefintion resource, Ship ship)
 	{
 		WalletController.instance.AddSellTransaction(resource.sellPrice, this, ship, resource);
-		//TODO Update stockpile by addign what is bought
+		storage.AddStorage(resource);
 	}
 }

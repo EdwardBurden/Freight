@@ -5,12 +5,12 @@ using TMPro;
 using UI;
 using UnityEngine;
 
-public abstract class BuildingPanel : Panel
+public abstract class BuildingPanel<T> : Panel where T : Building
 {
-	[SerializeField]
-	private TMP_Text nameField;
+	[SerializeField]private TMP_Text nameField;
 
-	protected Building building;
+	protected T building;
+	private Storage buildingStorage;
 
 	protected void OnEnable()
 	{
@@ -31,13 +31,37 @@ public abstract class BuildingPanel : Panel
 
 	protected virtual void OnBuildingSelected(Building building)
 	{
-		this.building = building;
-		Show();
+		Hide();
+		if (building is T)
+		{
+			this.building = building as T;
+			Show();
+		}
 	}
 
 	public override void Show()
 	{
-		nameField.text = building.GetObjectName();
 		base.Show();
+		nameField.text = building.GetObjectName();
+		buildingStorage = building.storage;
+		if (buildingStorage != null)
+		{
+			buildingStorage.StorageUpdatedEvent += OnStorageUpdated;
+		}
+	}
+
+	protected virtual void OnStorageUpdated()
+	{
+		//temp 
+		Show();
+	}
+
+	public override void Hide()
+	{
+		base.Hide();
+		if (buildingStorage != null)
+		{
+			buildingStorage.StorageUpdatedEvent -= OnStorageUpdated;
+		}
 	}
 }

@@ -4,30 +4,17 @@ using TMPro;
 using UI;
 using UnityEngine;
 
-public class SettlementPanel : BuildingPanel
+public class SettlementPanel : BuildingPanel<Settlement>
 {
-	[SerializeField]
-	private TMP_Text rewardField;
+	[SerializeField] private TMP_Text rewardField;
+	[SerializeField] private Transform acceptsTransform;
+	[SerializeField] private ResourceIconButtonWidget resourceIconButtonWidget;
 
-	[SerializeField]
-	private Transform acceptsTransform;
-
-	[SerializeField]
-	private ResourceIconButtonWidget resourceIconButtonWidget;
-
-	protected override void OnBuildingSelected(Building building)
+	public override void Show()
 	{
-		if (building is Settlement settlement)
-		{
-			base.OnBuildingSelected(building);
-			ShowResourcesRequired(settlement);
-		}
-	}
-
-	public void ShowResourcesRequired(Settlement settlement)
-	{
+		base.Show();
 		GameObjectUtils.Clear(acceptsTransform);
-		foreach (ResourceDefintion resource in settlement.GetAcceptedResources())
+		foreach (ResourceDefintion resource in building.GetAcceptedResources())
 		{
 			ShowResourceRequired(resource);
 		}

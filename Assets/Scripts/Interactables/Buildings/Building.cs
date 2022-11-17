@@ -5,49 +5,37 @@ using UnityEngine;
 
 public abstract class Building : InteractableObject
 {
-	//summaryUI
-	[SerializeField] private SummaryBuilding_InCamera summaryUIPrefab;
-	[SerializeField] private Transform summaryUIAnchor;
-	private SummaryBuilding_InCamera summaryUI;
+	[SerializeField] protected Transform summaryUIAnchor;
+	[SerializeField] public Storage storage;
 
-	//Storage //TODO
-	[SerializeField] private StorageChanged_InCamera storageChangedPrefab;
 
-	//Data
-	[SerializeField] private string buildingName;
-	[SerializeField] private Color buildingColor;
-	[SerializeField] private Sprite buildingIcon;
-	[SerializeField] public int buildCost = 100;
-
+	protected SummaryBuilding_InCamera summaryUI;
+	protected BuildingDefintion buildingDefintion;
 	[HideInInspector] public IslandBlock islandBlock;
 	private bool isFreeToUse = true; //TODO replace with a queue of ships 
+
+	public virtual void Init(BuildingDefintion buildingDefintion)
+	{
+		this.buildingDefintion = buildingDefintion;
+		if (buildingDefintion.summaryUIPrefab != null && summaryUIAnchor != null)
+		{
+			summaryUI = GameUIController.instance.CreateInScene(buildingDefintion.summaryUIPrefab, summaryUIAnchor) as SummaryBuilding_InCamera;
+			summaryUI.Init(this);
+		}
+	}
+
 
 	private void OnDestroy()
 	{
 		if (summaryUI != null)
 		{
-			//un hook event
-			//destory ui
+			Destroy(summaryUI.gameObject);
 		}
-	}
-
-	public virtual void OnBuildingPlaced()
-	{
-		if (summaryUIPrefab != null && summaryUIAnchor != null)
-		{
-			summaryUI = GameUIController.instance.CreateInScene(summaryUIPrefab, summaryUIAnchor) as SummaryBuilding_InCamera;
-			summaryUI.Init(this);
-		}
-	}
-
-	public void StorageChanged()
-	{
-		GameUIController.instance.CreateInScene(storageChangedPrefab, this.transform);
 	}
 
 	public override string GetObjectName()
 	{
-		return buildingName;
+		return buildingDefintion.buildingName;
 	}
 
 	public bool IsFree()
@@ -60,14 +48,9 @@ public abstract class Building : InteractableObject
 		isFreeToUse = isFree;
 	}
 
-	public Color GetBuildingColor()
-	{
-		return buildingColor;
-	}
-
 	public Sprite GetBuildingIcon()
 	{
-		return buildingIcon;
+		return buildingDefintion.buildingIcon;
 	}
 
 	public override void OnHover()
