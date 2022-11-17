@@ -7,14 +7,11 @@ using UnityEngine;
 namespace UI
 {
 	//TODO
-	public class SummaryBuilding_InCamera : InCamera
+	public abstract class SummaryBuilding_InCamera : InCamera
 	{
 		[SerializeField] private TMP_Text nameText;
 		[SerializeField] private TMP_Text storageText;
 		[SerializeField] private ResourceIconButtonWidget resourceIconButtonWidget;
-
-		private Vector3 startScale;
-
 
 		public void OnBuildingHover()
 		{

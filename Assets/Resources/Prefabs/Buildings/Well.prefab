@@ -80,7 +80,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverUIPrefab: {fileID: 234753750589598935, guid: ae65448598d6f4743bd4d43b4a5b7178, type: 3}
-  summaryUIPrefab: {fileID: 7615994526817099736, guid: 48e1f13e147981f4ebd0a0e791047e80, type: 3}
+  summaryUIPrefab: {fileID: 2827013828852162370, guid: 48e1f13e147981f4ebd0a0e791047e80, type: 3}
   summaryUIAnchor: {fileID: 2258092509097727475}
   storageChangedPrefab: {fileID: 4025078765208375979, guid: 6390f7fe2c8f89a4bbf7bbf343393b97, type: 3}
   buildingName: Well
