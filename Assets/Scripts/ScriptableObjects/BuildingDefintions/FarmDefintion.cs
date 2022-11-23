@@ -9,6 +9,7 @@ public class FarmDefintion : BuildingDefintion
 	[SerializeField] public ResourceDefintion resourceProduced;
 	[SerializeField] public int amountProducedPerAutumn;
 	[SerializeField] public int amountLostPerSeason;
+	[SerializeField] public int startingStorage;
 
 	public bool CanProducesResource(ResourceDefintion resourceData)
 	{

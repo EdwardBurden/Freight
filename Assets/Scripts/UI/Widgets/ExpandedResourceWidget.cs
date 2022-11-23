@@ -15,9 +15,7 @@ namespace UI
 		[SerializeField] private TMP_Text resourceSellPriceText;
 		[SerializeField] private Image resourceIconImage;
 
-		private ResourceDefintion resourceDefintion;
-
-		public void ShowResource(ResourceDefintion resourceData, int amount)
+		public virtual void ShowResource(ResourceDefintion resourceData, int amount)
 		{
 			resourceAmountText.text = amount.ToString();
 			resourceBuyPriceText.text = resourceData.buyPrice.ToString();

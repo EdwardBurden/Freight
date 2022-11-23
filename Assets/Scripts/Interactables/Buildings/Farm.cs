@@ -21,12 +21,12 @@ public class Farm : Building, IProducer
 		SeasonsController.SeasonEndedEvent -= OnSeasonEnd;
 	}
 
-	public LandingPlatform GetProducerLandingPlatform()
+	LandingPlatform IProducer.GetProducerLandingPlatform()
 	{
 		return platform;
 	}
 
-	public ResourceDefintion[] GetProducedResources()
+	ResourceDefintion[] IProducer.GetProducedResources()
 	{
 		return new ResourceDefintion[]
 		{
@@ -34,20 +34,21 @@ public class Farm : Building, IProducer
 		};
 	}
 
-	public bool CanProducesResource(ResourceDefintion resourceData)
+	bool IProducer.CanProducesResource(ResourceDefintion resourceData)
 	{
-		return farmDefintion.CanProducesResource(resourceData) && HasStorageOfProduce(resourceData);
+		return farmDefintion.CanProducesResource(resourceData) && storage.HasStorage(resourceData);
 	}
 
-	private bool HasStorageOfProduce(ResourceDefintion resourceData)
-	{
-		return storage.HasStorage(resourceData);
-	}
-
-	public void SellResourceToShip(ResourceDefintion resource, Ship ship)
+	void IProducer.SellResourceToShip(ResourceDefintion resource, Ship ship)
 	{
 		WalletController.instance.AddBuyTransaction(resource.buyPrice, this, ship, resource);
 		storage.RemoveStorage(resource);
+	}
+
+	public override void Init(BuildingDefintion buildingDefintion)
+	{
+		base.Init(buildingDefintion);
+		storage.AddStorage(farmDefintion.resourceProduced, farmDefintion.startingStorage);
 	}
 
 	private void OnSeasonEnd(SeasonType obj)
@@ -56,7 +57,7 @@ public class Farm : Building, IProducer
 		//more ot do later
 	}
 
-	protected void OnSeasonStart(SeasonType obj)
+	private void OnSeasonStart(SeasonType obj)
 	{
 		if (obj == SeasonType.Autumn)
 		{
@@ -69,8 +70,18 @@ public class Farm : Building, IProducer
 		return storage.GetStorage(farmDefintion.resourceProduced);
 	}
 
-	internal ResourceDefintion GetResourceProduced()
+	public ResourceDefintion GetResourceProduced()
 	{
 		return farmDefintion.resourceProduced;
+	}
+
+	public int GetAmountProducedPerAutumn()
+	{
+		return farmDefintion.amountProducedPerAutumn;
+	}
+
+	public int GetAmountLostPerSeason()
+	{
+		return farmDefintion.amountLostPerSeason;
 	}
 }

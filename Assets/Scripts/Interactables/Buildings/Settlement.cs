@@ -1,29 +1,78 @@
+using System;
 using UnityEngine;
 
 public class Settlement : Building, IConsumer
 {
+	public event Action RequestsFulfilledEvent;
+
 	[SerializeField] private LandingPlatform platform;
 
 	private SettlementDefintion settlementDefintion => buildingDefintion as SettlementDefintion;
 
-	public ResourceDefintion[] GetAcceptedResources()
+	private SettlementRequests settlementRequests = null;
+
+	private void OnEnable()
+	{
+		SeasonsController.YearEndedEvent += OnYearEnd;
+		SeasonsController.YearStartedEvent += OnYearStart;
+	}
+
+	private void OnDisable()
+	{
+		SeasonsController.YearEndedEvent -= OnYearEnd;
+		SeasonsController.YearStartedEvent -= OnYearStart;
+	}
+
+	ResourceDefintion[] IConsumer.GetAcceptedResources()
 	{
 		return settlementDefintion.resourcesAccepted;
 	}
 
-	public bool AcceptsResource(ResourceDefintion resourceData)
+	bool IConsumer.AcceptsResource(ResourceDefintion resourceData)
 	{
 		return settlementDefintion.AcceptsResource(resourceData);
 	}
 
-	public LandingPlatform GetConsumerLandingPlatform()
+	LandingPlatform IConsumer.GetConsumerLandingPlatform()
 	{
 		return platform;
 	}
 
-	public void BuyResourceFromShip(ResourceDefintion resource, Ship ship)
+	void IConsumer.BuyResourceFromShip(ResourceDefintion resource, Ship ship)
 	{
 		WalletController.instance.AddSellTransaction(resource.sellPrice, this, ship, resource);
 		storage.AddStorage(resource);
+	}
+
+	private void OnYearStart(int year)
+	{
+		settlementRequests = new SettlementRequests(settlementDefintion.resourcesAccepted, year);
+		storage.ClearStorage();
+	}
+
+	private void OnYearEnd(int obj)
+	{
+		CheckRequests();
+		settlementRequests = null;
+		storage.ClearStorage();
+	}
+
+	public SettlementRequests GetResourceRequirements()
+	{
+		return settlementRequests;
+	}
+
+	private void CheckRequests()
+	{
+		if (settlementRequests == null)
+		{
+			return;
+		}
+
+		if (settlementRequests.RequestsFulfilled(storage))
+		{
+			WalletController.instance.AddSettlementRequestFulfilledTransaction(settlementRequests.creditReward , this);
+			RequestsFulfilledEvent?.Invoke();
+		}
 	}
 }

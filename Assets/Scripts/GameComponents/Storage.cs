@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class Storage : MonoBehaviour
@@ -48,4 +49,9 @@ public class Storage : MonoBehaviour
 		return 0;
 	}
 
+	public void ClearStorage()
+	{
+		storage.Clear();
+		StorageUpdatedEvent?.Invoke();
+	}
 }

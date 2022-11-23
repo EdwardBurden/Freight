@@ -8,23 +8,18 @@ public class FarmPanel : BuildingPanel<Farm>
 {
 	[SerializeField] private TMP_Text producedperAutumn;
 	[SerializeField] private TMP_Text lostperSeason;
-	[SerializeField] private TMP_Text cropStored;
 	[SerializeField] private Transform producesTransform;
-	[SerializeField] private ResourceIconButtonWidget resourceIconButtonWidget;
+	[SerializeField] private ExpandedResourceWidget expandedResourceWidget;
 
 	public override void Show()
 	{
 		base.Show();
 		GameObjectUtils.Clear(producesTransform);
 		ResourceDefintion resourceDefintion = building.GetResourceProduced();
-		ResourceIconButtonWidget widget = Instantiate(resourceIconButtonWidget, producesTransform);
-		widget.ShowResource(resourceDefintion, () => ShowResoucreDetail(resourceDefintion));
+		ExpandedResourceWidget widget = Instantiate(expandedResourceWidget, producesTransform);
+		widget.ShowResource(resourceDefintion, building.GetCropsStoredAmount());
 
-		cropStored.text = building.GetCropsStoredAmount().ToString();
-	}
-
-	public void ShowResoucreDetail(ResourceDefintion resource)
-	{
-		//TODO Open Screen
+		producedperAutumn.text = building.GetAmountProducedPerAutumn().ToString();
+		lostperSeason.text = building.GetAmountLostPerSeason().ToString();
 	}
 }

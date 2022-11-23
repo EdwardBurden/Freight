@@ -29,6 +29,15 @@ public class WalletController : Singleton<WalletController>
 		CreateTransactionCompletePopup(buildingPlacement);
 	}
 
+	public void AddSettlementRequestFulfilledTransaction(int amount, Building building)
+	{
+		//TODO
+		BuildingPlacementTransaction buildingPlacement = new BuildingPlacementTransaction(DateTime.Now, amount, "TEST", building);
+		wallet.AddTransaction(buildingPlacement);
+		TransactionAddedEvent?.Invoke(buildingPlacement, wallet.credits);
+		CreateTransactionCompletePopup(buildingPlacement);
+	}
+
 	public void AddBuyTransaction(int amount, Building building, Ship ship, ResourceDefintion resource)
 	{
 		BuyTransaction buyTransaction = new BuyTransaction(DateTime.Now, amount, building, ship, resource);

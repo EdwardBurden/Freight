@@ -79,13 +79,13 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 	{
 		cameraController.enabled = true;
 		timeController.StartTime();
-		seasonsController.Init();
+
 		gameGenerationData = mapGenerator.Generate();
 		buildingController.DistributeBuildings(gameGenerationData);
 		testships();
 		SetInputToSelectionMode();
 		UIManager.instance.SetController(gameUIController);
-
+		seasonsController.Init();
 		GameStartEvent?.Invoke();
 	}
 

@@ -10,7 +10,7 @@ public abstract class BuildingPanel<T> : Panel where T : Building
 	[SerializeField]private TMP_Text nameField;
 
 	protected T building;
-	private Storage buildingStorage;
+	protected Storage buildingStorage;
 
 	protected void OnEnable()
 	{

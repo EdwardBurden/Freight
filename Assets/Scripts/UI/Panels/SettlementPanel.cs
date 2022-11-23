@@ -8,26 +8,32 @@ public class SettlementPanel : BuildingPanel<Settlement>
 {
 	[SerializeField] private TMP_Text rewardField;
 	[SerializeField] private Transform acceptsTransform;
-	[SerializeField] private ResourceIconButtonWidget resourceIconButtonWidget;
+	[SerializeField] private RequiredExpandedResourceWidget resourceIconButtonWidget;
 
 	public override void Show()
 	{
 		base.Show();
 		GameObjectUtils.Clear(acceptsTransform);
-		foreach (ResourceDefintion resource in building.GetAcceptedResources())
+		SettlementRequests settlementRequirements = building.GetResourceRequirements();
+		if (settlementRequirements != null)
 		{
-			ShowResourceRequired(resource);
+			rewardField.text = settlementRequirements.creditReward.ToString();
+			foreach (SettlementRequest settlement in settlementRequirements.requirements)
+			{
+				ShowResourceRequired(settlement);
+			}
+		}
+		else
+		{
+			rewardField.text = "Must wait till year start for requests";
 		}
 	}
 
-	private void ShowResourceRequired(ResourceDefintion resource)//TODO add amounts and amountsLeft
+	private void ShowResourceRequired(SettlementRequest settlementRequirement)//TODO add amounts and amountsLeft
 	{
-		ResourceIconButtonWidget widget = Instantiate(resourceIconButtonWidget, acceptsTransform);
-		widget.ShowResource(resource, () => ShowResoucreDetail(resource));
-	}
-
-	public void ShowResoucreDetail(ResourceDefintion resource)
-	{
-		//TODO Open Screen
+		int amountStored = buildingStorage.GetStorage(settlementRequirement.resourceDefintion);
+		int amountRequired = settlementRequirement.amountRequired;
+		RequiredExpandedResourceWidget widget = Instantiate(resourceIconButtonWidget, acceptsTransform);
+		widget.ShowResource(settlementRequirement.resourceDefintion, amountRequired, amountStored);
 	}
 }

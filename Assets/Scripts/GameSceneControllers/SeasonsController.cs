@@ -19,6 +19,8 @@ public class SeasonsController : Singleton<SeasonsController>
 {
 	public static event Action<SeasonType> SeasonStartedEvent;
 	public static event Action<SeasonType> SeasonEndedEvent;
+	public static event Action<int> YearEndedEvent;
+	public static event Action<int> YearStartedEvent;
 
 	[SerializeField] private Light light; //for testing atm
 	private Vector3 eulerstart;
@@ -30,6 +32,7 @@ public class SeasonsController : Singleton<SeasonsController>
 	[SerializeField] private int seasonTimeInSeconds = 5;
 
 	public SeasonType? season = null;
+	public int year = 1;
 
 	private void Awake()
 	{
@@ -61,7 +64,7 @@ public class SeasonsController : Singleton<SeasonsController>
 	public void Init()
 	{
 		season = null;
-
+		year = 1;
 		StartNextSeason();
 	}
 
@@ -70,9 +73,18 @@ public class SeasonsController : Singleton<SeasonsController>
 		if (season != null)
 		{
 			SeasonEndedEvent?.Invoke(season.Value);
+			if (season.Value == SeasonType.Winter)
+			{
+				YearEndedEvent?.Invoke(year);
+			}
 		}
 		UpdateSeason();
 		SeasonStartedEvent?.Invoke(season.Value);
+		if (season.Value == SeasonType.Spring)
+		{
+			year++;
+			YearStartedEvent?.Invoke(year);
+		}
 	}
 
 	private void UpdateSeason()
