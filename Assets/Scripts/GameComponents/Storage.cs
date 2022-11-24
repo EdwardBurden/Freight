@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UI;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
@@ -11,6 +12,9 @@ public class Storage : MonoBehaviour
 	public event Action StorageUpdatedEvent;
 
 	public Dictionary<ResourceDefintion, int> storage = new Dictionary<ResourceDefintion, int>(); //simple
+
+	[SerializeField]
+	public DisplayMessage_InCamera storageUpdatePrefab;
 
 	public void RemoveStorage(ResourceDefintion resourceDefintion, int amount = 1)
 	{
@@ -32,6 +36,8 @@ public class Storage : MonoBehaviour
 			storage.Add(resourceDefintion, amount);
 		}
 		StorageUpdatedEvent?.Invoke();
+		DisplayMessage_InCamera displayMessage_InCamera = GameUIController.instance.CreateInScene(storageUpdatePrefab, this.transform) as DisplayMessage_InCamera;
+		displayMessage_InCamera.ShowTransactionText($"Storage of {amount} {resourceDefintion.resourceName}'s added" , 5);
 	}
 
 	public bool HasStorage(ResourceDefintion resourceData)

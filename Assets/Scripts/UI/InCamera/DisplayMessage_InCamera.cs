@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 namespace UI
 {
-	public class TransactionComplete_InCamera : InCamera
+	public class DisplayMessage_InCamera : InCamera
 	{
 		[SerializeField]
 		private TMP_Text transactionText;
@@ -23,9 +23,10 @@ namespace UI
 			Destroy(this.gameObject);
 		}
 
-		public void ShowTransactionText(WalletTransaction walletTransaction)
+		public void ShowTransactionText(string message, int length = 3)
 		{
-			transactionText.text = walletTransaction.transactiontext;
+			transactionText.text = message;
+			time = length;
 		}
 	}
 }

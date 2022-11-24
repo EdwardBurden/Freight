@@ -9,7 +9,7 @@ public abstract class BuildingDefintion : ScriptableObject
 	[SerializeField] public Sprite buildingIcon;
 	[SerializeField] public int buildCost = 100;
 
-	[SerializeField] public SummaryBuilding_InCamera summaryUIPrefab; //summary above building
+	[SerializeField] public GameObject summaryUIPrefab; //summary above building
 
 	[SerializeField] public Building buildingPrefab;  //large ui panel of building details
 }

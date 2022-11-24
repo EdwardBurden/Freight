@@ -129,9 +129,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4914143757049535612}
   - component: {fileID: 4914143757049535614}
-  - component: {fileID: 4025078765208375979}
+  - component: {fileID: 1821656757289636019}
   m_Layer: 0
-  m_Name: StorageChanged_InCamera
+  m_Name: DisplayMessage_InCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -166,7 +166,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4914143757049535587}
   m_CullTransparentMesh: 1
---- !u!114 &4025078765208375979
+--- !u!114 &1821656757289636019
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,9 +175,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4914143757049535587}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36f059136aa1a4448ae620c4c332b5e6, type: 3}
+  m_Script: {fileID: 11500000, guid: 2b56be8c7c30f9d40b96a90860d9cd73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transactionText: {fileID: 4764111023552145355}
 --- !u!1 &5626876391548332506
 GameObject:
   m_ObjectHideFlags: 0

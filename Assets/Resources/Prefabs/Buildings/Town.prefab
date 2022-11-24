@@ -374,9 +374,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverUIPrefab: {fileID: 234753750589598935, guid: ae65448598d6f4743bd4d43b4a5b7178, type: 3}
   summaryUIAnchor: {fileID: 2807097585713938179}
+  storage: {fileID: 4641993059222504513}
   islandBlock: {fileID: 0}
   platform: {fileID: 5640313802130655098}
-  storage: {fileID: 4641993059222504513}
 --- !u!65 &667322553291242172
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -402,6 +402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 531ca1957e2910b4082fd3935e12ea1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  storageUpdatePrefab: {fileID: 1821656757289636019, guid: cc3b202cd3216b14a949e35f25c640c3, type: 3}
 --- !u!1 &8468621965111044093
 GameObject:
   m_ObjectHideFlags: 0
