@@ -18,7 +18,7 @@ public class SettlementPanel : BuildingPanel<Settlement>
 		if (settlementRequirements != null)
 		{
 			rewardField.text = settlementRequirements.creditReward.ToString();
-			foreach (SettlementRequest settlement in settlementRequirements.requirements)
+			foreach (SettlementRequest settlement in settlementRequirements.requests)
 			{
 				ShowResourceRequired(settlement);
 			}

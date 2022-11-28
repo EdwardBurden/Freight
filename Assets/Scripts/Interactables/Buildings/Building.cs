@@ -9,7 +9,7 @@ public abstract class Building : InteractableObject
 	[SerializeField] public Storage storage;
 
 
-	protected GameObject summaryUI;
+	protected BuildingSummary_InWorld summaryUI;
 	protected BuildingDefintion buildingDefintion;
 	[HideInInspector] public IslandBlock islandBlock;
 	private bool isFreeToUse = true; //TODO replace with a queue of ships 
@@ -20,7 +20,7 @@ public abstract class Building : InteractableObject
 		if (buildingDefintion.summaryUIPrefab != null && summaryUIAnchor != null)
 		{
 			summaryUI = Instantiate(buildingDefintion.summaryUIPrefab, summaryUIAnchor);
-			//summaryUI.Init(this);
+			summaryUI.Init(this);
 		}
 	}
 
@@ -58,8 +58,7 @@ public abstract class Building : InteractableObject
 		base.OnHover();
 		if (summaryUI != null)
 		{
-		//
-		//	wellInWorldUI.OnBuildingHover();
+			summaryUI.OnHover();
 		}
 	}
 
@@ -68,8 +67,7 @@ public abstract class Building : InteractableObject
 		base.OffHover();
 		if (summaryUI != null)
 		{
-		//	SummaryBuilding_InCamera wellInWorldUI = summaryUI.GetComponent<SummaryBuilding_InCamera>();
-		//	wellInWorldUI.OffBuildingHover();
+			summaryUI.OffHover();
 		}
 	}
 }
