@@ -11,19 +11,24 @@ public class SettlementSummary_InWorld : BuildingSummary_InWorld
 	private Settlement settlement => building as Settlement;
 
 
-	protected override void Show()
+	public override void Show()
 	{
 		base.Show();
 
 		GameObjectUtils.Clear(requestedResourcesTransform);
-		SettlementRequests settlementRequests = settlement.GetResourceRequirements();
+		SettlementRequestData settlementRequests = settlement.GetResourceRequirements();
 		if (settlementRequests == null)
 		{
 			return;
 		}
 		foreach (SettlementRequest item in settlementRequests.requests)
 		{
-			Instantiate(collapsedResourceWidget, requestedResourcesTransform);
+			RequiredCollapsedResourceWidget requiredCollapsedResource = Instantiate(collapsedResourceWidget, requestedResourcesTransform);
+			int stored = building.storage.GetStorage(item.resourceDefintion);
+			int required = item.amountRequired;
+			requiredCollapsedResource.ShowResource(item.resourceDefintion, required, stored);
 		}
 	}
+
+
 }

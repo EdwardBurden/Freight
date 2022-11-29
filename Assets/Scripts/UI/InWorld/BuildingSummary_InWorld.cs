@@ -22,22 +22,22 @@ public abstract class BuildingSummary_InWorld : MonoBehaviour
 
 	private void OnStorageUpdatedEvent()
 	{
-
+		Show();
 	}
 
-	protected virtual void Show()
+	public virtual void Show()
 	{
 		buildingNameText.text = building.GetObjectName();
 
 	}
 
-	public void OnHover()
+	public void OnBuildingHover()
 	{
 		Show();
 		//throw new NotImplementedException();
 	}
 
-	public void OffHover()
+	public void OffBuildingHover()
 	{
 		Show();
 		//throw new NotImplementedException();

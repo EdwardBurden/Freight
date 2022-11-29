@@ -8,6 +8,21 @@ namespace UI
 
 	public class FarmSummary_InWorld : BuildingSummary_InWorld
 	{
+		[SerializeField] private ResourceProducedWidget buttonWidget;
+		[SerializeField] private Transform resourcesTransform;
+
+		private Farm farm => building as Farm;
+
+		public override void Show()
+		{
+			base.Show();
+
+			GameObjectUtils.Clear(resourcesTransform);
+			ResourceDefintion resourceDefintion = farm.GetResourceProduced();
+			ResourceProducedWidget resourceIconButton = Instantiate(buttonWidget, resourcesTransform);
+			int stored = building.storage.GetStorage(resourceDefintion);
+			resourceIconButton.ShowResource(resourceDefintion , stored);
+		}
 
 	}
 }

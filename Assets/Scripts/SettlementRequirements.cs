@@ -14,13 +14,13 @@ public class SettlementRequest
 	}
 }
 
-public class SettlementRequests
+public class SettlementRequestData
 {
 	public int creditReward;
 	public SettlementRequest[] requests;
 
 
-	public SettlementRequests(ResourceDefintion[] resourceDefintions, int year)
+	public SettlementRequestData(ResourceDefintion[] resourceDefintions, int year)
 	{
 		creditReward = 100;
 		int resourcesAmount = Mathf.Min(resourceDefintions.Length, Random.Range(1, year));

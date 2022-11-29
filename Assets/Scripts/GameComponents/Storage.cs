@@ -11,6 +11,8 @@ public class Storage : MonoBehaviour
 	//put storage ui update here
 	public event Action StorageUpdatedEvent;
 
+	[SerializeField] private Transform storageMessageTransform;
+
 	public Dictionary<ResourceDefintion, int> storage = new Dictionary<ResourceDefintion, int>(); //simple
 
 	[SerializeField]
@@ -22,6 +24,8 @@ public class Storage : MonoBehaviour
 		{
 			storage[resourceDefintion] -= amount;
 			StorageUpdatedEvent?.Invoke();
+			DisplayMessage_InCamera displayMessage_InCamera = GameUIController.instance.CreateInScene(storageUpdatePrefab, storageMessageTransform) as DisplayMessage_InCamera;
+			displayMessage_InCamera.ShowTransactionText($"Storage of {amount} {resourceDefintion.resourceName}'s removed", 5);
 		}
 	}
 
@@ -36,7 +40,7 @@ public class Storage : MonoBehaviour
 			storage.Add(resourceDefintion, amount);
 		}
 		StorageUpdatedEvent?.Invoke();
-		DisplayMessage_InCamera displayMessage_InCamera = GameUIController.instance.CreateInScene(storageUpdatePrefab, this.transform) as DisplayMessage_InCamera;
+		DisplayMessage_InCamera displayMessage_InCamera = GameUIController.instance.CreateInScene(storageUpdatePrefab, storageMessageTransform) as DisplayMessage_InCamera;
 		displayMessage_InCamera.ShowTransactionText($"Storage of {amount} {resourceDefintion.resourceName}'s added" , 5);
 	}
 

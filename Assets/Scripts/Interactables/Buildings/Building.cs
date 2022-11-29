@@ -58,7 +58,7 @@ public abstract class Building : InteractableObject
 		base.OnHover();
 		if (summaryUI != null)
 		{
-			summaryUI.OnHover();
+			summaryUI.OnBuildingHover();
 		}
 	}
 
@@ -67,7 +67,7 @@ public abstract class Building : InteractableObject
 		base.OffHover();
 		if (summaryUI != null)
 		{
-			summaryUI.OffHover();
+			summaryUI.OffBuildingHover();
 		}
 	}
 }

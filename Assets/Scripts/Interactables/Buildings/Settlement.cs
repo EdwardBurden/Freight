@@ -9,7 +9,7 @@ public class Settlement : Building, IConsumer
 
 	private SettlementDefintion settlementDefintion => buildingDefintion as SettlementDefintion;
 
-	private SettlementRequests settlementRequests = null;
+	private SettlementRequestData settlementRequests = null;
 
 	private void OnEnable()
 	{
@@ -46,8 +46,12 @@ public class Settlement : Building, IConsumer
 
 	private void OnYearStart(int year)
 	{
-		settlementRequests = new SettlementRequests(settlementDefintion.resourcesAccepted, year);
+		settlementRequests = new SettlementRequestData(settlementDefintion.resourcesAccepted, year);
 		storage.ClearStorage();
+		if (summaryUI != null)
+		{
+			summaryUI.Show();
+		}
 	}
 
 	private void OnYearEnd(int obj)
@@ -55,9 +59,13 @@ public class Settlement : Building, IConsumer
 		CheckRequests();
 		settlementRequests = null;
 		storage.ClearStorage();
+		if (summaryUI != null)
+		{
+			summaryUI.Show();
+		}
 	}
 
-	public SettlementRequests GetResourceRequirements()
+	public SettlementRequestData GetResourceRequirements()
 	{
 		return settlementRequests;
 	}
@@ -71,7 +79,7 @@ public class Settlement : Building, IConsumer
 
 		if (settlementRequests.RequestsFulfilled(storage))
 		{
-			WalletController.instance.AddSettlementRequestFulfilledTransaction(settlementRequests.creditReward , this);
+			WalletController.instance.AddSettlementRequestFulfilledTransaction(settlementRequests.creditReward, this);
 			RequestsFulfilledEvent?.Invoke();
 		}
 	}

@@ -14,7 +14,7 @@ public class SettlementPanel : BuildingPanel<Settlement>
 	{
 		base.Show();
 		GameObjectUtils.Clear(acceptsTransform);
-		SettlementRequests settlementRequirements = building.GetResourceRequirements();
+		SettlementRequestData settlementRequirements = building.GetResourceRequirements();
 		if (settlementRequirements != null)
 		{
 			rewardField.text = settlementRequirements.creditReward.ToString();
