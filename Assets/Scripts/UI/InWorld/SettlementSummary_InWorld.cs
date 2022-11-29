@@ -14,14 +14,14 @@ public class SettlementSummary_InWorld : BuildingSummary_InWorld
 	public override void Show()
 	{
 		base.Show();
-
+		buildingNameText.text = $"{building.GetObjectName()} {settlement.level}"; ;
 		GameObjectUtils.Clear(requestedResourcesTransform);
-		SettlementRequestData settlementRequests = settlement.GetResourceRequirements();
+		SettlementRequest settlementRequests = settlement.GetResourceRequirements();
 		if (settlementRequests == null)
 		{
 			return;
 		}
-		foreach (SettlementRequest item in settlementRequests.requests)
+		foreach (ResourceRequest item in settlementRequests.requests)
 		{
 			RequiredCollapsedResourceWidget requiredCollapsedResource = Instantiate(collapsedResourceWidget, requestedResourcesTransform);
 			int stored = building.storage.GetStorage(item.resourceDefintion);

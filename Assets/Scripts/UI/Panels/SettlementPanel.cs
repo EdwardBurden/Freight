@@ -14,11 +14,11 @@ public class SettlementPanel : BuildingPanel<Settlement>
 	{
 		base.Show();
 		GameObjectUtils.Clear(acceptsTransform);
-		SettlementRequestData settlementRequirements = building.GetResourceRequirements();
+		SettlementRequest settlementRequirements = building.GetResourceRequirements();
 		if (settlementRequirements != null)
 		{
 			rewardField.text = settlementRequirements.creditReward.ToString();
-			foreach (SettlementRequest settlement in settlementRequirements.requests)
+			foreach (ResourceRequest settlement in settlementRequirements.requests)
 			{
 				ShowResourceRequired(settlement);
 			}
@@ -29,7 +29,7 @@ public class SettlementPanel : BuildingPanel<Settlement>
 		}
 	}
 
-	private void ShowResourceRequired(SettlementRequest settlementRequirement)//TODO add amounts and amountsLeft
+	private void ShowResourceRequired(ResourceRequest settlementRequirement)//TODO add amounts and amountsLeft
 	{
 		int amountStored = buildingStorage.GetStorage(settlementRequirement.resourceDefintion);
 		int amountRequired = settlementRequirement.amountRequired;
