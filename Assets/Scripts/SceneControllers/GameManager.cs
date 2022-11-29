@@ -1,11 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Terrain;
 using UI;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class GameManager : Singleton<GameManager> //but must b destoryed when leavign game scene
 {

@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UI;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class Storage : MonoBehaviour
