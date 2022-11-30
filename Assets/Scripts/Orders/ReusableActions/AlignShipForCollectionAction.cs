@@ -1,5 +1,6 @@
 using ActionLists;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class AlignShipForCollectionAction : HierarchicalAction
 {
@@ -20,10 +21,10 @@ public class AlignShipForCollectionAction : HierarchicalAction
 		base.OnInitialise();
 		offset = carryObject.GetFirstEmptyStorageTransform().localPosition;
 		Vector3 position = landingPlatform.GetLandingPosition();
-		Quaternion rotation = landingPlatform.GetLandingRotation();
+		Quaternion landingDirection = landingPlatform.GetLandingDirection(shipObject);
 
-		childList.PushAction(new MoveToAction(position - (rotation * offset), shipObject, true));
-		childList.PushAction(new RotateToAction(rotation, shipObject, true)); 
+		childList.PushAction(new MoveToAction(position - (landingDirection * offset), shipObject, true));
+		childList.PushAction(new RotateToAction(landingDirection, shipObject, true));
 	}
 
 }

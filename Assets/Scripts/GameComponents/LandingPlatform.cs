@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using UnityEngine;
 
 public class LandingPlatform : MonoBehaviour
@@ -40,5 +41,20 @@ public class LandingPlatform : MonoBehaviour
 	public void CloseAniamtionComplete()
 	{
 		CloseAnimationCompleteEvent?.Invoke();
+	}
+
+	public Vector3 GetLandingDirection()
+	{
+		return landingSpot.transform.forward;
+	}
+
+	internal Quaternion GetLandingDirection(Ship shipObject)
+	{
+		Vector3 direction = GetLandingDirection();
+		if (Vector3.Dot(shipObject.transform.forward, direction) < 0)
+		{
+			direction = -direction;
+		}
+		return Quaternion.LookRotation(direction);
 	}
 }

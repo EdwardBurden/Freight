@@ -67,8 +67,11 @@ public class BuildingController : Singleton<BuildingController>
 
 	private void SelectBuilding(Building building)
 	{
-		this.buildingSelected = building;
-		BuildingSelectedEvent?.Invoke(buildingSelected);
+		if (buildingSelected == null || buildingSelected != building)
+		{
+			this.buildingSelected = building;
+			BuildingSelectedEvent?.Invoke(buildingSelected);
+		}
 	}
 
 	public void DistributeBuildings(MapGenerationData mapGenerationData)

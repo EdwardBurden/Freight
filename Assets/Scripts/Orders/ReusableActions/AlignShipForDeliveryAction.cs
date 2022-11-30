@@ -24,9 +24,9 @@ public class AlignShipForDeliveryAction : HierarchicalAction //make into single 
 		base.OnInitialise();
 		offset = carryObject.GetFirstStorageTransformOfResource(resourceData).localPosition;
 		Vector3 position = landingPlatform.GetLandingPosition();
-		Quaternion rotation = landingPlatform.GetLandingRotation();
+		Quaternion landingDirection = landingPlatform.GetLandingDirection(shipObject);
 
-		childList.PushAction(new MoveToAction(position - (rotation * offset), shipObject, true));
-		childList.PushAction(new RotateToAction(rotation, shipObject, true));
+		childList.PushAction(new MoveToAction(position - (landingDirection * offset), shipObject, true));
+		childList.PushAction(new RotateToAction(landingDirection, shipObject, true));
 	}
 }
