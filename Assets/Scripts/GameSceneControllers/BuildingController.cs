@@ -22,6 +22,8 @@ public class BuildingController : Singleton<BuildingController>
 	[SerializeField]
 	private BuildingSpawnInfo[] builindSpawnInfos;
 
+	[SerializeField] public BuildingDefintion[] allbuildingDefintions;
+
 	[SerializeField]
 	private BuildingDefintion empty;
 
@@ -80,29 +82,20 @@ public class BuildingController : Singleton<BuildingController>
 
 		foreach (BuildingSpawnInfo buildingSpawnInfo in builindSpawnInfos)
 		{
+			List<IslandBlock> validBlocks = islandBlocks.Where(x => buildingSpawnInfo.building.CanBePlaced(x)).ToList();
+
 			int amount = Random.Range(buildingSpawnInfo.minSpawnAmount, buildingSpawnInfo.maxSpawnAmount);
 			for (int i = 0; i < amount; i++)
 			{
-				AddBuilding(buildingSpawnInfo.building, islandBlocks[0]); //TODO improve so no index error if not enough space
-				islandBlocks.RemoveAt(0);
+				AddBuilding(buildingSpawnInfo.building, validBlocks[0]); //TODO improve so no index error if not enough space
+				validBlocks.RemoveAt(0);
+				islandBlocks.Remove(validBlocks[0]);
 			}
 		}
 
 		foreach (var item in islandBlocks)
 		{
-			bool placed = false;
-			foreach (BuildingSpawnInfo buildingSpawnInfo in builindSpawnInfos)
-			{
-				if (!placed && Random.Range(0f, 1f) < buildingSpawnInfo.spawnChance)
-				{
-					AddBuilding(buildingSpawnInfo.building, item);
-					placed = true;
-				}
-			}
-			if (!placed)
-			{
-				AddBuilding(empty, item);
-			}
+			AddBuilding(empty, item);
 		}
 	}
 
@@ -140,4 +133,16 @@ public class BuildingController : Singleton<BuildingController>
 		return newBuilding;
 	}
 
+	internal IEnumerable<BuildingDefintion> FindAllBuildingsThatCanBePlaced(IslandBlock islandBlock)
+	{
+		List<BuildingDefintion> buildingDefintions = new List<BuildingDefintion>();
+		foreach (BuildingDefintion building in allbuildingDefintions)
+		{
+			if (building.CanBePlaced(islandBlock))
+			{
+				buildingDefintions.Add(building);
+			}
+		}
+		return buildingDefintions;
+	}
 }

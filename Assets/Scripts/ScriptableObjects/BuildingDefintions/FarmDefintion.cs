@@ -13,7 +13,7 @@ public class FarmDefintion : BuildingDefintion
 
 	public bool CanProducesResource(ResourceDefintion resourceData)
 	{
-		if (resourceProduced == resourceData )
+		if (resourceProduced == resourceData)
 		{
 			return true;
 		}

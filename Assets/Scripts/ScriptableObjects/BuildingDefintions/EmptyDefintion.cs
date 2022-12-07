@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/BuildingDefintion/EmptyDefintion")]
 public class EmptyDefintion : BuildingDefintion
 {
-	[SerializeField] public BuildingDefintion[] options;
+
 }

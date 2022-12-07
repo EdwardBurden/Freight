@@ -18,5 +18,8 @@ MonoBehaviour:
   summaryUIPrefab: {fileID: 3097776169667370587, guid: b10066454ea498448908194cbd1c6cc0, type: 3}
   buildingPrefab: {fileID: 7878513662307553155, guid: a95d7d6023b30d74792965ccd4f24fd1, type: 3}
   resourcesAccepted:
-  - {fileID: 11400000, guid: cdae099e1fe6f6546b3adeb05bddd8af, type: 2}
   - {fileID: 11400000, guid: 967e1c8a89df4924bb73cbe90b039352, type: 2}
+  - {fileID: 11400000, guid: 0d2d87a719d382649b280a712678201a, type: 2}
+  - {fileID: 11400000, guid: e56a1a40ce84ded4fb2c430c50415458, type: 2}
+  - {fileID: 11400000, guid: 910c24dfe37d85f4398a13580c5760e0, type: 2}
+  - {fileID: 11400000, guid: e27ad184f03e8f24a99a0464cf95accf, type: 2}

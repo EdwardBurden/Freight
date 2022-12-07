@@ -15,8 +15,6 @@ MonoBehaviour:
   buildingName: Empty
   buildingIcon: {fileID: 0}
   buildCost: 0
+  requiredGroundType: 
   summaryUIPrefab: {fileID: 0}
   buildingPrefab: {fileID: 8491707964226704914, guid: 595661d89ba8e6148a100ba1bafe2d08, type: 3}
-  options:
-  - {fileID: 11400000, guid: cc76772fbacfa814b9440d362342ff08, type: 2}
-  - {fileID: 11400000, guid: 4617106870d5b604ea75aade8ae31e6f, type: 2}

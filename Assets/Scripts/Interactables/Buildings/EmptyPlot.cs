@@ -20,6 +20,6 @@ public class EmptyPlot : Building
 
 	internal IEnumerable<BuildingDefintion> GetOptions()
 	{
-		return emptyDefintion.options;
+		return BuildingController.instance.FindAllBuildingsThatCanBePlaced(this.islandBlock);
 	}
 }

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1017b530c6cc37b42ad24e6b64abf18d, type: 3}
-  m_Name: Iron Ore
+  m_Name: Bread
   m_EditorClassIdentifier: 
-  resourceName: Iron
+  resourceName: 
   resourceIcon: {fileID: 0}
-  resourceColor: {r: 0.5309719, g: 0.5939667, b: 0.7169812, a: 1}
-  iconPrefab: {fileID: 3756753267502298690, guid: d4e37d3ce6cd9c14991a67063337ef64, type: 3}
-  freightPrefab: {fileID: 2785265033204548586, guid: bc993f97bf207924eae676c79eacbb61, type: 3}
-  buyPrice: 120
-  sellPrice: 180
+  resourceColor: {r: 0, g: 0, b: 0, a: 0}
+  iconPrefab: {fileID: 0}
+  freightPrefab: {fileID: 0}
+  buyPrice: 0
+  sellPrice: 0

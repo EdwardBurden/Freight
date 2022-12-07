@@ -208,16 +208,14 @@ public class MapGenerator : MonoBehaviour
 		MeshRenderer meshRenderer = cellGameObject.AddComponent<MeshRenderer>();
 
 		int materialIndex = UnityEngine.Random.Range(0, islandMaterials.Length);
-		int h = (Mathf.RoundToInt(height - minHeight / (float)(maxHeight)) + materialIndex) / 2;
-
-		int matindex = Mathf.Clamp(h, 0, islandMaterials.Length - 1);
-		meshRenderer.material = islandMaterials[matindex];
+		meshRenderer.material = islandMaterials[materialIndex];
 		meshFilter.mesh = MapGeneration.CreateVoronoiMesh(voronoiCell, height);
 
 		GameObject site = new GameObject("Site");
 		site.transform.parent = cellGameObject.transform;
 		site.transform.position = position + (Vector3.up * height);
 		islandBlock.buildingSpawnPoint = site.transform;
+		islandBlock.resourceGroundType = (ResourceGroundType)materialIndex;
 		return islandBlock;
 	}
 

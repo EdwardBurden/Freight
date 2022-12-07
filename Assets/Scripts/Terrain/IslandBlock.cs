@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class IslandBlock : MonoBehaviour
 {
+	public ResourceGroundType resourceGroundType;
 	public Transform buildingSpawnPoint;
 }
