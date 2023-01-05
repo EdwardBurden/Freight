@@ -14,16 +14,8 @@ public class ParentFreightToShipAction : Action
 
 	public override void OnUpdate()
 	{
+		FreightObject freight = landingPlatform.GetActiveFreight().GetComponent<FreightObject>();
+		ship.AddFreight(freight);
 		isFinished = true;
-	}
-
-	public override void OnInitialise()
-	{
-		base.OnInitialise();
-		GameObject freight = landingPlatform.GetActiveFreight();
-		freight.transform.parent = ship.GetFirstEmptyStorageTransform();
-		freight.transform.localPosition = Vector3.zero;
-		freight.transform.localRotation = Quaternion.identity;
-
 	}
 }

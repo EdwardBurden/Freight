@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(CarryObject))]
 public class FreightShip : Ship
 {
-	[SerializeField]
+	
 	private ShipOrderQueue actionList;
 
 	private void Awake()

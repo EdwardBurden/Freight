@@ -15,13 +15,7 @@ public class ParentFreightToPlatformAction : Action
 
 	public override void OnUpdate()
 	{
+		ship.ReleaseFreight(resourceData, landingPlatform.GetFreightSpawnTransform());
 		isFinished = true;
-	}
-
-	public override void OnInitialise()
-	{
-		base.OnInitialise();
-		FreightObject freight = ship.GetFreightOfResource(resourceData);
-		freight.transform.parent = landingPlatform.GetFreightSpawnTransform();
 	}
 }

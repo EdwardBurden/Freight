@@ -7,7 +7,7 @@ using UnityEngine;
 
 public abstract class BuildingPanel<T> : Panel where T : Building
 {
-	[SerializeField]private TMP_Text nameField;
+	[SerializeField] private TMP_Text nameField;
 
 	protected T building;
 	protected Storage buildingStorage;
@@ -43,9 +43,9 @@ public abstract class BuildingPanel<T> : Panel where T : Building
 	{
 		base.Show();
 		nameField.text = building.GetObjectName();
-		buildingStorage = building.storage;
-		if (buildingStorage != null)
+		if (buildingStorage != building.storage && building.storage != null)
 		{
+			buildingStorage = building.storage;
 			buildingStorage.StorageUpdatedEvent += OnStorageUpdated;
 		}
 	}

@@ -37,6 +37,8 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 	[SerializeField]
 	private MainMenuUIController mainMenuUIController;
 
+	[SerializeField]
+	private NotificationsController notificationsController;
 
 
 	private MapGenerationData gameGenerationData;
@@ -79,6 +81,7 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 		gameGenerationData = mapGenerator.Generate();
 		buildingController.DistributeBuildings(gameGenerationData);
 		testships();
+		notificationsController.Init();
 		SetInputToSelectionMode();
 		UIManager.instance.SetController(gameUIController);
 		seasonsController.Init();

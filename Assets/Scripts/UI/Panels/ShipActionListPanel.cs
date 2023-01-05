@@ -35,12 +35,12 @@ namespace UI
 
 		private Ship ship => shipActionList.GetComponent<Ship>();
 
-
 		protected void OnEnable()
 		{
 			ShipSelectionController.ShipSelectedEvent += OnShipSelected;
 			ShipSelectionController.ShipDeSelectedEvent += OnShipDeselected;
 		}
+
 		private void OnDisable()
 		{
 			ShipSelectionController.ShipSelectedEvent -= OnShipSelected;
@@ -65,6 +65,7 @@ namespace UI
 			playButton.gameObject.SetActive(shipActionList.paused);
 			pauseButton.gameObject.SetActive(!shipActionList.paused);
 		}
+
 		private void ToggleRepeatButtons()
 		{
 			repeatButton.gameObject.SetActive(shipActionList.repeat);
@@ -91,12 +92,12 @@ namespace UI
 			ShipActionIconButtonWidget actionIcon = Instantiate(actionButtonWidgetPrefab, actionListTransform);
 			actionIcon.ShowAction(shipAction.actionDefintion, () => Remove(shipAction));
 		}
+
 		private void SpawnAddbutton(bool active)
 		{
 			SimpleButtonWidget addButton = Instantiate(addButtonPrefab, actionListTransform);
 			addButton.Init(Color.white, addSprite, AddClicked, active);
 		}
-
 
 		private void AddClicked()
 		{
@@ -116,7 +117,6 @@ namespace UI
 			shipActionList.RemoveAction(shipAction);
 			Refresh();
 		}
-
 
 		private void OnActionPushed(ShipOrder obj)
 		{
@@ -157,10 +157,10 @@ namespace UI
 
 		public override void Show()
 		{
-			ShipOrderQueue.OrderStartedEvent += OnActionStarted;
-			ShipOrderQueue.OrderFinishedEvent += OnActionFinished;
-			ShipOrderQueue.OrderFailedEvent += OnActionFailed;
-			ShipOrderQueue.OrderPushedEvent += OnActionPushed;
+			shipActionList.OrderStartedEvent += OnActionStarted;
+			shipActionList.OrderFinishedEvent += OnActionFinished;
+			shipActionList.OrderFailedEvent += OnActionFailed;
+			shipActionList.OrderPushedEvent += OnActionPushed;
 			Refresh();
 			base.Show();
 		}
@@ -170,10 +170,10 @@ namespace UI
 			base.Hide();
 			if (shipActionList != null)
 			{
-				ShipOrderQueue.OrderStartedEvent -= OnActionStarted;
-				ShipOrderQueue.OrderFinishedEvent -= OnActionFinished;
-				ShipOrderQueue.OrderFailedEvent -= OnActionFailed;
-				ShipOrderQueue.OrderPushedEvent -= OnActionPushed;
+				shipActionList.OrderStartedEvent -= OnActionStarted;
+				shipActionList.OrderFinishedEvent -= OnActionFinished;
+				shipActionList.OrderFailedEvent -= OnActionFailed;
+				shipActionList.OrderPushedEvent -= OnActionPushed;
 			}
 		}
 

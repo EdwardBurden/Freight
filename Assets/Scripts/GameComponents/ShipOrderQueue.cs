@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class ShipOrderQueue : MonoBehaviour
 {
-	public static event Action<ShipOrder> OrderPushedEvent;
-	public static event Action<ShipOrder> OrderStartedEvent;
-	public static event Action<ShipOrder, string> OrderFailedEvent;
-	public static event Action<ShipOrder> OrderFinishedEvent;
+	public event Action<ShipOrder> OrderPushedEvent;
+	public event Action<ShipOrder> OrderStartedEvent;
+	public event Action<ShipOrder, string> OrderFailedEvent;
+	public event Action<ShipOrder> OrderFinishedEvent;
 
 	public List<ShipOrder> allOrders = new List<ShipOrder>();
 	public int maxActions;

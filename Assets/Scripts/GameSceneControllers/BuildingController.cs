@@ -88,8 +88,8 @@ public class BuildingController : Singleton<BuildingController>
 			for (int i = 0; i < amount; i++)
 			{
 				AddBuilding(buildingSpawnInfo.building, validBlocks[0]); //TODO improve so no index error if not enough space
-				validBlocks.RemoveAt(0);
 				islandBlocks.Remove(validBlocks[0]);
+				validBlocks.RemoveAt(0);
 			}
 		}
 

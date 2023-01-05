@@ -13,14 +13,28 @@ public class NotificationsController : Singleton<NotificationsController>
 		_instance = this;
 	}
 
-	private void OnEnable()
+	private void Start()
 	{
-		ShipOrderQueue.OrderFailedEvent += ShipOrderFailed;
+		foreach (ShipOrderQueue shipOrderQueue in FindObjectsOfType<ShipOrderQueue>())
+		{
+			shipOrderQueue.OrderFailedEvent += ShipOrderFailed;
+		}
 	}
 
-	private void OnDisable()
+	private void OnDestroy()
 	{
-		ShipOrderQueue.OrderFailedEvent -= ShipOrderFailed;
+		foreach (ShipOrderQueue shipOrderQueue in FindObjectsOfType<ShipOrderQueue>())
+		{
+			shipOrderQueue.OrderFailedEvent -= ShipOrderFailed;
+		}
+	}
+
+	public void Init()
+	{
+		foreach (ShipOrderQueue shipOrderQueue in FindObjectsOfType<ShipOrderQueue>())
+		{
+			shipOrderQueue.OrderFailedEvent += ShipOrderFailed;
+		}
 	}
 
 	private void ShipOrderFailed(ShipOrder obj, string message)

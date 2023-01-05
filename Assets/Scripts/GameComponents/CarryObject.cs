@@ -1,3 +1,5 @@
+using ActionLists;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,6 +7,25 @@ public class CarryObject : MonoBehaviour
 {
 	[SerializeField]
 	private Transform[] storageTransforms;
+
+	public event Action<FreightObject> FreightAddedEvent;
+	public event Action<FreightObject> FreightRemovedEvent;
+
+	public void AddFreight(FreightObject freightObject)
+	{
+		freightObject.transform.parent = GetFirstEmptyStorageTransform();
+		freightObject.transform.localPosition = Vector3.zero;
+		freightObject.transform.localRotation = Quaternion.identity;
+		FreightAddedEvent?.Invoke(freightObject);
+	}
+
+
+	public void ReleaseFreight(ResourceDefintion resourceDefintion, Transform parent)
+	{
+		FreightObject freight = GetFreightOfResource(resourceDefintion);
+		freight.transform.parent = parent;
+		FreightRemovedEvent?.Invoke(freight);
+	}
 
 	public List<FreightObject> GetAllFreight()
 	{
