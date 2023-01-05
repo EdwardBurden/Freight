@@ -73,4 +73,14 @@ public class CarryObject : MonoBehaviour
 		}
 		return null;
 	}
+
+	public int GetMaxStorage()
+	{
+		return storageTransforms.Length;
+	}
+
+	public int GetStorageUsed()
+	{
+		return GetAllFreight().Count;
+	}
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 namespace UI
 {
@@ -7,6 +8,7 @@ namespace UI
 	{
 		[SerializeField] private Transform resourcesListTransform;
 		[SerializeField] private ResourceIconButtonWidget resourceIconButtonWidgetPrefab;
+		[SerializeField] private TMP_Text sizeText;
 
 		private CarryObject carryObject;
 
@@ -49,10 +51,12 @@ namespace UI
 		private void Refresh()
 		{
 			GameObjectUtils.Clear(resourcesListTransform);
-			foreach (var item in carryObject.GetAllFreight())
+			foreach (FreightObject freightObject in carryObject.GetAllFreight())
 			{
-				Instantiate(resourceIconButtonWidgetPrefab, resourcesListTransform);
+				ResourceIconButtonWidget resourceIconButton = Instantiate(resourceIconButtonWidgetPrefab, resourcesListTransform);
+				resourceIconButton.ShowResource(freightObject.resourceData);
 			}
+			sizeText.text = $"{carryObject.GetStorageUsed()}/{carryObject.GetMaxStorage()}";
 		}
 
 		private void CarryObject_FreightRemovedEvent(FreightObject obj)
