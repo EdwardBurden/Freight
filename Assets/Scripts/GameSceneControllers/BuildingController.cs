@@ -14,7 +14,7 @@ public class BuildingSpawnInfo
 	public int maxSpawnAmount;
 }
 
-public class BuildingController : Singleton<BuildingController>
+public class BuildingController : Singleton<BuildingController> //todo make into building selection only 
 {
 	public static event Action<Building> BuildingSelectedEvent;
 	public static event Action<Building> BuildingDeSelectedEvent;

@@ -59,6 +59,7 @@ public class CameraController : MonoBehaviour
 		return gameCamera;
 	}
 
+	private float targetRigHeight;
 	private Vector3 targetDirection;
 	private float zoomHeight;
 	private Vector3 horizontalVelocity;
@@ -100,6 +101,26 @@ public class CameraController : MonoBehaviour
 		UpdateVelocity();
 		UpdateBasePosition();
 		UpdateCameraPosition();
+		UpdateRig();
+	}
+
+	private void UpdateRig()
+	{
+		RayCastInfo<Surface> rayCastInfo = RayCastUtils.FindObjectHit<Surface>(lookTarget.transform.position + (Vector3.up * 30), Vector3.down);
+		if (rayCastInfo.focused)
+		{
+			if (rayCastInfo.focusObject.GetComponent<IslandBlock>())
+			{
+				targetRigHeight = rayCastInfo.hitInfo.point.y;
+			}
+			else
+			{
+				targetRigHeight = rayCastInfo.hitInfo.point.y + 5;
+			}
+		}
+		float height = Mathf.Lerp(this.transform.position.y, targetRigHeight, Time.unscaledDeltaTime * damping * 0.1f);
+
+		this.transform.position = new Vector3(this.transform.position.x, height, this.transform.position.z);
 	}
 
 	private void UpdateVelocity()

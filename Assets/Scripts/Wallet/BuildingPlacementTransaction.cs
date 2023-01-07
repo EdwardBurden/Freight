@@ -8,7 +8,7 @@ public class BuildingPlacementTransaction : WalletTransaction
 	private string oldBuildingName;
 	private Building newBuilding;
 
-	public override string transactiontext { get { return $"Player spent {creditChange} Credits on to replace {oldBuildingName} with {newBuilding.GetObjectName()}"; } }
+	public override string transactiontext { get { return $"Player spent {creditChange} Credits on to replace {oldBuildingName} with {newBuilding.GetInteractableObjectName()}"; } }
 
 	public BuildingPlacementTransaction(DateTime time, int creditChange, string oldBuilding, Building newBuilding) : base(time, creditChange)
 	{

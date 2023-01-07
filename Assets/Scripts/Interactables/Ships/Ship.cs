@@ -1,28 +1,55 @@
 using System.Collections.Generic;
 using UnityEngine.Events;
 using UnityEngine;
+using OpenCover.Framework.Model;
+using UI;
+using System;
 
+[RequireComponent(typeof(ShipOrderQueue))]
 public abstract class Ship : InteractableObject
 {
-	public int speed;
-	public int turnSpeed;
-	public ShipActionDefintion[] shipActions;
-	public string shipName;
-	public Outline outline;
+	[SerializeField] protected Transform summaryUIAnchor;
+	[SerializeField] public Outline outline;
+	protected ShipOrderQueue shipOrderQueue;
 
-	public override string GetObjectName()
+	protected ShipDefintion shipDefintion;
+	protected ShipSummary_InWorld summaryUI;
+
+	public virtual void Init(ShipDefintion shipDefintion)
 	{
-		return shipName;
+		this.shipDefintion = shipDefintion;	
+		shipOrderQueue = GetComponent<ShipOrderQueue>();
+		shipOrderQueue.maxOrders = shipDefintion.maxOrders;
+
+		if (shipDefintion.summaryUIPrefab != null && summaryUIAnchor != null)
+		{
+			summaryUI = Instantiate(shipDefintion.summaryUIPrefab, summaryUIAnchor);
+			summaryUI.Init(this);
+		}
 	}
 
-	public abstract void PushAction(ShipOrder shipAction);
+	public override string GetInteractableObjectName()
+	{
+		return shipDefintion.name;
+	}
 
-	public abstract void SetAction(ShipOrder shipAction);
+	public virtual void PushAction(ShipOrder shipAction)
+	{
+		shipOrderQueue.PushOrder(shipAction);
+	}
+
+	public virtual void SetAction(ShipOrder shipAction)
+	{
+		shipOrderQueue.ClearOrders();
+		shipOrderQueue.paused = false;
+		shipOrderQueue.repeat = false;
+		shipOrderQueue.PushOrder(shipAction);
+	}
 
 	public ShipActionDefintion[] GetAvailableActions(InteractableObject interactableObject, Vector3 position)
 	{
 		List<ShipActionDefintion> orders = new List<ShipActionDefintion>();
-		foreach (ShipActionDefintion availableOrder in shipActions)
+		foreach (ShipActionDefintion availableOrder in shipDefintion.shipActions)
 		{
 			if (availableOrder.CanBeCreated(this, interactableObject, position))
 			{
@@ -30,5 +57,38 @@ public abstract class Ship : InteractableObject
 			}
 		}
 		return orders.ToArray();
+	}
+
+	public override void OnHover()
+	{
+		base.OnHover();
+		if (summaryUI != null)
+		{
+			summaryUI.OnShipHover();
+		}
+	}
+
+	public override void OffHover()
+	{
+		base.OffHover();
+		if (summaryUI != null)
+		{
+			summaryUI.OffShipHover();
+		}
+	}
+
+	public float GetTurnSpeed()
+	{
+		return shipDefintion.turnSpeed;
+	}
+
+	public float GetSpeed()
+	{
+		return shipDefintion.maxSpeed;
+	}
+
+	public ShipActionDefintion[] GetShipActions()
+	{
+		return shipDefintion.shipActions;
 	}
 }

@@ -49,7 +49,7 @@ namespace UI
 
 		private void Refresh()
 		{
-			actionsLeftText.text = $"{shipActionList.GetActionsCount()}/{shipActionList.maxActions}";
+			actionsLeftText.text = $"{shipActionList.GetOrderCount()}/{shipActionList.maxOrders}";
 			Clear(actionListTransform);
 			SpawnButtons();
 			playButton.Init(() => { shipActionList.paused = (false); TogglePlayButtons(); });
@@ -74,7 +74,7 @@ namespace UI
 
 		private void SpawnButtons()
 		{
-			for (int i = 0; i < shipActionList.maxActions; i++)
+			for (int i = 0; i < shipActionList.maxOrders; i++)
 			{
 				if (i < shipActionList.allOrders.Count)
 				{
@@ -103,7 +103,7 @@ namespace UI
 		{
 			ActionPreviewController.instance.DestroyCurrentPreview();
 			Vector3 pos = selectScreenSpawn.GetComponent<RectTransform>().position;
-			ShipActionSelectScreen.Create(pos, ship.shipActions, (def) => OnShipActionSelected(def), true);
+			ShipActionSelectScreen.Create(pos, ship.GetShipActions(), (def) => OnShipActionSelected(def), true);
 		}
 
 		private void OnShipActionSelected(ShipActionDefintion shipActionDefintion)
@@ -114,7 +114,7 @@ namespace UI
 
 		private void Remove(ShipOrder shipAction)
 		{
-			shipActionList.RemoveAction(shipAction);
+			shipActionList.RemoveOrder(shipAction);
 			Refresh();
 		}
 

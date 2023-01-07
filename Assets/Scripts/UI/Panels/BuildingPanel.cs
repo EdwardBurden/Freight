@@ -42,7 +42,7 @@ public abstract class BuildingPanel<T> : Panel where T : Building
 	public override void Show()
 	{
 		base.Show();
-		nameField.text = building.GetObjectName();
+		nameField.text = building.GetInteractableObjectName();
 		if (buildingStorage != building.storage && building.storage != null)
 		{
 			buildingStorage = building.storage;

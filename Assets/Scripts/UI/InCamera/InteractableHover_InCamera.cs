@@ -15,7 +15,7 @@ namespace UI
 
 		public void ShowName(InteractableObject interactableObject)
 		{
-			nameText.text = interactableObject.GetObjectName();
+			nameText.text = interactableObject.GetInteractableObjectName();
 		}
 
 		protected override void Follow()

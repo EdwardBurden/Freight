@@ -10,7 +10,7 @@ public class ShipOrderQueue : MonoBehaviour
 	public event Action<ShipOrder> OrderFinishedEvent;
 
 	public List<ShipOrder> allOrders = new List<ShipOrder>();
-	public int maxActions;
+	[HideInInspector] public int maxOrders;
 
 	private List<ShipOrder> queuedOrders = new List<ShipOrder>();
 	private int queueIndex;
@@ -74,12 +74,12 @@ public class ShipOrderQueue : MonoBehaviour
 		}
 	}
 
-	public int GetActionsCount()
+	public int GetOrderCount()
 	{
 		return allOrders.Count;
 	}
 
-	public void ClearActions()
+	public void ClearOrders()
 	{
 		queueIndex = 0;
 		allOrders.Clear();
@@ -87,18 +87,18 @@ public class ShipOrderQueue : MonoBehaviour
 		//TODO add calls to each order with Cancelled method in order 
 	}
 
-	public void PushAction(ShipOrder action)
+	public void PushOrder(ShipOrder order)
 	{
-		action.Setup();
-		allOrders.Add(action);
-		queuedOrders.Add(action);
-		OrderPushedEvent?.Invoke(action);
+		order.Setup();
+		allOrders.Add(order);
+		queuedOrders.Add(order);
+		OrderPushedEvent?.Invoke(order);
 	}
 
-	public void RemoveAction(ShipOrder action)
+	public void RemoveOrder(ShipOrder order)
 	{
-		allOrders.Remove(action);
-		queuedOrders.Remove(action);
+		allOrders.Remove(order);
+		queuedOrders.Remove(order);
 		//TODO add calls to each order with Cancelled method in order 
 		//TODO maybe tell order to do somethign here, since its now not working
 	}
@@ -120,10 +120,10 @@ public class ShipOrderQueue : MonoBehaviour
 
 	private void ResetOrders()
 	{
-		foreach (ShipOrder action in allOrders)
+		foreach (ShipOrder order in allOrders)
 		{
-			action.Setup();
-			queuedOrders.Add(action);
+			order.Setup();
+			queuedOrders.Add(order);
 		}
 		queueIndex = 0;
 	}

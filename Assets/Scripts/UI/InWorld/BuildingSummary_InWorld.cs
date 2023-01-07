@@ -4,50 +4,53 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public abstract class BuildingSummary_InWorld : MonoBehaviour
+namespace UI
 {
-	[SerializeField] protected TMP_Text buildingNameText;
-	protected Building building;
-
-
-	public void Init(Building building)
+	public abstract class BuildingSummary_InWorld : MonoBehaviour
 	{
-		this.building = building;
-		if (building.storage != null)
+		[SerializeField] protected TMP_Text buildingNameText;
+		protected Building building;
+
+
+		public void Init(Building building)
 		{
-			building.storage.StorageUpdatedEvent += OnStorageUpdatedEvent;
+			this.building = building;
+			if (building.storage != null)
+			{
+				building.storage.StorageUpdatedEvent += OnStorageUpdatedEvent;
+			}
+			Show();
 		}
-		Show();
-	}
 
-	private void OnStorageUpdatedEvent()
-	{
-		Show();
-	}
-
-	public virtual void Show()
-	{
-		buildingNameText.text = building.GetObjectName();
-
-	}
-
-	public void OnBuildingHover()
-	{
-		Show();
-		//throw new NotImplementedException();
-	}
-
-	public void OffBuildingHover()
-	{
-		Show();
-		//throw new NotImplementedException();
-	}
-
-	private void OnDestroy()
-	{
-		if (building.storage != null)
+		private void OnStorageUpdatedEvent()
 		{
-			building.storage.StorageUpdatedEvent -= OnStorageUpdatedEvent;
+			Show();
+		}
+
+		public virtual void Show()
+		{
+			buildingNameText.text = building.GetInteractableObjectName();
+
+		}
+
+		public void OnBuildingHover()
+		{
+			Show();
+			//throw new NotImplementedException();
+		}
+
+		public void OffBuildingHover()
+		{
+			Show();
+			//throw new NotImplementedException();
+		}
+
+		private void OnDestroy()
+		{
+			if (building.storage != null)
+			{
+				building.storage.StorageUpdatedEvent -= OnStorageUpdatedEvent;
+			}
 		}
 	}
 }

@@ -13,7 +13,7 @@ public abstract class BuildingDefintion : ScriptableObject
 
 	[SerializeField] public BuildingSummary_InWorld summaryUIPrefab; //summary above building
 
-	[SerializeField] public Building buildingPrefab;  //large ui panel of building details
+	[SerializeField] public Building buildingPrefab;
 
 	public virtual bool CanBePlaced(IslandBlock islandBlock)
 	{

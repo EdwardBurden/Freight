@@ -15,7 +15,7 @@ public class EmptyPlot : Building
 	{
 		//TODO rename to try, check player wallet to see if they can switch 
 		Building newBuilding = BuildingController.instance.ReplaceBuilding(this, selectedBuilding);
-		WalletController.instance.AddBuildingPlacementTransaction(selectedBuilding.buildCost, this.GetObjectName(), newBuilding);
+		WalletController.instance.AddBuildingPlacementTransaction(selectedBuilding.buildCost, this.GetInteractableObjectName(), newBuilding);
 	}
 
 	internal IEnumerable<BuildingDefintion> GetOptions()

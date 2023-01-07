@@ -1,6 +1,6 @@
 public class Surface : InteractableObject
 {
-	public override string GetObjectName()
+	public override string GetInteractableObjectName()
 	{
 		return "Floor";
 	}

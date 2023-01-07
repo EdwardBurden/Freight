@@ -26,7 +26,7 @@ public class MoveToAction : Action
 
 	public override void OnUpdate()
 	{
-		float stepSize = (Time.deltaTime * shipObject.speed)/ distance;
+		float stepSize = (Time.deltaTime * shipObject.GetSpeed())/ distance;
 		movementUpdate += stepSize;
 		if (movementUpdate >= 1)
 		{

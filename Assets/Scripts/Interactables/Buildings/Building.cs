@@ -33,7 +33,7 @@ public abstract class Building : InteractableObject
 		}
 	}
 
-	public override string GetObjectName()
+	public override string GetInteractableObjectName()
 	{
 		return buildingDefintion.buildingName;
 	}

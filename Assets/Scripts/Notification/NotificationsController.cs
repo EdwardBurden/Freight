@@ -13,14 +13,6 @@ public class NotificationsController : Singleton<NotificationsController>
 		_instance = this;
 	}
 
-	private void Start()
-	{
-		foreach (ShipOrderQueue shipOrderQueue in FindObjectsOfType<ShipOrderQueue>())
-		{
-			shipOrderQueue.OrderFailedEvent += ShipOrderFailed;
-		}
-	}
-
 	private void OnDestroy()
 	{
 		foreach (ShipOrderQueue shipOrderQueue in FindObjectsOfType<ShipOrderQueue>())
@@ -39,7 +31,7 @@ public class NotificationsController : Singleton<NotificationsController>
 
 	private void ShipOrderFailed(ShipOrder obj, string message)
 	{
-		AddNotification(obj.shipObject.shipName, message);
+		AddNotification(obj.shipObject.GetInteractableObjectName(), message);
 	}
 
 	private void AddNotification(string sender, string message)

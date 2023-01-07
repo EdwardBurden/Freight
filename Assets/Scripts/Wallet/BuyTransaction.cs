@@ -6,7 +6,7 @@ public class BuyTransaction : WalletTransaction
 	private Building boughtFrom; //bought from
 	private ResourceDefintion resourceBought;
 	private Ship ship;
-	public override string transactiontext { get { return $"{ship.GetObjectName()} spent {creditChange} Credits on a {resourceBought.resourceName} at {boughtFrom.GetObjectName()}"; } }
+	public override string transactiontext { get { return $"{ship.GetInteractableObjectName()} spent {creditChange} Credits on a {resourceBought.resourceName} at {boughtFrom.GetInteractableObjectName()}"; } }
 
 	public BuyTransaction(DateTime dateTime, int amount, Building boughtFrom, Ship ship, ResourceDefintion resourceBought) : base(dateTime, amount)
 	{

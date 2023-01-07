@@ -30,6 +30,6 @@ public class RotateToAction : Action
 
 	private void RotateTo()
 	{
-		shipObject.transform.rotation = Quaternion.RotateTowards(shipObject.transform.rotation, rotation, shipObject.turnSpeed * Time.deltaTime);
+		shipObject.transform.rotation = Quaternion.RotateTowards(shipObject.transform.rotation, rotation, shipObject.GetTurnSpeed() * Time.deltaTime);
 	}
 }

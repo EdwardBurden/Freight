@@ -1,27 +1,19 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(ShipOrderQueue))]
 [RequireComponent(typeof(CarryObject))]
 public class FreightShip : Ship
 {
-	
-	private ShipOrderQueue actionList;
+	[HideInInspector] public CarryObject carryObject;
 
-	private void Awake()
+	public override void Init(ShipDefintion shipDefintion)
 	{
-		actionList = GetComponent<ShipOrderQueue>();
+		carryObject = GetComponent<CarryObject>();
+		base.Init(shipDefintion);
 	}
 
-	public override void PushAction(ShipOrder shipAction)
+	public List<FreightObject> GetAllFreight()
 	{
-		actionList.PushAction(shipAction);
-	}
-
-	public override void SetAction(ShipOrder shipAction)
-	{
-		actionList.ClearActions();
-		actionList.paused = false;
-		actionList.repeat = false;
-		actionList.PushAction(shipAction);
+		return carryObject.GetAllFreight();
 	}
 }

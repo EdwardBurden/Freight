@@ -83,6 +83,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &5316777219901134888
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1856352840503407144}
+  m_Layer: 0
+  m_Name: SummaryAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1856352840503407144
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5316777219901134888}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5932175407123157845}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5480334298981615843
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,7 +169,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5666356893217277756}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.54264}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1406,7 +1437,7 @@ GameObject:
   - component: {fileID: 650945559623256558}
   - component: {fileID: 1032641176590061622}
   m_Layer: 0
-  m_Name: FreightShipSmall
+  m_Name: Columbus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1429,6 +1460,7 @@ Transform:
   - {fileID: 6186234392529429826}
   - {fileID: 2143841142980792442}
   - {fileID: 5942873829749420503}
+  - {fileID: 1856352840503407144}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1478,13 +1510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverUIPrefab: {fileID: 234753750589598935, guid: ae65448598d6f4743bd4d43b4a5b7178, type: 3}
-  speed: 10
-  turnSpeed: 40
-  shipActions:
-  - {fileID: 11400000, guid: a103b71af81881a43a58f9aa882f2fcc, type: 2}
-  - {fileID: 11400000, guid: 4928bd6d119345c44884ee566c8e0f05, type: 2}
-  - {fileID: 11400000, guid: af1f7bd45c6eb0b47a343b495fb5a251, type: 2}
-  shipName: Columbus
+  summaryUIAnchor: {fileID: 1856352840503407144}
   outline: {fileID: 7103907911601742084}
 --- !u!114 &1916078048812840262
 MonoBehaviour:
@@ -1513,7 +1539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2df28b11ad5e8944af6ffac5723602f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxActions: 2
+  maxOrders: 0
 --- !u!114 &1032641176590061622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1553,7 +1579,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8115445265128676006}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.54264}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []

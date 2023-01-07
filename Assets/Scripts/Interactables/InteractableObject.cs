@@ -5,11 +5,11 @@ using UnityEngine;
 public abstract class InteractableObject : MonoBehaviour
 {
 	[SerializeField]
-	private InteractableHover_InCamera hoverUIPrefab;
+	private InteractableHover_InCamera hoverUIPrefab; //todo move out to new hover/highlight controller, use same hover prefab for everything
 
 	private InteractableHover_InCamera hoverUI;
 
-	public abstract string GetObjectName();
+	public abstract string GetInteractableObjectName();
 
 	public virtual void OffHover()
 	{

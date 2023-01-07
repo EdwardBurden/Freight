@@ -12,7 +12,7 @@ public class RequestCompleteTransaction : WalletTransaction
 		this.building = building;
 	}
 
-	public override string transactiontext { get { return $"Player completed {building.GetObjectName()}'s Request and was rewarded with {creditChange}"; } }
+	public override string transactiontext { get { return $"Player completed {building.GetInteractableObjectName()}'s Request and was rewarded with {creditChange}"; } }
 
 	public override int AmendCredits(int creditsTotal)
 	{

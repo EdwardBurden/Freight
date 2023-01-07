@@ -28,6 +28,6 @@ public class LookAtAction : Action
 	private void LookAt()
 	{
 		Quaternion look = Quaternion.LookRotation(shipObject.gameObject.GetDirection(target), Vector3.up);
-		shipObject.transform.rotation = Quaternion.RotateTowards(shipObject.transform.rotation, look, shipObject.turnSpeed * Time.deltaTime);
+		shipObject.transform.rotation = Quaternion.RotateTowards(shipObject.transform.rotation, look, shipObject.GetTurnSpeed() * Time.deltaTime);
 	}
 }
