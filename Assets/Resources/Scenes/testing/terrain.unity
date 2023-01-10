@@ -1169,7 +1169,7 @@ GameObject:
   - component: {fileID: 1936158980}
   - component: {fileID: 1936158979}
   - component: {fileID: 1936158978}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1338,7 +1338,7 @@ GameObject:
   - component: {fileID: 1963377575}
   - component: {fileID: 1963377574}
   - component: {fileID: 1963377578}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1472,7 +1472,7 @@ MonoBehaviour:
   unnavigableLayer:
     serializedVersion: 2
     m_Bits: 128
-  nodeRadius: 2
+  nodeRadius: 1
   worldGridSize: {x: 100, y: 20, z: 100}
 --- !u!114 &1994322583
 MonoBehaviour:
