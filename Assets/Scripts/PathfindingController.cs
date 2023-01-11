@@ -22,6 +22,11 @@ public class PathfindingController : MonoBehaviour
 	private void Start()
 	{
 		aStarGrid.CreateGrid();
+	//	FindPath(start.position, end.position);
+	}
+
+	private void Update()
+	{
 		FindPath(start.position, end.position);
 	}
 
@@ -29,6 +34,9 @@ public class PathfindingController : MonoBehaviour
 	{
 		AStarNode start = aStarGrid.FindNode(worldStartPos);
 		AStarNode end = aStarGrid.FindNode(worldEndPos);
+
+		//checl they are naviable, if not find nearest till you can connect them
+
 		path = AStarAlgorithm.FindPath(aStarGrid, start, end);
 		return false;
 	}

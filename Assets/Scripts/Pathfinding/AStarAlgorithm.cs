@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
+using System.Diagnostics;
 using UnityEngine;
 
 namespace AStar
@@ -9,28 +10,21 @@ namespace AStar
 	{
 		public static List<AStarNode> FindPath(AStarGrid grid, AStarNode startNode, AStarNode targetNode)
 		{
+			Stopwatch stopwatch = Stopwatch.StartNew();
 			//sanitise the grid first 
-			List<AStarNode> openSet = new List<AStarNode>();
+			AStarHeap<AStarNode> openSet = new AStarHeap<AStarNode>(grid.maxSize);
 			HashSet<AStarNode> closedSet = new HashSet<AStarNode>();
-			openSet.Add(startNode);
+			openSet.AddItem(startNode);
 
-			while (openSet.Count > 0)
+			while (openSet.Count() > 0)
 			{
-				AStarNode node = openSet[0];
-				for (int i = 1; i < openSet.Count; i++)
-				{
-					if (openSet[i].fCost < node.fCost || openSet[i].fCost == node.fCost)
-					{
-						if (openSet[i].hCost < node.hCost)
-							node = openSet[i];
-					}
-				}
-
-				openSet.Remove(node);
+				AStarNode node = openSet.RemoveFirst();
 				closedSet.Add(node);
 
 				if (node == targetNode)
 				{
+					stopwatch.Stop();
+					UnityEngine.Debug.Log(stopwatch.ElapsedMilliseconds);
 					return ConvertNodeChainToList(startNode, targetNode);
 				}
 
@@ -49,7 +43,7 @@ namespace AStar
 						neighbour.parent = node;
 
 						if (!openSet.Contains(neighbour))
-							openSet.Add(neighbour);
+							openSet.AddItem(neighbour);
 					}
 				}
 			}

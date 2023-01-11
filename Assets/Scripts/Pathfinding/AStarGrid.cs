@@ -18,6 +18,8 @@ namespace AStar
 		private float nodeDiameter;
 		private Vector3Int gridSize;
 
+		public int maxSize => gridSize.x * gridSize.y * gridSize.z;
+
 		private void Awake()
 		{
 			nodeDiameter = nodeRadius * 2;
@@ -95,13 +97,13 @@ namespace AStar
 			{
 				return;
 			}
-			foreach (AStarNode aStarNode in grid)
+			/*foreach (AStarNode aStarNode in grid)
 			{
 				if (!aStarNode.navigable)
 				{
 					Gizmos.DrawCube(aStarNode.worldPostion, Vector3.one);
 				}
-			}
+			}*/
 
 			Gizmos.color = Color.red;
 		}
