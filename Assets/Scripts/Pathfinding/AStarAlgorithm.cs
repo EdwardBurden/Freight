@@ -67,7 +67,7 @@ namespace AStar
 
 		private static float GetDistance(AStarNode start, AStarNode end)
 		{
-			float dist = Vector3.Distance(start.worldPostion, end.worldPostion);
+			float dist = Vector3.SqrMagnitude(start.worldPostion - end.worldPostion);
 			return dist;
 		}
 	}

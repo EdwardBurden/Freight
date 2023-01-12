@@ -22,7 +22,7 @@ public class PathfindingController : MonoBehaviour
 	private void Start()
 	{
 		aStarGrid.CreateGrid();
-	//	FindPath(start.position, end.position);
+		FindPath(start.position, end.position);
 	}
 
 	private void Update()
