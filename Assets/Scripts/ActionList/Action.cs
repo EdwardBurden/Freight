@@ -24,6 +24,11 @@ namespace ActionLists
 			isInitialised = true;
 		}
 
+		public virtual void Cancel() //called form the parent order when the user cancels the action
+		{
+
+		}
+
 		public abstract void OnUpdate();
 	}
 }

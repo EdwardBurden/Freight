@@ -43,7 +43,13 @@ namespace AStar
 						neighbour.parent = node;
 
 						if (!openSet.Contains(neighbour))
+						{
 							openSet.AddItem(neighbour);
+						}
+						else
+						{
+							openSet.UpdateItem(neighbour);
+						}
 					}
 				}
 			}

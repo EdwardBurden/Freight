@@ -5,7 +5,7 @@ using System.IO;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class PathfindingController : MonoBehaviour
+public class PathfindingController : Singleton<PathfindingController>
 {
 	private AStarGrid aStarGrid;
 
@@ -16,6 +16,7 @@ public class PathfindingController : MonoBehaviour
 
 	private void Awake()
 	{
+		_instance = this;
 		aStarGrid = GetComponent<AStarGrid>();
 	}
 
@@ -30,7 +31,7 @@ public class PathfindingController : MonoBehaviour
 		FindPath(start.position, end.position);
 	}
 
-	public bool FindPath(Vector3 worldStartPos, Vector3 worldEndPos)
+	public List<AStarNode> FindPath(Vector3 worldStartPos, Vector3 worldEndPos)
 	{
 		AStarNode start = aStarGrid.FindNode(worldStartPos);
 		AStarNode end = aStarGrid.FindNode(worldEndPos);
@@ -38,7 +39,7 @@ public class PathfindingController : MonoBehaviour
 		//checl they are naviable, if not find nearest till you can connect them
 
 		path = AStarAlgorithm.FindPath(aStarGrid, start, end);
-		return false;
+		return path;
 	}
 
 	private void OnDrawGizmos()
