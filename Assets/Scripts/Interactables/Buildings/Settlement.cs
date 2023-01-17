@@ -46,6 +46,11 @@ public class Settlement : Building, IConsumer
 		storage.AddStorage(resource);
 	}
 
+	Transform IConsumer.GetConsumerNavigationPostion()
+	{
+		return summaryUIAnchor;//temp
+	}
+
 	private void OnYearStart(int year)
 	{
 		settlementRequests = new SettlementRequest(settlementDefintion.resourcesAccepted, level);

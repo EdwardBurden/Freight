@@ -42,6 +42,11 @@ public class Farm : Building, IProducer
 		storage.RemoveStorage(resource);
 	}
 
+	Transform IProducer.GetProducerNavigationPostion()
+	{
+		return summaryUIAnchor;//temp
+	}
+
 	public override void Init(BuildingDefintion buildingDefintion)
 	{
 		base.Init(buildingDefintion);

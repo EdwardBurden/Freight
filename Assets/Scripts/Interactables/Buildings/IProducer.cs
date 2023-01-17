@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public interface IProducer
 {
 	public LandingPlatform GetProducerLandingPlatform();
@@ -6,4 +8,5 @@ public interface IProducer
 	public bool CanProducesResource(ResourceDefintion resourceData);
 
 	public void SellResourceToShip(ResourceDefintion resource, Ship ship);
+	public Transform GetProducerNavigationPostion();
 }

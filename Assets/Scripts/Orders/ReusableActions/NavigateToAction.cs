@@ -9,7 +9,11 @@ public class NavigateToAction : Action
 	private Ship shipObject;
 
 	private Vector3 startPostion;
+	private Quaternion startRotation;
 	private float distance;
+	private float turnDistance;
+	private Quaternion targetRotation;
+	private float rotationUpdate = 0;
 	private float movementUpdate = 0;
 
 	private Vector3[] wayPoints;
@@ -42,12 +46,6 @@ public class NavigateToAction : Action
 		}
 	}
 
-	public override void Cancel()
-	{
-		base.Cancel();
-		//aStarUnit.CompletedPathMovementEvent -= OnPathCompleted;
-	}
-
 	public override void OnUpdate()
 	{
 		if (wayPoints == null || wayPoints.Length == 0)
@@ -75,14 +73,21 @@ public class NavigateToAction : Action
 	private void TargetNextWaypoint()
 	{
 		startPostion = shipObject.transform.position;
+		startRotation = shipObject.transform.rotation;
+		targetRotation = Quaternion.LookRotation(wayPoints[waypointIndex] - startPostion);
 		distance = Vector3.Distance(startPostion, wayPoints[waypointIndex]);
+		turnDistance = Quaternion.Angle(startRotation, targetRotation);
 		movementUpdate = 0;
+		rotationUpdate = 0;
 	}
 
 	private void UpdatePosition()
 	{
 		float stepSize = (Time.deltaTime * shipObject.GetSpeed()) / distance;
+		float rotationStepSize = (Time.deltaTime * shipObject.GetTurnSpeed()) / turnDistance;
 		movementUpdate += stepSize;
+		rotationUpdate += rotationStepSize;
+		shipObject.transform.rotation = Quaternion.Slerp(startRotation, targetRotation, rotationUpdate);
 		shipObject.transform.position = Vector3.Lerp(startPostion, wayPoints[waypointIndex], movementUpdate);
 	}
 }

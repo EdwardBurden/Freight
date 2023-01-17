@@ -1,6 +1,7 @@
 using ActionLists;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class DeliverOrder : ShipOrder
 {
@@ -19,11 +20,13 @@ public class DeliverOrder : ShipOrder
 	{
 		base.Setup();
 		LandingPlatform landingPlatform = consumer.GetConsumerLandingPlatform();
+		Transform navtransform = consumer.GetConsumerNavigationPostion();
 		Vector3 position = landingPlatform.GetLandingPosition();
 		Building building = (Building)consumer;
 
 		//Move
 		childList.PushAction(new LookAtAction(position, shipObject, true));
+		childList.PushAction(new NavigateToAction(navtransform.position, shipObject, true));
 		childList.PushAction(new AlignShipForDeliveryAction(shipObject, carryObject, resourceData, landingPlatform));
 
 		//Wait

@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public interface IConsumer
 {
 	//Accepts - 2 or so resources it will always buy at set price 
@@ -5,6 +7,8 @@ public interface IConsumer
 	public bool AcceptsResource(ResourceDefintion resourceData);
 	//landing
 	public LandingPlatform GetConsumerLandingPlatform();
+
+	public Transform GetConsumerNavigationPostion();
 
 	public void BuyResourceFromShip(ResourceDefintion resource, Ship ship);
 }
