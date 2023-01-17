@@ -106,8 +106,8 @@ public class MapGenerator : MonoBehaviour
 				Vector3 pos = new Vector3(i, 0, j) * TILESIZE;
 				Vector3 ground = (pos - offset);
 				Vector3 water = ground + new Vector3(0, waterHeight, 0);
-				Instantiate(waterPrefab, water, Quaternion.identity, waterTransfrom);
-				Instantiate(groundPrefab, ground, Quaternion.identity, groundTransfrom);
+				//Instantiate(waterPrefab, water, Quaternion.identity, waterTransfrom);
+				//Instantiate(groundPrefab, ground, Quaternion.identity, groundTransfrom);
 
 				if (i == 0)
 				{
@@ -127,7 +127,10 @@ public class MapGenerator : MonoBehaviour
 				}
 			}
 		}
-
+		GameObject waterobject = Instantiate(waterPrefab, Vector3.up * waterHeight, Quaternion.identity, waterTransfrom);
+		GameObject groundobject = Instantiate(groundPrefab, Vector3.zero, Quaternion.identity, groundTransfrom);
+		//waterobject.transform.localScale = new Vector3(surfaceSize.x, 1, surfaceSize.y);
+	//	groundobject.transform.localScale = new Vector3(surfaceSize.x, 1, surfaceSize.y);
 	}
 
 	private GameObject PlaceIslandBase(MapGenerationSettings settings, Vector3 island, Vector3 offset)
