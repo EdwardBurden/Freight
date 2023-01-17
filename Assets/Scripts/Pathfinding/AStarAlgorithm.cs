@@ -1,7 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace AStar
@@ -54,6 +54,30 @@ namespace AStar
 				}
 			}
 			return new List<AStarNode>();
+		}
+
+		public static Vector3[] SimplifyPath(List<AStarNode> aStarNodes)
+		{
+			if (aStarNodes.Count == 0)
+			{
+				return null;
+			}
+
+			List<Vector3> waypoints = new List<Vector3>();
+			Vector3 marchingDirection = Vector3.zero;
+
+			for (int i = 0; i < aStarNodes.Count - 1; i++)
+			{
+				AStarNode start = aStarNodes[i];
+				Vector3 newDirection = aStarNodes[i + 1].worldPostion - start.worldPostion;
+				if (newDirection != marchingDirection)
+				{
+					marchingDirection = newDirection;
+					waypoints.Add(start.worldPostion);
+				}
+			}
+			waypoints.Add(aStarNodes[aStarNodes.Count - 1].worldPostion);
+			return waypoints.ToArray();
 		}
 
 		private static List<AStarNode> ConvertNodeChainToList(AStarNode start, AStarNode end)

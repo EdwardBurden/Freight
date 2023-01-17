@@ -1,18 +1,17 @@
 using AStar;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using UnityEditor.Experimental.GraphView;
+using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PathfindingController : Singleton<PathfindingController>
 {
 	private AStarGrid aStarGrid;
-
-	[SerializeField] private Transform start;
-	[SerializeField] private Transform end;
-
-	private List<AStarNode> path = new List<AStarNode>(); //temp
+	private Queue<PathRequest> pathRequests = new Queue<PathRequest>();
+	private bool isProcessingPath; //blocks atm
 
 	private void Awake()
 	{
@@ -20,26 +19,53 @@ public class PathfindingController : Singleton<PathfindingController>
 		aStarGrid = GetComponent<AStarGrid>();
 	}
 
-	private void Start()
+	public void Init()
 	{
 		aStarGrid.CreateGrid();
-		FindPath(start.position, end.position);
 	}
 
-	private void Update()
+	public void Requestpath(Vector3 startPos, Vector3 endPos, Action<Vector3[], bool> callback)
 	{
-		FindPath(start.position, end.position);
+		pathRequests.Enqueue(new PathRequest(startPos, endPos, callback));
+		TryProcess();
 	}
 
-	public List<AStarNode> FindPath(Vector3 worldStartPos, Vector3 worldEndPos)
+	public void TryProcess()
 	{
-		AStarNode start = aStarGrid.FindNode(worldStartPos);
-		AStarNode end = aStarGrid.FindNode(worldEndPos);
+		if (!isProcessingPath && pathRequests.Count > 0)
+		{
+			PathRequest pathRequest = pathRequests.Dequeue();
+			ProcessPath(pathRequest);
+		}
+	}
 
-		//checl they are naviable, if not find nearest till you can connect them
+	private void ProcessPath(PathRequest pathRequest)
+	{
+		isProcessingPath = true;
+		pathRequest.process = StartCoroutine(FindPath(pathRequest));
+	}
 
-		path = AStarAlgorithm.FindPath(aStarGrid, start, end);
-		return path;
+	private void ProccessingFinished(PathRequest pathRequest, Vector3[] path, bool success)
+	{
+		pathRequest.callback?.Invoke(path, success);
+		isProcessingPath = false;
+		TryProcess();
+	}
+
+	private IEnumerator FindPath(PathRequest pathRequest)
+	{
+		AStarNode start = aStarGrid.FindNode(pathRequest.pathStart);
+		AStarNode end = aStarGrid.FindNode(pathRequest.pathEnd);
+
+		var pathTask = Task.Run(() => AStarAlgorithm.FindPath(aStarGrid, start, end));
+		while (!pathTask.IsCompleted)
+		{
+			yield return null;
+		}
+
+		bool success = pathTask.Result.Count > 0;
+		Vector3[] waypoints = AStarAlgorithm.SimplifyPath(pathTask.Result);
+		ProccessingFinished(pathRequest, waypoints, success);
 	}
 
 	private void OnDrawGizmos()
@@ -49,11 +75,33 @@ public class PathfindingController : Singleton<PathfindingController>
 		{
 			return;
 		}
-		foreach (AStarNode aStarNode in path)
+		/*foreach (AStarNode aStarNode in path)
 		{
 			Gizmos.DrawCube(aStarNode.worldPostion, Vector3.one);
 		}
+		/*
 		Gizmos.DrawCube(aStarGrid.FindNode(start.position).worldPostion, Vector3.one);
 		Gizmos.DrawCube(aStarGrid.FindNode(end.position).worldPostion, Vector3.one);
+		*/
 	}
+}
+
+
+struct PathRequest //todo move
+{
+	public Vector3 pathStart;
+	public Vector3 pathEnd;
+	public Action<Vector3[], bool> callback;
+
+	public Coroutine process;
+
+	public PathRequest(Vector3 pathStart, Vector3 pathEnd, Action<Vector3[], bool> callback)
+	{
+		this.pathStart = pathStart;
+		this.pathEnd = pathEnd;
+		this.callback = callback;
+		process = null;
+	}
+
+
 }

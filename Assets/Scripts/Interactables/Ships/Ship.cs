@@ -1,9 +1,6 @@
 using System.Collections.Generic;
-using UnityEngine.Events;
 using UnityEngine;
-using OpenCover.Framework.Model;
 using UI;
-using System;
 
 [RequireComponent(typeof(ShipOrderQueue))]
 public abstract class Ship : InteractableObject

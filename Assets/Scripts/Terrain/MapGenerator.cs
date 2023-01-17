@@ -9,38 +9,26 @@ public class MapGenerator : MonoBehaviour
 	private const int MAX_EDGES_IN_WATER = 1;
 
 	[Header("Map Settings")]
-	[SerializeField]
-	private List<MapGenerationSettings> settings;
+	[SerializeField] private List<MapGenerationSettings> settings;
+	[SerializeField] private LayerMask unnavigableLayer;
 
 	[Header("Map Surface")]
-	[SerializeField]
-	private GameObject waterPrefab;
-	[SerializeField]
-	private GameObject groundPrefab;
-	[SerializeField]
-	private GameObject borderprefab;
-	[SerializeField]
-	private Transform waterTransfrom;
-	[SerializeField]
-	private Transform groundTransfrom;
-	[SerializeField]
-	private Transform borderTransform;
-	[SerializeField]
-	private Transform islandsTransform;
-	[SerializeField]
-	private int waterHeight;
+	[SerializeField] private GameObject waterPrefab;
+	[SerializeField] private GameObject groundPrefab;
+	[SerializeField] private GameObject borderprefab;
+	[SerializeField] private Transform waterTransfrom;
+	[SerializeField] private Transform groundTransfrom;
+	[SerializeField] private Transform borderTransform;
+	[SerializeField] private Transform islandsTransform;
+	[SerializeField] private int waterHeight;
 
 	[Header("island Generation")]
-	[SerializeField]
-	private Material[] islandMaterials;
+	[SerializeField] private Material[] islandMaterials;
 
 	[Header("Height")]
-	[SerializeField]
-	private int maxHeight;
-	[SerializeField]
-	private int minHeight;
-	[SerializeField]
-	private float heightCellDistanceModifier = 0.2f;
+	[SerializeField] private int maxHeight;
+	[SerializeField] private int minHeight;
+	[SerializeField] private float heightCellDistanceModifier = 0.2f;
 
 
 	public MapGenerationData Generate() //temp
@@ -78,6 +66,7 @@ public class MapGenerator : MonoBehaviour
 			{
 				item.gameObject.AddComponent<MeshCollider>().sharedMesh = item.GetComponent<MeshFilter>().mesh;
 				item.gameObject.AddComponent<Surface>();
+				item.gameObject.layer = 7;
 			}
 		}
 		return islandGenerationDatas;

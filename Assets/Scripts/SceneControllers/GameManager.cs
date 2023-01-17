@@ -18,6 +18,7 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 	[SerializeField] private MainMenuUIController mainMenuUIController;
 	[SerializeField] private NotificationsController notificationsController;
 	[SerializeField] private SpawnController spawnController;
+	[SerializeField] private PathfindingController pathfindingController;
 
 	private MapGenerationData gameGenerationData;
 
@@ -62,6 +63,7 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 		SetInputToSelectionMode();
 		UIManager.instance.SetController(gameUIController);
 		seasonsController.Init();
+		pathfindingController.Init();
 		GameStartEvent?.Invoke();
 	}
 

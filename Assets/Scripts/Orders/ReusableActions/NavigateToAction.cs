@@ -1,47 +1,88 @@
 using ActionLists;
 using AStar;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 
 public class NavigateToAction : Action
 {
-	private Vector3 startPostion;
 	private Vector3 targetPosition;
-
 	private Ship shipObject;
-	private AStarUnit aStarUnit;
+
+	private Vector3 startPostion;
+	private float distance;
+	private float movementUpdate = 0;
+
+	private Vector3[] wayPoints;
+	private int waypointIndex;
 
 	public NavigateToAction(Vector3 position, Ship shipObject, bool isBlocking) : base(isBlocking)
 	{
 		this.shipObject = shipObject;
 		this.targetPosition = position;
-		aStarUnit = shipObject.GetComponent<AStarUnit>();
 	}
 
 	public override void OnInitialise()
 	{
 		base.OnInitialise();
 		startPostion = shipObject.transform.position;
-		aStarUnit.CompletedPathMovementEvent += OnPathCompleted;
-		aStarUnit.MoveOnPath(PathfindingController.instance.FindPath(startPostion, targetPosition));
+		PathfindingController.instance.Requestpath(startPostion, targetPosition, OnPathfindingFinished);
 	}
 
-	private void OnPathCompleted()
+	private void OnPathfindingFinished(Vector3[] path, bool success)
 	{
-		isFinished = true;
-		aStarUnit.CompletedPathMovementEvent -= OnPathCompleted;
+		if (success)
+		{
+			waypointIndex = 0;
+			wayPoints = path;
+			TargetNextWaypoint();
+		}
+		else
+		{
+			Debug.LogError("BIG PROBLEM");
+		}
 	}
 
 	public override void Cancel()
 	{
 		base.Cancel();
-		aStarUnit.CompletedPathMovementEvent -= OnPathCompleted;
+		//aStarUnit.CompletedPathMovementEvent -= OnPathCompleted;
 	}
 
 	public override void OnUpdate()
 	{
-		//DO NOTHING
+		if (wayPoints == null || wayPoints.Length == 0)
+		{
+			//not finished because not started?
+			return;
+		}
+		if (movementUpdate >= 1)
+		{
+			waypointIndex++;
+			if (waypointIndex >= wayPoints.Length)
+			{
+				isFinished = true;
+				return;
+			}
+			else
+			{
+				TargetNextWaypoint();
+			}
+		}
+
+		UpdatePosition();
+	}
+
+	private void TargetNextWaypoint()
+	{
+		startPostion = shipObject.transform.position;
+		distance = Vector3.Distance(startPostion, wayPoints[waypointIndex]);
+		movementUpdate = 0;
+	}
+
+	private void UpdatePosition()
+	{
+		float stepSize = (Time.deltaTime * shipObject.GetSpeed()) / distance;
+		movementUpdate += stepSize;
+		shipObject.transform.position = Vector3.Lerp(startPostion, wayPoints[waypointIndex], movementUpdate);
 	}
 }

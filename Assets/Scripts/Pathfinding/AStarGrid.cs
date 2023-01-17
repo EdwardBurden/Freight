@@ -1,8 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 namespace AStar
 {
@@ -39,7 +36,7 @@ namespace AStar
 					for (int z = 0; z < gridSize.z; z++)
 					{
 						Vector3 worldPoint = start + (new Vector3(x, y, z) * nodeDiameter) + (nodeRadius * Vector3.one);
-						bool navigable = !Physics.CheckSphere(worldPoint, nodeRadius, unnavigableLayer);
+						bool navigable = !Physics.CheckBox(worldPoint, new Vector3(nodeRadius, nodeRadius, nodeRadius), Quaternion.identity, unnavigableLayer);
 
 						grid[x, y, z] = new AStarNode(navigable, worldPoint, new Vector3Int(x, y, z));
 					}
@@ -97,13 +94,13 @@ namespace AStar
 			{
 				return;
 			}
-			/*foreach (AStarNode aStarNode in grid)
+			foreach (AStarNode aStarNode in grid)
 			{
 				if (!aStarNode.navigable)
 				{
 					Gizmos.DrawCube(aStarNode.worldPostion, Vector3.one);
 				}
-			}*/
+			}
 
 			Gizmos.color = Color.red;
 		}

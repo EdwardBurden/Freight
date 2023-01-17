@@ -13,7 +13,7 @@ public class MoveOrder : ShipOrder
 	public override void Setup()
 	{
 		base.Setup();
-		childList.PushAction(new LookAtAction(target + height, shipObject));
-		childList.PushAction(new MoveToAction(target + height, shipObject, true));
+		childList.PushAction(new LookAtAction(target + height, shipObject, true));
+		childList.PushAction(new NavigateToAction(target + height, shipObject, true));
 	}
 }

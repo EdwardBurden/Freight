@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8461851822779397858}
   - component: {fileID: 3029734114212864299}
   - component: {fileID: 1871834440167580815}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Islandbase2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8718711189957023920}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: temp
   m_TagString: Untagged
   m_Icon: {fileID: 0}

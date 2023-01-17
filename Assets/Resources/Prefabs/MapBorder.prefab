@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5080216718965570067}
   - component: {fileID: 4817477151979155779}
   - component: {fileID: 6337915792156067290}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5403392217289130155}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MapBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
