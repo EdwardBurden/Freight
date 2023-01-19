@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace AStar
@@ -10,11 +12,12 @@ namespace AStar
 		[SerializeReference] public LayerMask unnavigableLayer;
 		[SerializeReference] public float nodeRadius;
 		[SerializeReference] public Vector3 worldGridSize;
+		[SerializeReference] public float maxMovementpenalty = 100;
+		[SerializeReference] public int blurAmount = 2;
 
 		private AStarNode[,,] grid;
 		private float nodeDiameter;
 		private Vector3Int gridSize;
-
 		public int maxSize => gridSize.x * gridSize.y * gridSize.z;
 
 		private void Awake()
@@ -23,12 +26,8 @@ namespace AStar
 			gridSize = Vector3Int.RoundToInt(worldGridSize / nodeDiameter);
 		}
 
-		public void CreateGrid()
+		private IEnumerator CreateGridRoutine(Vector3 start)
 		{
-			grid = new AStarNode[gridSize.x, gridSize.y, gridSize.z];
-			Vector3 start = gridPosTransform.position - (worldGridSize / 2);
-
-
 			for (int x = 0; x < gridSize.x; x++)
 			{
 				for (int y = 0; y < gridSize.y; y++)
@@ -37,11 +36,58 @@ namespace AStar
 					{
 						Vector3 worldPoint = start + (new Vector3(x, y, z) * nodeDiameter) + (nodeRadius * Vector3.one);
 						bool navigable = !Physics.CheckBox(worldPoint, new Vector3(nodeRadius, nodeRadius, nodeRadius), Quaternion.identity, unnavigableLayer);
-
-						grid[x, y, z] = new AStarNode(navigable, worldPoint, new Vector3Int(x, y, z));
+						float penalty = !navigable ? maxMovementpenalty : 0;
+						grid[x, y, z] = new AStarNode(navigable, worldPoint, new Vector3Int(x, y, z), penalty);
 					}
 				}
 			}
+			yield return null;
+			BlurGrid(blurAmount);
+			yield return null;
+		}
+
+		public void CreateGrid()
+		{
+			grid = new AStarNode[gridSize.x, gridSize.y, gridSize.z];
+			Vector3 start = gridPosTransform.position - (worldGridSize / 2);
+			StartCoroutine(CreateGridRoutine(start));
+		}
+
+		private void BlurGrid(int blurSize) //1
+		{
+			int kernelSize = (blurSize * 2) + 1; //3
+			int kernelExtents = (kernelSize - 1) / 2; //2
+
+			float[,,] blurredGrid = new float[gridSize.x, gridSize.y, gridSize.z];
+
+			foreach (AStarNode node in grid)
+			{
+				float penaltySum = 0;
+				int neighbourCount = 0;
+				for (int x = -kernelExtents; x <= kernelExtents; x++)
+				{
+					for (int y = -kernelExtents; y <= kernelExtents; y++)
+					{
+						for (int z = -kernelExtents; z <= kernelExtents; z++)
+						{
+							int xValue = Mathf.Clamp(x + node.gridPosition.x, 0, gridSize.x - 1);
+							int yValue = Mathf.Clamp(y + node.gridPosition.y, 0, gridSize.y - 1);
+							int zValue = Mathf.Clamp(z + node.gridPosition.z, 0, gridSize.z - 1);
+
+							penaltySum += grid[xValue, yValue, zValue].movementPenalty;
+							neighbourCount++;
+						}
+					}
+				}
+				penaltySum /= (kernelSize * kernelSize * kernelSize);
+				blurredGrid[node.gridPosition.x, node.gridPosition.y, node.gridPosition.z] = penaltySum;
+
+			}
+			foreach (AStarNode node in grid)
+			{
+				node.movementPenalty = blurredGrid[node.gridPosition.x, node.gridPosition.y, node.gridPosition.z];
+			}
+
 		}
 
 		public AStarNode FindNode(Vector3 worldPostion)
@@ -96,8 +142,17 @@ namespace AStar
 			}
 			foreach (AStarNode aStarNode in grid)
 			{
-				if (!aStarNode.navigable)
+				if (aStarNode == null)
 				{
+					continue;
+				}
+				/*if (!aStarNode.navigable)
+				{
+					Gizmos.DrawCube(aStarNode.worldPostion, Vector3.one);
+				}*/
+				if ( aStarNode.movementPenalty > 0)
+				{
+					Gizmos.color = new Color(1, 0, 0, aStarNode.movementPenalty / maxMovementpenalty);
 					Gizmos.DrawCube(aStarNode.worldPostion, Vector3.one);
 				}
 			}

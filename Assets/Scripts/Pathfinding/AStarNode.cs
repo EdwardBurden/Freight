@@ -9,6 +9,7 @@ namespace AStar
 		public bool navigable;
 		public Vector3 worldPostion;
 		public Vector3Int gridPosition;
+		public float movementPenalty;
 
 		public float gCost;
 		public float hCost;
@@ -20,11 +21,12 @@ namespace AStar
 
 		public AStarNode parent;
 
-		public AStarNode(bool navigable, Vector3 worldPostion, Vector3Int gridPosition)
+		public AStarNode(bool navigable, Vector3 worldPostion, Vector3Int gridPosition, float movementPenalty)
 		{
 			this.navigable = navigable;
 			this.worldPostion = worldPostion;
 			this.gridPosition = gridPosition;
+			this.movementPenalty = movementPenalty;
 		}
 
 		public int CompareTo(AStarNode other)

@@ -35,7 +35,7 @@ namespace AStar
 						continue;
 					}
 
-					float newCostToNeighbour = node.gCost + GetDistance(node, neighbour);
+					float newCostToNeighbour = node.gCost + GetDistance(node, neighbour) + neighbour.movementPenalty;
 					if (newCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour))
 					{
 						neighbour.gCost = newCostToNeighbour;
@@ -56,7 +56,7 @@ namespace AStar
 			return new List<AStarNode>();
 		}
 
-		public static Vector3[] SimplifyPath(List<AStarNode> aStarNodes)
+		public static Vector3[] SimplifyPath(List<AStarNode> aStarNodes , Vector3 end)
 		{
 			if (aStarNodes.Count == 0)
 			{
@@ -76,7 +76,8 @@ namespace AStar
 					waypoints.Add(start.worldPostion);
 				}
 			}
-			waypoints.Add(aStarNodes[aStarNodes.Count - 1].worldPostion);
+			//waypoints.Add(aStarNodes[aStarNodes.Count - 1].worldPostion);
+			waypoints.Add(end);
 			return waypoints.ToArray();
 		}
 

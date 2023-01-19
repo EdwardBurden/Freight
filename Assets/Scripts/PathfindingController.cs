@@ -64,7 +64,7 @@ public class PathfindingController : Singleton<PathfindingController>
 		}
 
 		bool success = pathTask.Result.Count > 0;
-		Vector3[] waypoints = AStarAlgorithm.SimplifyPath(pathTask.Result);
+		Vector3[] waypoints = AStarAlgorithm.SimplifyPath(pathTask.Result , pathRequest.pathEnd);
 		ProccessingFinished(pathRequest, waypoints, success);
 	}
 
