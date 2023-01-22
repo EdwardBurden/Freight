@@ -1432,10 +1432,10 @@ GameObject:
   - component: {fileID: 5932175407123157845}
   - component: {fileID: 3064719382061504028}
   - component: {fileID: 6492373305940633967}
-  - component: {fileID: 1916078048866380878}
   - component: {fileID: 1916078048812840262}
   - component: {fileID: 650945559623256558}
   - component: {fileID: 1032641176590061622}
+  - component: {fileID: 1458834581168940816}
   m_Layer: 0
   m_Name: Columbus
   m_TagString: Untagged
@@ -1497,21 +1497,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1916078048866380878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6420024990574447087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9d58a07fa3e43e40933fd49a7f031db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hoverUIPrefab: {fileID: 234753750589598935, guid: ae65448598d6f4743bd4d43b4a5b7178, type: 3}
-  summaryUIAnchor: {fileID: 1856352840503407144}
-  outline: {fileID: 7103907911601742084}
 --- !u!114 &1916078048812840262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1554,6 +1539,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floor: {fileID: 5666356893217277756}
   floorToShipLine: {fileID: 4070832809812272796}
+--- !u!114 &1458834581168940816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6420024990574447087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2417ca225a92b914a8c556d7c1799f31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverUIPrefab: {fileID: 234753750589598935, guid: ae65448598d6f4743bd4d43b4a5b7178, type: 3}
+  summaryUIAnchor: {fileID: 1856352840503407144}
+  outline: {fileID: 7103907911601742084}
 --- !u!1 &8115445265128676006
 GameObject:
   m_ObjectHideFlags: 0

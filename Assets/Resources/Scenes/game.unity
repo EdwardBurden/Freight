@@ -570,7 +570,8 @@ MonoBehaviour:
   shipSpawnNumber: 5
   shipDefintions:
   - {fileID: 11400000, guid: 119648b6183e8fd43b254992cfd1e1db, type: 2}
-  - {fileID: 11400000, guid: edf3e32c414421f4f9338c26087a6a1f, type: 2}
+  - {fileID: 11400000, guid: 0dd5c3841b3ed0747bea5a3713592071, type: 2}
+  - {fileID: 11400000, guid: 4ca04fc164ff3724eab607a0ae0efe2e, type: 2}
 --- !u!1001 &1233535406
 PrefabInstance:
   m_ObjectHideFlags: 0

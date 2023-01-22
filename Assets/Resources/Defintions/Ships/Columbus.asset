@@ -9,17 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fedb7bf7f704114a91f5d5ecf5940bc, type: 3}
+  m_Script: {fileID: 11500000, guid: 43346edf19396684a818d76cf8403ca7, type: 3}
   m_Name: Columbus
   m_EditorClassIdentifier: 
   shipName: Columbus
   shipIcon: {fileID: 0}
-  maxSpeed: 3
+  maxSpeed: 7
   turnSpeed: 70
-  maxOrders: 3
+  maxOrders: 2
   shipActions:
   - {fileID: 11400000, guid: a103b71af81881a43a58f9aa882f2fcc, type: 2}
   - {fileID: 11400000, guid: 4928bd6d119345c44884ee566c8e0f05, type: 2}
   - {fileID: 11400000, guid: af1f7bd45c6eb0b47a343b495fb5a251, type: 2}
   summaryUIPrefab: {fileID: 6806353551596812141, guid: 91892587ce88f884993cfc125fda302a, type: 3}
-  shipPrefab: {fileID: 1916078048866380878, guid: d66e89d8daf15f242b02e6995d2e685c, type: 3}
+  shipPrefab: {fileID: 1458834581168940816, guid: d66e89d8daf15f242b02e6995d2e685c, type: 3}

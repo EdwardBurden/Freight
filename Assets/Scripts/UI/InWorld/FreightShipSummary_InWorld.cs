@@ -8,15 +8,15 @@ namespace UI
 		[SerializeField] private ResourceIconButtonWidget resourceIconButtonWidget;
 		[SerializeField] private Transform cargoTransform;
 
-		private FreightShip freightShip => ship as FreightShip;
+		private CarryObject carryObject => ship.GetComponent<CarryObject>();
 
 		public override void Init(Ship ship)
 		{
 			base.Init(ship);
-			if (freightShip.carryObject != null)
+			if (carryObject != null)
 			{
-				freightShip.carryObject.FreightAddedEvent += CarryObject_FreightAddedEvent; ;
-				freightShip.carryObject.FreightRemovedEvent += CarryObject_FreightRemovedEvent; ;
+				carryObject.FreightAddedEvent += CarryObject_FreightAddedEvent; ;
+				carryObject.FreightRemovedEvent += CarryObject_FreightRemovedEvent; ;
 			}
 		}
 
@@ -34,7 +34,7 @@ namespace UI
 		{
 			base.Show();
 			GameObjectUtils.Clear(cargoTransform);
-			foreach (FreightObject freightObject in freightShip.GetAllFreight())
+			foreach (FreightObject freightObject in carryObject.GetAllFreight())
 			{
 				ResourceIconButtonWidget resourceIconButton = Instantiate(resourceIconButtonWidget, cargoTransform);
 				resourceIconButton.ShowResource(freightObject.resourceData);
@@ -43,10 +43,10 @@ namespace UI
 
 		private void OnDestroy()
 		{
-			if (freightShip.carryObject != null)
+			if (carryObject != null)
 			{
-				freightShip.carryObject.FreightAddedEvent -= CarryObject_FreightAddedEvent; ;
-				freightShip.carryObject.FreightRemovedEvent -= CarryObject_FreightRemovedEvent; ;
+				carryObject.FreightAddedEvent -= CarryObject_FreightAddedEvent; ;
+				carryObject.FreightRemovedEvent -= CarryObject_FreightRemovedEvent; ;
 			}
 		}
 

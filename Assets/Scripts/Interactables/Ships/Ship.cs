@@ -3,7 +3,7 @@ using UnityEngine;
 using UI;
 
 [RequireComponent(typeof(ShipOrderQueue))]
-public abstract class Ship : InteractableObject
+public class Ship : InteractableObject
 {
 	[SerializeField] protected Transform summaryUIAnchor;
 	[SerializeField] public Outline outline;
@@ -14,7 +14,7 @@ public abstract class Ship : InteractableObject
 
 	public virtual void Init(ShipDefintion shipDefintion)
 	{
-		this.shipDefintion = shipDefintion;	
+		this.shipDefintion = shipDefintion;
 		shipOrderQueue = GetComponent<ShipOrderQueue>();
 		shipOrderQueue.maxOrders = shipDefintion.maxOrders;
 

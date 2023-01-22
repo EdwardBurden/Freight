@@ -236,10 +236,10 @@ GameObject:
   - component: {fileID: 5061240162341354956}
   - component: {fileID: 1316530160}
   - component: {fileID: 1316530157}
-  - component: {fileID: 1316530158}
   - component: {fileID: 1316530161}
   - component: {fileID: 1954651631801424746}
   - component: {fileID: 6871917331884824507}
+  - component: {fileID: 1931582908024578562}
   m_Layer: 0
   m_Name: Piccolo
   m_TagString: Untagged
@@ -302,21 +302,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1316530158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3270510250017182720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9d58a07fa3e43e40933fd49a7f031db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hoverUIPrefab: {fileID: 234753750589598935, guid: ae65448598d6f4743bd4d43b4a5b7178, type: 3}
-  summaryUIAnchor: {fileID: 3660469046565012271}
-  outline: {fileID: 1304414379027440551}
 --- !u!114 &1316530161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,6 +343,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floor: {fileID: 2938145804530267273}
   floorToShipLine: {fileID: 7405230055641183377}
+--- !u!114 &1931582908024578562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3270510250017182720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2417ca225a92b914a8c556d7c1799f31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverUIPrefab: {fileID: 234753750589598935, guid: ae65448598d6f4743bd4d43b4a5b7178, type: 3}
+  summaryUIAnchor: {fileID: 3660469046565012271}
+  outline: {fileID: 1304414379027440551}
 --- !u!1 &6788799966020905094
 GameObject:
   m_ObjectHideFlags: 0

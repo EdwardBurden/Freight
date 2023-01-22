@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43346edf19396684a818d76cf8403ca7, type: 3}
+  m_Name: Enemy
+  m_EditorClassIdentifier: 
+  shipName: Enemy
+  shipIcon: {fileID: 0}
+  maxSpeed: 5
+  turnSpeed: 90
+  maxOrders: 2
+  shipActions:
+  - {fileID: 11400000, guid: af1f7bd45c6eb0b47a343b495fb5a251, type: 2}
+  summaryUIPrefab: {fileID: 0}
+  shipPrefab: {fileID: 9045786895620630757, guid: ec03704be5289734086da6ac879242cc, type: 3}
