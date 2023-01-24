@@ -1,16 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terrain;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class MapGenerator : MonoBehaviour
 {
 	private const int TILESIZE = 10;
 	private const int MAX_EDGES_IN_WATER = 1;
-
-	[Header("Map Settings")]
-	[SerializeField] private List<MapGenerationSettings> settings;
-	[SerializeField] private LayerMask unnavigableLayer;
 
 	[Header("Map Surface")]
 	[SerializeField] private GameObject waterPrefab;
@@ -30,22 +28,104 @@ public class MapGenerator : MonoBehaviour
 	[SerializeField] private int minHeight;
 	[SerializeField] private float heightCellDistanceModifier = 0.2f;
 
-
-	public MapGenerationData Generate() //temp
+	public MapGenerationData GenerateMapData(MapGenerationSettings settings)
 	{
-		//TODO make a courintiue with aniamting mesh movements when made for cool main menu effect
-		return Generate(settings[0]);
-	}
+		//Create Random Points
+		Vector2 islandGenerateSize = settings.mapSize * TILESIZE;
+		Vector2 blockgenerateSize = (settings.mapSize * TILESIZE) + new Vector2(settings.islandRadius, settings.islandRadius);
+		Vector3 islandOffset = -MapGeneration.GetAreaOffset(settings.mapSize) * TILESIZE;
+		Vector3 blockOffset = -(MapGeneration.GetAreaOffset(settings.mapSize) * TILESIZE) - (new Vector3(settings.islandRadius, 0, settings.islandRadius) / 2);
+		List<Vector2> islandpoints = PoissonSampling.CreateRandomPoints(islandGenerateSize, settings.islandRadius, islandOffset);
+		List<Vector2> blockPoints = PoissonSampling.CreateRandomPoints(blockgenerateSize, settings.blockRadius, blockOffset);
+		List<Vector2>[] blockPointsToIslands = new List<Vector2>[islandpoints.Count];
 
-	public MapGenerationData Generate(MapGenerationSettings settings)
-	{
-		MapGenerationData mapGenerationData = new MapGenerationData(settings);
-		PlaceMapSurface(mapGenerationData.settings);
-		mapGenerationData.islands = CreateIslands(mapGenerationData.settings);
+		//Assign block points to island point
+		float islandRadius = settings.islandRadius * settings.islandRadius;
+		foreach (Vector2 blockPoint in blockPoints)
+		{
+			bool canAdd = false;
+			float closest = 100000;
+			int index = 0;
+			for (int i = 0; i < islandpoints.Count; i++)
+			{
+				float sqrMagnitude = (islandpoints[i] - blockPoint).sqrMagnitude;
+				if (sqrMagnitude < islandRadius)
+				{
+					canAdd = true;
+					if (sqrMagnitude < closest)
+					{
+						closest = sqrMagnitude;
+						index = i;
+					}
+				}
+			}
+			if (canAdd)
+			{
+				if (blockPointsToIslands[index] == null)
+				{
+					blockPointsToIslands[index] = new List<Vector2>();
+				}
+				blockPointsToIslands[index].Add(blockPoint);
+			}
+		}
+
+		List<IslandGenerationData> islandGenerations = new List<IslandGenerationData>();
+		for (int i = 0; i < blockPointsToIslands.Length; i++)
+		{
+			List<Vertex> boundarypoints = blockPointsToIslands[i].ToVertices();
+			List<Vertex> vertices = blockPointsToIslands[i].ToVertices();
+			List<Vertex> boundary = JarvisMarchAlgorithm.GetConvexHull(boundarypoints);
+			List<VoronoiCell> cells = MapGeneration.CreateVoronoiCells(vertices);
+			MapGeneration.ClipVoronoiDiagram(cells, boundary);
+			cells = MapGeneration.CreateTrianglesFromVoronoiCells(cells);
+			IslandGenerationData islandGenerationData = new IslandGenerationData(islandpoints[i], blockPointsToIslands[i], cells);
+			islandGenerations.Add(islandGenerationData);
+		}
+
+		MapGenerationData mapGenerationData = new MapGenerationData(islandGenerations);
 		return mapGenerationData;
 	}
 
-	private List<IslandGenerationData> CreateIslands(MapGenerationSettings settings)
+
+	public void PlaceMapSurface(MapGenerationSettings settings)
+	{
+		Vector2 surfaceSize = settings.mapSize + new Vector2(settings.islandRadius / TILESIZE, settings.islandRadius / TILESIZE);
+		GameObjectUtils.Clear(waterTransfrom);
+		GameObjectUtils.Clear(groundTransfrom);
+		GameObjectUtils.Clear(borderTransform);
+		Vector3 mapOffset = MapGeneration.GetAreaOffset(surfaceSize) * TILESIZE;
+		float tileRadius = TILESIZE / 2.0f;
+		Vector3 offset = mapOffset - new Vector3(tileRadius, 0, tileRadius);
+		for (int i = 0; i < surfaceSize.x; i++)
+		{
+			for (int j = 0; j < surfaceSize.y; j++)
+			{
+				Vector3 pos = new Vector3(i, 0, j) * TILESIZE;
+				Vector3 ground = (pos - offset);
+				Vector3 water = ground + new Vector3(0, waterHeight, 0);
+				if (i == 0)
+				{
+					Instantiate(borderprefab, water, Quaternion.Euler(0, 270, 0), borderTransform);
+				}
+				if (j == 0)
+				{
+					Instantiate(borderprefab, water, Quaternion.Euler(0, 180, 0), borderTransform);
+				}
+				if (i == surfaceSize.x - 1)
+				{
+					Instantiate(borderprefab, water, Quaternion.Euler(0, 90, 0), borderTransform);
+				}
+				if (j == surfaceSize.y - 1)
+				{
+					Instantiate(borderprefab, water, Quaternion.Euler(0, 0, 0), borderTransform);
+				}
+			}
+		}
+		GameObject waterobject = Instantiate(waterPrefab, Vector3.up * waterHeight, Quaternion.identity, waterTransfrom);
+		GameObject groundobject = Instantiate(groundPrefab, Vector3.zero, Quaternion.identity, groundTransfrom);
+	}
+
+	/*private List<IslandGenerationData> CreateIslands(MapGenerationSettings settings)
 	{
 		Vector3 offset = MapGeneration.GetAreaOffset(settings.mapSize) * TILESIZE;
 		List<IslandGenerationData> islandGenerationDatas = new List<IslandGenerationData>();
@@ -88,49 +168,6 @@ public class MapGenerator : MonoBehaviour
 		data.voronoiCells = cells;
 		data.allRandomPoints = islandpoints;
 		return data;
-	}
-
-	private void PlaceMapSurface(MapGenerationSettings settings)
-	{
-		Vector2 surfaceSize = settings.mapSize + new Vector2(settings.islandRadius / TILESIZE, settings.islandRadius / TILESIZE);
-		GameObjectUtils.Clear(waterTransfrom);
-		GameObjectUtils.Clear(groundTransfrom);
-		GameObjectUtils.Clear(borderTransform);
-		Vector3 mapOffset = MapGeneration.GetAreaOffset(surfaceSize) * TILESIZE;
-		float tileRadius = TILESIZE / 2.0f;
-		Vector3 offset = mapOffset - new Vector3(tileRadius, 0, tileRadius);
-		for (int i = 0; i < surfaceSize.x; i++)
-		{
-			for (int j = 0; j < surfaceSize.y; j++)
-			{
-				Vector3 pos = new Vector3(i, 0, j) * TILESIZE;
-				Vector3 ground = (pos - offset);
-				Vector3 water = ground + new Vector3(0, waterHeight, 0);
-				//Instantiate(waterPrefab, water, Quaternion.identity, waterTransfrom);
-				//Instantiate(groundPrefab, ground, Quaternion.identity, groundTransfrom);
-
-				if (i == 0)
-				{
-					Instantiate(borderprefab, water, Quaternion.Euler(0, 270, 0), borderTransform);
-				}
-				if (j == 0)
-				{
-					Instantiate(borderprefab, water, Quaternion.Euler(0, 180, 0), borderTransform);
-				}
-				if (i == surfaceSize.x - 1)
-				{
-					Instantiate(borderprefab, water, Quaternion.Euler(0, 90, 0), borderTransform);
-				}
-				if (j == surfaceSize.y - 1)
-				{
-					Instantiate(borderprefab, water, Quaternion.Euler(0, 0, 0), borderTransform);
-				}
-			}
-		}
-		GameObject waterobject = Instantiate(waterPrefab, Vector3.up * waterHeight, Quaternion.identity, waterTransfrom);
-		GameObject groundobject = Instantiate(groundPrefab, Vector3.zero, Quaternion.identity, groundTransfrom);
-		//waterobject.transform.localScale = new Vector3(surfaceSize.x, 1, surfaceSize.y);
-	//	groundobject.transform.localScale = new Vector3(surfaceSize.x, 1, surfaceSize.y);
 	}
 
 	private GameObject PlaceIslandBase(MapGenerationSettings settings, Vector3 island, Vector3 offset)
@@ -217,5 +254,5 @@ public class MapGenerator : MonoBehaviour
 		GameObjectUtils.Clear(groundTransfrom);
 		GameObjectUtils.Clear(borderTransform);
 		GameObjectUtils.Clear(islandsTransform);
-	}
+	}*/
 }

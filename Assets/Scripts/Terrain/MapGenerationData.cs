@@ -1,15 +1,15 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Terrain
 {
 	public class MapGenerationData
 	{
-		public MapGenerationSettings settings;
 		public List<IslandGenerationData> islands;
 
-		public MapGenerationData(MapGenerationSettings settings)
+		public MapGenerationData(List<IslandGenerationData> islands)
 		{
-			this.settings = settings;
+			this.islands = islands;
 		}
 	}
 }

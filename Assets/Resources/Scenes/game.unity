@@ -161,6 +161,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6888528275230630002, guid: 974dfdb4fa455214d94d7585e246d498, type: 3}
+      propertyPath: settings.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6888528275230630002, guid: 974dfdb4fa455214d94d7585e246d498, type: 3}
+      propertyPath: settings.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: c45660457ccc90142963ebcc4eafe8c5, type: 2}
     - target: {fileID: 7405682092259653069, guid: 974dfdb4fa455214d94d7585e246d498, type: 3}
       propertyPath: settings.Array.data[0]
       value: 
@@ -333,6 +341,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 85af87fdd40d6494a8dfeb8ce2e1eb15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &567249199 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6888528275230630002, guid: 974dfdb4fa455214d94d7585e246d498, type: 3}
+  m_PrefabInstance: {fileID: 205256774}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2e284c23dedb6444ae94a5e16a6a842, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &589722451 stripped
@@ -1475,6 +1494,10 @@ PrefabInstance:
       propertyPath: gameUIController
       value: 
       objectReference: {fileID: 545579774}
+    - target: {fileID: 5678918674405169551, guid: e02d33825afd604418227c6d0c1e3aee, type: 3}
+      propertyPath: terrainController
+      value: 
+      objectReference: {fileID: 567249199}
     - target: {fileID: 5678918674405169551, guid: e02d33825afd604418227c6d0c1e3aee, type: 3}
       propertyPath: mainMenuUIController
       value: 

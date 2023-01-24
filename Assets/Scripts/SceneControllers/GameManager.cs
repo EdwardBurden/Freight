@@ -11,7 +11,7 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 	[SerializeField] private TimeController timeController;
 	[SerializeField] private ActionPreviewController actionPreviewController;
 	[SerializeField] private ShipSelectionController shipSelector;
-	[SerializeField] private MapGenerator mapGenerator;
+	[SerializeField] private TerrainController terrainController;
 	[SerializeField] private BuildingController buildingController;
 	[SerializeField] private SeasonsController seasonsController;
 	[SerializeField] private GameUIController gameUIController;
@@ -19,8 +19,6 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 	[SerializeField] private NotificationsController notificationsController;
 	[SerializeField] private SpawnController spawnController;
 	[SerializeField] private PathfindingController pathfindingController;
-
-	private MapGenerationData gameGenerationData;
 
 	private void Awake()
 	{
@@ -41,7 +39,7 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 
 	public void EndGame()
 	{
-		mapGenerator.ClearMap();
+		//mapGenerator.ClearMap();
 		foreach (var item in FindObjectsOfType<Ship>())
 		{
 			Destroy(item.gameObject);
@@ -56,8 +54,8 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 		cameraController.enabled = true;
 		timeController.StartTime();
 
-		gameGenerationData = mapGenerator.Generate();
-		buildingController.DistributeBuildings(gameGenerationData);
+		 terrainController.GenerateMap();
+	//	buildingController.DistributeBuildings(gameGenerationData);
 		spawnController.DistributeShips();
 		notificationsController.Init();
 		SetInputToSelectionMode();

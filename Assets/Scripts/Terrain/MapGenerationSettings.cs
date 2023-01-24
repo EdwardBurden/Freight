@@ -10,6 +10,7 @@ namespace Terrain
 		public string settingsName; //smal,medium,large
 		public Vector2 mapSize;
 		public int islandRadius = 50;
+		public int blockRadius = 5;
 
 		[Header("island")]
 		public List<GameObject> bases;

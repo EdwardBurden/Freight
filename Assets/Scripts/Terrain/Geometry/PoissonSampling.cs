@@ -6,7 +6,7 @@ namespace Terrain
 	public static class PoissonSampling
 	{
 		//In local space
-		public static List<Vector2> CreateRandomPoints(Vector2 sampleRegionSize, float radius, int ttt = 30)
+		public static List<Vector2> CreateRandomPoints(Vector2 sampleRegionSize, float radius, Vector3 offset, int ttt = 30)
 		{
 			float cellSize = radius / Mathf.Sqrt(2);
 
@@ -42,10 +42,16 @@ namespace Terrain
 
 			}
 
+			return ConvertPointsToWorld(points, offset);
+		}
+
+		private static List<Vector2> ConvertPointsToWorld(List<Vector2> points, Vector3 offset)
+		{
+			for (int i = 0; i < points.Count; i++)
+			{
+				points[i] += new Vector2(offset.x, offset.z);
+			}
 			return points;
-
-
-
 		}
 
 		public static bool IsValidPoint(Vector2 areaSize, Vector2 test, float cellSize, float radius, List<Vector2> points, int[,] grid)
