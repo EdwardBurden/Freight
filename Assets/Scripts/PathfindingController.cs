@@ -76,6 +76,11 @@ public class PathfindingController : Singleton<PathfindingController>
 			return;
 		}
 	}
+
+	internal void UpdatedGrid(Vector3 position, int space)
+	{
+		aStarGrid.UpdateGrid(position , space); //TODO
+	}
 }
 
 

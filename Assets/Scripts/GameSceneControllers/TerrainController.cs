@@ -94,4 +94,8 @@ public class TerrainController : Singleton<TerrainController>
 		}
 	}
 
+	public bool CanPlaceBlock()
+	{
+		return !generationData.AllBlocksPlaced();
+	}
 }

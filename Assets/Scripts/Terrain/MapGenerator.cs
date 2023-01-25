@@ -4,13 +4,14 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Terrain;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 using static UnityEditor.Progress;
 
 public class MapGenerator : MonoBehaviour
 {
 	private const int TILESIZE = 10;
 	private const int MAX_EDGES_IN_WATER = 10;
-
+	[SerializeReference] public LayerMask unnavigableLayer;
 	[Header("Map Surface")]
 	[SerializeField] private GameObject waterPrefab;
 	[SerializeField] private GameObject groundPrefab;
@@ -173,16 +174,20 @@ public class MapGenerator : MonoBehaviour
 		IslandBlock islandBlock = cellGameObject.AddComponent<IslandBlock>();
 		cellGameObject.transform.parent = parent;
 		cellGameObject.transform.position = voronoiCell.sitePos;
+		cellGameObject.layer = 7;//unnavigableLayer
 
 		//Create Mesh
 		MeshFilter meshFilter = cellGameObject.AddComponent<MeshFilter>();
 		MeshRenderer meshRenderer = cellGameObject.AddComponent<MeshRenderer>();
+		MeshCollider meshCollider = cellGameObject.AddComponent<MeshCollider>();
 		float height = CalculateCellHeight(voronoiCell.sitePos, parent.position, settings.islandRadius);
 		int materialIndex = UnityEngine.Random.Range(0, islandMaterials.Length);
 		meshRenderer.material = islandMaterials[materialIndex];
 		meshFilter.mesh = MapGeneration.CreateVoronoiMesh(voronoiCell, height);
+		meshCollider.sharedMesh = meshFilter.mesh;
+		meshCollider.convex = true;
 
-		//
+		//object
 		GameObject site = new GameObject("Site");
 		site.transform.parent = cellGameObject.transform;
 		site.transform.position = voronoiCell.sitePos + (Vector3.up * height);

@@ -15,7 +15,7 @@ MonoBehaviour:
   settingsName: TestSettings
   mapSize: {x: 10, y: 10}
   islandRadius: 50
-  blockRadius: 10
+  blockRadius: 7
   bases:
   - {fileID: 5661687393432853912, guid: fb918cd1bd185514eb6a99b751de42b5, type: 3}
   - {fileID: 5661687393432853912, guid: 223e2835a810371478646bd61bbb04ba, type: 3}

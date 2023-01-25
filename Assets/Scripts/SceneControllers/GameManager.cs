@@ -58,7 +58,7 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 		GameStartEvent?.Invoke();
 	}
 
-
+	
 
 
 

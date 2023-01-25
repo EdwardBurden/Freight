@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace AStar
@@ -41,7 +40,6 @@ namespace AStar
 					}
 				}
 			}
-			yield return null;
 			BlurGrid(blurAmount);
 			yield return null;
 		}
@@ -51,6 +49,88 @@ namespace AStar
 			grid = new AStarNode[gridSize.x, gridSize.y, gridSize.z];
 			Vector3 start = gridPosTransform.position - (worldGridSize / 2);
 			StartCoroutine(CreateGridRoutine(start));
+		}
+
+		public void UpdateGrid(Vector3 point, int space)
+		{
+			Vector3 start = gridPosTransform.position - (worldGridSize / 2);
+			AStarNode pointNode = FindNode(point);
+			int length = (space - 1) / 2; //2
+			for (int x = -length; x <= length; x++)
+			{
+				for (int y = -length; y <= length; y++)
+				{
+					for (int z = -length; z <= length; z++)
+					{
+						Vector3 refreshPoint = pointNode.gridPosition + new Vector3(x, y, z);
+						if (refreshPoint.x < 0 || refreshPoint.y < 0 || refreshPoint.z < 0 || refreshPoint.x >= gridSize.x || refreshPoint.y >= gridSize.y || refreshPoint.z >= gridSize.z)
+						{
+							continue;
+						}
+
+						Vector3 worldPoint = start + (refreshPoint * nodeDiameter) + (nodeRadius * Vector3.one);
+						bool navigable = !Physics.CheckBox(worldPoint, new Vector3(nodeRadius, nodeRadius, nodeRadius), Quaternion.identity, unnavigableLayer);
+						float penalty = !navigable ? maxMovementpenalty : 0;
+						Vector3Int refreshPointint = Vector3Int.FloorToInt(refreshPoint);
+						grid[refreshPointint.x, refreshPointint.y, refreshPointint.z] = new AStarNode(navigable, worldPoint, refreshPointint, penalty);
+					}
+				}
+			}
+			UpdateBlur(pointNode.gridPosition, space, blurAmount);
+		}
+
+		public void UpdateBlur(Vector3Int point, int space, int blurSize)
+		{
+			int kernelSize = (blurSize * 2) + 1; //3
+			int kernelExtents = (kernelSize - 1) / 2; //2
+			int length = (space - 1) / 2; //2
+			List<float> penatly = new List<float>();
+			List<AStarNode> penatlynodes = new List<AStarNode>();
+
+			for (int xl = -length; xl <= length; xl++)
+			{
+				for (int xy = -length; xy <= length; xy++)
+				{
+					for (int xz = -length; xz <= length; xz++)
+					{
+						Vector3 refreshPoint = point + new Vector3(xl, xy, xz);
+						Vector3Int refreshPointint = Vector3Int.FloorToInt(refreshPoint);
+						if (refreshPoint.x < 0 || refreshPoint.y < 0 || refreshPoint.z < 0 || refreshPoint.x >= gridSize.x || refreshPoint.y >= gridSize.y || refreshPoint.z >= gridSize.z)
+						{
+							continue;
+						}
+						AStarNode pointNode = grid[refreshPointint.x, refreshPointint.y, refreshPointint.z];
+						float penaltySum = 0;
+						int neighbourCount = 0;
+						for (int x = -kernelExtents; x <= kernelExtents; x++)
+						{
+							for (int y = -kernelExtents; y <= kernelExtents; y++)
+							{
+								for (int z = -kernelExtents; z <= kernelExtents; z++)
+								{
+									int xValue = Mathf.Clamp(x + pointNode.gridPosition.x, 0, gridSize.x - 1);
+									int yValue = Mathf.Clamp(y + pointNode.gridPosition.y, 0, gridSize.y - 1);
+									int zValue = Mathf.Clamp(z + pointNode.gridPosition.z, 0, gridSize.z - 1);
+
+									penaltySum += grid[xValue, yValue, zValue].movementPenalty;
+									neighbourCount++;
+								}
+							}
+						}
+						penaltySum /= (kernelSize * kernelSize * kernelSize);
+						penatly.Add(penaltySum);
+						penatlynodes.Add(pointNode);
+					}
+				}
+			}
+
+			foreach (AStarNode node in penatlynodes)
+			{
+				node.modifiedMovementPenalty = penatly[0];
+				penatly.RemoveAt(0);
+			}
+
+
 		}
 
 		private void BlurGrid(int blurSize) //1
@@ -85,7 +165,7 @@ namespace AStar
 			}
 			foreach (AStarNode node in grid)
 			{
-				node.movementPenalty = blurredGrid[node.gridPosition.x, node.gridPosition.y, node.gridPosition.z];
+				node.modifiedMovementPenalty = blurredGrid[node.gridPosition.x, node.gridPosition.y, node.gridPosition.z];
 			}
 
 		}
@@ -150,9 +230,9 @@ namespace AStar
 				{
 					Gizmos.DrawCube(aStarNode.worldPostion, Vector3.one);
 				}*/
-				if ( aStarNode.movementPenalty > 0)
+				if (aStarNode.modifiedMovementPenalty > 0)
 				{
-					Gizmos.color = new Color(1, 0, 0, aStarNode.movementPenalty / maxMovementpenalty);
+					Gizmos.color = new Color(1, 0, 0, aStarNode.modifiedMovementPenalty / maxMovementpenalty);
 					Gizmos.DrawCube(aStarNode.worldPostion, Vector3.one);
 				}
 			}

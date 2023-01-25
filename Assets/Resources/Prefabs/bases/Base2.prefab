@@ -161,9 +161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091073df4defdae45a4e4bc63848e2e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  islandSize: {x: 60, y: 60}
-  islandPointRadius: 5
-  id: 0
 --- !u!4 &4447003569909032524 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ea003f7d8bd9b0e4999bae1e1fdc229b, type: 3}
