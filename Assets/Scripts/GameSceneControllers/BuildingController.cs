@@ -78,7 +78,7 @@ public class BuildingController : Singleton<BuildingController> //todo make into
 
 	/*public void DistributeBuildings(MapGenerationData mapGenerationData)
 	{
-		List<IslandBlock> islandBlocks = mapGenerationData.islands.SelectMany(x => x.blocks).OrderBy(x => Guid.NewGuid()).ToList(); //TODO Remove LINQ
+		List<IslandBlock> islandBlocks = mapGenerationData.islands.SelectMany(x => x.placedBlocks).OrderBy(x => Guid.NewGuid()).ToList(); //TODO Remove LINQ
 
 		foreach (BuildingSpawnInfo buildingSpawnInfo in builindSpawnInfos)
 		{

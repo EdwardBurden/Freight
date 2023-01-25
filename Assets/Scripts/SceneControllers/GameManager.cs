@@ -27,35 +27,28 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 
 	private void Start()
 	{
-		//	GoToMainMenu();
+		//GoToMainMenu();
 		StartNewGame();
 	}
 
-	public void GoToMainMenu()
+	public void GoToMainMenu() //move to app manager
 	{
 		cameraController.enabled = false;
 		UIManager.instance.SetController(mainMenuUIController);
 	}
 
-	public void EndGame()
-	{
-		//mapGenerator.ClearMap();
-		foreach (var item in FindObjectsOfType<Ship>())
-		{
-			Destroy(item.gameObject);
-		}
-		timeController.ResumeTime();
-		//remove ships and rest ship selecter
-		//remove buildings and reset building controller
-	}
-
-	public void StartNewGame()
+	public void StartNewGame() 
 	{
 		cameraController.enabled = true;
 		timeController.StartTime();
+		terrainController.TerrainGeneratedEvent += OnTerrainGenerated;
+		terrainController.GenerateMap();
+	}
 
-		 terrainController.GenerateMap();
-	//	buildingController.DistributeBuildings(gameGenerationData);
+	private void OnTerrainGenerated(MapGenerationData gameGenerationData)
+	{
+		//buildingController.DistributeBuildings(gameGenerationData);
+		terrainController.TerrainGeneratedEvent -= OnTerrainGenerated;
 		spawnController.DistributeShips();
 		notificationsController.Init();
 		SetInputToSelectionMode();
@@ -65,12 +58,11 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 		GameStartEvent?.Invoke();
 	}
 
-	public void ExitGame()
-	{
-		//do this , do that
-		//etc
-		//UIManager.instance.ClearAllUI();
-	}
+
+
+
+
+
 
 	public void SetInputToPreviewMode()
 	{
@@ -88,13 +80,20 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 
 	}
 
-	internal void OnExitGameSelected()
+	internal void ExitApp() //move to app manager
 	{
 		AppManager.instance.CloseApplication();
 	}
 
-	internal void OnNewGameSelected()
+	public void EndGame()  //move to app manager
 	{
-		StartNewGame();
+		//mapGenerator.ClearMap();
+		foreach (var item in FindObjectsOfType<Ship>())
+		{
+			Destroy(item.gameObject);
+		}
+		timeController.ResumeTime();
+		//remove ships and rest ship selecter
+		//remove buildings and reset building controller
 	}
 }

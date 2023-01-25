@@ -7,5 +7,6 @@ namespace Terrain
 	{
 		public ResourceGroundType resourceGroundType;
 		public Transform buildingSpawnPoint;
+		public Vector3 sitePostion;
 	}
 }

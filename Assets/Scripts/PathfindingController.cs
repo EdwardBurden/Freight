@@ -75,14 +75,6 @@ public class PathfindingController : Singleton<PathfindingController>
 		{
 			return;
 		}
-		/*foreach (AStarNode aStarNode in path)
-		{
-			Gizmos.DrawCube(aStarNode.worldPostion, Vector3.one);
-		}
-		/*
-		Gizmos.DrawCube(aStarGrid.FindNode(start.position).worldPostion, Vector3.one);
-		Gizmos.DrawCube(aStarGrid.FindNode(end.position).worldPostion, Vector3.one);
-		*/
 	}
 }
 
