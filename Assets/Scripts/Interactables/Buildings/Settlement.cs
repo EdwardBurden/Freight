@@ -15,14 +15,14 @@ public class Settlement : Building, IConsumer
 
 	private void OnEnable()
 	{
-		SeasonsController.YearEndedEvent += OnYearEnd;
-		SeasonsController.YearStartedEvent += OnYearStart;
+		//SeasonsController.YearEndedEvent += OnYearEnd;
+		//SeasonsController.YearStartedEvent += OnYearStart;
 	}
 
 	private void OnDisable()
 	{
-		SeasonsController.YearEndedEvent -= OnYearEnd;
-		SeasonsController.YearStartedEvent -= OnYearStart;
+		//SeasonsController.YearEndedEvent -= OnYearEnd;
+		//SeasonsController.YearStartedEvent -= OnYearStart;
 	}
 
 	ResourceDefintion[] IConsumer.GetAcceptedResources()

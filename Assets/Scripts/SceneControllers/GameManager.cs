@@ -19,6 +19,7 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 	[SerializeField] private NotificationsController notificationsController;
 	[SerializeField] private SpawnController spawnController;
 	[SerializeField] private PathfindingController pathfindingController;
+	[SerializeField] private MouseInput mouseInput;
 
 	private void Awake()
 	{
@@ -31,13 +32,19 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 		StartNewGame();
 	}
 
+	private void OnEnable()
+	{
+		TurnRewardsController.OnTurnEnded += OnTurnEnd;
+		TurnRewardsController.OnTurnStarted += OnTurnStarted;
+	}
+
 	public void GoToMainMenu() //move to app manager
 	{
 		cameraController.enabled = false;
 		UIManager.instance.SetController(mainMenuUIController);
 	}
 
-	public void StartNewGame() 
+	public void StartNewGame()
 	{
 		cameraController.enabled = true;
 		timeController.StartTime();
@@ -58,8 +65,20 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 		GameStartEvent?.Invoke();
 	}
 
-	
+	private void OnTurnEnd(int obj)
+	{
+		cameraController.enabled = false;
+		timeController.PauseTime();
+		mouseInput.enabled = false;
+	}
 
+
+	private void OnTurnStarted(int turn)
+	{
+		cameraController.enabled = true;
+		timeController.ResumeTime();
+		mouseInput.enabled = true;
+	}
 
 
 

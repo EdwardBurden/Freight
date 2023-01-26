@@ -19,6 +19,8 @@ GameObject:
   - component: {fileID: 4299895375243846661}
   - component: {fileID: 5203445972811590723}
   - component: {fileID: 5245240370647675459}
+  - component: {fileID: 1221141328}
+  - component: {fileID: 6630125588531280767}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -54,14 +56,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraController: {fileID: 0}
+  timeController: {fileID: 5245240370647675459}
   actionPreviewController: {fileID: 4299895375243846661}
   shipSelector: {fileID: 1565390425585161271}
-  startShipPrefab: {fileID: 3270510250017182720, guid: 7bbc8dade33ee3b43b6c086abcdddef2, type: 3}
-  mapGenerator: {fileID: 0}
+  terrainController: {fileID: 0}
   buildingController: {fileID: 599970579638667137}
   seasonsController: {fileID: 5203445972811590723}
   gameUIController: {fileID: 0}
   mainMenuUIController: {fileID: 0}
+  notificationsController: {fileID: 5625015897585847325}
+  spawnController: {fileID: 1221141328}
+  pathfindingController: {fileID: 0}
+  mouseInput: {fileID: 5176535221266868697}
 --- !u!114 &5176535221266868697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,27 +145,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   builindSpawnInfos:
-  - building: {fileID: 7487590425637725449, guid: ffc66f6273cbbb944a96da03d85eb99e, type: 3}
-    spawnChance: 0.005
-    minSpawnAmount: 2
-    maxSpawnAmount: 5
-  - building: {fileID: 7487590425637725449, guid: 1111549d3307d584d8b3fa54462e1255, type: 3}
-    spawnChance: 0.005
-    minSpawnAmount: 1
-    maxSpawnAmount: 3
-  - building: {fileID: 7878513662307553155, guid: a95d7d6023b30d74792965ccd4f24fd1, type: 3}
-    spawnChance: 0.01
-    minSpawnAmount: 2
-    maxSpawnAmount: 5
-  - building: {fileID: 7878513662307553155, guid: af16c29e70aa6ba43925bb96764f4759, type: 3}
+  - building: {fileID: 11400000, guid: 4617106870d5b604ea75aade8ae31e6f, type: 2}
     spawnChance: 0.05
-    minSpawnAmount: 1
-    maxSpawnAmount: 10
-  - building: {fileID: 1453830250109635109, guid: fcd5417531ef6fe45ae3d5865510e8fb, type: 3}
-    spawnChance: 0.001
-    minSpawnAmount: 0
-    maxSpawnAmount: 1
-  empty: {fileID: 8491707964226704914, guid: 595661d89ba8e6148a100ba1bafe2d08, type: 3}
+    minSpawnAmount: 2
+    maxSpawnAmount: 5
+  - building: {fileID: 11400000, guid: cc76772fbacfa814b9440d362342ff08, type: 2}
+    spawnChance: 0.03
+    minSpawnAmount: 2
+    maxSpawnAmount: 5
+  allbuildingDefintions:
+  - {fileID: 11400000, guid: fd7f18122a9717a439739d2602f70336, type: 2}
+  - {fileID: 11400000, guid: 8d5473d35b9646c4b97b523513097421, type: 2}
+  - {fileID: 11400000, guid: eeb9e9e18871162429110781db42877d, type: 2}
+  - {fileID: 11400000, guid: cc76772fbacfa814b9440d362342ff08, type: 2}
+  - {fileID: 11400000, guid: 5a40cf45509093a4291913f3ee4865a7, type: 2}
+  - {fileID: 11400000, guid: 4617106870d5b604ea75aade8ae31e6f, type: 2}
+  - {fileID: 11400000, guid: 34b0ba117bf22fa46b3f53d39b97145d, type: 2}
+  empty: {fileID: 11400000, guid: 192cb6eed19a0dd49a0f6645c1c0569e, type: 2}
 --- !u!114 &4299895375243846661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,7 +187,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   light: {fileID: 0}
-  seasonTimeInSeconds: 70
+  seasonTimeInSeconds: 3
+  year: 0
 --- !u!114 &5245240370647675459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,3 +201,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 977871d2fb3e6d04f817c9c00c5d0d2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1221141328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5678918674405169538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f73a359ecbaf034791c2171d9c4307b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shipSpawnNumber: 5
+  shipDefintions:
+  - {fileID: 11400000, guid: 119648b6183e8fd43b254992cfd1e1db, type: 2}
+  - {fileID: 11400000, guid: 0dd5c3841b3ed0747bea5a3713592071, type: 2}
+  - {fileID: 11400000, guid: 4ca04fc164ff3724eab607a0ae0efe2e, type: 2}
+--- !u!114 &6630125588531280767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5678918674405169538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b7beeae69ced53498203afde33f5d93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnRewards: []

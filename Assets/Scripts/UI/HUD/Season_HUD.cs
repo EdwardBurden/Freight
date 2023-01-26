@@ -9,14 +9,14 @@ namespace UI
 
 		private void OnEnable()
 		{
-			SeasonsController.SeasonStartedEvent += OnSeasonStarted;
-			SeasonsController.SeasonEndedEvent += OnSeasonEnded;
+			//SeasonsController.SeasonStartedEvent += OnSeasonStarted;
+			//SeasonsController.SeasonEndedEvent += OnSeasonEnded;
 		}
 
 		private void OnDisable()
 		{
-			SeasonsController.SeasonStartedEvent -= OnSeasonStarted;
-			SeasonsController.SeasonEndedEvent -= OnSeasonEnded;
+			//SeasonsController.SeasonStartedEvent -= OnSeasonStarted;
+			//SeasonsController.SeasonEndedEvent -= OnSeasonEnded;
 		}
 
 		private void OnSeasonEnded(SeasonType seasonType)

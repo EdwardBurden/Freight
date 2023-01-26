@@ -15,12 +15,13 @@ public enum SeasonType
 	Winter
 }
 
+
 public class SeasonsController : Singleton<SeasonsController>
 {
-	public static event Action<SeasonType> SeasonStartedEvent;
-	public static event Action<SeasonType> SeasonEndedEvent;
-	public static event Action<int> YearEndedEvent;
-	public static event Action<int> YearStartedEvent;
+	//public static event Action<SeasonType> SeasonStartedEvent;
+	///public static event Action<SeasonType> SeasonEndedEvent;
+	//public static event Action<int> YearEndedEvent;
+	//public static event Action<int> YearStartedEvent;
 
 	[SerializeField] private Light light; //for testing atm
 	private Vector3 eulerstart;
@@ -72,18 +73,18 @@ public class SeasonsController : Singleton<SeasonsController>
 	{
 		if (season != null)
 		{
-			SeasonEndedEvent?.Invoke(season.Value);
+			//SeasonEndedEvent?.Invoke(season.Value);
 			if (season.Value == SeasonType.Winter)
 			{
-				YearEndedEvent?.Invoke(year);
+				//YearEndedEvent?.Invoke(year);
 			}
 		}
 		UpdateSeason();
-		SeasonStartedEvent?.Invoke(season.Value);
+		//SeasonStartedEvent?.Invoke(season.Value);
 		if (season.Value == SeasonType.Spring)
 		{
 			year++;
-			YearStartedEvent?.Invoke(year);
+			//YearStartedEvent?.Invoke(year);
 		}
 	}
 
