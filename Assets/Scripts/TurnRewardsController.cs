@@ -2,14 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Terrain;
+using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [Serializable]
 public class TurnRewardsOption
 {
-	[SerializeField] private int rewardYear;
-	[SerializeField] private TurnReward[] turnRewards;
+	[SerializeField] public int rewardTurn;
+	[SerializeField] public TurnReward[] turnRewards;
 }
 
 public class TurnRewardsController : MonoBehaviour
@@ -58,19 +59,32 @@ public class TurnRewardsController : MonoBehaviour
 		StartTurn();
 	}
 
-	public void StartTurn()  //call from game manager
+	public void StartTurn()
 	{
-		//if the rewarss exist for this turn 
-		//Close active UI
-		//Show decisions UI (if any)
-		//add hook to listen to response
-		// move OnTurnStarted?.Invoke(turn); to reposnse 
-		//else say 	OnTurnStarted?.Invoke(turn);
-		//Place new block
-		//move cmaera to show block
 		IslandBlock islandBlock = TerrainController.instance.AddNextBlock();
 		PathfindingController.instance.UpdatedGrid(islandBlock.transform.position, 10);
+		if (true)
+		{
+			//if the rewarss exist for this turn 
+			//Close active UI
+			//Show decisions UI (if any)
+			//add hook to listen to response
+			// move OnTurnStarted?.Invoke(turn); to reposnse 
+			TurnRewardOptionScreen.Create(turnRewardsOptions[0], OnRewardSelected);
+		}
+		else
+		{
+			//else say 	OnTurnStarted?.Invoke(turn);
+			//Place new block
+			//move cmaera to show block
+			OnTurnStarted?.Invoke(turn);
+		}
+	}
 
+
+	private void OnRewardSelected(TurnReward turnReward)
+	{
+		//Do more here depending on turnreward , show a preview for player to select things
 		OnTurnStarted?.Invoke(turn);
 	}
 }

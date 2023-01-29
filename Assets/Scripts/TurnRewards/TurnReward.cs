@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [SerializeField]
-public abstract class TurnReward : ScriptableObject//maybe will be scriptableobject
+public abstract class TurnReward : ScriptableObject
 {
+	public string rewardName;
+	public string rewardDescription;
+	public Sprite rewardIcon;
 }
