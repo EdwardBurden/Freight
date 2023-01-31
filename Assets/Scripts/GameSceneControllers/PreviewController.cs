@@ -2,11 +2,11 @@ using System;
 using UI;
 using UnityEngine;
 
-public class ActionPreviewController : Singleton<ActionPreviewController>
+public class PreviewController : Singleton<PreviewController>, IGameController
 {
 	public static event Action PreviewComplete;
 
-	private ActionPreview currentPreview;
+	private IGamePreview currentPreview;
 
 	private void Awake()
 	{
@@ -43,11 +43,11 @@ public class ActionPreviewController : Singleton<ActionPreviewController>
 		currentPreview?.OnLeftClickInteractable(interactableObject, worldMousePosition);
 	}
 
-	public ActionPreview CreateActionPreview(Ship ship, ActionPreview actionPreviewPrefab)
+	public IGamePreview CreateActionPreview(Ship ship, ActionPreview actionPreviewPrefab)
 	{
 		DestroyCurrentPreview();
 		currentPreview = Instantiate(actionPreviewPrefab, this.transform);
-		currentPreview.Init(ship);
+	//	currentPreview.Init(ship); move to definition
 		currentPreview.FinishedPreviewEvent += FinishActionPreview;
 		GameManager.instance.SetInputToPreviewMode();
 		GameUIController.instance.CloseAllScreens();
@@ -66,7 +66,7 @@ public class ActionPreviewController : Singleton<ActionPreviewController>
 	{
 		if (currentPreview != null)
 		{
-			Destroy(currentPreview.gameObject);
+			currentPreview.DestroyPreview();
 		}
 	}
 }

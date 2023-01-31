@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7910bc86046a5f845929dea80440e9d3, type: 3}
   m_Name: PiccoloReward
   m_EditorClassIdentifier: 
+  rewardName: gain piccolo Ship
+  rewardDescription: Gain a new ship the piccolo
+  rewardIcon: {fileID: 21300000, guid: 878f14bb73a86724d8f98d270893836b, type: 3}
   shipRewardDefintion: {fileID: 11400000, guid: 4ca04fc164ff3724eab607a0ae0efe2e, type: 2}

@@ -13,7 +13,7 @@ namespace UI
 
 		[SerializeField] private Transform options;
 		[SerializeField] private TMP_Text turnText;
-		[SerializeField] private GameObject turnRewardWidget;
+		[SerializeField] private TurnRewardWidget turnRewardWidget;
 
 		private Action<TurnReward> turnRewardCallback;
 
@@ -35,8 +35,8 @@ namespace UI
 		{
 			foreach (TurnReward turnReward in turnRewards)
 			{
-				GameObject gameObject = Instantiate(turnRewardWidget, options);
-				//gameObject.ShowAction(turnReward, () => OptionSelected(action));
+				TurnRewardWidget gameObject = Instantiate(turnRewardWidget, options);
+				gameObject.ShowReward(turnReward, (reward) => OptionSelected(reward));
 			}
 		}
 

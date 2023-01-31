@@ -15,4 +15,9 @@ public class MoveActionPreview : ActionPreview
 		RaiseFinishedEvent();
 		callback?.Invoke(position);
 	}
+
+	public override void DestroyPreview()
+	{
+		Destroy(gameObject);
+	}
 }

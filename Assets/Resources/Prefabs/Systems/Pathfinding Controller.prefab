@@ -63,4 +63,5 @@ MonoBehaviour:
     m_Bits: 128
   nodeRadius: 1
   worldGridSize: {x: 250, y: 30, z: 250}
-  heightPenaltyModifier: 0
+  maxMovementpenalty: 100
+  blurAmount: 2

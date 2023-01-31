@@ -101,7 +101,7 @@ namespace UI
 
 		private void AddClicked()
 		{
-			ActionPreviewController.instance.DestroyCurrentPreview();
+			PreviewController.instance.DestroyCurrentPreview();
 			Vector3 pos = selectScreenSpawn.GetComponent<RectTransform>().position;
 			ShipActionSelectScreen.Create(pos, ship.GetShipActions(), (def) => OnShipActionSelected(def), true);
 		}

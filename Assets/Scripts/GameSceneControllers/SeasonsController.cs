@@ -16,7 +16,7 @@ public enum SeasonType
 }
 
 
-public class SeasonsController : Singleton<SeasonsController>
+public class SeasonsController : Singleton<SeasonsController> , IGameController
 {
 	//public static event Action<SeasonType> SeasonStartedEvent;
 	///public static event Action<SeasonType> SeasonEndedEvent;

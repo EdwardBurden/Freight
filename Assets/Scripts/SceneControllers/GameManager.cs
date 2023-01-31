@@ -9,11 +9,10 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 
 	[SerializeField] private CameraController cameraController;
 	[SerializeField] private TimeController timeController;
-	[SerializeField] private ActionPreviewController actionPreviewController;
+	[SerializeField] private PreviewController actionPreviewController;
 	[SerializeField] private ShipSelectionController shipSelector;
 	[SerializeField] private TerrainController terrainController;
 	[SerializeField] private BuildingController buildingController;
-	[SerializeField] private SeasonsController seasonsController;
 	[SerializeField] private GameUIController gameUIController;
 	[SerializeField] private MainMenuUIController mainMenuUIController;
 	[SerializeField] private NotificationsController notificationsController;
@@ -34,8 +33,8 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 
 	private void OnEnable()
 	{
-		TurnRewardsController.OnTurnEnded += OnTurnEnd;
-		TurnRewardsController.OnTurnStarted += OnTurnStarted;
+		TurnRewardsController.TurnEndedEvent += OnTurnEnd;
+		TurnRewardsController.TurnStartedEvent += OnTurnStarted;
 	}
 
 	public void GoToMainMenu() //move to app manager
@@ -60,7 +59,7 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 		notificationsController.Init();
 		SetInputToSelectionMode();
 		UIManager.instance.SetController(gameUIController);
-		seasonsController.Init();
+		//seasonsController.Init();
 		pathfindingController.Init();
 		GameStartEvent?.Invoke();
 	}

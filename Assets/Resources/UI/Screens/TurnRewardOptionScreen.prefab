@@ -349,7 +349,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 386.39996, y: 0}
+  m_AnchoredPosition: {x: 435.59998, y: 0}
   m_SizeDelta: {x: 0, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2822551296807061055
@@ -463,7 +463,7 @@ MonoBehaviour:
   root: {fileID: 1129530944574665465}
   options: {fileID: 1209107468837459152}
   turnText: {fileID: 4191002504072996003}
-  turnRewardWidget: {fileID: 1434945959370307695, guid: dfcd58988350fb84795b0c2dc197499e, type: 3}
+  turnRewardWidget: {fileID: 8809088856420868282, guid: fb818a356f089bd439ecc53224fae923, type: 3}
 --- !u!1 &5664415523137707320
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class TerrainController : Singleton<TerrainController>
+public class TerrainController : Singleton<TerrainController>, IGameController
 {
 	public event Action<MapGenerationData> TerrainGeneratedEvent;
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PathfindingController : Singleton<PathfindingController>
+public class PathfindingController : Singleton<PathfindingController>, IGameController
 {
 	private AStarGrid aStarGrid;
 	private Queue<PathRequest> pathRequests = new Queue<PathRequest>();

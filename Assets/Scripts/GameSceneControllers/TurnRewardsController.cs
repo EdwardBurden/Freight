@@ -13,11 +13,11 @@ public class TurnRewardsOption
 	[SerializeField] public TurnReward[] turnRewards;
 }
 
-public class TurnRewardsController : MonoBehaviour
+public class TurnRewardsController : MonoBehaviour, IGameController
 {
-	public static event Action<int> OnTurnStarted;
-	public static event Action<int> OnTurnEnded;
-	public static event Action<int> OnLastTurnEnded;
+	public static event Action<int> TurnStartedEvent;
+	public static event Action<int> TurnEndedEvent;
+	public static event Action<int> LastTurnEndedEvent;
 
 	[SerializeField] private int turnTimeInSeconds = 5;
 	[SerializeField] private TurnRewardsOption[] turnRewardsOptions;
@@ -51,10 +51,10 @@ public class TurnRewardsController : MonoBehaviour
 	{
 		if (!TerrainController.instance.CanPlaceBlock())
 		{
-			OnLastTurnEnded?.Invoke(turn);
+			LastTurnEndedEvent?.Invoke(turn); //maybe move logic ot gamemanger instead
 			return;
 		}
-		OnTurnEnded?.Invoke(turn);
+		TurnEndedEvent?.Invoke(turn);
 		turn++;
 		StartTurn();
 	}
@@ -77,14 +77,27 @@ public class TurnRewardsController : MonoBehaviour
 			//else say 	OnTurnStarted?.Invoke(turn);
 			//Place new block
 			//move cmaera to show block
-			OnTurnStarted?.Invoke(turn);
+			TurnStartedEvent?.Invoke(turn);
 		}
 	}
 
 
 	private void OnRewardSelected(TurnReward turnReward)
 	{
+		if (turnReward == null)
+		{
+			TurnStartedEvent?.Invoke(turn);
+			return;
+		}
+		//	GameUIController.instance.CloseAllScreens();
+		turnReward.OnRewardSelected(OnRewardFinsihed);
+
 		//Do more here depending on turnreward , show a preview for player to select things
-		OnTurnStarted?.Invoke(turn);
+		//OnTurnStarted?.Invoke(turn);
+	}
+
+	private void OnRewardFinsihed(bool success)
+	{
+		TurnStartedEvent?.Invoke(turn);
 	}
 }
