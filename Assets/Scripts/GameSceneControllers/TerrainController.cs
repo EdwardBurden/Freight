@@ -61,6 +61,7 @@ public class TerrainController : Singleton<TerrainController>, IGameController
 			islandData.islandBase = island;
 			//HIDE ISLANDS
 		}
+		mapGenerator.PlaceSpaceShip(settings[0]);
 
 
 

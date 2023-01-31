@@ -1,8 +1,29 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipUpgradePreview : TurnRewardPreview
+public class ShipUpgradePreview : MonoBehaviour, IGamePreview
 {
-  
+	public event Action FinishedPreviewEvent;
+
+	public void DestroyPreview()
+	{
+		throw new NotImplementedException();
+	}
+
+	public void OnLeftClickInteractable(InteractableObject interactableObject, Vector3 worldMousePosition)
+	{
+		throw new NotImplementedException();
+	}
+
+	public void OnRightClickInteractable(InteractableObject interactableObject, Vector3 worldMousePosition)
+	{
+		throw new NotImplementedException();
+	}
+
+	public void UpdatePreview()
+	{
+		throw new NotImplementedException();
+	}
 }

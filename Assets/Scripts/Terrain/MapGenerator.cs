@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using Terrain;
 using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
+using static UnityEditor.PlayerSettings;
 using static UnityEditor.Progress;
 
 public class MapGenerator : MonoBehaviour
@@ -13,6 +14,7 @@ public class MapGenerator : MonoBehaviour
 	private const int MAX_EDGES_IN_WATER = 10;
 	[SerializeReference] public LayerMask unnavigableLayer;
 	[Header("Map Surface")]
+	[SerializeField] private GameObject spaceShipBase;
 	[SerializeField] private GameObject waterPrefab;
 	[SerializeField] private GameObject groundPrefab;
 	[SerializeField] private GameObject borderprefab;
@@ -195,6 +197,30 @@ public class MapGenerator : MonoBehaviour
 		islandBlock.resourceGroundType = (ResourceGroundType)materialIndex;
 		islandBlock.sitePostion = voronoiCell.sitePos;
 		return islandBlock;
+	}
+
+	public void PlaceSpaceShip(MapGenerationSettings settings) //could put in spawncontroller
+	{
+		Vector3 mapOffset = MapGeneration.GetAreaOffset(settings.mapSize) * TILESIZE;
+		Vector2 islandGenerateSize = settings.mapSize * TILESIZE;
+		int baseSize = 5;
+		Vector2 baseGridSize = islandGenerateSize / baseSize;
+		List<Vector3> possibleLocations = new List<Vector3>();
+		for (int x = 0; x < baseGridSize.x; x++)
+		{
+			for (int z = 0; z < baseGridSize.y; z++)
+			{
+				Vector3 pos = new Vector3(x, 0, z) * baseSize;
+				if (!Physics.CheckBox(pos - mapOffset, Vector3.one * baseSize, Quaternion.identity, unnavigableLayer))
+				{
+					possibleLocations.Add(pos - mapOffset);
+					//Instantiate(spaceShipBase, pos - mapOffset, Quaternion.Euler(-90, 90, 0), borderTransform);
+				}
+			}
+		}
+		Vector3 finalPos = possibleLocations.OrderBy(x => (x - this.gameObject.transform.position).sqrMagnitude).FirstOrDefault();
+		Instantiate(spaceShipBase, finalPos, Quaternion.identity, borderTransform);
+
 	}
 
 	internal void ClearMap()

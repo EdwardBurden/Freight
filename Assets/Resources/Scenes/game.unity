@@ -161,6 +161,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7405682092259653069, guid: 974dfdb4fa455214d94d7585e246d498, type: 3}
+      propertyPath: spaceShipBase
+      value: 
+      objectReference: {fileID: 3230672453934816780, guid: cc54081f16307db439bc89a2c042f4fc, type: 3}
     - target: {fileID: 8483260845814136635, guid: 974dfdb4fa455214d94d7585e246d498, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -233,11 +237,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2e284c23dedb6444ae94a5e16a6a842, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &592916442 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8175110547404200316, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
-  m_PrefabInstance: {fileID: 2812928432349751758}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &802489432
 GameObject:
   m_ObjectHideFlags: 0
@@ -877,6 +876,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
+      propertyPath: turnTimeInSeconds
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 7031766915070982513, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -932,22 +935,10 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1656257721707695412, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
   m_PrefabInstance: {fileID: 2812928432349751758}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 592916442}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f73a359ecbaf034791c2171d9c4307b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2812928432349751762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 592916442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4b0c58d4ce31f24e834453c53c783c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &4153495499931043260
