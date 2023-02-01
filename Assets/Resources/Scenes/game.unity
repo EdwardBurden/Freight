@@ -154,6 +154,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &135033431 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
+  m_PrefabInstance: {fileID: 2812928432349751758}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b7beeae69ced53498203afde33f5d93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &205256774
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -456,6 +467,7 @@ GameObject:
   - component: {fileID: 62910026452789208}
   - component: {fileID: 5087964091084745796}
   - component: {fileID: 7221407611148481864}
+  - component: {fileID: 7221407611148481865}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -499,8 +511,9 @@ MonoBehaviour:
   gameUIController: {fileID: 545579774}
   mainMenuUIController: {fileID: 0}
   notificationsController: {fileID: 62910026452789208}
-  spawnController: {fileID: 2812928432349751759}
+  spawnController: {fileID: 7221407611148481865}
   pathfindingController: {fileID: 1975330626}
+  turnRewardsController: {fileID: 135033431}
   mouseInput: {fileID: 655604876938052124}
 --- !u!1 &1181101317 stripped
 GameObject:
@@ -888,6 +901,14 @@ PrefabInstance:
       propertyPath: turnTimeInSeconds
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
+      propertyPath: turnRewardsOptions.Array.data[0].rewardTurn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
+      propertyPath: turnRewardsOptions.Array.data[1].rewardTurn
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7031766915070982513, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -936,19 +957,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: TurnSystem
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1656257721707695412, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
---- !u!114 &2812928432349751759 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1656257721707695412, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
-  m_PrefabInstance: {fileID: 2812928432349751758}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f73a359ecbaf034791c2171d9c4307b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &4153495499931043260
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1441,3 +1452,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 977871d2fb3e6d04f817c9c00c5d0d2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7221407611148481865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876638791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f73a359ecbaf034791c2171d9c4307b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shipSpawnNumber: 5
+  shipDefintions:
+  - {fileID: 11400000, guid: 119648b6183e8fd43b254992cfd1e1db, type: 2}
+  - {fileID: 11400000, guid: 0dd5c3841b3ed0747bea5a3713592071, type: 2}
+  - {fileID: 11400000, guid: 4ca04fc164ff3724eab607a0ae0efe2e, type: 2}

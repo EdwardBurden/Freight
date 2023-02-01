@@ -21,7 +21,8 @@ public class CollectActionDefintion : ShipActionDefintion
 
 	public override void CreateActionPreview(Ship ship, Action<ShipOrder> callback)
 	{
-		CollectActionPreview collectActionPreview = PreviewController.instance.CreateActionPreview(ship, collectActionPreviewprefab) as CollectActionPreview;
+		CollectActionPreview collectActionPreview = Instantiate(collectActionPreviewprefab);
+		PreviewController.instance.SetPreview(collectActionPreview);
 		collectActionPreview.Init(ship);
 		collectActionPreview.callback = (producer, resource) => OnResourceSelected(ship, producer, resource, callback);
 	}

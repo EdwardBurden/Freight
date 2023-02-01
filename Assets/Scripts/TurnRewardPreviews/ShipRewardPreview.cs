@@ -7,23 +7,34 @@ public class ShipRewardPreview : MonoBehaviour, IGamePreview
 {
 	public event Action FinishedPreviewEvent;
 
-	public void DestroyPreview()
-	{
-		throw new NotImplementedException();
-	}
+	private Action<bool> callback;
+	private ShipDefintion shipRewardDefintion;
 
 	public void OnLeftClickInteractable(InteractableObject interactableObject, Vector3 worldMousePosition)
 	{
-		throw new NotImplementedException();
+		//throw new NotImplementedException();
 	}
 
 	public void OnRightClickInteractable(InteractableObject interactableObject, Vector3 worldMousePosition)
 	{
-		throw new NotImplementedException();
+		//throw new NotImplementedException();
+	}
+
+	public void Init(ShipDefintion shipRewardDefintion, Action<bool> callback)
+	{
+		this.shipRewardDefintion = shipRewardDefintion;
+		this.callback = callback;
 	}
 
 	public void UpdatePreview()
 	{
-		throw new NotImplementedException();
+		SpawnController.instance.SpawnShip(shipRewardDefintion);
+		FinishedPreviewEvent?.Invoke();
+		callback.Invoke(true);
+	}
+
+	public void DestroyPreview()
+	{
+		Destroy(gameObject);
 	}
 }

@@ -119,8 +119,8 @@ Material:
     - _Distance: 0.7
     - _DstBlend: 0
     - _EnvironmentReflections: 1
-    - _FoamAmount: 6
-    - _FoamCutoff: 10
+    - _FoamAmount: 5
+    - _FoamCutoff: 15
     - _FoamScale: 60
     - _FoamSpeed: 0.15
     - _Foam_Cutoff: 2.38

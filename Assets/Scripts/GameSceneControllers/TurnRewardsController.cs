@@ -63,14 +63,15 @@ public class TurnRewardsController : MonoBehaviour, IGameController
 	{
 		IslandBlock islandBlock = TerrainController.instance.AddNextBlock();
 		PathfindingController.instance.UpdatedGrid(islandBlock.transform.position, 10);
-		if (false)
+		TurnRewardsOption turnRewardsOption = FindTurnRewards(turn);
+		if (turnRewardsOption!=null)
 		{
 			//if the rewarss exist for this turn 
 			//Close active UI
 			//Show decisions UI (if any)
 			//add hook to listen to response
 			// move OnTurnStarted?.Invoke(turn); to reposnse 
-			TurnRewardOptionScreen.Create(turnRewardsOptions[0], OnRewardSelected);
+			TurnRewardOptionScreen.Create(turnRewardsOption, OnRewardSelected);
 		}
 		else
 		{
@@ -79,6 +80,19 @@ public class TurnRewardsController : MonoBehaviour, IGameController
 			//move cmaera to show block
 			TurnStartedEvent?.Invoke(turn);
 		}
+	}
+
+
+	private TurnRewardsOption FindTurnRewards(int turn)
+	{
+		for (int i = 0; i < turnRewardsOptions.Length; i++)
+		{
+			if (turnRewardsOptions[i].rewardTurn == turn)
+			{
+				return turnRewardsOptions[i];
+			}
+		}
+		return null;
 	}
 
 

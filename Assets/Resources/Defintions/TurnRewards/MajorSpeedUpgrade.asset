@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8af24b355c09c6459e7aec4aadbf8f5, type: 3}
   m_Name: MajorSpeedUpgrade
   m_EditorClassIdentifier: 
+  rewardName: 
+  rewardDescription: 
+  rewardIcon: {fileID: 0}
   speedIncrease: 6
+  previewPrefab: {fileID: 4563067301844598228, guid: 7c3c1a3d893e58049b6eeb43030fea12, type: 3}

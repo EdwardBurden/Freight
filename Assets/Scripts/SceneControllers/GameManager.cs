@@ -3,7 +3,8 @@ using Terrain;
 using UI;
 using UnityEngine;
 
-public class GameManager : Singleton<GameManager> //but must b destoryed when leavign game scene
+//TODO THIS CLASS IS A MESS, FIX LATER
+public class GameManager : Singleton<GameManager> 
 {
 	public static event Action GameStartEvent;
 
@@ -18,6 +19,7 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 	[SerializeField] private NotificationsController notificationsController;
 	[SerializeField] private SpawnController spawnController;
 	[SerializeField] private PathfindingController pathfindingController;
+	[SerializeField] private TurnRewardsController turnRewardsController;
 	[SerializeField] private MouseInput mouseInput;
 
 	private void Awake()
@@ -61,22 +63,24 @@ public class GameManager : Singleton<GameManager> //but must b destoryed when le
 		UIManager.instance.SetController(gameUIController);
 		//seasonsController.Init();
 		pathfindingController.Init();
+		turnRewardsController.Init();
+		turnRewardsController.StartTurn();
 		GameStartEvent?.Invoke();
 	}
 
 	private void OnTurnEnd(int obj)
 	{
-		cameraController.enabled = false;
+		//cameraController.enabled = false;
 		timeController.PauseTime();
-		mouseInput.enabled = false;
+		//mouseInput.enabled = false;
 	}
 
 
 	private void OnTurnStarted(int turn)
 	{
-		cameraController.enabled = true;
+		//cameraController.enabled = true;
 		timeController.ResumeTime();
-		mouseInput.enabled = true;
+		//mouseInput.enabled = true;
 	}
 
 

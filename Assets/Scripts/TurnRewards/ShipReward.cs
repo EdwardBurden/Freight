@@ -7,13 +7,12 @@ using UnityEngine;
 public class ShipReward : TurnReward
 {
 	public ShipDefintion shipRewardDefintion;
+	public ShipRewardPreview previewPrefab;
 
 	public override void OnRewardSelected(Action<bool> callback)
 	{
-		//move camera to ship
-		//play animation of ship being spawned etc
-		//Put as preview and use preivew controller
-		SpawnController.instance.SpawnShip(shipRewardDefintion); //temp
-		callback?.Invoke(true);
+		ShipRewardPreview gamePreview = Instantiate(previewPrefab);
+		PreviewController.instance.SetPreview(gamePreview);
+		gamePreview.Init(shipRewardDefintion, callback);
 	}
 }

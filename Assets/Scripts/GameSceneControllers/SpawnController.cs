@@ -26,7 +26,7 @@ public class SpawnController : Singleton<SpawnController>, IGameController //Cou
 
 	public Ship SpawnShip(ShipDefintion shipDefintion)
 	{
-		Ship ship = Instantiate(shipDefintion.shipPrefab);
+		Ship ship = Instantiate(shipDefintion.shipPrefab , new Vector3(0,7,0) , Quaternion.identity);
 		ship.Init(shipDefintion);
 		return ship;
 	}

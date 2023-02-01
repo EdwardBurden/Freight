@@ -43,23 +43,21 @@ public class PreviewController : Singleton<PreviewController>, IGameController
 		currentPreview?.OnLeftClickInteractable(interactableObject, worldMousePosition);
 	}
 
-	public IGamePreview CreateActionPreview(Ship ship, ActionPreview actionPreviewPrefab)
+	public void SetPreview(IGamePreview gamePreview)
 	{
 		DestroyCurrentPreview();
-		currentPreview = Instantiate(actionPreviewPrefab, this.transform);
-	//	currentPreview.Init(ship); move to definition
+		currentPreview = gamePreview;
 		currentPreview.FinishedPreviewEvent += FinishActionPreview;
 		GameManager.instance.SetInputToPreviewMode();
 		GameUIController.instance.CloseAllScreens();
-		return currentPreview;
 	}
 
 	public void FinishActionPreview()
 	{
-		currentPreview.FinishedPreviewEvent -= FinishActionPreview;
+		currentPreview.FinishedPreviewEvent -= FinishActionPreview;	
+		DestroyCurrentPreview();
 		GameManager.instance.SetInputToSelectionMode();
 		GameUIController.instance.CloseAllScreens();
-		DestroyCurrentPreview();
 	}
 
 	public void DestroyCurrentPreview()
@@ -68,5 +66,6 @@ public class PreviewController : Singleton<PreviewController>, IGameController
 		{
 			currentPreview.DestroyPreview();
 		}
+		currentPreview = null;
 	}
 }

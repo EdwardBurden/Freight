@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7910bc86046a5f845929dea80440e9d3, type: 3}
   m_Name: ColumbusReward
   m_EditorClassIdentifier: 
+  rewardName: 
+  rewardDescription: 
+  rewardIcon: {fileID: 0}
   shipRewardDefintion: {fileID: 11400000, guid: 119648b6183e8fd43b254992cfd1e1db, type: 2}
+  previewPrefab: {fileID: 8302483560712037227, guid: 329a25dddf60ed14f8ef578370829b1f, type: 3}
