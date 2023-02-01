@@ -63,7 +63,7 @@ public class TurnRewardsController : MonoBehaviour, IGameController
 	{
 		IslandBlock islandBlock = TerrainController.instance.AddNextBlock();
 		PathfindingController.instance.UpdatedGrid(islandBlock.transform.position, 10);
-		if (true)
+		if (false)
 		{
 			//if the rewarss exist for this turn 
 			//Close active UI

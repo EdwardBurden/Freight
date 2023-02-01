@@ -11,7 +11,7 @@ using static UnityEditor.Progress;
 public class MapGenerator : MonoBehaviour
 {
 	private const int TILESIZE = 10;
-	private const int MAX_EDGES_IN_WATER = 10;
+	private const int MAX_EDGES_IN_WATER = 1;
 	[SerializeReference] public LayerMask unnavigableLayer;
 	[Header("Map Surface")]
 	[SerializeField] private GameObject spaceShipBase;
@@ -174,6 +174,7 @@ public class MapGenerator : MonoBehaviour
 		//Create Object
 		GameObject cellGameObject = new GameObject("Cell");
 		IslandBlock islandBlock = cellGameObject.AddComponent<IslandBlock>();
+		Surface surface = cellGameObject.AddComponent<Surface>();
 		cellGameObject.transform.parent = parent;
 		cellGameObject.transform.position = voronoiCell.sitePos;
 		cellGameObject.layer = 7;//unnavigableLayer

@@ -599,6 +599,10 @@ PrefabInstance:
       value: CameraSystem
       objectReference: {fileID: 0}
     - target: {fileID: 5734175821019487756, guid: 5c70eba063070254b9ae3ac66df23434, type: 3}
+      propertyPath: m_Cameras.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5734175821019487756, guid: 5c70eba063070254b9ae3ac66df23434, type: 3}
       propertyPath: m_Cameras.Array.data[0]
       value: 
       objectReference: {fileID: 1551294247}
@@ -877,8 +881,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
       propertyPath: turnTimeInSeconds
-      value: 30
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7031766915070982513, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
       propertyPath: m_RootOrder

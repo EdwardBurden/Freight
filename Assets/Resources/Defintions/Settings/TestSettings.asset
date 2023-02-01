@@ -14,10 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settingsName: TestSettings
   mapSize: {x: 10, y: 10}
-  islandRadius: 50
+  islandRadius: 40
   blockRadius: 7
   bases:
-  - {fileID: 5661687393432853912, guid: fb918cd1bd185514eb6a99b751de42b5, type: 3}
-  - {fileID: 5661687393432853912, guid: 223e2835a810371478646bd61bbb04ba, type: 3}
-  - {fileID: 5661687393432853912, guid: 0eafe2be21b30724898f457d786513a2, type: 3}
-  - {fileID: 5661687393432853912, guid: cd8a62b09b8ce9643a3b2f93819832ad, type: 3}
+  - {fileID: 130826016737413617, guid: 55e5ce4e1ca078a429e7147e3d510b40, type: 3}
+  - {fileID: 130826016737413617, guid: 51aaf1ba65da77b459d564f9b8cd7404, type: 3}
+  - {fileID: 130826016737413617, guid: 7402d1ee7067d4344b776072bf03fd4c, type: 3}
