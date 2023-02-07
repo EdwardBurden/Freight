@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UI;
@@ -17,4 +18,11 @@ public class ShipDefintion : ScriptableObject
 
 	[SerializeField] public ShipSummary_InWorld summaryUIPrefab; //summary above ship
 	[SerializeField] public Ship shipPrefab;
+
+	public Ship CreateShip()
+	{
+		Ship ship = Instantiate(shipPrefab);
+		ship.Init(this);
+		return ship;
+	}
 }

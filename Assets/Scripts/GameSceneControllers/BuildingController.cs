@@ -5,35 +5,27 @@ using System;
 using Random = UnityEngine.Random;
 using System.Linq;
 
-[Serializable]
-public class BuildingSpawnInfo
-{
-	public BuildingDefintion building;
-	public float spawnChance;
-	public int minSpawnAmount;
-	public int maxSpawnAmount;
-}
-
-public class BuildingController : Singleton<BuildingController>, IGameController //todo make into building selection only 
+public class BuildingController : Singleton<BuildingController>, IGameController 
 {
 	public static event Action<Building> BuildingSelectedEvent;
 	public static event Action<Building> BuildingDeSelectedEvent;
 
-	[SerializeField]
-	private BuildingSpawnInfo[] builindSpawnInfos;
-
-	[SerializeField] public BuildingDefintion[] allbuildingDefintions;
-
-	[SerializeField]
-	private BuildingDefintion empty;
-
 	private Building buildingSelected;
-
 	private List<Building> buildings = new List<Building>();
 
 	private void Awake()
 	{
 		_instance = this;
+	}
+
+	public void Init()
+	{
+		foreach (Building building in buildings)
+		{
+			Destroy(building.gameObject);
+		}
+		buildings.Clear();
+		buildingSelected = null;
 	}
 
 	public void OnEnable()
@@ -74,6 +66,11 @@ public class BuildingController : Singleton<BuildingController>, IGameController
 			this.buildingSelected = building;
 			BuildingSelectedEvent?.Invoke(buildingSelected);
 		}
+	}
+
+	public void AddRandomBuilding(BuildingSpawnInfo[] allBuildings, IslandBlock islandBlock)
+	{
+		//throw new NotImplementedException();
 	}
 
 	/*public void DistributeBuildings(MapGenerationData mapGenerationData)
@@ -136,13 +133,13 @@ public class BuildingController : Singleton<BuildingController>, IGameController
 	internal IEnumerable<BuildingDefintion> FindAllBuildingsThatCanBePlaced(IslandBlock islandBlock)
 	{
 		List<BuildingDefintion> buildingDefintions = new List<BuildingDefintion>();
-		foreach (BuildingDefintion building in allbuildingDefintions)
+		/*foreach (BuildingDefintion building in allbuildingDefintions)
 		{
 			if (building.CanBePlaced(islandBlock))
 			{
 				buildingDefintions.Add(building);
 			}
-		}
+		}*/
 		return buildingDefintions;
 	}
 }

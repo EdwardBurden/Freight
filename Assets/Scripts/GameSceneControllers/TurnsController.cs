@@ -13,7 +13,7 @@ public class TurnRewardsOption
 	[SerializeField] public TurnReward[] turnRewards;
 }
 
-public class TurnRewardsController : MonoBehaviour, IGameController
+public class TurnsController : MonoBehaviour, IGameController
 {
 	public static event Action<int> TurnStartedEvent;
 	public static event Action<int> TurnEndedEvent;
@@ -23,28 +23,39 @@ public class TurnRewardsController : MonoBehaviour, IGameController
 	[SerializeField] private TurnRewardsOption[] turnRewardsOptions;
 
 	private int turn;
+	private bool active;
 
 	private void OnEnable()
 	{
-		TimeController.SecondsChangeEvent += TimeController_SecondsChangeEvent;
+		TimeController.SecondsChangeEvent += OnSecondsChange;
+		GameManager.GameStartEvent += OnGameStarted;
 	}
 
 	private void OnDisable()
 	{
-		TimeController.SecondsChangeEvent -= TimeController_SecondsChangeEvent;
+		TimeController.SecondsChangeEvent -= OnSecondsChange;
 	}
 
 	public void Init()
 	{
 		turn = 0;
+		active = false;
 	}
 
-	private void TimeController_SecondsChangeEvent(int seconds)
+	private void OnSecondsChange(int seconds)
 	{
-		if ((seconds % turnTimeInSeconds) == 0)
+		if (active)
 		{
-			StartNextTurn();
+			if ((seconds % turnTimeInSeconds) == 0)
+			{
+				StartNextTurn();
+			}
 		}
+	}
+
+	private void OnGameStarted()
+	{
+		active = true;
 	}
 
 	private void StartNextTurn()
@@ -59,29 +70,18 @@ public class TurnRewardsController : MonoBehaviour, IGameController
 		StartTurn();
 	}
 
-	public void StartTurn()
+	private void StartTurn()
 	{
-		IslandBlock islandBlock = TerrainController.instance.AddNextBlock();
-		PathfindingController.instance.UpdatedGrid(islandBlock.transform.position, 10);
 		TurnRewardsOption turnRewardsOption = FindTurnRewards(turn);
-		if (turnRewardsOption!=null)
+		if (turnRewardsOption != null)
 		{
-			//if the rewarss exist for this turn 
-			//Close active UI
-			//Show decisions UI (if any)
-			//add hook to listen to response
-			// move OnTurnStarted?.Invoke(turn); to reposnse 
 			TurnRewardOptionScreen.Create(turnRewardsOption, OnRewardSelected);
 		}
 		else
 		{
-			//else say 	OnTurnStarted?.Invoke(turn);
-			//Place new block
-			//move cmaera to show block
 			TurnStartedEvent?.Invoke(turn);
 		}
 	}
-
 
 	private TurnRewardsOption FindTurnRewards(int turn)
 	{
@@ -94,7 +94,6 @@ public class TurnRewardsController : MonoBehaviour, IGameController
 		}
 		return null;
 	}
-
 
 	private void OnRewardSelected(TurnReward turnReward)
 	{

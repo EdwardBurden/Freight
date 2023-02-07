@@ -16,22 +16,26 @@ public class TerrainController : Singleton<TerrainController>, IGameController
 	private MapGenerator mapGenerator;
 	private MapGenerationData generationData;
 
-
-
-	//list of cells to make
-
 	private void Awake()
 	{
 		_instance = this;
 		mapGenerator = GetComponent<MapGenerator>();
 	}
 
+	public void Init()
+	{
+		RemoveMap();
+	}
+
+	private void RemoveMap()
+	{
+		mapGenerator.ClearMap();
+	}
 
 	public void GenerateMap()
 	{
-		//Voronoi diagram
 		generationData = mapGenerator.GenerateMapData(settings[0]);
-		StartCoroutine(PlaceMap());
+		PlaceMap();
 	}
 
 	public IslandBlock AddNextBlock()
@@ -44,10 +48,10 @@ public class TerrainController : Singleton<TerrainController>, IGameController
 		return block;
 	}
 
-	private IEnumerator PlaceMap()
+	private void PlaceMap()
 	{
 		mapGenerator.PlaceMapSurface(settings[0]);
-		yield return new WaitForEndOfFrame();
+		//yield return new WaitForEndOfFrame();
 		foreach (IslandGenerationData islandData in generationData.islands)
 		{
 			GameObject island = mapGenerator.PlaceIslandBase(settings[0], islandData.islandPoint);
@@ -59,21 +63,14 @@ public class TerrainController : Singleton<TerrainController>, IGameController
 				}
 			}
 			islandData.islandBase = island;
-			//HIDE ISLANDS
 		}
-		mapGenerator.PlaceSpaceShip(settings[0]);
-
-
-
 		TerrainGeneratedEvent?.Invoke(generationData);
-	/*	while (!generationData.AllBlocksPlaced())
-		{
-			AddNextBlock();
-			yield return new WaitForSeconds(1);
-		}
-	*/
 	}
 
+	public Vector3 FindAvailablePlaceOnTerrain()
+	{
+		return mapGenerator.FindCentralEmptyGridPostion(settings[0]);
+	}
 
 
 	private void OnDrawGizmos()

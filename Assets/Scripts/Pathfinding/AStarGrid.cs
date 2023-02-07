@@ -25,8 +25,10 @@ namespace AStar
 			gridSize = Vector3Int.RoundToInt(worldGridSize / nodeDiameter);
 		}
 
-		private IEnumerator CreateGridRoutine(Vector3 start)
+		public void CreateGrid()
 		{
+			grid = new AStarNode[gridSize.x, gridSize.y, gridSize.z];
+			Vector3 start = gridPosTransform.position - (worldGridSize / 2);
 			for (int x = 0; x < gridSize.x; x++)
 			{
 				for (int y = 0; y < gridSize.y; y++)
@@ -41,14 +43,6 @@ namespace AStar
 				}
 			}
 			BlurGrid(blurAmount);
-			yield return null;
-		}
-
-		public void CreateGrid()
-		{
-			grid = new AStarNode[gridSize.x, gridSize.y, gridSize.z];
-			Vector3 start = gridPosTransform.position - (worldGridSize / 2);
-			StartCoroutine(CreateGridRoutine(start));
 		}
 
 		public void UpdateGrid(Vector3 point, int space)

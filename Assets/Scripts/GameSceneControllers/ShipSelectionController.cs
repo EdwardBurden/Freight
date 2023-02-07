@@ -14,6 +14,11 @@ public class ShipSelectionController : Singleton<ShipSelectionController>, IGame
 		_instance = this;
 	}
 
+	public void Init()
+	{
+		DeSelectShipObject();
+	}
+
 	public void OnEnable()
 	{
 		MouseInput.LeftClickNonInteractableEvent += DeSelectShipObject;

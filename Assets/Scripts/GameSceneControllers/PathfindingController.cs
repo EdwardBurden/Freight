@@ -23,6 +23,12 @@ public class PathfindingController : Singleton<PathfindingController>, IGameCont
 
 	public void Init()
 	{
+		isProcessingPath = false;
+		pathRequests.Clear();
+	}
+
+	public void CreateGrid()
+	{
 		aStarGrid.CreateGrid();
 	}
 
