@@ -816,6 +816,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PathfindingSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 878850992114746083, guid: 6bea1885acac7fa4c8dc46dfde279796, type: 3}
+      propertyPath: blurAmount
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6bea1885acac7fa4c8dc46dfde279796, type: 3}
 --- !u!1001 &1628242045610607907
