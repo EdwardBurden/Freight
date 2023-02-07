@@ -9,6 +9,8 @@ using UnityEngine;
 
 public class PathfindingController : Singleton<PathfindingController>, IGameController
 {
+
+	[SerializeField] private int capsuleCheckRadius = 3;
 	private AStarGrid aStarGrid;
 	private Queue<PathRequest> pathRequests = new Queue<PathRequest>();
 	private bool isProcessingPath; //blocks atm
@@ -54,17 +56,26 @@ public class PathfindingController : Singleton<PathfindingController>, IGameCont
 
 	private IEnumerator FindPath(PathRequest pathRequest)
 	{
-		AStarNode start = aStarGrid.FindNode(pathRequest.pathStart);
-		AStarNode end = aStarGrid.FindNode(pathRequest.pathEnd);
-
-		var pathTask = Task.Run(() => AStarAlgorithm.FindPath(aStarGrid, start, end));
-		while (!pathTask.IsCompleted)
+		Vector3[] waypoints = null;
+		bool success = false;
+		if (!Physics.CheckCapsule(pathRequest.pathStart, pathRequest.pathEnd, capsuleCheckRadius, aStarGrid.unnavigableLayer))
 		{
-			yield return null;
+			success = true;
+			waypoints = new Vector3[] { pathRequest.pathStart, pathRequest.pathEnd };
 		}
+		else
+		{
+			AStarNode start = aStarGrid.FindNode(pathRequest.pathStart);
+			AStarNode end = aStarGrid.FindNode(pathRequest.pathEnd);
 
-		bool success = pathTask.Result.Count > 0;
-		Vector3[] waypoints = AStarAlgorithm.SimplifyPath(pathTask.Result , pathRequest.pathEnd);
+			var pathTask = Task.Run(() => AStarAlgorithm.FindPath(aStarGrid, start, end));
+			while (!pathTask.IsCompleted)
+			{
+				yield return null;
+			}
+			success = pathTask.Result.Count > 0;
+			waypoints = AStarAlgorithm.SimplifyPath(pathTask.Result, pathRequest.pathEnd);
+		}
 		ProccessingFinished(pathRequest, waypoints, success);
 	}
 
@@ -79,7 +90,7 @@ public class PathfindingController : Singleton<PathfindingController>, IGameCont
 
 	internal void UpdatedGrid(Vector3 position, int space)
 	{
-		aStarGrid.UpdateGrid(position , space); //TODO
+		aStarGrid.UpdateGrid(position, space); //TODO
 	}
 }
 
