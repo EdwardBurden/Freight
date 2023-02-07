@@ -8,14 +8,14 @@ public class Farm : Building, IProducer
 
 	private void OnEnable()
 	{
-		SeasonsController.SeasonStartedEvent += OnSeasonStart;
-		SeasonsController.SeasonEndedEvent += OnSeasonEnd;
+		//SeasonsController.SeasonStartedEvent += OnSeasonStart;
+		//SeasonsController.SeasonEndedEvent += OnSeasonEnd;
 	}
 
 	private void OnDisable()
 	{
-		SeasonsController.SeasonStartedEvent -= OnSeasonStart;
-		SeasonsController.SeasonEndedEvent -= OnSeasonEnd;
+		//SeasonsController.SeasonStartedEvent -= OnSeasonStart;
+		//SeasonsController.SeasonEndedEvent -= OnSeasonEnd;
 	}
 
 	LandingPlatform IProducer.GetProducerLandingPlatform()

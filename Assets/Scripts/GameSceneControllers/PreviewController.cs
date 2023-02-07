@@ -2,11 +2,11 @@ using System;
 using UI;
 using UnityEngine;
 
-public class ActionPreviewController : Singleton<ActionPreviewController>
+public class PreviewController : Singleton<PreviewController>, IGameController
 {
 	public static event Action PreviewComplete;
 
-	private ActionPreview currentPreview;
+	private IGamePreview currentPreview;
 
 	private void Awake()
 	{
@@ -43,30 +43,29 @@ public class ActionPreviewController : Singleton<ActionPreviewController>
 		currentPreview?.OnLeftClickInteractable(interactableObject, worldMousePosition);
 	}
 
-	public ActionPreview CreateActionPreview(Ship ship, ActionPreview actionPreviewPrefab)
+	public void SetPreview(IGamePreview gamePreview)
 	{
 		DestroyCurrentPreview();
-		currentPreview = Instantiate(actionPreviewPrefab, this.transform);
-		currentPreview.Init(ship);
+		currentPreview = gamePreview;
 		currentPreview.FinishedPreviewEvent += FinishActionPreview;
 		GameManager.instance.SetInputToPreviewMode();
 		GameUIController.instance.CloseAllScreens();
-		return currentPreview;
 	}
 
 	public void FinishActionPreview()
 	{
-		currentPreview.FinishedPreviewEvent -= FinishActionPreview;
+		currentPreview.FinishedPreviewEvent -= FinishActionPreview;	
+		DestroyCurrentPreview();
 		GameManager.instance.SetInputToSelectionMode();
 		GameUIController.instance.CloseAllScreens();
-		DestroyCurrentPreview();
 	}
 
 	public void DestroyCurrentPreview()
 	{
 		if (currentPreview != null)
 		{
-			Destroy(currentPreview.gameObject);
+			currentPreview.DestroyPreview();
 		}
+		currentPreview = null;
 	}
 }

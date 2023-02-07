@@ -2,7 +2,7 @@ using System;
 using UI;
 using UnityEngine;
 
-public class WalletController : Singleton<WalletController>
+public class WalletController : Singleton<WalletController>, IGameController
 {
 	public static event Action<WalletTransaction, int> TransactionAddedEvent;
 

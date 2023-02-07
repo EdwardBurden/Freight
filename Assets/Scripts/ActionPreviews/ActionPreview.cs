@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public abstract class ActionPreview : MonoBehaviour
+public abstract class ActionPreview : MonoBehaviour, IGamePreview
 {
 	public event Action FinishedPreviewEvent;
 
@@ -19,10 +19,6 @@ public abstract class ActionPreview : MonoBehaviour
 		lineRenderer.gameObject.SetActive(true);
 	}
 
-	public abstract void OnRightClickInteractable(InteractableObject interactableObject, Vector3 worldMousePosition);
-
-	public abstract void OnLeftClickInteractable(InteractableObject interactableObject, Vector3 worldMousePosition);
-
 	public void Init(Ship shipObject)
 	{
 		this.shipObject = shipObject;
@@ -39,4 +35,8 @@ public abstract class ActionPreview : MonoBehaviour
 	{
 		FinishedPreviewEvent?.Invoke();
 	}
+
+	public abstract void OnRightClickInteractable(InteractableObject interactableObject, Vector3 worldMousePosition);
+	public abstract void OnLeftClickInteractable(InteractableObject interactableObject, Vector3 worldMousePosition);
+	public abstract void DestroyPreview();
 }

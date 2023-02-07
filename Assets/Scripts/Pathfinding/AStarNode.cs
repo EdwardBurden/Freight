@@ -10,6 +10,7 @@ namespace AStar
 		public Vector3 worldPostion;
 		public Vector3Int gridPosition;
 		public float movementPenalty;
+		public float modifiedMovementPenalty;
 
 		public float gCost;
 		public float hCost;
@@ -27,6 +28,7 @@ namespace AStar
 			this.worldPostion = worldPostion;
 			this.gridPosition = gridPosition;
 			this.movementPenalty = movementPenalty;
+			modifiedMovementPenalty = movementPenalty;
 		}
 
 		public int CompareTo(AStarNode other)

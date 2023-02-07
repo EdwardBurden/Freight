@@ -57,4 +57,9 @@ public class CollectActionPreview : ActionPreview
 		RaiseFinishedEvent();
 		callback?.Invoke(producer, resourceDefintion);
 	}
+
+	public override void DestroyPreview()
+	{
+		Destroy(gameObject);
+	}
 }

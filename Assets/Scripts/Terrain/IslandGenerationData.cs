@@ -5,15 +5,32 @@ namespace Terrain
 {
 	public class IslandGenerationData
 	{
-		//Useful 
-		public GameObject islandBase;
-		public Vector2 center;
-		public List<IslandBlock> blocks = new List<IslandBlock>();
+		public Vector2 islandPoint;
+		public List<VoronoiCell> cells;
+		public List<IslandBlock> placedBlocks = new List<IslandBlock>();
+		public GameObject islandBase = null;
 
-		//Generation
-		public List<Vector2> allRandomPoints = new List<Vector2>();
-		public List<Vertex> points = new List<Vertex>();
-		public List<Vertex> boundary = new List<Vertex>();
-		public List<VoronoiCell> voronoiCells = new List<VoronoiCell>();
+		public IslandGenerationData(Vector2 islandPoint, List<VoronoiCell> cells)
+		{
+			this.islandPoint = islandPoint;
+			this.cells = cells;
+		}
+
+		public VoronoiCell GetNextCell()
+		{
+			int index = placedBlocks.Count;
+			if (index > cells.Count - 1)
+			{
+				return null;
+			}
+			return cells[index];
+		}
+
+		public bool PlacedAllBlocks()
+		{
+			return cells.Count == placedBlocks.Count;
+		}
+
+
 	}
 }

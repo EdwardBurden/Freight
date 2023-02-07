@@ -112,9 +112,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091073df4defdae45a4e4bc63848e2e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  islandSize: {x: 60, y: 60}
-  islandPointRadius: 5
-  id: 0
 --- !u!114 &1871834440167580815
 MonoBehaviour:
   m_ObjectHideFlags: 0

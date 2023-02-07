@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UI;
+using System;
 
 [RequireComponent(typeof(ShipOrderQueue))]
 public class Ship : InteractableObject
@@ -11,6 +12,8 @@ public class Ship : InteractableObject
 
 	protected ShipDefintion shipDefintion;
 	protected ShipSummary_InWorld summaryUI;
+
+	private float speed;
 
 	public virtual void Init(ShipDefintion shipDefintion)
 	{
@@ -23,6 +26,7 @@ public class Ship : InteractableObject
 			summaryUI = Instantiate(shipDefintion.summaryUIPrefab, summaryUIAnchor);
 			summaryUI.Init(this);
 		}
+		speed = shipDefintion.maxSpeed;
 	}
 
 	public override string GetInteractableObjectName()
@@ -81,11 +85,16 @@ public class Ship : InteractableObject
 
 	public float GetSpeed()
 	{
-		return shipDefintion.maxSpeed;
+		return speed;
 	}
 
 	public ShipActionDefintion[] GetShipActions()
 	{
 		return shipDefintion.shipActions;
+	}
+
+	public void ModifySpeed(int speedIncrease)
+	{
+		speed += speedIncrease;
 	}
 }

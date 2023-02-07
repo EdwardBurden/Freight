@@ -14,7 +14,9 @@ public class MoveActionDefintion : ShipActionDefintion
 
 	public override void CreateActionPreview(Ship ship, Action<ShipOrder> callback)
 	{
-		MoveActionPreview previewMoveAction = ActionPreviewController.instance.CreateActionPreview(ship, previewMoveActionPrefab) as MoveActionPreview;
+		MoveActionPreview previewMoveAction = Instantiate(previewMoveActionPrefab);
+		PreviewController.instance.SetPreview(previewMoveAction);
+		previewMoveAction.Init(ship);
 		previewMoveAction.callback = (postion) => OnPreviewClick(ship, postion, callback);
 	}
 

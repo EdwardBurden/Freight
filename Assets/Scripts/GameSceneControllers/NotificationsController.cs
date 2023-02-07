@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-public class NotificationsController : Singleton<NotificationsController>
+public class NotificationsController : Singleton<NotificationsController>, IGameController
 {
 	public static event Action<Notification> NotificationAddedEvent;
 	public static event Action NotificationEmptyEvent;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PathfindingController : Singleton<PathfindingController>
+public class PathfindingController : Singleton<PathfindingController>, IGameController
 {
 	private AStarGrid aStarGrid;
 	private Queue<PathRequest> pathRequests = new Queue<PathRequest>();
@@ -75,14 +75,11 @@ public class PathfindingController : Singleton<PathfindingController>
 		{
 			return;
 		}
-		/*foreach (AStarNode aStarNode in path)
-		{
-			Gizmos.DrawCube(aStarNode.worldPostion, Vector3.one);
-		}
-		/*
-		Gizmos.DrawCube(aStarGrid.FindNode(start.position).worldPostion, Vector3.one);
-		Gizmos.DrawCube(aStarGrid.FindNode(end.position).worldPostion, Vector3.one);
-		*/
+	}
+
+	internal void UpdatedGrid(Vector3 position, int space)
+	{
+		aStarGrid.UpdateGrid(position , space); //TODO
 	}
 }
 

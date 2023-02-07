@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class ShipHighlightController : Singleton<ShipHighlightController>
+public class ShipHighlightController : Singleton<ShipHighlightController>, IGameController
 {
 	public Color defaultColour;
 

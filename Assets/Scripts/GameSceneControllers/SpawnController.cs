@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnController : Singleton<SpawnController> //Could look into factory pattern here instad 
+public class SpawnController : Singleton<SpawnController>, IGameController //Could look into factory pattern here instad 
 {
 	[SerializeField] private int shipSpawnNumber =5; //temp
 	[SerializeField] private ShipDefintion[] shipDefintions; //temp
+
+	private void Awake()
+	{
+		_instance = this;
+	}
 
 	public void DistributeShips()
 	{
@@ -21,7 +26,7 @@ public class SpawnController : Singleton<SpawnController> //Could look into fact
 
 	public Ship SpawnShip(ShipDefintion shipDefintion)
 	{
-		Ship ship = Instantiate(shipDefintion.shipPrefab);
+		Ship ship = Instantiate(shipDefintion.shipPrefab , new Vector3(0,7,0) , Quaternion.identity);
 		ship.Init(shipDefintion);
 		return ship;
 	}

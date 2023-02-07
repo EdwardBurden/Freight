@@ -91,7 +91,7 @@ namespace Terrain
 		public static List<VoronoiCell> CreateVoronoiCells(List<Vertex> vectors)
 		{
 			List<Vector3> points = GetPostionsFromVertecies(vectors);
-			float bigNumber = 100;
+			float bigNumber = 1000;
 			points.Add(new Vector3(0f, 0f, bigNumber));
 			points.Add(new Vector3(0f, 0f, -bigNumber));
 			points.Add(new Vector3(bigNumber, 0f, 0f));

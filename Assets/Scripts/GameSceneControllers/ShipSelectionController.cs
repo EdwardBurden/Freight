@@ -2,7 +2,7 @@ using System;
 using UI;
 using UnityEngine;
 
-public class ShipSelectionController : Singleton<ShipSelectionController>
+public class ShipSelectionController : Singleton<ShipSelectionController>, IGameController
 {
 	public static event Action<Ship> ShipSelectedEvent;
 	public static event Action<Ship> ShipDeSelectedEvent;

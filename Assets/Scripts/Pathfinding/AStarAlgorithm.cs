@@ -35,7 +35,7 @@ namespace AStar
 						continue;
 					}
 
-					float newCostToNeighbour = node.gCost + GetDistance(node, neighbour) + neighbour.movementPenalty;
+					float newCostToNeighbour = node.gCost + GetDistance(node, neighbour) + neighbour.modifiedMovementPenalty;
 					if (newCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour))
 					{
 						neighbour.gCost = newCostToNeighbour;

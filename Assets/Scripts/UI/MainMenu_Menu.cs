@@ -14,8 +14,8 @@ namespace UI
 
 		private void OnEnable()
 		{
-			newGameButton.onClick.AddListener(GameManager.instance.OnNewGameSelected);
-			exitButton.onClick.AddListener(GameManager.instance.OnExitGameSelected);
+			newGameButton.onClick.AddListener(GameManager.instance.StartNewGame);
+			exitButton.onClick.AddListener(GameManager.instance.ExitApp);
 		}
 
 		public void OnDisable()

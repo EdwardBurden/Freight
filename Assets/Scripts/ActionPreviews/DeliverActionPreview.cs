@@ -57,4 +57,9 @@ public class DeliverActionPreview : ActionPreview
 		RaiseFinishedEvent();
 		callback?.Invoke(consumer, resourceDefintion);
 	}
+
+	public override void DestroyPreview()
+	{
+		Destroy(gameObject);
+	}
 }

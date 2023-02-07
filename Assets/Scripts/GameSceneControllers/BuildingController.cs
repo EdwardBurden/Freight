@@ -14,7 +14,7 @@ public class BuildingSpawnInfo
 	public int maxSpawnAmount;
 }
 
-public class BuildingController : Singleton<BuildingController> //todo make into building selection only 
+public class BuildingController : Singleton<BuildingController>, IGameController //todo make into building selection only 
 {
 	public static event Action<Building> BuildingSelectedEvent;
 	public static event Action<Building> BuildingDeSelectedEvent;
@@ -76,9 +76,9 @@ public class BuildingController : Singleton<BuildingController> //todo make into
 		}
 	}
 
-	public void DistributeBuildings(MapGenerationData mapGenerationData)
+	/*public void DistributeBuildings(MapGenerationData mapGenerationData)
 	{
-		List<IslandBlock> islandBlocks = mapGenerationData.islands.SelectMany(x => x.blocks).OrderBy(x => Guid.NewGuid()).ToList(); //TODO Remove LINQ
+		List<IslandBlock> islandBlocks = mapGenerationData.islands.SelectMany(x => x.placedBlocks).OrderBy(x => Guid.NewGuid()).ToList(); //TODO Remove LINQ
 
 		foreach (BuildingSpawnInfo buildingSpawnInfo in builindSpawnInfos)
 		{
@@ -97,7 +97,7 @@ public class BuildingController : Singleton<BuildingController> //todo make into
 		{
 			AddBuilding(empty, item);
 		}
-	}
+	}*/
 
 	private Building AddBuilding(BuildingDefintion buildingToPlace, IslandBlock islandBlock)
 	{

@@ -1,8 +1,9 @@
 using System;
+using Terrain;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CameraController : MonoBehaviour
+public class CameraController : MonoBehaviour , IGameController
 {
 	private GameControls gameControls;
 	private InputAction movement;

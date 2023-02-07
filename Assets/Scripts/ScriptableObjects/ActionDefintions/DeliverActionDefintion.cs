@@ -21,7 +21,9 @@ public class DeliverActionDefintion : ShipActionDefintion
 
 	public override void CreateActionPreview(Ship ship, Action<ShipOrder> callback)
 	{
-		DeliverActionPreview deliverActionPreview = ActionPreviewController.instance.CreateActionPreview(ship, deliverActionPreviewPrefab) as DeliverActionPreview;
+		DeliverActionPreview deliverActionPreview = Instantiate(deliverActionPreviewPrefab);
+		PreviewController.instance.SetPreview(deliverActionPreviewPrefab);
+		deliverActionPreview.Init(ship);
 		deliverActionPreview.callback = (consumer, resource) => OnResourceSelected(ship, consumer, resource, callback);
 	}
 

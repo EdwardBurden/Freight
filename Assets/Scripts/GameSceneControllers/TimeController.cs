@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimeController : Singleton<TimeController>
+public class TimeController : Singleton<TimeController>		,IGameController
 {
 	public static event Action<int> SecondsChangeEvent;
 	public static event Action<int> MinutesChangeEvent;
