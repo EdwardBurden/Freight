@@ -57,11 +57,11 @@ public class PathfindingController : Singleton<PathfindingController>, IGameCont
 	private IEnumerator FindPath(PathRequest pathRequest)
 	{
 		Vector3[] waypoints = null;
+		bool success = false;
 		if (!Physics.CheckCapsule(pathRequest.pathStart, pathRequest.pathEnd, capsuleCheckRadius, aStarGrid.unnavigableLayer))
 		{
-			//nothing in the way
+			success = true;
 			waypoints = new Vector3[] { pathRequest.pathStart, pathRequest.pathEnd };
-			ProccessingFinished(pathRequest, waypoints, true);
 		}
 		else
 		{
@@ -73,11 +73,10 @@ public class PathfindingController : Singleton<PathfindingController>, IGameCont
 			{
 				yield return null;
 			}
-
-			bool success = pathTask.Result.Count > 0;
+			success = pathTask.Result.Count > 0;
 			waypoints = AStarAlgorithm.SimplifyPath(pathTask.Result, pathRequest.pathEnd);
-			ProccessingFinished(pathRequest, waypoints, success);
 		}
+		ProccessingFinished(pathRequest, waypoints, success);
 	}
 
 	private void OnDrawGizmos()
