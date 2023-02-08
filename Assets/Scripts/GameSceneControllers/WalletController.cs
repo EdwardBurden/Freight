@@ -6,14 +6,17 @@ public class WalletController : Singleton<WalletController>, IGameController
 {
 	public static event Action<WalletTransaction, int> TransactionAddedEvent;
 
-	[SerializeField]
-	public DisplayMessage_InCamera transactionIndicatorPrefab;
+	[SerializeField] public DisplayMessage_InCamera transactionIndicatorPrefab;
 	private Wallet wallet;
 
 	public void Awake()
 	{
 		_instance = this;
-		wallet = new Wallet(); //temp
+	}
+
+	public void Init()
+	{
+		wallet = new Wallet();
 	}
 
 	public int GetCreditsTotal()
@@ -53,6 +56,4 @@ public class WalletController : Singleton<WalletController>, IGameController
 		DisplayMessage_InCamera transactionCompleteInScene = GameUIController.instance.CreateInScene(transactionIndicatorPrefab, walletTransaction.GetTransactionLocation()) as DisplayMessage_InCamera;
 		transactionCompleteInScene.ShowTransactionText(walletTransaction.transactiontext);
 	}
-
-
 }

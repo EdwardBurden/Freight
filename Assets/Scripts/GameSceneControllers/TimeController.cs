@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimeController : Singleton<TimeController>		,IGameController
+public class TimeController : Singleton<TimeController>, IGameController
 {
 	public static event Action<int> SecondsChangeEvent;
 	public static event Action<int> MinutesChangeEvent;
@@ -16,17 +16,17 @@ public class TimeController : Singleton<TimeController>		,IGameController
 	private float timer;
 
 	private float fixedDeltaTime;
-	internal bool isPaused;
+	public bool isPaused { get; private set; }
 
 	private void Awake()
 	{
 		_instance = this;
-		this.fixedDeltaTime = Time.fixedDeltaTime;
 	}
 
-	private void OnEnable()
+	public void Init()
 	{
 		isPaused = true;
+		fixedDeltaTime = Time.fixedDeltaTime;
 	}
 
 	private void Update()
@@ -58,7 +58,6 @@ public class TimeController : Singleton<TimeController>		,IGameController
 		Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
 	}
 
-
 	public void ResumeTime()
 	{
 		isPaused = false;
@@ -66,7 +65,7 @@ public class TimeController : Singleton<TimeController>		,IGameController
 		Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
 	}
 
-	internal void StartTime()
+	public void StartTime()
 	{
 		second = 0;
 		minute = 0;

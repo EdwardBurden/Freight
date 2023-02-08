@@ -13,6 +13,11 @@ public class PreviewController : Singleton<PreviewController>, IGameController
 		_instance = this;
 	}
 
+	public void Init()
+	{
+		DestroyCurrentPreview();
+	}
+
 	private void OnEnable()
 	{
 		MouseInput.LeftClickInteractableEvent += OnLeftClickInteractable;

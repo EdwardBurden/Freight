@@ -18,11 +18,16 @@ public class ShipHighlightController : Singleton<ShipHighlightController>, IGame
 		_instance = this;
 	}
 
+	public void Init()
+	{
+		ShipDeselected(null);
+		OnMouseOff(null);
+	}
+
 	private void OnEnable()
 	{
 		MouseInput.mouseHoveredOnInteractable += OnMouseOver;
 		MouseInput.mouseHoveredOffInteractable += OnMouseOff;
-
 
 		ShipSelectionController.ShipSelectedEvent += ShipSelected;
 		ShipSelectionController.ShipDeSelectedEvent += ShipDeselected;
@@ -34,7 +39,7 @@ public class ShipHighlightController : Singleton<ShipHighlightController>, IGame
 		{
 			return;
 		}
-		if (interactableObject is Ship ship && ship.outline != selectOutline)
+		if (interactableObject != null && interactableObject is Ship ship && ship.outline != selectOutline)
 		{
 			hoverOutline.OutlineColor = defaultColour;
 			hoverOutline.enabled = false;
@@ -84,5 +89,4 @@ public class ShipHighlightController : Singleton<ShipHighlightController>, IGame
 		selectOutline.OutlineColor = selctColour;
 		selectOutline.enabled = true;
 	}
-
 }

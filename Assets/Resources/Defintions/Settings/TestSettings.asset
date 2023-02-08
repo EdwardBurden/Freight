@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settingsName: TestSettings
   mapSize: {x: 15, y: 15}
-  islandRadius: 63
+  islandRadius: 60
+  islandClippingincrease: 0.2
   blockRadius: 10
   bases:
   - {fileID: 130826016737413617, guid: 55e5ce4e1ca078a429e7147e3d510b40, type: 3}

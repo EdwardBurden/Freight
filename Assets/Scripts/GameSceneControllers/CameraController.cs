@@ -72,6 +72,12 @@ public class CameraController : MonoBehaviour , IGameController
 		cameraTransform = gameCamera.transform;
 	}
 
+	public void Init()
+	{
+		this.enabled = true;
+		this.gameObject.SetActive(true);
+	}
+
 	private void OnEnable()
 	{
 		zoomHeight = cameraBase.transform.localPosition.y;

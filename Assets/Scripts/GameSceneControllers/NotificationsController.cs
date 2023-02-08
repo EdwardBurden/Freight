@@ -13,28 +13,12 @@ public class NotificationsController : Singleton<NotificationsController>, IGame
 		_instance = this;
 	}
 
-	private void OnDestroy()
-	{
-		foreach (ShipOrderQueue shipOrderQueue in FindObjectsOfType<ShipOrderQueue>())
-		{
-			shipOrderQueue.OrderFailedEvent -= ShipOrderFailed;
-		}
-	}
-
 	public void Init()
 	{
-		foreach (ShipOrderQueue shipOrderQueue in FindObjectsOfType<ShipOrderQueue>())
-		{
-			shipOrderQueue.OrderFailedEvent += ShipOrderFailed;
-		}
+		notifications.Clear();
 	}
 
-	private void ShipOrderFailed(ShipOrder obj, string message)
-	{
-		AddNotification(obj.shipObject.GetInteractableObjectName(), message);
-	}
-
-	private void AddNotification(string sender, string message)
+	public void AddNotification(string sender, string message)
 	{
 		Notification notification = new Notification(sender, message);
 		notifications.Add(notification);

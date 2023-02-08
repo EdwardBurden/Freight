@@ -172,6 +172,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6888528275230630002, guid: 974dfdb4fa455214d94d7585e246d498, type: 3}
+      propertyPath: settings.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: c45660457ccc90142963ebcc4eafe8c5, type: 2}
     - target: {fileID: 7405682092259653069, guid: 974dfdb4fa455214d94d7585e246d498, type: 3}
       propertyPath: spaceShipBase
       value: 
@@ -504,17 +508,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraController: {fileID: 835215737}
   timeController: {fileID: 7221407611148481864}
-  actionPreviewController: {fileID: 125339877632673882}
+  previewController: {fileID: 125339877632673882}
   shipSelector: {fileID: 1628242045610607908}
   terrainController: {fileID: 567249199}
   buildingController: {fileID: 5087964091084745796}
-  gameUIController: {fileID: 545579774}
-  mainMenuUIController: {fileID: 0}
   notificationsController: {fileID: 62910026452789208}
   spawnController: {fileID: 7221407611148481865}
   pathfindingController: {fileID: 1975330626}
   turnRewardsController: {fileID: 135033431}
+  walletController: {fileID: 7221407611148481863}
   mouseInput: {fileID: 655604876938052124}
+  gameSetting: {fileID: 11400000, guid: d59e670087f43cc41ad332423aaee8cb, type: 2}
+  gameUIController: {fileID: 545579774}
+  mainMenuUIController: {fileID: 0}
 --- !u!1 &1181101317 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7604970919369415992, guid: af5e1a0075143de4c8e3afa6f3dd1105, type: 3}
@@ -903,16 +909,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
       propertyPath: turnTimeInSeconds
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
-      propertyPath: turnRewardsOptions.Array.data[0].rewardTurn
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
-      propertyPath: turnRewardsOptions.Array.data[1].rewardTurn
-      value: 4
+      propertyPath: turnRewardsOptions.Array.size
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
+      propertyPath: turnRewardsOptions.Array.data[0].rewardTurn
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
+      propertyPath: turnRewardsOptions.Array.data[1].rewardTurn
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
+      propertyPath: turnRewardsOptions.Array.data[0].turnRewards.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 09f84fdd74e3f804f88a30f5fda3b2f2, type: 2}
+    - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
+      propertyPath: turnRewardsOptions.Array.data[0].turnRewards.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: a8fa29a2955ed8348864aacc0e892934, type: 2}
     - target: {fileID: 7031766915070982513, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -1413,24 +1431,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a54201652095fc4fad0124359d4f4ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  builindSpawnInfos:
-  - building: {fileID: 11400000, guid: 4617106870d5b604ea75aade8ae31e6f, type: 2}
-    spawnChance: 0.05
-    minSpawnAmount: 2
-    maxSpawnAmount: 5
-  - building: {fileID: 11400000, guid: cc76772fbacfa814b9440d362342ff08, type: 2}
-    spawnChance: 0.03
-    minSpawnAmount: 2
-    maxSpawnAmount: 5
-  allbuildingDefintions:
-  - {fileID: 11400000, guid: fd7f18122a9717a439739d2602f70336, type: 2}
-  - {fileID: 11400000, guid: 8d5473d35b9646c4b97b523513097421, type: 2}
-  - {fileID: 11400000, guid: eeb9e9e18871162429110781db42877d, type: 2}
-  - {fileID: 11400000, guid: cc76772fbacfa814b9440d362342ff08, type: 2}
-  - {fileID: 11400000, guid: 5a40cf45509093a4291913f3ee4865a7, type: 2}
-  - {fileID: 11400000, guid: 4617106870d5b604ea75aade8ae31e6f, type: 2}
-  - {fileID: 11400000, guid: 34b0ba117bf22fa46b3f53d39b97145d, type: 2}
-  empty: {fileID: 11400000, guid: 192cb6eed19a0dd49a0f6645c1c0569e, type: 2}
 --- !u!114 &7221407611148481863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1473,3 +1473,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 119648b6183e8fd43b254992cfd1e1db, type: 2}
   - {fileID: 11400000, guid: 0dd5c3841b3ed0747bea5a3713592071, type: 2}
   - {fileID: 11400000, guid: 4ca04fc164ff3724eab607a0ae0efe2e, type: 2}
+  motherShip: {fileID: 3230672453934816780, guid: cc54081f16307db439bc89a2c042f4fc, type: 3}

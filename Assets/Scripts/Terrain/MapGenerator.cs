@@ -14,7 +14,6 @@ public class MapGenerator : MonoBehaviour
 	private const int MAX_EDGES_IN_WATER = 1;
 	[SerializeReference] public LayerMask unnavigableLayer;
 	[Header("Map Surface")]
-	[SerializeField] private GameObject spaceShipBase;
 	[SerializeField] private GameObject waterPrefab;
 	[SerializeField] private GameObject groundPrefab;
 	[SerializeField] private GameObject borderprefab;
@@ -80,10 +79,17 @@ public class MapGenerator : MonoBehaviour
 			List<Vertex> boundarypoints = blockPointsToIslands[i].ToVertices();
 			List<Vertex> vertices = blockPointsToIslands[i].ToVertices();
 			List<Vertex> boundary = JarvisMarchAlgorithm.GetConvexHull(boundarypoints);
+			//test
+			foreach (Vertex b in boundary)
+			{
+				Vector2 normal = b.GetPos2D_XZ() - islandpoints[i];
+				b.position += (normal *= settings.islandClippingincrease).ToVector3();
+			}
+			//test
 			List<VoronoiCell> cells = MapGeneration.CreateVoronoiCells(vertices);
 			MapGeneration.ClipVoronoiDiagram(cells, boundary);
 			cells = MapGeneration.CreateTrianglesFromVoronoiCells(cells);
-			IslandGenerationData islandGenerationData = new IslandGenerationData(islandpoints[i], cells);
+			IslandGenerationData islandGenerationData = new IslandGenerationData(islandpoints[i], cells, boundary);
 			islandGenerations.Add(islandGenerationData);
 		}
 
@@ -200,7 +206,7 @@ public class MapGenerator : MonoBehaviour
 		return islandBlock;
 	}
 
-	public void PlaceSpaceShip(MapGenerationSettings settings) //could put in spawncontroller
+	public Vector3 FindCentralEmptyGridPostion(MapGenerationSettings settings) //could put in spawncontroller
 	{
 		Vector3 mapOffset = MapGeneration.GetAreaOffset(settings.mapSize) * TILESIZE;
 		Vector2 islandGenerateSize = settings.mapSize * TILESIZE;
@@ -215,13 +221,11 @@ public class MapGenerator : MonoBehaviour
 				if (!Physics.CheckBox(pos - mapOffset, Vector3.one * baseSize, Quaternion.identity, unnavigableLayer))
 				{
 					possibleLocations.Add(pos - mapOffset);
-					//Instantiate(spaceShipBase, pos - mapOffset, Quaternion.Euler(-90, 90, 0), borderTransform);
 				}
 			}
 		}
 		Vector3 finalPos = possibleLocations.OrderBy(x => (x - this.gameObject.transform.position).sqrMagnitude).FirstOrDefault();
-		Instantiate(spaceShipBase, finalPos, Quaternion.identity, borderTransform);
-
+		return finalPos;
 	}
 
 	internal void ClearMap()

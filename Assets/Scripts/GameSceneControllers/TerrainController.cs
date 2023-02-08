@@ -2,8 +2,11 @@ using AStar;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net.Security;
 using Terrain;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -16,38 +19,61 @@ public class TerrainController : Singleton<TerrainController>, IGameController
 	private MapGenerator mapGenerator;
 	private MapGenerationData generationData;
 
-
-
-	//list of cells to make
-
 	private void Awake()
 	{
 		_instance = this;
 		mapGenerator = GetComponent<MapGenerator>();
 	}
 
+	public void Init()
+	{
+		RemoveMap();
+	}
+
+	private void RemoveMap()
+	{
+		mapGenerator.ClearMap();
+	}
 
 	public void GenerateMap()
 	{
-		//Voronoi diagram
 		generationData = mapGenerator.GenerateMapData(settings[0]);
-		StartCoroutine(PlaceMap());
+		PlaceMap();
 	}
 
 	public IslandBlock AddNextBlock()
 	{
 		List<IslandGenerationData> islands = generationData.IslandsWithUnplacedBlocks();
-		int random = Random.Range(0, islands.Count);
-		IslandGenerationData island = islands[random];
-		IslandBlock block = mapGenerator.CreateIslandBlock(island.islandBase.transform, island.GetNextCell(), settings[0]);
+
+
+		//have curve 0-1 whith spawn chance on y axis
+		//then scale 0-1 to length of possible cells 
+		//while loop through all cells and get ranom number form curve , with max attempts const
+		float distance = 1000000;
+		IslandGenerationData island = null;
+		VoronoiCell cell = null;
+		for (int i = 0; i < islands.Count; i++) //TODO CLEAN UP
+		{
+			foreach (var item in islands[i].GetUnplacedCells())
+			{
+				float d = Vector3.Distance(item.sitePos, Vector3.zero);
+				if (d < distance)
+				{
+					distance = d;
+					island = islands[i];
+					cell = item;
+				}
+			}
+		}
+		IslandBlock block = mapGenerator.CreateIslandBlock(island.islandBase.transform, cell, settings[0]);
 		island.placedBlocks.Add(block);
 		return block;
 	}
 
-	private IEnumerator PlaceMap()
+	private void PlaceMap()
 	{
 		mapGenerator.PlaceMapSurface(settings[0]);
-		yield return new WaitForEndOfFrame();
+		//yield return new WaitForEndOfFrame();
 		foreach (IslandGenerationData islandData in generationData.islands)
 		{
 			GameObject island = mapGenerator.PlaceIslandBase(settings[0], islandData.islandPoint);
@@ -59,21 +85,14 @@ public class TerrainController : Singleton<TerrainController>, IGameController
 				}
 			}
 			islandData.islandBase = island;
-			//HIDE ISLANDS
 		}
-		mapGenerator.PlaceSpaceShip(settings[0]);
-
-
-
 		TerrainGeneratedEvent?.Invoke(generationData);
-	/*	while (!generationData.AllBlocksPlaced())
-		{
-			AddNextBlock();
-			yield return new WaitForSeconds(1);
-		}
-	*/
 	}
 
+	public Vector3 FindAvailablePlaceOnTerrain()
+	{
+		return mapGenerator.FindCentralEmptyGridPostion(settings[0]);
+	}
 
 
 	private void OnDrawGizmos()
@@ -91,6 +110,20 @@ public class TerrainController : Singleton<TerrainController>, IGameController
 			foreach (var item in generationData.islands[i].cells)
 			{
 				Gizmos.DrawCube(new Vector3(item.sitePos.x, 2 + i, item.sitePos.z), Vector3.one);
+			}
+			Gizmos.color = Color.green;
+			for (int b = 0; b < generationData.islands[i].boundary.Count; b++)
+			{
+				int bE = b + 1;
+				if (bE == generationData.islands[i].boundary.Count)
+				{
+					bE = 0;
+				}
+				Gizmos.DrawLine(generationData.islands[i].boundary[b].position, generationData.islands[i].boundary[bE].position);
+			}
+			foreach (var item in generationData.islands[i].boundary)
+			{
+				Gizmos.DrawCube(new Vector3(item.position.x, 2 + i, item.position.z), Vector3.one);
 			}
 		}
 	}

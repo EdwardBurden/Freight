@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20824b5f0e94cd4097e2e5492932bd8, type: 3}
+  m_Name: big
+  m_EditorClassIdentifier: 
+  settingsName: TestSettings
+  mapSize: {x: 30, y: 30}
+  islandRadius: 70
+  islandClippingincrease: 0.2
+  blockRadius: 10
+  bases:
+  - {fileID: 130826016737413617, guid: 55e5ce4e1ca078a429e7147e3d510b40, type: 3}
+  - {fileID: 130826016737413617, guid: 51aaf1ba65da77b459d564f9b8cd7404, type: 3}
+  - {fileID: 130826016737413617, guid: 7402d1ee7067d4344b776072bf03fd4c, type: 3}

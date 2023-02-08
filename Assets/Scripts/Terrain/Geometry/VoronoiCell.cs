@@ -14,7 +14,7 @@ namespace Terrain
         public VoronoiCell(Vector3 sitePos)
         {
             this.sitePos = sitePos;
-        }
+		}
 
         public List<Triangle> triangles = new List<Triangle>(); //for mesh making
     }

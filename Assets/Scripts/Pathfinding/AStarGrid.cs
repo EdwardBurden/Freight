@@ -25,8 +25,10 @@ namespace AStar
 			gridSize = Vector3Int.RoundToInt(worldGridSize / nodeDiameter);
 		}
 
-		private IEnumerator CreateGridRoutine(Vector3 start)
+		public void CreateGrid()
 		{
+			grid = new AStarNode[gridSize.x, gridSize.y, gridSize.z];
+			Vector3 start = gridPosTransform.position - (worldGridSize / 2);
 			for (int x = 0; x < gridSize.x; x++)
 			{
 				for (int y = 0; y < gridSize.y; y++)
@@ -41,14 +43,6 @@ namespace AStar
 				}
 			}
 			BlurGrid(blurAmount);
-			yield return null;
-		}
-
-		public void CreateGrid()
-		{
-			grid = new AStarNode[gridSize.x, gridSize.y, gridSize.z];
-			Vector3 start = gridPosTransform.position - (worldGridSize / 2);
-			StartCoroutine(CreateGridRoutine(start));
 		}
 
 		public void UpdateGrid(Vector3 point, int space)
@@ -213,7 +207,7 @@ namespace AStar
 
 		private void OnDrawGizmos()
 		{
-			Gizmos.color = Color.grey;
+			/*Gizmos.color = Color.grey;
 			Gizmos.DrawWireCube(gridPosTransform.position, worldGridSize);
 
 			if (grid == null)
@@ -226,10 +220,10 @@ namespace AStar
 				{
 					continue;
 				}
-				/*if (!aStarNode.navigable)
+				if (!aStarNode.navigable)
 				{
 					Gizmos.DrawCube(aStarNode.worldPostion, Vector3.one);
-				}*/
+				}
 				if (aStarNode.modifiedMovementPenalty > 0)
 				{
 					Gizmos.color = new Color(1, 0, 0, aStarNode.modifiedMovementPenalty / maxMovementpenalty);
@@ -237,7 +231,7 @@ namespace AStar
 				}
 			}
 
-			Gizmos.color = Color.red;
+			Gizmos.color = Color.red;*/
 		}
 	}
 }

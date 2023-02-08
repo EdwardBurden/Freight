@@ -28,7 +28,7 @@ public class ShipRewardPreview : MonoBehaviour, IGamePreview
 
 	public void UpdatePreview()
 	{
-		SpawnController.instance.SpawnShip(shipRewardDefintion);
+		shipRewardDefintion.CreateShip();
 		FinishedPreviewEvent?.Invoke();
 		callback.Invoke(true);
 	}

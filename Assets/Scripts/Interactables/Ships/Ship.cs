@@ -19,6 +19,7 @@ public class Ship : InteractableObject
 	{
 		this.shipDefintion = shipDefintion;
 		shipOrderQueue = GetComponent<ShipOrderQueue>();
+		shipOrderQueue.OrderFailedEvent += ShipOrderQueue_OrderFailedEvent;
 		shipOrderQueue.maxOrders = shipDefintion.maxOrders;
 
 		if (shipDefintion.summaryUIPrefab != null && summaryUIAnchor != null)
@@ -27,6 +28,11 @@ public class Ship : InteractableObject
 			summaryUI.Init(this);
 		}
 		speed = shipDefintion.maxSpeed;
+	}
+
+	private void ShipOrderQueue_OrderFailedEvent(ShipOrder arg1, string arg2)
+	{
+		NotificationsController.instance.AddNotification(this.name, arg2);
 	}
 
 	public override string GetInteractableObjectName()
