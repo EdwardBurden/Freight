@@ -2,8 +2,11 @@ using AStar;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net.Security;
 using Terrain;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -41,9 +44,28 @@ public class TerrainController : Singleton<TerrainController>, IGameController
 	public IslandBlock AddNextBlock()
 	{
 		List<IslandGenerationData> islands = generationData.IslandsWithUnplacedBlocks();
-		int random = Random.Range(0, islands.Count);
-		IslandGenerationData island = islands[random];
-		IslandBlock block = mapGenerator.CreateIslandBlock(island.islandBase.transform, island.GetNextCell(), settings[0]);
+
+
+		//have curve 0-1 whith spawn chance on y axis
+		//then scale 0-1 to length of possible cells 
+		//while loop through all cells and get ranom number form curve , with max attempts const
+		float distance = 1000000;
+		IslandGenerationData island = null;
+		VoronoiCell cell = null;
+		for (int i = 0; i < islands.Count; i++) //TODO CLEAN UP
+		{
+			foreach (var item in islands[i].GetUnplacedCells())
+			{
+				float d = Vector3.Distance(item.sitePos, Vector3.zero);
+				if (d < distance)
+				{
+					distance = d;
+					island = islands[i];
+					cell = item;
+				}
+			}
+		}
+		IslandBlock block = mapGenerator.CreateIslandBlock(island.islandBase.transform, cell, settings[0]);
 		island.placedBlocks.Add(block);
 		return block;
 	}
@@ -88,6 +110,20 @@ public class TerrainController : Singleton<TerrainController>, IGameController
 			foreach (var item in generationData.islands[i].cells)
 			{
 				Gizmos.DrawCube(new Vector3(item.sitePos.x, 2 + i, item.sitePos.z), Vector3.one);
+			}
+			Gizmos.color = Color.green;
+			for (int b = 0; b < generationData.islands[i].boundary.Count; b++)
+			{
+				int bE = b + 1;
+				if (bE == generationData.islands[i].boundary.Count)
+				{
+					bE = 0;
+				}
+				Gizmos.DrawLine(generationData.islands[i].boundary[b].position, generationData.islands[i].boundary[bE].position);
+			}
+			foreach (var item in generationData.islands[i].boundary)
+			{
+				Gizmos.DrawCube(new Vector3(item.position.x, 2 + i, item.position.z), Vector3.one);
 			}
 		}
 	}

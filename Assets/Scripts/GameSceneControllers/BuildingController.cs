@@ -96,7 +96,7 @@ public class BuildingController : Singleton<BuildingController>, IGameController
 		}
 	}*/
 
-	private Building AddBuilding(BuildingDefintion buildingToPlace, IslandBlock islandBlock)
+	public Building AddBuilding(BuildingDefintion buildingToPlace, IslandBlock islandBlock)
 	{
 		int rotation = Random.Range(0, 360);
 		Building building = Instantiate(buildingToPlace.buildingPrefab, islandBlock.buildingSpawnPoint);

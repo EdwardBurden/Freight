@@ -172,6 +172,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6888528275230630002, guid: 974dfdb4fa455214d94d7585e246d498, type: 3}
+      propertyPath: settings.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: c45660457ccc90142963ebcc4eafe8c5, type: 2}
     - target: {fileID: 7405682092259653069, guid: 974dfdb4fa455214d94d7585e246d498, type: 3}
       propertyPath: spaceShipBase
       value: 
@@ -512,6 +516,7 @@ MonoBehaviour:
   spawnController: {fileID: 7221407611148481865}
   pathfindingController: {fileID: 1975330626}
   turnRewardsController: {fileID: 135033431}
+  walletController: {fileID: 7221407611148481863}
   mouseInput: {fileID: 655604876938052124}
   gameSetting: {fileID: 11400000, guid: d59e670087f43cc41ad332423aaee8cb, type: 2}
   gameUIController: {fileID: 545579774}
@@ -904,16 +909,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
       propertyPath: turnTimeInSeconds
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
-      propertyPath: turnRewardsOptions.Array.data[0].rewardTurn
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
-      propertyPath: turnRewardsOptions.Array.data[1].rewardTurn
-      value: 4
+      propertyPath: turnRewardsOptions.Array.size
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
+      propertyPath: turnRewardsOptions.Array.data[0].rewardTurn
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
+      propertyPath: turnRewardsOptions.Array.data[1].rewardTurn
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
+      propertyPath: turnRewardsOptions.Array.data[0].turnRewards.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 09f84fdd74e3f804f88a30f5fda3b2f2, type: 2}
+    - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
+      propertyPath: turnRewardsOptions.Array.data[0].turnRewards.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: a8fa29a2955ed8348864aacc0e892934, type: 2}
     - target: {fileID: 7031766915070982513, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
       propertyPath: m_RootOrder
       value: 8

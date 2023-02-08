@@ -53,7 +53,7 @@ public class ShipOrderQueue : MonoBehaviour
 			shipOrder.Update();
 			if (shipOrder.isFailed)
 			{
-				OnOrderFailed(shipOrder, shipOrder.failMessage);
+				OrderFailed(shipOrder, shipOrder.failMessage);
 				return;
 			}
 			if (shipOrder.isFinished)
@@ -103,7 +103,7 @@ public class ShipOrderQueue : MonoBehaviour
 		//TODO maybe tell order to do somethign here, since its now not working
 	}
 
-	private void OnOrderFailed(ShipOrder shipOrder, string error)
+	private void OrderFailed(ShipOrder shipOrder, string error)
 	{
 		paused = true;
 		repeat = false;
@@ -111,7 +111,6 @@ public class ShipOrderQueue : MonoBehaviour
 		//TODO do something maybe
 		OrderFailedEvent?.Invoke(shipOrder, error);
 	}
-
 
 	private bool IsEmpty()
 	{

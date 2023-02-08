@@ -2,9 +2,10 @@ using System;
 using Terrain;
 using UI;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 //TODO THIS CLASS IS A MESS, FIX LATER
-public class GameManager : Singleton<GameManager> 
+public class GameManager : Singleton<GameManager>
 {
 	public static event Action GameStartEvent;
 
@@ -18,10 +19,11 @@ public class GameManager : Singleton<GameManager>
 	[SerializeField] private SpawnController spawnController;
 	[SerializeField] private PathfindingController pathfindingController;
 	[SerializeField] private TurnsController turnRewardsController;
+	[SerializeField] private WalletController walletController;
 
 	[SerializeField] private MouseInput mouseInput;
 	[SerializeField] private GameSetting gameSetting;
-	[SerializeField] private GameUIController gameUIController;	
+	[SerializeField] private GameUIController gameUIController;
 	[SerializeField] private MainMenuUIController mainMenuUIController;
 
 	private void Awake()
@@ -60,7 +62,7 @@ public class GameManager : Singleton<GameManager>
 		spawnController.Init();
 		pathfindingController.Init();
 		turnRewardsController.Init();
-
+		walletController.Init();
 
 		//timeController.StartTime();
 		terrainController.TerrainGeneratedEvent += OnGameMapInitialised;
@@ -70,13 +72,23 @@ public class GameManager : Singleton<GameManager>
 	private void OnGameMapInitialised(MapGenerationData gameGenerationData)
 	{
 		terrainController.TerrainGeneratedEvent -= OnGameMapInitialised;
-		pathfindingController.CreateGrid();
-		spawnController.PlaceMotherShip();
-		spawnController.DistributeShips();
+		SetupGameFromSettings();
 		SetInputToSelectionMode();
 		UIManager.instance.SetController(gameUIController);
 		timeController.StartTime();
 		GameStartEvent?.Invoke();
+	}
+
+	private void SetupGameFromSettings()
+	{
+		spawnController.PlaceMotherShip();
+		spawnController.DistributeShips(); //TODO should eb from game settings
+		for (int i = 0; i < gameSetting.startingbuildings.Length; i++)
+		{
+			IslandBlock islandBlock = terrainController.AddNextBlock();
+			buildingController.AddBuilding(gameSetting.startingbuildings[i], islandBlock);
+		}
+		pathfindingController.CreateGrid();
 	}
 
 	private void OnTurnEnd(int obj)
@@ -89,7 +101,8 @@ public class GameManager : Singleton<GameManager>
 	private void OnTurnStarted(int turn)
 	{
 		IslandBlock islandBlock = terrainController.AddNextBlock();
-		buildingController.AddRandomBuilding(gameSetting.allBuildings, islandBlock);
+		BuildingSpawnInfo buildingSpawnInfo = gameSetting.allBuildings[Random.Range(0, gameSetting.allBuildings.Length)]; //temp
+		buildingController.AddBuilding(buildingSpawnInfo.building, islandBlock);
 		pathfindingController.UpdatedGrid(islandBlock.transform.position, 10);
 
 		//cameraController.enabled = true;

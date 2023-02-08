@@ -207,7 +207,7 @@ namespace AStar
 
 		private void OnDrawGizmos()
 		{
-			Gizmos.color = Color.grey;
+			/*Gizmos.color = Color.grey;
 			Gizmos.DrawWireCube(gridPosTransform.position, worldGridSize);
 
 			if (grid == null)
@@ -220,10 +220,10 @@ namespace AStar
 				{
 					continue;
 				}
-				/*if (!aStarNode.navigable)
+				if (!aStarNode.navigable)
 				{
 					Gizmos.DrawCube(aStarNode.worldPostion, Vector3.one);
-				}*/
+				}
 				if (aStarNode.modifiedMovementPenalty > 0)
 				{
 					Gizmos.color = new Color(1, 0, 0, aStarNode.modifiedMovementPenalty / maxMovementpenalty);
@@ -231,7 +231,7 @@ namespace AStar
 				}
 			}
 
-			Gizmos.color = Color.red;
+			Gizmos.color = Color.red;*/
 		}
 	}
 }

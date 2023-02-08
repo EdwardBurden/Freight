@@ -79,10 +79,17 @@ public class MapGenerator : MonoBehaviour
 			List<Vertex> boundarypoints = blockPointsToIslands[i].ToVertices();
 			List<Vertex> vertices = blockPointsToIslands[i].ToVertices();
 			List<Vertex> boundary = JarvisMarchAlgorithm.GetConvexHull(boundarypoints);
+			//test
+			foreach (Vertex b in boundary)
+			{
+				Vector2 normal = b.GetPos2D_XZ() - islandpoints[i];
+				b.position += (normal *= settings.islandClippingincrease).ToVector3();
+			}
+			//test
 			List<VoronoiCell> cells = MapGeneration.CreateVoronoiCells(vertices);
 			MapGeneration.ClipVoronoiDiagram(cells, boundary);
 			cells = MapGeneration.CreateTrianglesFromVoronoiCells(cells);
-			IslandGenerationData islandGenerationData = new IslandGenerationData(islandpoints[i], cells);
+			IslandGenerationData islandGenerationData = new IslandGenerationData(islandpoints[i], cells, boundary);
 			islandGenerations.Add(islandGenerationData);
 		}
 
