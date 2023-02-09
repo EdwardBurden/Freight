@@ -19,6 +19,5 @@ MonoBehaviour:
   summaryUIPrefab: {fileID: 4028678723394708424, guid: bad8202bdd276f64d96f0166f6bcb757, type: 3}
   buildingPrefab: {fileID: 7487590425637725449, guid: ffc66f6273cbbb944a96da03d85eb99e, type: 3}
   resourceProduced: {fileID: 11400000, guid: 910c24dfe37d85f4398a13580c5760e0, type: 2}
-  amountProducedPerAutumn: 10
-  amountLostPerSeason: 1
-  startingStorage: 4
+  amountProducedPerTurn: 10
+  startingStorage: 10

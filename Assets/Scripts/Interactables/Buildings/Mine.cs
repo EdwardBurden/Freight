@@ -55,12 +55,12 @@ public class Mine : Building, IProducer
 		storage.AddStorage(mineDefintion.resourceProduced, mineDefintion.startingStorage);
 	}
 
-	private void OnSeasonEnd(SeasonType obj)
+	private void OnTurnEnd(int turn)
 	{
 		//more ot do later
 	}
 
-	private void OnSeasonStart(SeasonType obj)
+	private void OnTurnStart(int turn)
 	{
 		storage.AddStorage(mineDefintion.resourceProduced, mineDefintion.amountProducedPerSeason);
 	}

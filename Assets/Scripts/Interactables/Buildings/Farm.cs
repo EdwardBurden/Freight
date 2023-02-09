@@ -8,14 +8,14 @@ public class Farm : Building, IProducer
 
 	private void OnEnable()
 	{
-		//SeasonsController.SeasonStartedEvent += OnSeasonStart;
-		//SeasonsController.SeasonEndedEvent += OnSeasonEnd;
+		TurnsController.TurnStartedEvent += OnTurnStart;
+		TurnsController.TurnEndedEvent += OnTurnEnd;
 	}
 
 	private void OnDisable()
 	{
-		//SeasonsController.SeasonStartedEvent -= OnSeasonStart;
-		//SeasonsController.SeasonEndedEvent -= OnSeasonEnd;
+		TurnsController.TurnStartedEvent -= OnTurnStart;
+		TurnsController.TurnEndedEvent -= OnTurnEnd;
 	}
 
 	LandingPlatform IProducer.GetProducerLandingPlatform()
@@ -27,7 +27,7 @@ public class Farm : Building, IProducer
 	{
 		return new ResourceDefintion[]
 		{
-			farmDefintion.resourceProduced
+			GetResourceProduced()
 		};
 	}
 
@@ -50,21 +50,19 @@ public class Farm : Building, IProducer
 	public override void Init(BuildingDefintion buildingDefintion)
 	{
 		base.Init(buildingDefintion);
-		storage.AddStorage(farmDefintion.resourceProduced, farmDefintion.startingStorage);
+		storage.AddStorage(GetResourceProduced(), farmDefintion.startingStorage);
 	}
 
-	private void OnSeasonEnd(SeasonType obj)
+	private void OnTurnEnd(int turn)
 	{
-		storage.RemoveStorage(farmDefintion.resourceProduced, farmDefintion.amountLostPerSeason);
+		storage.ClearStorage(); //TEMP
+		//storage.RemoveStorage(farmDefintion.resourceProduced, farmDefintion.amountLostPerSeason);
 		//more ot do later
 	}
 
-	private void OnSeasonStart(SeasonType obj)
+	private void OnTurnStart(int turn)
 	{
-		if (obj == SeasonType.Autumn)
-		{
-			storage.AddStorage(farmDefintion.resourceProduced, farmDefintion.amountProducedPerAutumn);
-		}
+		storage.AddStorage(GetResourceProduced(), GetAmountProducedPerTurn());
 	}
 
 	public int GetCropsStoredAmount()
@@ -77,13 +75,8 @@ public class Farm : Building, IProducer
 		return farmDefintion.resourceProduced;
 	}
 
-	public int GetAmountProducedPerAutumn()
+	public int GetAmountProducedPerTurn()
 	{
-		return farmDefintion.amountProducedPerAutumn;
-	}
-
-	public int GetAmountLostPerSeason()
-	{
-		return farmDefintion.amountLostPerSeason;
+		return farmDefintion.amountProducedPerTurn;
 	}
 }

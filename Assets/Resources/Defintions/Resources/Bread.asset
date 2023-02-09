@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bread
   m_EditorClassIdentifier: 
   resourceName: 
-  resourceIcon: {fileID: 0}
+  resourceIcon: {fileID: 21300000, guid: 878f14bb73a86724d8f98d270893836b, type: 3}
   resourceColor: {r: 0, g: 0, b: 0, a: 0}
   iconPrefab: {fileID: 3756753267502298690, guid: d4e37d3ce6cd9c14991a67063337ef64, type: 3}
   freightPrefab: {fileID: 2785265033204548586, guid: bc993f97bf207924eae676c79eacbb61, type: 3}
