@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using Terrain;
+using UI;
 using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -13,15 +14,19 @@ public class SettlementGenerator : MonoBehaviour
 {
 	[SerializeField] public AnimationCurve radiusCurve;
 
-	[SerializeField][Min(1)] public float settlementRadius = 2;
-	[SerializeField][Min(0.05f)] public float minBuildingRadius = 1;
-	[SerializeField][Min(0.25f)] public float maxBuildingRadius = 1.5f;
+	[SerializeField][Min(1)] public float regionExtent = 2;
+	//[SerializeField][Min(0.05f)] public float minBuildingRadius = 1;
+	//	[SerializeField][Min(0.25f)] public float maxBuildingRadius = 1.5f;
 	[SerializeField] public int rejectionSamples;
 	[SerializeField] public int maxPoints;
 	[SerializeField] public GameObject[] buildings;
 
 	private PoissonCell[,] poissonCells;
 	private List<PoissonPoint> spawnedPoints = new List<PoissonPoint>();
+
+	private List<PoissonPoint> unusedStarts => spawnedPoints.Where(x => !x.usedForStart).ToList();
+
+	public float minBuildingRadius => radiusCurve.Evaluate(0);
 
 	private Vector2 regionSize;
 	private Vector3 offset;
@@ -36,72 +41,93 @@ public class SettlementGenerator : MonoBehaviour
 	{
 		while (true)
 		{
-			yield return new WaitForSeconds(0.005f);
+			yield return new WaitForSeconds(0.5f);
 			//	radiusCurve.Evaluate(Random.value);
-
-			float randomRadius = radiusCurve.Evaluate(Random.value);
-			AddBuilding(randomRadius);
+			AddnextBuildings();
 		}
 
 	}
 
-
-	private void AddBuilding(float radius)
+	private void OverrideBuilding()
 	{
-		PoissonPoint p = CreatePoint(radius);
-		if (p != null)
+
+
+	}
+
+
+	private void AddnextBuildings()
+	{
+		List<PoissonPoint> points = CreatePointSet();
+		if (points != null) /// add way to add created lists to pile then only spawn some depening on amount needed
 		{
-			Vector3 world = p.pos.ToVector3() - offset + this.transform.position;
-			int angleamount = 8;
-			float y = Random.Range(0, angleamount + 1) * (360 / angleamount);
-			Quaternion rotation = Quaternion.Euler(0, y, 0);
-			GameObject gg = Instantiate(buildings[0], world, rotation, this.transform);
-			float h = (settlementRadius / 2 - Vector3.Distance(world, this.transform.position)) * 0.3f;
-			gg.transform.localScale = Vector3.one * (p.radius / 2) + new Vector3(0, h, 0);
+			spawnedPoints.AddRange(points);
+			foreach (PoissonPoint point in points)
+			{
+				Vector3 world = point.pos.ToVector3() - offset + this.transform.position;
+				int angleamount = 16;
+				float y = Random.Range(0, angleamount + 1) * (360 / angleamount);
+				Quaternion rotation = Quaternion.Euler(0, y, 0);
+				GameObject gg = Instantiate(buildings[0], world, rotation, this.transform);
+				//float h = (settlementRadius / 2 - Vector3.Distance(world, this.transform.position)) * 0.3f;
+				gg.transform.localScale = Vector3.one * (point.radius / 2) + new Vector3(0, point.radius, 0);
+			}
 		}
 	}
 
-	private PoissonPoint CreatePoint(float radius)
+	private List<PoissonPoint> CreatePointSet()
 	{
+		List<PoissonPoint> points = new List<PoissonPoint>();
 		PoissonPoint start = GetNextStartingPoint();
-		PoissonPoint createdPoint = null;
 		for (int i = 0; i < rejectionSamples; i++)
 		{
 			float angle = Random.value * Mathf.PI * 2;
 			Vector2 direction = new Vector2(Mathf.Sin(angle), Mathf.Cos(angle));
-			Vector2 candidate = start.pos + direction * Random.Range(radius, 2 * radius);
+			Vector2 candidate = start.pos + direction * Random.Range(start.radius, 2 * start.radius);
 			//check against cell info
 
 			if (!(candidate.x >= 0 && candidate.x < regionSize.x && candidate.y >= 0 && candidate.y < regionSize.y))
 			{
 				continue;
 			}
-			if (PoissonSampling.DoesPointOverlapExistingPoint(poissonCells, candidate, minBuildingRadius, radius))
+			float sampledRadius = SampleRadiusAtPostion(candidate);
+			if (PoissonSampling.DoesPointOverlapExistingPoint(poissonCells, candidate, minBuildingRadius, sampledRadius))
 			{
 				continue;
 			}
-			PoissonPoint candiatePoint = new PoissonPoint(candidate, radius);
+			//sample radius at point in density map
+			//float sampledRadius = ampleRadiusAtPostion(candidate));
+			PoissonPoint candiatePoint = new PoissonPoint(candidate, sampledRadius);
 			PoissonSampling.PushPointIntoGrid(poissonCells, candiatePoint, minBuildingRadius);
-			spawnedPoints.Add(candiatePoint);
-			createdPoint = candiatePoint;
-			break;
+			//spawnedPoints.Add(candiatePoint);
+			points.Add(candiatePoint);
+			//break;
 
 		}
-		return createdPoint;
+		start.usedForStart = true;
+		return points;
+	}
+
+	private float SampleRadiusAtPostion(Vector2 point) //localPos 0,0, being min
+	{
+		Vector3 worldPos = point.ToVector3() - offset;
+		float heightMod = 1f - Vector3.Distance(worldPos, this.transform.position) / (regionExtent / 2);
+		float randomRadius = radiusCurve.Evaluate(heightMod);
+		return randomRadius;
 	}
 
 	private PoissonPoint GetNextStartingPoint()
 	{
 		PoissonPoint startPoint;
-		if (spawnedPoints.Count > 0)
+		if (unusedStarts.Count > 0)
 		{
-			startPoint = new PoissonPoint(new Vector2( regionSize.x * Random.value , regionSize.y * Random.value), minBuildingRadius);
-			//startPoint = spawnedPoints[Random.Range(0, spawnedPoints.Count)];
-			//	startPoint = spawnedPoints[spawnedPoints.Count - 1];
+			//startPoint = new PoissonPoint(new Vector2( regionSize.x * Random.value , regionSize.y * Random.value), minBuildingRadius);
+			startPoint = unusedStarts[Random.Range(0, unusedStarts.Count)];
+			//startPoint = unusedStarts[unusedStarts.Count - 1];
 		}
 		else
 		{
-			startPoint = new PoissonPoint(regionSize / 2, minBuildingRadius);
+			float sampledRadius = SampleRadiusAtPostion(regionSize / 2);
+			startPoint = new PoissonPoint(regionSize / 2, sampledRadius);
 		}
 		return startPoint;
 
@@ -121,7 +147,7 @@ public class SettlementGenerator : MonoBehaviour
 
 	private void GenerateGrid()
 	{
-		regionSize = new Vector2(settlementRadius, settlementRadius);
+		regionSize = new Vector2(regionExtent, regionExtent);
 		offset = new Vector3(regionSize.x, 0, regionSize.y) / 2.0f;
 		poissonCells = PoissonSampling.CreateGrid(regionSize, minBuildingRadius);
 		spawnedPoints = new List<PoissonPoint>();
@@ -131,7 +157,7 @@ public class SettlementGenerator : MonoBehaviour
 	private void OnDrawGizmos()
 	{
 		Gizmos.color = Color.yellow;
-		Gizmos.DrawCube(this.transform.position, new Vector3(settlementRadius, 0, settlementRadius));
+		Gizmos.DrawCube(this.transform.position, new Vector3(regionExtent, 0, regionExtent));
 
 		if (poissonCells != null)
 		{
