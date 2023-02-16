@@ -50,17 +50,44 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0.2
-      inSlope: 0.8
-      outSlope: 0.8
+      inSlope: 0
+      outSlope: 0
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
+      time: 0.3
+      value: 0.2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 0.3
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.6
+      value: 0.3
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
       time: 1
-      value: 1
-      inSlope: 0.8
-      outSlope: 0.8
+      value: 0.7
+      inSlope: 1
+      outSlope: 1
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -68,8 +95,60 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  heightCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   regionExtent: 10
   rejectionSamples: 30
   maxPoints: 2000
-  buildings:
-  - {fileID: 0}
+  settlemenSpawnInfos:
+  - buildings:
+    - buildingPrefab: {fileID: 6780830723976064703, guid: 2f37db2efdeb56d498c31cee2a2e505c, type: 3}
+      spawnChance: 0
+    - buildingPrefab: {fileID: 667110673395168973, guid: 4ec4ac2374c58fc49b903e598960d96d, type: 3}
+      spawnChance: 0
+    - buildingPrefab: {fileID: 6377223780259571665, guid: 8b0c77cc226268344ab09ff322e6758c, type: 3}
+      spawnChance: 0
+    radius: 0.2
+  - buildings:
+    - buildingPrefab: {fileID: 1452064888995416370, guid: 52927935489e62d42820e87b0b60a576, type: 3}
+      spawnChance: 0
+    - buildingPrefab: {fileID: 6725676578808065248, guid: b243e5d10855c35478d4a410d3ff4b7b, type: 3}
+      spawnChance: 0
+    - buildingPrefab: {fileID: 6341956640934602220, guid: 772278290585c30409c43f23c983c16b, type: 3}
+      spawnChance: 0
+    radius: 0.3
+  - buildings:
+    - buildingPrefab: {fileID: 7269857629524677731, guid: 0e62af079fb63b0409188c583bfff2f6, type: 3}
+      spawnChance: 0
+    radius: 0.4
+  - buildings:
+    - buildingPrefab: {fileID: 7645207112889495264, guid: d7b5437d5297688429f92e37b4a58fc1, type: 3}
+      spawnChance: 0
+    radius: 0.5
+  - buildings:
+    - buildingPrefab: {fileID: 9036986331929838713, guid: 402e76927f9233a4db41b25edf3fd430, type: 3}
+      spawnChance: 0
+    radius: 0.6
+  waitTime: 0.1
