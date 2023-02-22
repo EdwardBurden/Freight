@@ -4,7 +4,7 @@ using TMPro;
 using UI;
 using UnityEngine;
 
-public class SettlementPanel : BuildingPanel<Settlement>
+public class SettlementPanel : BuildingPanel<ConsumerLevelBuilding>
 {
 	[SerializeField] private TMP_Text rewardField;
 	[SerializeField] private Transform acceptsTransform;
@@ -14,11 +14,11 @@ public class SettlementPanel : BuildingPanel<Settlement>
 	{
 		base.Show();
 		GameObjectUtils.Clear(acceptsTransform);
-		SettlementRequest settlementRequirements = building.GetResourceRequirements();
+	/*	SettlementRequest settlementRequirements = building.GetResourceRequirements();
 		if (settlementRequirements != null)
 		{
 			rewardField.text = settlementRequirements.creditReward.ToString();
-			foreach (ResourceRequest settlement in settlementRequirements.requests)
+			foreach (temp settlement in settlementRequirements.requests)
 			{
 				ShowResourceRequired(settlement);
 			}
@@ -26,10 +26,10 @@ public class SettlementPanel : BuildingPanel<Settlement>
 		else
 		{
 			rewardField.text = "Must wait till year start for requests";
-		}
+		}*/
 	}
 
-	private void ShowResourceRequired(ResourceRequest settlementRequirement)//TODO add amounts and amountsLeft
+	private void ShowResourceRequired(temp settlementRequirement)//TODO add amounts and amountsLeft
 	{
 		int amountStored = buildingStorage.GetStorage(settlementRequirement.resourceDefintion);
 		int amountRequired = settlementRequirement.amountRequired;

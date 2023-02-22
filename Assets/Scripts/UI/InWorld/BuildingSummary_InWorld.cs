@@ -9,10 +9,10 @@ namespace UI
 	public abstract class BuildingSummary_InWorld : MonoBehaviour
 	{
 		[SerializeField] protected TMP_Text buildingNameText;
-		protected Building building;
+		protected LevelBuilding building;
 
 
-		public void Init(Building building)
+		public void Init(LevelBuilding building)
 		{
 			this.building = building;
 			if (building.storage != null)

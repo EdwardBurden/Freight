@@ -6,7 +6,7 @@ using UnityEngine;
 public class SettlementRequest
 {
 	public int creditReward;
-	public ResourceRequest[] requests;
+	public temp[] requests;
 
 
 	public SettlementRequest(ResourceDefintion[] resourceDefintions, int settlementLevel)
@@ -15,12 +15,12 @@ public class SettlementRequest
 
 
 		int resourcesAmount = Mathf.Min(resourceDefintions.Length, (settlementLevel / 2) + 1);
-		requests = new ResourceRequest[resourcesAmount];
+		requests = new temp[resourcesAmount];
 
 		for (int i = 0; i < resourcesAmount; i++)
 		{
 			int amount = Random.Range(1, settlementLevel * 2);
-			ResourceRequest settlementRequirement = new ResourceRequest(amount, resourceDefintions[i]);
+			temp settlementRequirement = new temp(amount, resourceDefintions[i]);
 			creditReward += (resourceDefintions[i].sellPrice * 2 * settlementLevel);
 			requests[i] = settlementRequirement;
 		}
@@ -28,7 +28,7 @@ public class SettlementRequest
 
 	public bool RequestsFulfilled(Storage storage)
 	{
-		foreach (ResourceRequest request in requests)
+		foreach (temp request in requests)
 		{
 			if (storage.GetStorage(request.resourceDefintion) < request.amountRequired)
 			{

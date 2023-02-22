@@ -4,7 +4,7 @@ using TMPro;
 using UI;
 using UnityEngine;
 
-public class FarmPanel : BuildingPanel<Farm>
+public class FarmPanel : BuildingPanel<ProducerLevelBuilding>
 {
 	[SerializeField] private TMP_Text producedperTurnText;
 	[SerializeField] private Transform producesTransform;

@@ -24,26 +24,26 @@ public class WalletController : Singleton<WalletController>, IGameController
 		return wallet.credits;
 	}
 
-	public void AddBuildingPlacementTransaction(int amount, string oldBuildingName, Building newBuilding)
+	public void AddBuildingPlacementTransaction(int amount, string oldBuildingName, LevelBuilding newBuilding)
 	{
 		BuildingPlacementTransaction buildingPlacement = new BuildingPlacementTransaction(DateTime.Now, amount, oldBuildingName, newBuilding);
 		AddTransaction(buildingPlacement);
 	}
 
-	public void AddSettlementRequestFulfilledTransaction(int amount, Building building)
+	public void AddSettlementRequestFulfilledTransaction(int amount, LevelBuilding building)
 	{
 		//TODO
 		RequestCompleteTransaction requestComplete = new RequestCompleteTransaction(DateTime.Now, amount, building);
 		AddTransaction(requestComplete);
 	}
 
-	public void AddBuyTransaction(int amount, Building building, Ship ship, ResourceDefintion resource)
+	public void AddBuyTransaction(int amount, LevelBuilding building, Ship ship, ResourceDefintion resource)
 	{
 		BuyTransaction buyTransaction = new BuyTransaction(DateTime.Now, amount, building, ship, resource);
 		AddTransaction(buyTransaction);
 	}
 
-	public void AddSellTransaction(int amount, Building building, Ship ship, ResourceDefintion resource)
+	public void AddSellTransaction(int amount, LevelBuilding building, Ship ship, ResourceDefintion resource)
 	{
 		SellTransaction sellTransaction = new SellTransaction(DateTime.Now, amount, building, ship, resource);
 		AddTransaction(sellTransaction);

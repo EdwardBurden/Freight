@@ -19,7 +19,7 @@ public class BuildingIconButtonWidget : MonoBehaviour
 	[SerializeField]
 	private Button button;
 
-	public void ShowBuilding(BuildingDefintion building, Action callback = null)
+	public void ShowBuilding(BuildingLevelDefintion building, Action callback = null)
 	{
 		text.text = building.buildingName;
 		icon.sprite = building.buildingIcon;

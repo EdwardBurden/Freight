@@ -363,9 +363,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7878513662307553159}
-  - component: {fileID: 7878513662307553155}
   - component: {fileID: 667322553291242172}
   - component: {fileID: 4641993059222504513}
+  - component: {fileID: 6110280551555782898}
   m_Layer: 0
   m_Name: Town
   m_TagString: Untagged
@@ -381,7 +381,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7878513662307553180}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.78, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -392,23 +392,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7878513662307553155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7878513662307553180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8b0c8d9bc816094c8379e6f742cc968, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hoverUIPrefab: {fileID: 234753750589598935, guid: ae65448598d6f4743bd4d43b4a5b7178, type: 3}
-  summaryUIAnchor: {fileID: 2807097585713938179}
-  storage: {fileID: 4641993059222504513}
-  islandBlock: {fileID: 0}
-  platform: {fileID: 5640313802130655098}
 --- !u!65 &667322553291242172
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -436,6 +419,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storageMessageTransform: {fileID: 5862001888207603905}
   storageUpdatePrefab: {fileID: 1821656757289636019, guid: cc3b202cd3216b14a949e35f25c640c3, type: 3}
+--- !u!114 &6110280551555782898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7878513662307553180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afbdccd7e5a1aa947ad989bed1ef8ee5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  summaryUIAnchor: {fileID: 2807097585713938179}
+  storage: {fileID: 4641993059222504513}
+  platform: {fileID: 5640313802130655098}
+  level: 1
 --- !u!1 &8468621965111044093
 GameObject:
   m_ObjectHideFlags: 0

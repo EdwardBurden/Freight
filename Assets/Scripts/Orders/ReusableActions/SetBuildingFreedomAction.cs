@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class SetBuildingFreedomAction : Action
 {
-	private Building building;
+	private LevelBuilding building;
 	private bool freedom;
 
-	public SetBuildingFreedomAction(Building building, bool freedom) : base(false)
+	public SetBuildingFreedomAction(LevelBuilding building, bool freedom) : base(false)
 	{
 		this.building = building;
 		this.freedom = freedom;

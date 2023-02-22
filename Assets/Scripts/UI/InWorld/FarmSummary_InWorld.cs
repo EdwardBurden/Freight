@@ -11,7 +11,7 @@ namespace UI
 		[SerializeField] private ResourceProducedWidget buttonWidget;
 		[SerializeField] private Transform resourcesTransform;
 
-		private Farm farm => building as Farm;
+		private ProducerLevelBuilding farm => building as ProducerLevelBuilding;
 
 		public override void Show()
 		{

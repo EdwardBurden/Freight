@@ -1,74 +1,39 @@
+﻿using OpenCover.Framework.Model;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Terrain;
-using UI;
-using Unity.VisualScripting;
-using UnityEngine;
 
-public abstract class Building : InteractableObject
+public class Building : InteractableObject
 {
-	[SerializeField] protected Transform summaryUIAnchor;
-	[SerializeField] public Storage storage;
+	public BuildingDefintion BuildingDefintion { get; set; }
+	public LevelBuilding levelBuilding;
+	public IslandBlock islandBlock;
 
-
-	protected BuildingSummary_InWorld summaryUI;
-	protected BuildingDefintion buildingDefintion;
-	[HideInInspector] public IslandBlock islandBlock;
-	private bool isFreeToUse = true; //TODO replace with a queue of ships 
-
-	public virtual void Init(BuildingDefintion buildingDefintion)
+	private void Start()
 	{
-		this.buildingDefintion = buildingDefintion;
-		if (buildingDefintion.summaryUIPrefab != null && summaryUIAnchor != null)
-		{
-			summaryUI = Instantiate(buildingDefintion.summaryUIPrefab, summaryUIAnchor);
-			summaryUI.Init(this);
-		}
+		levelBuilding = Instantiate(BuildingDefintion.buildingLevels[0].buildingPrefab, this.transform);
+	//	levelBuilding.Init(BuildingDefintion.buildingLevels[0],this);
 	}
 
-
-	private void OnDestroy()
-	{
-		if (summaryUI != null)
-		{
-			Destroy(summaryUI.gameObject);
-		}
-	}
-
-	public override string GetInteractableObjectName()
-	{
-		return buildingDefintion.buildingName;
-	}
-
-	public bool IsFree()
-	{
-		return isFreeToUse;
-	}
-
-	public void SetBuildingFreedom(bool isFree)
-	{
-		isFreeToUse = isFree;
-	}
-
-	public Sprite GetBuildingIcon()
-	{
-		return buildingDefintion.buildingIcon;
-	}
 
 	public override void OnHover()
 	{
 		base.OnHover();
-		if (summaryUI != null)
-		{
-			summaryUI.OnBuildingHover();
-		}
+		levelBuilding.OnHover();
 	}
 
 	public override void OffHover()
 	{
 		base.OffHover();
-		if (summaryUI != null)
-		{
-			summaryUI.OffBuildingHover();
-		}
+		levelBuilding.OffHover();
+	}
+
+	public override string GetInteractableObjectName()
+	{
+		return levelBuilding.GetInteractableObjectName();
 	}
 }
+

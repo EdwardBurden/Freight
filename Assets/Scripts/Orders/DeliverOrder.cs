@@ -22,7 +22,7 @@ public class DeliverOrder : ShipOrder
 		LandingPlatform landingPlatform = consumer.GetConsumerLandingPlatform();
 		Transform navtransform = consumer.GetConsumerNavigationPostion();
 		Vector3 position = landingPlatform.GetLandingPosition();
-		Building building = (Building)consumer;
+		LevelBuilding building = (LevelBuilding)consumer;
 
 		//Move
 		childList.PushAction(new LookAtAction(position, shipObject, true));

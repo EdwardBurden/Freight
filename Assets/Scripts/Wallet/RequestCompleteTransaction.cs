@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class RequestCompleteTransaction : WalletTransaction
 {
-	private Building building;
+	private LevelBuilding building;
 
-	public RequestCompleteTransaction(DateTime time, int creditChange, Building building) : base(time, creditChange)
+	public RequestCompleteTransaction(DateTime time, int creditChange, LevelBuilding building) : base(time, creditChange)
 	{
 		this.building = building;
 	}

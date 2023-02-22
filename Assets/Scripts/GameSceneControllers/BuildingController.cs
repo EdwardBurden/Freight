@@ -5,7 +5,7 @@ using System;
 using Random = UnityEngine.Random;
 using System.Linq;
 
-public class BuildingController : Singleton<BuildingController>, IGameController 
+public class BuildingController : Singleton<BuildingController>, IGameController
 {
 	public static event Action<Building> BuildingSelectedEvent;
 	public static event Action<Building> BuildingDeSelectedEvent;
@@ -99,11 +99,14 @@ public class BuildingController : Singleton<BuildingController>, IGameController
 	public Building AddBuilding(BuildingDefintion buildingToPlace, IslandBlock islandBlock)
 	{
 		int rotation = Random.Range(0, 360);
-		Building building = Instantiate(buildingToPlace.buildingPrefab, islandBlock.buildingSpawnPoint);
+		GameObject b = new GameObject();
+		Building building = b.AddComponent<Building>(); //will need collider too , can work out interactions later
+		building.transform.parent = islandBlock.buildingSpawnPoint;
+		//	LevelBuilding building = Instantiate(buildingToPlace, islandBlock.buildingSpawnPoint);
 		building.islandBlock = islandBlock;
 		building.transform.rotation = Quaternion.Euler(0, rotation, 0);
 		building.transform.localPosition = Vector3.zero;
-		building.Init(buildingToPlace);
+		building.BuildingDefintion = buildingToPlace;
 		buildings.Add(building);
 		return building;
 	}
@@ -130,9 +133,9 @@ public class BuildingController : Singleton<BuildingController>, IGameController
 		return newBuilding;
 	}
 
-	internal IEnumerable<BuildingDefintion> FindAllBuildingsThatCanBePlaced(IslandBlock islandBlock)
+	internal IEnumerable<BuildingLevelDefintion> FindAllBuildingsThatCanBePlaced(IslandBlock islandBlock)
 	{
-		List<BuildingDefintion> buildingDefintions = new List<BuildingDefintion>();
+		List<BuildingLevelDefintion> buildingDefintions = new List<BuildingLevelDefintion>();
 		/*foreach (BuildingDefintion building in allbuildingDefintions)
 		{
 			if (building.CanBePlaced(islandBlock))

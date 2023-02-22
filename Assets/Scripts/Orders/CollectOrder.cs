@@ -20,7 +20,7 @@ public class CollectOrder : ShipOrder
 		LandingPlatform landingPlatform = producer.GetProducerLandingPlatform();
 		Transform navtransform = producer.GetProducerNavigationPostion();
 		Vector3 position = landingPlatform.GetLandingPosition();
-		Building building = (Building)producer;
+		LevelBuilding building = (LevelBuilding)producer;
 
 		//Move
 		childList.PushAction(new LookAtAction(position, shipObject, true));

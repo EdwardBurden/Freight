@@ -667,9 +667,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7487590425637725941}
-  - component: {fileID: 7487590425637725449}
   - component: {fileID: 6012992894038844276}
   - component: {fileID: 433045824828162453}
+  - component: {fileID: 5293349329074984869}
   m_Layer: 0
   m_Name: Crop Farm
   m_TagString: Untagged
@@ -696,23 +696,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7487590425637725449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7487590425637725448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26c17db5222304c40badd142e53ca1ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hoverUIPrefab: {fileID: 234753750589598935, guid: ae65448598d6f4743bd4d43b4a5b7178, type: 3}
-  summaryUIAnchor: {fileID: 3562713806948084137}
-  storage: {fileID: 433045824828162453}
-  islandBlock: {fileID: 0}
-  platform: {fileID: 8524479539199280681}
 --- !u!65 &6012992894038844276
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -740,6 +723,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storageMessageTransform: {fileID: 7943461507068847152}
   storageUpdatePrefab: {fileID: 1821656757289636019, guid: cc3b202cd3216b14a949e35f25c640c3, type: 3}
+--- !u!114 &5293349329074984869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7487590425637725448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d308d1c0fa4df34ca88b4f0ca670aa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  summaryUIAnchor: {fileID: 3562713806948084137}
+  storage: {fileID: 433045824828162453}
+  platform: {fileID: 8524479539199280681}
 --- !u!1 &7790384783676760700
 GameObject:
   m_ObjectHideFlags: 0

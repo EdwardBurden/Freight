@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class WaitForBuildingToBeFreeAction : Action
 {
-	private Building building;
+	private LevelBuilding building;
 
-	public WaitForBuildingToBeFreeAction(Building building) : base(true)
+	public WaitForBuildingToBeFreeAction(LevelBuilding building) : base(true)
 	{
 		this.building = building;
 	}

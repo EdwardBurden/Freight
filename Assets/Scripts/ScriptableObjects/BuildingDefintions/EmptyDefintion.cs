@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObject/BuildingDefintion/EmptyDefintion")]
-public class EmptyDefintion : BuildingDefintion
+public class EmptyDefintion : BuildingLevelDefintion
 {
 
 }

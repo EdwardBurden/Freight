@@ -9,7 +9,7 @@ namespace UI
 		[SerializeField] private RequiredCollapsedResourceWidget collapsedResourceWidget;
 		[SerializeField] private Transform requestedResourcesTransform;
 
-		private Settlement settlement => building as Settlement;
+		private ConsumerLevelBuilding settlement => building as ConsumerLevelBuilding;
 
 
 		public override void Show()
@@ -17,18 +17,18 @@ namespace UI
 			base.Show();
 			buildingNameText.text = $"{building.GetInteractableObjectName()} {settlement.level}"; ;
 			GameObjectUtils.Clear(requestedResourcesTransform);
-			SettlementRequest settlementRequests = settlement.GetResourceRequirements();
+		/*	SettlementRequest settlementRequests = settlement.GetResourceRequirements();
 			if (settlementRequests == null)
 			{
 				return;
 			}
-			foreach (ResourceRequest item in settlementRequests.requests)
+			foreach (temp item in settlementRequests.requests)
 			{
 				RequiredCollapsedResourceWidget requiredCollapsedResource = Instantiate(collapsedResourceWidget, requestedResourcesTransform);
 				int stored = building.storage.GetStorage(item.resourceDefintion);
 				int required = item.amountRequired;
 				requiredCollapsedResource.ShowResource(item.resourceDefintion, required, stored);
-			}
+			}*/
 		}
 
 	}

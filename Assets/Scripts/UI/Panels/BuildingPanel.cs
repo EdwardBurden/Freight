@@ -5,7 +5,7 @@ using TMPro;
 using UI;
 using UnityEngine;
 
-public abstract class BuildingPanel<T> : Panel where T : Building
+public abstract class BuildingPanel<T> : Panel where T : LevelBuilding
 {
 	[SerializeField] private TMP_Text nameField;
 
@@ -43,11 +43,11 @@ public abstract class BuildingPanel<T> : Panel where T : Building
 	{
 		base.Show();
 		nameField.text = building.GetInteractableObjectName();
-		if (buildingStorage != building.storage && building.storage != null)
+		/*if (buildingStorage != building.storage && building.storage != null)
 		{
 			buildingStorage = building.storage;
 			buildingStorage.StorageUpdatedEvent += OnStorageUpdated;
-		}
+		}*/
 	}
 
 	protected virtual void OnStorageUpdated()
