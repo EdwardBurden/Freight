@@ -12,27 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd7c744873b3d1049a4505625bec6b43, type: 3}
   m_Name: RedPL2
   m_EditorClassIdentifier: 
-  buildingName: 
+  buildingName: Red Producer Level 2
   buildingIcon: {fileID: 0}
   buildCost: 100
   wants:
-  - rid: 1437461329296490498
+  - rid: 1437461334575808515
   needs:
-  - rid: 1437461329296490497
-  summaryUIPrefab: {fileID: 0}
-  buildingPrefab: {fileID: 0}
+  - rid: 1437461334575808514
+  summaryUIPrefab: {fileID: 1473062134563647581, guid: b10066454ea498448908194cbd1c6cc0, type: 3}
+  buildingPrefab: {fileID: 5293349329074984869, guid: ffc66f6273cbbb944a96da03d85eb99e, type: 3}
   references:
     version: 2
     RefIds:
-    - rid: 1437461329296490497
+    - rid: 1437461334575808514
       type: {class: ProduceRequestDefintion, ns: , asm: Assembly-CSharp}
       data:
-        resource: {fileID: 0}
-        minAmount: 0
-        maxAmount: 0
-    - rid: 1437461329296490498
+        resource: {fileID: 11400000, guid: f2212bc8abc02f14d8b25db22c0d2a57, type: 2}
+        minAmount: 1
+        maxAmount: 10
+    - rid: 1437461334575808515
       type: {class: ConsumeRequestDefintion, ns: , asm: Assembly-CSharp}
       data:
-        resource: {fileID: 0}
-        minAmount: 0
-        maxAmount: 0
+        resource: {fileID: 11400000, guid: 79805deb602b8504cb41970cb9296696, type: 2}
+        minAmount: 1
+        maxAmount: 2

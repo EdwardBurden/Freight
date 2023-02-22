@@ -475,7 +475,7 @@ GameObject:
   - component: {fileID: 4914143757049535614}
   - component: {fileID: 6444410239309393269}
   m_Layer: 5
-  m_Name: FarmPanel
+  m_Name: ProducerPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -526,7 +526,7 @@ MonoBehaviour:
   nameField: {fileID: 90467370141113863}
   producedperTurnText: {fileID: 4715030281240172966}
   producesTransform: {fileID: 7905944215233015431}
-  expandedResourceWidget: {fileID: 7028016922876885464, guid: 8b9edc961a5b5fc439351e81b180f6d7, type: 3}
+  resourceIconButtonWidget: {fileID: 5797921899759038979, guid: dfcd58988350fb84795b0c2dc197499e, type: 3}
 --- !u!1 &5472410409596118574
 GameObject:
   m_ObjectHideFlags: 0

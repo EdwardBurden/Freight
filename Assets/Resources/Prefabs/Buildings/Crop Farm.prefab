@@ -735,6 +735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d308d1c0fa4df34ca88b4f0ca670aa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverUIPrefab: {fileID: 234753750589598935, guid: ae65448598d6f4743bd4d43b4a5b7178, type: 3}
   summaryUIAnchor: {fileID: 3562713806948084137}
   storage: {fileID: 433045824828162453}
   platform: {fileID: 8524479539199280681}

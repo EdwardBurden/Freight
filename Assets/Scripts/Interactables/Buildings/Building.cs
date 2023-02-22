@@ -5,8 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terrain;
+using UnityEngine;
 
-public class Building : InteractableObject
+public class Building : MonoBehaviour
 {
 	public BuildingDefintion BuildingDefintion { get; set; }
 	public LevelBuilding levelBuilding;
@@ -15,25 +16,53 @@ public class Building : InteractableObject
 	private void Start()
 	{
 		levelBuilding = Instantiate(BuildingDefintion.buildingLevels[0].buildingPrefab, this.transform);
-	//	levelBuilding.Init(BuildingDefintion.buildingLevels[0],this);
+		levelBuilding.Init(BuildingDefintion.buildingLevels[0], this);
 	}
 
-
-	public override void OnHover()
+	private void OnEnable()
 	{
-		base.OnHover();
-		levelBuilding.OnHover();
+		TurnsController.TurnStartedEvent += TurnEndedEvent;
+		TurnsController.TurnEndedEvent += TurnStartedEvent;
 	}
 
-	public override void OffHover()
+	private void OnDisable()
 	{
-		base.OffHover();
-		levelBuilding.OffHover();
+		TurnsController.TurnStartedEvent -= TurnEndedEvent;
+		TurnsController.TurnEndedEvent -= TurnStartedEvent;
 	}
 
-	public override string GetInteractableObjectName()
+	private void TurnStartedEvent(int turn)
 	{
-		return levelBuilding.GetInteractableObjectName();
+
+	}
+
+	private void TurnEndedEvent(int turn)
+	{
+		bool needsFulfilled = levelBuilding.AreNeedsFulfilled();
+		if (!needsFulfilled)
+		{
+			LevelDownBuilding();
+			return;
+		}
+
+		bool wantsFulfilled = levelBuilding.AreWantsFulfilled();
+		if (wantsFulfilled)
+		{
+			LevelUpBuilding();
+			return;
+		}
+	}
+
+	private void LevelDownBuilding()
+	{
+		//TODO
+
+	}
+
+	private void LevelUpBuilding()
+	{
+		//TODO
+
 	}
 }
 

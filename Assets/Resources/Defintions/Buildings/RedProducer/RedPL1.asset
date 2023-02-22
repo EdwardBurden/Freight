@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: affd61148484ff146afafd82ded8277b, type: 3}
   m_Name: RedPL1
   m_EditorClassIdentifier: 
-  buildingName: Red Producer
+  buildingName: Red Producer Level 1
   buildingIcon: {fileID: 21300000, guid: 2bcd09a053c3c1b4b87ddb71a9d3729a, type: 3}
   buildCost: 13000
   wants: []
   needs:
   - rid: 1437461329296490496
-  summaryUIPrefab: {fileID: 4028678723394708424, guid: bad8202bdd276f64d96f0166f6bcb757, type: 3}
+  summaryUIPrefab: {fileID: 1473062134563647581, guid: b10066454ea498448908194cbd1c6cc0, type: 3}
   buildingPrefab: {fileID: 5293349329074984869, guid: ffc66f6273cbbb944a96da03d85eb99e, type: 3}
   references:
     version: 2

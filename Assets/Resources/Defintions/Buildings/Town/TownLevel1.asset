@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a33bb3090a172b4899bbb7c444db08b, type: 3}
   m_Name: TownLevel1
   m_EditorClassIdentifier: 
-  buildingName: Town
+  buildingName: Town Level 1
   buildingIcon: {fileID: 21300000, guid: dd5d931dc1b0e8d4aabeca72add63f98, type: 3}
   buildCost: 15000
   wants: []
   needs:
   - rid: 1437461329532420096
-  summaryUIPrefab: {fileID: 0}
+  summaryUIPrefab: {fileID: 1473062134563647581, guid: b10066454ea498448908194cbd1c6cc0, type: 3}
   buildingPrefab: {fileID: 6110280551555782898, guid: a95d7d6023b30d74792965ccd4f24fd1, type: 3}
   references:
     version: 2
@@ -26,6 +26,6 @@ MonoBehaviour:
     - rid: 1437461329532420096
       type: {class: ConsumeRequestDefintion, ns: , asm: Assembly-CSharp}
       data:
-        resource: {fileID: 0}
-        minAmount: 0
-        maxAmount: 0
+        resource: {fileID: 11400000, guid: f2212bc8abc02f14d8b25db22c0d2a57, type: 2}
+        minAmount: 1
+        maxAmount: 5

@@ -14,17 +14,6 @@ public abstract class BuildingLevelDefintion : ScriptableObject
 	[SerializeReference, SerializeReferenceButton] public ResourceRequestDefintion[] wants;
 	[SerializeReference, SerializeReferenceButton] public ResourceRequestDefintion[] needs;
 
-	[SerializeField] public BuildingSummary_InWorld summaryUIPrefab; //summary above building
+	[SerializeField] public BuildingSummary summaryUIPrefab; //summary above building
 	[SerializeField] public LevelBuilding buildingPrefab;
-
-	internal ResourceRequest[] CreateNeeds()
-	{
-		List<ResourceRequest> resourceRequests = new List<ResourceRequest>();
-		foreach (ResourceRequestDefintion requestDefintion in needs)
-		{
-			ResourceRequest resourceRequest = requestDefintion.MakeRequest();
-			resourceRequests.Add(resourceRequest);
-		}
-		return resourceRequests.ToArray();
-	}
 }

@@ -16,3 +16,4 @@ MonoBehaviour:
   startingbuildings:
   - {fileID: 11400000, guid: 233ba48802bdc0e499f02acfc8ce6970, type: 2}
   - {fileID: 11400000, guid: a55317169a3fc844cb8a567fb75e3a3b, type: 2}
+  - {fileID: 11400000, guid: 36af967ed0dc16e49975b8d237878de4, type: 2}

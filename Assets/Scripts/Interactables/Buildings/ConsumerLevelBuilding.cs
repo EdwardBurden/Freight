@@ -1,49 +1,21 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ConsumerLevelBuilding : LevelBuilding, IConsumer
 {
-	public event Action RequestsFulfilledEvent;
-
 	[SerializeField] private LandingPlatform platform;
-
 	private ConsumerLevelDefintion consumerLevelDefintion => buildingDefintion as ConsumerLevelDefintion;
-
-	public int level = 1;
-
-	private void OnEnable()
-	{
-		//SeasonsController.YearEndedEvent += OnYearEnd;
-		//SeasonsController.YearStartedEvent += OnYearStart;
-	}
-
-	private void OnDisable()
-	{
-		//SeasonsController.YearEndedEvent -= OnYearEnd;
-		//SeasonsController.YearStartedEvent -= OnYearStart;
-	}
 
 	ResourceDefintion[] IConsumer.GetAcceptedResources()
 	{
-		List<ResourceDefintion> resourceDefintions = new List<ResourceDefintion>();
-		foreach (var item in needs)
-		{
-			resourceDefintions.Add(item.resource);
-		}
-		return resourceDefintions.ToArray();
+		return needs.GetResourcesFromRequests<ConsumeRequest>();// wants.GetResourcesFromRequests<ConsumeRequest>() ;
 	}
 
 	bool IConsumer.AcceptsResource(ResourceDefintion resourceData)
 	{
-		foreach (var item in needs)
-		{
-			if (item is ConsumeRequest consumeRequest && consumeRequest.resource == resourceData)
-			{
-				return true;
-			}
-		}
-		return false;
+		return needs.GetResourcesFromRequests<ConsumeRequest>().Contains(resourceData);
 	}
 
 	LandingPlatform IConsumer.GetConsumerLandingPlatform()
@@ -55,63 +27,11 @@ public class ConsumerLevelBuilding : LevelBuilding, IConsumer
 	{
 		WalletController.instance.AddSellTransaction(resource.sellPrice, this, ship, resource);
 		storage.AddStorage(resource);
+		needs.UpdateResourceRequests<ConsumeRequest>(resource, 1);
 	}
 
 	Transform IConsumer.GetConsumerNavigationPostion()
 	{
 		return summaryUIAnchor;//temp
-	}
-
-	private void OnYearStart(int year)
-	{
-		//settlementRequests = new SettlementRequest(settlementDefintion.resourcesAccepted, level);
-		storage.ClearStorage();
-		if (summaryUI != null)
-		{
-			summaryUI.Show();
-		}
-	}
-
-	private void OnYearEnd(int obj)
-	{
-		CheckRequests();
-		//settlementRequests = null;
-		storage.ClearStorage();
-		if (summaryUI != null)
-		{
-			summaryUI.Show();
-		}
-	}
-
-	private void CheckRequests()
-	{
-		/*if (settlementRequests == null)
-		{
-			return;
-		}
-
-		if (settlementRequests.RequestsFulfilled(storage))
-		{
-			WalletController.instance.AddSettlementRequestFulfilledTransaction(settlementRequests.creditReward, this);
-			RequestsFulfilledEvent?.Invoke();
-			LevelUpSettlement();
-		}
-		else
-		{
-			LevelDownSettlement();
-		}*/
-	}
-
-	private void LevelUpSettlement()
-	{
-		level++;
-	}
-
-	private void LevelDownSettlement()
-	{
-		if (level > 1)
-		{
-			level--;
-		}
 	}
 }

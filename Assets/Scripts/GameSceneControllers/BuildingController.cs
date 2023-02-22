@@ -7,10 +7,10 @@ using System.Linq;
 
 public class BuildingController : Singleton<BuildingController>, IGameController
 {
-	public static event Action<Building> BuildingSelectedEvent;
-	public static event Action<Building> BuildingDeSelectedEvent;
+	public static event Action<LevelBuilding> BuildingSelectedEvent;
+	public static event Action<LevelBuilding> BuildingDeSelectedEvent;
 
-	private Building buildingSelected;
+	private LevelBuilding buildingSelected;
 	private List<Building> buildings = new List<Building>();
 
 	private void Awake()
@@ -51,19 +51,19 @@ public class BuildingController : Singleton<BuildingController>, IGameController
 
 	private void OnLeftClickInteractable(InteractableObject obj, Vector3 position)
 	{
-		Building building = obj.GetComponent<Building>();
+		LevelBuilding levelBuilding = obj.GetComponent<LevelBuilding>();
 		DeSelectBuilding();
-		if (building != null)
+		if (levelBuilding != null)
 		{
-			SelectBuilding(building);
+			SelectBuilding(levelBuilding);
 		}
 	}
 
-	private void SelectBuilding(Building building)
+	private void SelectBuilding(LevelBuilding levelBuilding)
 	{
-		if (buildingSelected == null || buildingSelected != building)
+		if (buildingSelected == null || buildingSelected != levelBuilding)
 		{
-			this.buildingSelected = building;
+			this.buildingSelected = levelBuilding;
 			BuildingSelectedEvent?.Invoke(buildingSelected);
 		}
 	}

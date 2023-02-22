@@ -9,6 +9,12 @@ public class RequiredCollapsedResourceWidget : MonoBehaviour
 	[SerializeField] private TMP_Text resourceStoredToRequiredText;
 	[SerializeField] private Image resourceIconImage;
 
+	public virtual void ShowResource(ResourceRequest resourceRequest)
+	{
+		resourceStoredToRequiredText.text = $"{resourceRequest.amountFulfilled}/{resourceRequest.amount}";
+		resourceIconImage.sprite = resourceRequest.resource.resourceIcon;
+	}
+
 	public virtual void ShowResource(ResourceDefintion resourceData, int required, int stored)
 	{
 		resourceStoredToRequiredText.text = $"{stored}/{required}";

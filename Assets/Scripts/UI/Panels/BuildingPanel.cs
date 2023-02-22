@@ -24,12 +24,12 @@ public abstract class BuildingPanel<T> : Panel where T : LevelBuilding
 		BuildingController.BuildingDeSelectedEvent -= OnBuildingDeSelected;
 	}
 
-	protected virtual void OnBuildingDeSelected(Building building)
+	protected virtual void OnBuildingDeSelected(LevelBuilding building)
 	{
 		Hide();
 	}
 
-	protected virtual void OnBuildingSelected(Building building)
+	protected virtual void OnBuildingSelected(LevelBuilding building)
 	{
 		Hide();
 		if (building is T)
@@ -43,11 +43,11 @@ public abstract class BuildingPanel<T> : Panel where T : LevelBuilding
 	{
 		base.Show();
 		nameField.text = building.GetInteractableObjectName();
-		/*if (buildingStorage != building.storage && building.storage != null)
+		if (buildingStorage != building.storage && building.storage != null)
 		{
 			buildingStorage = building.storage;
 			buildingStorage.StorageUpdatedEvent += OnStorageUpdated;
-		}*/
+		}
 	}
 
 	protected virtual void OnStorageUpdated()
