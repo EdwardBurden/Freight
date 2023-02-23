@@ -7,10 +7,10 @@ using System.Linq;
 
 public class BuildingController : Singleton<BuildingController>, IGameController
 {
-	public static event Action<LevelBuilding> BuildingSelectedEvent;
-	public static event Action<LevelBuilding> BuildingDeSelectedEvent;
+	public static event Action<Building> BuildingSelectedEvent;
+	public static event Action<Building> BuildingDeSelectedEvent;
 
-	private LevelBuilding buildingSelected;
+	private Building buildingSelected;
 	private List<Building> buildings = new List<Building>();
 
 	private void Awake()
@@ -51,7 +51,7 @@ public class BuildingController : Singleton<BuildingController>, IGameController
 
 	private void OnLeftClickInteractable(InteractableObject obj, Vector3 position)
 	{
-		LevelBuilding levelBuilding = obj.GetComponent<LevelBuilding>();
+		Building levelBuilding = obj.GetComponent<Building>();
 		DeSelectBuilding();
 		if (levelBuilding != null)
 		{
@@ -59,7 +59,7 @@ public class BuildingController : Singleton<BuildingController>, IGameController
 		}
 	}
 
-	private void SelectBuilding(LevelBuilding levelBuilding)
+	private void SelectBuilding(Building levelBuilding)
 	{
 		if (buildingSelected == null || buildingSelected != levelBuilding)
 		{
@@ -99,14 +99,14 @@ public class BuildingController : Singleton<BuildingController>, IGameController
 	public Building AddBuilding(BuildingDefintion buildingToPlace, IslandBlock islandBlock)
 	{
 		int rotation = Random.Range(0, 360);
-		GameObject b = new GameObject();
-		Building building = b.AddComponent<Building>(); //will need collider too , can work out interactions later
+		Building building = Instantiate(buildingToPlace.buildingBase, islandBlock.transform);
 		building.transform.parent = islandBlock.buildingSpawnPoint;
 		//	LevelBuilding building = Instantiate(buildingToPlace, islandBlock.buildingSpawnPoint);
 		building.islandBlock = islandBlock;
 		building.transform.rotation = Quaternion.Euler(0, rotation, 0);
 		building.transform.localPosition = Vector3.zero;
 		building.BuildingDefintion = buildingToPlace;
+		building.Init(buildingToPlace);
 		buildings.Add(building);
 		return building;
 	}

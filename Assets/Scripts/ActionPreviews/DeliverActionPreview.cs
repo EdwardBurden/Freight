@@ -48,7 +48,7 @@ public class DeliverActionPreview : ActionPreview
 		IConsumer consumer = interactableObject.GetComponent<IConsumer>();
 		if (consumer != null)
 		{
-			ResourceSelectScreen.Create(consumer.GetAcceptedResources(), pos, (resource) => OnResourceSelected(consumer, resource), true);
+			ResourceSelectScreen.Create(consumer.GetConsumedResources(), pos, (resource) => OnResourceSelected(consumer, resource), true);
 		}
 	}
 

@@ -1,26 +1,28 @@
 using ActionLists;
 using UnityEngine;
 
-public class CollectOrder : ShipOrder
+//TOD make seperate order for collecting from non buildings
+public class CollectFromBuildingOrder : ShipOrder
 {
 	private CarryObject carryObject;
-	private IProducer producer;
 	private ResourceDefintion resourceData;
+	private IProducer producer;
 
-	public CollectOrder(ShipActionDefintion shipActionDefintion, Ship shipObject, IProducer target, ResourceDefintion resourceTarget) : base(shipActionDefintion, shipObject)
+
+	public CollectFromBuildingOrder(ShipActionDefintion shipActionDefintion, Ship shipObject, IProducer producer, ResourceDefintion resourceTarget) : base(shipActionDefintion, shipObject)
 	{
+		this.producer = producer; //hate but will come back to later
 		this.carryObject = shipObject.GetComponent<CarryObject>();
-		this.producer = target;
 		this.resourceData = resourceTarget;
 	}
 
 	public override void Setup()
 	{
 		base.Setup();
+		Building building = (Building)producer;
 		LandingPlatform landingPlatform = producer.GetProducerLandingPlatform();
 		Transform navtransform = producer.GetProducerNavigationPostion();
 		Vector3 position = landingPlatform.GetLandingPosition();
-		LevelBuilding building = (LevelBuilding)producer;
 
 		//Move
 		childList.PushAction(new LookAtAction(position, shipObject, true));

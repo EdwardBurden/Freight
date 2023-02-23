@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b346b29cb6b626544babefe7a435aab0, type: 3}
   m_Name: Town
   m_EditorClassIdentifier: 
+  buildingBase: {fileID: 466932338718362588, guid: 29aa8f3c7a51b86469e2c2278ec704aa, type: 3}
   buildingLevels:
   - {fileID: 11400000, guid: cc76772fbacfa814b9440d362342ff08, type: 2}
+  - {fileID: 11400000, guid: 2d7a5d5b2caf65e4099d24c2d0d849f7, type: 2}

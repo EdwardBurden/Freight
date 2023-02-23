@@ -20,7 +20,7 @@ MonoBehaviour:
   needs:
   - rid: 1437461329532420096
   summaryUIPrefab: {fileID: 1473062134563647581, guid: b10066454ea498448908194cbd1c6cc0, type: 3}
-  buildingPrefab: {fileID: 6110280551555782898, guid: a95d7d6023b30d74792965ccd4f24fd1, type: 3}
+  buildingPrefab: {fileID: 4279352078758592941, guid: a95d7d6023b30d74792965ccd4f24fd1, type: 3}
   references:
     version: 2
     RefIds:

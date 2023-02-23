@@ -14,9 +14,9 @@ namespace UI
 		[SerializeField] private Transform needsTransform;
 		[SerializeField] protected TMP_Text buildingNameText;
 
-		protected LevelBuilding building;
+		protected Building building;
 
-		public void Init(LevelBuilding building)
+		public void Init(Building building)
 		{
 			this.building = building;
 			if (building.storage != null)
@@ -29,10 +29,9 @@ namespace UI
 		public void Show()
 		{
 			buildingNameText.text = building.GetInteractableObjectName();
-			buildingNameText.text = $"{building.GetInteractableObjectName()}"; ;
 
-			ShowRequests(building.needs, needsTransform);
-			ShowRequests(building.wants, wantsTransform);
+			ShowRequests(building.GetCurrentLevel().needs, needsTransform);
+			ShowRequests(building.GetCurrentLevel().wants, wantsTransform);
 		}
 
 		private void ShowRequests(RequestGroup requestGroup, Transform parent)

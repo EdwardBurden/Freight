@@ -45,15 +45,27 @@ public class RequestGroup
 
 	}
 
-	public void UpdateResourceRequests<T>(ResourceDefintion resource, int amount)  where T : ResourceRequest
+	public void UpdateResourceRequests<T>(ResourceDefintion resource, int amount) where T : ResourceRequest
 	{
 		foreach (ResourceRequest request in resourceRequests)
 		{
-			if (request is T req)
+			if (request is T req && req.resource == resource)
 			{
 				req.UpdateRequest(amount);
 			}
 		}
+	}
+
+	public bool AreAllRequestsFulfilled()
+	{
+		foreach (ResourceRequest request in resourceRequests)
+		{
+			if (!request.RequestFulfilled())
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 }
 

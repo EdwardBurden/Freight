@@ -10,7 +10,7 @@ public class CollectActionDefintion : ShipActionDefintion
 
 	public override bool CanBeCreated(Ship shipObject, InteractableObject interactableObject, Vector3 postion)
 	{
-		IProducer producer = interactableObject.GetComponent<IProducer>();
+		IProducer producer = interactableObject.GetComponent<IProducer>(); //add if there are ANY resources to collect here so we can ealry out
 		CarryObject carryBehaviour = shipObject.GetComponent<CarryObject>();
 		if (producer == null || carryBehaviour == null)
 		{
@@ -35,7 +35,7 @@ public class CollectActionDefintion : ShipActionDefintion
 
 	private void OnResourceSelected(Ship shipObject, IProducer producer, ResourceDefintion resourceDefintion, Action<ShipOrder> callback)
 	{
-		CollectOrder collectAction = new CollectOrder(this, shipObject, producer, resourceDefintion);
+		CollectFromBuildingOrder collectAction = new CollectFromBuildingOrder(this, shipObject, producer, resourceDefintion);
 		callback?.Invoke(collectAction);
 	}
 }

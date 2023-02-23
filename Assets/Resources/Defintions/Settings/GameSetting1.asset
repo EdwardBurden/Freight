@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd43a56bc1be1b84f9a757d7c6ba7357, type: 3}
   m_Name: GameSetting1
   m_EditorClassIdentifier: 
-  allBuildings: []
+  allBuildings:
+  - building: {fileID: 11400000, guid: 233ba48802bdc0e499f02acfc8ce6970, type: 2}
+    spawnChance: 0
+    maxSpawnAmount: 0
   startingbuildings:
   - {fileID: 11400000, guid: 233ba48802bdc0e499f02acfc8ce6970, type: 2}
   - {fileID: 11400000, guid: a55317169a3fc844cb8a567fb75e3a3b, type: 2}
