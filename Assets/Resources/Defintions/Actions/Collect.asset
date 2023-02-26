@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45ae50a49ed85144aa76c2e53314baaa, type: 3}
+  m_Script: {fileID: 11500000, guid: 3601961508880414ba55223416952534, type: 3}
   m_Name: Collect
   m_EditorClassIdentifier: 
   actionName: Collect
   actionIcon: {fileID: 21300000, guid: 40c8fcafe6108024993d1c4135e7c0c3, type: 3}
-  actionColor: {r: 0.7968204, g: 0.84400004, b: 0.372204, a: 1}
-  uiOrder: 2
+  actionColor: {r: 0.764151, g: 0.47340575, b: 0.06848521, a: 1}
+  uiOrder: 0
   collectActionPreviewprefab: {fileID: 1137362116565948992, guid: a53c71e805d8d6a449f8c854f6f99a5a, type: 3}

@@ -13,30 +13,10 @@ MonoBehaviour:
   m_Name: GameSetting1
   m_EditorClassIdentifier: 
   allBuildings:
-  - building: {fileID: 11400000, guid: fd7f18122a9717a439739d2602f70336, type: 2}
-    spawnChance: 0
-    maxSpawnAmount: 0
-  - building: {fileID: 11400000, guid: 192cb6eed19a0dd49a0f6645c1c0569e, type: 2}
-    spawnChance: 0
-    maxSpawnAmount: 0
-  - building: {fileID: 11400000, guid: 8d5473d35b9646c4b97b523513097421, type: 2}
-    spawnChance: 0
-    maxSpawnAmount: 0
-  - building: {fileID: 11400000, guid: eeb9e9e18871162429110781db42877d, type: 2}
-    spawnChance: 0
-    maxSpawnAmount: 0
-  - building: {fileID: 11400000, guid: cc76772fbacfa814b9440d362342ff08, type: 2}
-    spawnChance: 0
-    maxSpawnAmount: 0
-  - building: {fileID: 11400000, guid: 5a40cf45509093a4291913f3ee4865a7, type: 2}
-    spawnChance: 0
-    maxSpawnAmount: 0
-  - building: {fileID: 11400000, guid: 4617106870d5b604ea75aade8ae31e6f, type: 2}
-    spawnChance: 0
-    maxSpawnAmount: 0
-  - building: {fileID: 11400000, guid: 34b0ba117bf22fa46b3f53d39b97145d, type: 2}
+  - building: {fileID: 11400000, guid: 233ba48802bdc0e499f02acfc8ce6970, type: 2}
     spawnChance: 0
     maxSpawnAmount: 0
   startingbuildings:
-  - {fileID: 11400000, guid: eeb9e9e18871162429110781db42877d, type: 2}
-  - {fileID: 11400000, guid: cc76772fbacfa814b9440d362342ff08, type: 2}
+  - {fileID: 11400000, guid: 233ba48802bdc0e499f02acfc8ce6970, type: 2}
+  - {fileID: 11400000, guid: a55317169a3fc844cb8a567fb75e3a3b, type: 2}
+  - {fileID: 11400000, guid: 36af967ed0dc16e49975b8d237878de4, type: 2}

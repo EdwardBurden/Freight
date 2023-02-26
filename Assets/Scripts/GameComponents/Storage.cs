@@ -20,10 +20,10 @@ public class Storage : MonoBehaviour
 		if (storage.ContainsKey(resourceDefintion) && storage[resourceDefintion] > 0)
 		{
 			storage[resourceDefintion] -= amount;
-			StorageUpdatedEvent?.Invoke();
-			DisplayMessage_InCamera displayMessage_InCamera = GameUIController.instance.CreateInScene(storageUpdatePrefab, storageMessageTransform) as DisplayMessage_InCamera;
-			displayMessage_InCamera.ShowTransactionText($"Storage of {amount} {resourceDefintion.resourceName}'s removed", 5);
 		}
+		StorageUpdatedEvent?.Invoke();
+		DisplayMessage_InCamera displayMessage_InCamera = GameUIController.instance.CreateInScene(storageUpdatePrefab, storageMessageTransform) as DisplayMessage_InCamera;
+		displayMessage_InCamera.ShowTransactionText($"Storage of {amount} {resourceDefintion.resourceName}'s removed", 5);
 	}
 
 	public void AddStorage(ResourceDefintion resourceDefintion, int amount = 1)

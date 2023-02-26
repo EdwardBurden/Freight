@@ -15,6 +15,14 @@ namespace UI
 		[SerializeField] private TMP_Text resourceSellPriceText;
 		[SerializeField] private Image resourceIconImage;
 
+		public virtual void ShowResource(ResourceRequest resourceRequest)
+		{
+			resourceStoredToRequiredText.text = $"{resourceRequest.amountFulfilled}/{resourceRequest.amount}";
+			resourceBuyPriceText.text = resourceRequest.resource.buyPrice.ToString();
+			resourceSellPriceText.text = resourceRequest.resource.sellPrice.ToString();
+			resourceIconImage.sprite = resourceRequest.resource.resourceIcon;
+		}
+
 		public virtual void ShowResource(ResourceDefintion resourceData, int required, int stored)
 		{
 			resourceStoredToRequiredText.text = $"{stored}/{required}";

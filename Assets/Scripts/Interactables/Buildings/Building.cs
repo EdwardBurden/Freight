@@ -1,74 +1,199 @@
+﻿using OpenCover.Framework.Model;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Terrain;
 using UI;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public abstract class Building : InteractableObject
+public class Building : InteractableObject, IProducer, IConsumer
 {
+
 	[SerializeField] protected Transform summaryUIAnchor;
 	[SerializeField] public Storage storage;
+	[SerializeField] public LandingPlatform landingPlatform; //should be array
 
+	public BuildingDefintion BuildingDefintion { get; set; }
+	private LevelBuilding currentLevel;
+	public IslandBlock islandBlock;
 
-	protected BuildingSummary_InWorld summaryUI;
-	protected BuildingDefintion buildingDefintion;
-	[HideInInspector] public IslandBlock islandBlock;
-	private bool isFreeToUse = true; //TODO replace with a queue of ships 
+	private int level = 0;
+	private bool free = true;
 
-	public virtual void Init(BuildingDefintion buildingDefintion)
+	public void Init(BuildingDefintion buildingDefintion)
 	{
-		this.buildingDefintion = buildingDefintion;
-		if (buildingDefintion.summaryUIPrefab != null && summaryUIAnchor != null)
+		this.BuildingDefintion = buildingDefintion;
+		//TODO
+		//make building level pure visual prefab thing with ability to spawn ui and hold requests
+		//Building is psawned in at build place and will chane out levelbuilding per turn
+		//do action checks against this object only
+		//dont chnage i pord/icon
+
+
+
+
+		level = 0;
+		currentLevel = Instantiate(BuildingDefintion.buildingLevels[level].buildingPrefab, this.transform);
+		currentLevel.Init(BuildingDefintion.buildingLevels[level], this);
+	}
+
+	private void PlaceLevelBuilding(int level)
+	{
+		currentLevel = Instantiate(BuildingDefintion.buildingLevels[level].buildingPrefab, this.transform);
+		currentLevel.Init(BuildingDefintion.buildingLevels[level], this);
+	}
+
+	private void OnEnable()
+	{
+		TurnsController.TurnEndedEvent += TurnEndedEvent;
+		//TurnsController.TurnEndedEvent += TurnStartedEvent;
+	}
+
+	private void OnDisable()
+	{
+		TurnsController.TurnEndedEvent -= TurnEndedEvent;
+		//TurnsController.TurnEndedEvent -= TurnStartedEvent;
+	}
+
+	private void TurnStartedEvent(int turn)
+	{
+
+	}
+
+	private void TurnEndedEvent(int turn)
+	{
+		bool needsFulfilled = currentLevel.AreNeedsFulfilled();
+		if (!needsFulfilled)
 		{
-			summaryUI = Instantiate(buildingDefintion.summaryUIPrefab, summaryUIAnchor);
-			summaryUI.Init(this);
+			LevelDownBuilding();
+			return;
+		}
+
+		bool wantsFulfilled = currentLevel.AreWantsFulfilled();
+		if (!currentLevel.HasWants() || wantsFulfilled)
+		{
+			LevelUpBuilding();
+			return;
 		}
 	}
 
-
-	private void OnDestroy()
+	private void LevelDownBuilding()
 	{
-		if (summaryUI != null)
+		if (level == 0)
 		{
-			Destroy(summaryUI.gameObject);
+			return;
 		}
+		//TODO
+		Destroy(currentLevel.gameObject);
+		level--;
+		currentLevel = Instantiate(BuildingDefintion.buildingLevels[level].buildingPrefab, this.transform);
+		currentLevel.Init(BuildingDefintion.buildingLevels[level], this);
+	}
+
+	private void LevelUpBuilding()
+	{
+		if (level + 1 >= BuildingDefintion.buildingLevels.Length)
+		{
+			return;
+		}
+
+		Destroy(currentLevel.gameObject);
+		level++;
+		PlaceLevelBuilding(level);
+
+	}
+
+	internal LevelBuilding GetCurrentLevel()
+	{
+		return currentLevel;
 	}
 
 	public override string GetInteractableObjectName()
 	{
-		return buildingDefintion.buildingName;
+		return currentLevel.GetLevelName();
 	}
 
-	public bool IsFree()
+
+	internal void SetBuildingFreedom(bool freedom)
 	{
-		return isFreeToUse;
+		free = freedom;
 	}
 
-	public void SetBuildingFreedom(bool isFree)
+	internal bool IsFree()
 	{
-		isFreeToUse = isFree;
+		return free;
 	}
 
-	public Sprite GetBuildingIcon()
+	LandingPlatform IProducer.GetProducerLandingPlatform()
 	{
-		return buildingDefintion.buildingIcon;
+		return landingPlatform;
 	}
 
-	public override void OnHover()
+	ResourceDefintion[] IProducer.GetProducedResources()
 	{
-		base.OnHover();
-		if (summaryUI != null)
-		{
-			summaryUI.OnBuildingHover();
-		}
+		List<ResourceDefintion> resources = new List<ResourceDefintion>();
+		resources.AddRange(currentLevel.needs.GetResourcesFromRequests<ProduceRequest>());
+		resources.AddRange(currentLevel.wants.GetResourcesFromRequests<ProduceRequest>());
+		return resources.ToArray();
 	}
 
-	public override void OffHover()
+	bool IProducer.CanProducesResource(ResourceDefintion resourceData)
 	{
-		base.OffHover();
-		if (summaryUI != null)
-		{
-			summaryUI.OffBuildingHover();
-		}
+		List<ResourceDefintion> resources = new List<ResourceDefintion>();
+		resources.AddRange(currentLevel.needs.GetResourcesFromRequests<ProduceRequest>());
+		resources.AddRange(currentLevel.wants.GetResourcesFromRequests<ProduceRequest>());
+		return resources.Contains(resourceData);
+	}
+
+	void IProducer.SellResourceToShip(ResourceDefintion resource, Ship ship)
+	{
+		currentLevel.needs.UpdateResourceRequests<ProduceRequest>(resource, 1);
+		currentLevel.wants.UpdateResourceRequests<ProduceRequest>(resource, 1);
+		WalletController.instance.AddBuyTransaction(resource.buyPrice, this, ship, resource);
+		storage.RemoveStorage(resource);
+
+	}
+
+	Transform IProducer.GetProducerNavigationPostion()
+	{
+		return summaryUIAnchor;
+	}
+
+	ResourceDefintion[] IConsumer.GetConsumedResources()
+	{
+		List<ResourceDefintion> resources = new List<ResourceDefintion>();
+		resources.AddRange(currentLevel.needs.GetResourcesFromRequests<ConsumeRequest>());
+		resources.AddRange(currentLevel.wants.GetResourcesFromRequests<ConsumeRequest>());
+		return resources.ToArray();
+	}
+
+	bool IConsumer.CanConsumeResource(ResourceDefintion resourceData)
+	{
+		List<ResourceDefintion> resources = new List<ResourceDefintion>();
+		resources.AddRange(currentLevel.needs.GetResourcesFromRequests<ConsumeRequest>());
+		resources.AddRange(currentLevel.wants.GetResourcesFromRequests<ConsumeRequest>());
+		return resources.Contains(resourceData);
+	}
+
+	LandingPlatform IConsumer.GetConsumerLandingPlatform()
+	{
+		return landingPlatform;
+	}
+
+	Transform IConsumer.GetConsumerNavigationPostion()
+	{
+		return summaryUIAnchor;
+	}
+
+	void IConsumer.BuyResourceFromShip(ResourceDefintion resource, Ship ship)
+	{
+		currentLevel.needs.UpdateResourceRequests<ConsumeRequest>(resource, 1);
+		currentLevel.wants.UpdateResourceRequests<ConsumeRequest>(resource, 1);
+		WalletController.instance.AddSellTransaction(resource.sellPrice, this, ship, resource);
+		storage.AddStorage(resource);
+
 	}
 }
+

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -26,6 +27,11 @@ namespace UI
 		public void OnHover()
 		{
 			//TODO show resourceDefintion
+		}
+
+		internal void ShowResource(ResourceRequest request)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

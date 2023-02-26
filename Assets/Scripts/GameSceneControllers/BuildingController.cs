@@ -5,7 +5,7 @@ using System;
 using Random = UnityEngine.Random;
 using System.Linq;
 
-public class BuildingController : Singleton<BuildingController>, IGameController 
+public class BuildingController : Singleton<BuildingController>, IGameController
 {
 	public static event Action<Building> BuildingSelectedEvent;
 	public static event Action<Building> BuildingDeSelectedEvent;
@@ -51,19 +51,19 @@ public class BuildingController : Singleton<BuildingController>, IGameController
 
 	private void OnLeftClickInteractable(InteractableObject obj, Vector3 position)
 	{
-		Building building = obj.GetComponent<Building>();
+		Building levelBuilding = obj.GetComponent<Building>();
 		DeSelectBuilding();
-		if (building != null)
+		if (levelBuilding != null)
 		{
-			SelectBuilding(building);
+			SelectBuilding(levelBuilding);
 		}
 	}
 
-	private void SelectBuilding(Building building)
+	private void SelectBuilding(Building levelBuilding)
 	{
-		if (buildingSelected == null || buildingSelected != building)
+		if (buildingSelected == null || buildingSelected != levelBuilding)
 		{
-			this.buildingSelected = building;
+			this.buildingSelected = levelBuilding;
 			BuildingSelectedEvent?.Invoke(buildingSelected);
 		}
 	}
@@ -99,10 +99,13 @@ public class BuildingController : Singleton<BuildingController>, IGameController
 	public Building AddBuilding(BuildingDefintion buildingToPlace, IslandBlock islandBlock)
 	{
 		int rotation = Random.Range(0, 360);
-		Building building = Instantiate(buildingToPlace.buildingPrefab, islandBlock.buildingSpawnPoint);
+		Building building = Instantiate(buildingToPlace.buildingBase, islandBlock.transform);
+		building.transform.parent = islandBlock.buildingSpawnPoint;
+		//	LevelBuilding building = Instantiate(buildingToPlace, islandBlock.buildingSpawnPoint);
 		building.islandBlock = islandBlock;
 		building.transform.rotation = Quaternion.Euler(0, rotation, 0);
 		building.transform.localPosition = Vector3.zero;
+		building.BuildingDefintion = buildingToPlace;
 		building.Init(buildingToPlace);
 		buildings.Add(building);
 		return building;
@@ -130,9 +133,9 @@ public class BuildingController : Singleton<BuildingController>, IGameController
 		return newBuilding;
 	}
 
-	internal IEnumerable<BuildingDefintion> FindAllBuildingsThatCanBePlaced(IslandBlock islandBlock)
+	internal IEnumerable<BuildingLevelDefintion> FindAllBuildingsThatCanBePlaced(IslandBlock islandBlock)
 	{
-		List<BuildingDefintion> buildingDefintions = new List<BuildingDefintion>();
+		List<BuildingLevelDefintion> buildingDefintions = new List<BuildingLevelDefintion>();
 		/*foreach (BuildingDefintion building in allbuildingDefintions)
 		{
 			if (building.CanBePlaced(islandBlock))

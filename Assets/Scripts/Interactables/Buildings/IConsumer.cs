@@ -3,8 +3,8 @@ using UnityEngine;
 public interface IConsumer
 {
 	//Accepts - 2 or so resources it will always buy at set price 
-	public ResourceDefintion[] GetAcceptedResources();
-	public bool AcceptsResource(ResourceDefintion resourceData);
+	public ResourceDefintion[] GetConsumedResources();
+	public bool CanConsumeResource(ResourceDefintion resourceData);
 	//landing
 	public LandingPlatform GetConsumerLandingPlatform();
 

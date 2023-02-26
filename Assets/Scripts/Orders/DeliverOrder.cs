@@ -30,8 +30,8 @@ public class DeliverOrder : ShipOrder
 		childList.PushAction(new AlignShipForDeliveryAction(shipObject, carryObject, resourceData, landingPlatform));
 
 		//Wait
-		childList.PushAction(new WaitForBuildingToBeFreeAction(building));
-		childList.PushAction(new SetBuildingFreedomAction(building, false));
+		childList.PushAction(new WaitForBuildingToBeFreeAction(building)); //move to iconsumer 
+		childList.PushAction(new SetBuildingFreedomAction(building, false));  //move to iconsumer 
 
 		//Deliver
 		childList.PushAction(new AnimateLoadingPlatformOpenAction(landingPlatform));
@@ -52,7 +52,7 @@ public class DeliverOrder : ShipOrder
 		{
 			RaiseFailEvent($"Cannot start Delivery because {shipObject.name} does not have any {resourceData.resourceName}");
 		}
-		if (!consumer.AcceptsResource(resourceData))
+		if (!consumer.CanConsumeResource(resourceData))
 		{
 			RaiseFailEvent($"Cannot start Delivery because {consumer.GetType().ToString()} does accept {resourceData.resourceName}");
 		}

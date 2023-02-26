@@ -6,7 +6,7 @@ public static class GameObjectUtils
 	{
 		Vector3 direction = GetDirection(gameObject, target).normalized;
 		float angle = Vector3.Angle(direction, gameObject.transform.forward);
-		return angle < Mathf.Epsilon;
+		return angle <0.01f;
 	}
 
 	public static Vector3 GetDirection(this GameObject gameObject, Vector3 target)

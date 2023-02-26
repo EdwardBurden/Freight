@@ -30,7 +30,7 @@ public class DeliverActionDefintion : ShipActionDefintion
 	public override void ActionSelected(Ship shipObject, InteractableObject interactableObject, Vector3 clickPosition, Action<ShipOrder> callback)
 	{
 		IConsumer consumer = interactableObject.GetComponent<IConsumer>();
-		ResourceSelectScreen.Create(consumer.GetAcceptedResources(), clickPosition, (resource) => OnResourceSelected(shipObject, consumer, resource, callback), false);
+		ResourceSelectScreen.Create(consumer.GetConsumedResources(), clickPosition, (resource) => OnResourceSelected(shipObject, consumer, resource, callback), false);
 	}
 
 	private void OnResourceSelected(Ship shipObject, IConsumer consumer, ResourceDefintion resourceDefintion, Action<ShipOrder> callback)

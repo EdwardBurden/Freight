@@ -26,6 +26,21 @@ public class ShipOrderQueue : MonoBehaviour
 		queueIndex = 0;
 	}
 
+	private void OnEnable()
+	{
+		TurnsController.TurnEndedEvent += TurnsController_TurnEndedEvent;
+	}
+	private void OnDisable()
+	{
+		TurnsController.TurnEndedEvent -= TurnsController_TurnEndedEvent;
+	}
+
+	private void TurnsController_TurnEndedEvent(int obj)
+	{
+		//Cancel current
+		//paused = true;
+	}
+
 	private void Update()
 	{
 		if (paused)
@@ -119,6 +134,7 @@ public class ShipOrderQueue : MonoBehaviour
 
 	private void ResetOrders()
 	{
+		queuedOrders.Clear();
 		foreach (ShipOrder order in allOrders)
 		{
 			order.Setup();

@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0611a116830593b459469821c9dbb36d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seasonText: {fileID: 8741254720264014673}
+  turnText: {fileID: 8741254720264014673}
 --- !u!114 &4096268563779679367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1003,7 +1003,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1572944315398459515}
   m_Layer: 5
-  m_Name: Season
+  m_Name: Turn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1177,7 +1177,7 @@ GameObject:
   - component: {fileID: 4285458181394855813}
   - component: {fileID: 8741254720264014673}
   m_Layer: 5
-  m_Name: season
+  m_Name: Turntext
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
