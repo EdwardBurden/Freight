@@ -29,6 +29,8 @@ namespace UI
 			GameObjectUtils.Clear(options);
 			turnText.text = turnRewardsOption.rewardTurn.ToString();
 			ShowActions(turnRewardsOption.turnRewards);
+			GameManager.instance.ToggleCamera(false);
+			GameManager.instance.ToggleMouse(false);
 		}
 
 		private void ShowActions(TurnReward[] turnRewards)
@@ -44,11 +46,18 @@ namespace UI
 		{
 			turnRewardCallback?.Invoke(turnReward);
 			turnRewardCallback = null;
+			GameManager.instance.ToggleCamera(true);
+			GameManager.instance.ToggleMouse(true);
 		}
 
 		private void OnDestroy()
 		{
 			turnRewardCallback?.Invoke(null);
+		}
+
+		public override void BackgroundClicked()
+		{
+			//base.BackgroundClicked();
 		}
 	}
 }

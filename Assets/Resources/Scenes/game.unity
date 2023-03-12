@@ -909,7 +909,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
       propertyPath: turnTimeInSeconds
-      value: 120
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
       propertyPath: turnRewardsOptions.Array.size

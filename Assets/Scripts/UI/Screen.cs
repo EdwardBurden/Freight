@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,11 @@ namespace UI
 		protected void SetRootPostion(Vector3 positionInWorld)
 		{
 			root.transform.GetComponent<RectTransform>().anchoredPosition = GameUIController.instance.GetScreenPosition(positionInWorld);
+		}
+
+		public virtual void BackgroundClicked()
+		{
+			GameUIController.instance.BackOneScreen();
 		}
 	}
 }
