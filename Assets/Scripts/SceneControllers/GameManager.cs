@@ -98,6 +98,16 @@ public class GameManager : Singleton<GameManager>
 		//mouseInput.enabled = false;
 	}
 
+	public void ToggleCamera(bool toggle)
+	{
+		cameraController.enabled = toggle;
+	}
+
+	public void ToggleMouse(bool toggle)
+	{
+		mouseInput.enabled = toggle;
+	}
+
 	private void OnTurnStarted(int turn)
 	{
 		IslandBlock islandBlock = terrainController.AddNextBlock();

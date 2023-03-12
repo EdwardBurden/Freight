@@ -129,5 +129,13 @@ namespace UI
 		{
 			throw new NotImplementedException();
 		}
+
+		internal void BackgroundClicked()
+		{
+			if (screenHistory.Count > 0)
+			{
+				screenHistory[0].BackgroundClicked();
+			}
+		}
 	}
 }
