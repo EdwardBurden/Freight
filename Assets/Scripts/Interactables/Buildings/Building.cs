@@ -35,8 +35,9 @@ public class Building : InteractableObject, IProducer, IConsumer
 
 
 		level = 0;
-		currentLevel = Instantiate(BuildingDefintion.buildingLevels[level].buildingPrefab, this.transform);
-		currentLevel.Init(BuildingDefintion.buildingLevels[level], this);
+		PlaceLevelBuilding(level);
+		//currentLevel = Instantiate(BuildingDefintion.buildingLevels[level].buildingPrefab, this.transform);
+		//currentLevel.Init(BuildingDefintion.buildingLevels[level], this);
 	}
 
 	private void PlaceLevelBuilding(int level)
@@ -77,25 +78,29 @@ public class Building : InteractableObject, IProducer, IConsumer
 			LevelUpBuilding();
 			return;
 		}
+		ResetRequest();
 	}
 
 	private void LevelDownBuilding()
 	{
 		if (level == 0)
 		{
+			ResetRequest();
 			return;
 		}
 		//TODO
 		Destroy(currentLevel.gameObject);
 		level--;
-		currentLevel = Instantiate(BuildingDefintion.buildingLevels[level].buildingPrefab, this.transform);
-		currentLevel.Init(BuildingDefintion.buildingLevels[level], this);
+		PlaceLevelBuilding(level);
+		//currentLevel = Instantiate(BuildingDefintion.buildingLevels[level].buildingPrefab, this.transform);
+		//currentLevel.Init(BuildingDefintion.buildingLevels[level], this);
 	}
 
 	private void LevelUpBuilding()
 	{
 		if (level + 1 >= BuildingDefintion.buildingLevels.Length)
 		{
+			ResetRequest();
 			return;
 		}
 
@@ -103,6 +108,12 @@ public class Building : InteractableObject, IProducer, IConsumer
 		level++;
 		PlaceLevelBuilding(level);
 
+	}
+
+	private void ResetRequest()
+	{
+		currentLevel.ResetRequest();
+		storage.ClearStorage();
 	}
 
 	internal LevelBuilding GetCurrentLevel()

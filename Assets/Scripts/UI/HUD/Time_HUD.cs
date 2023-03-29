@@ -59,9 +59,9 @@ namespace UI
 
 		}
 
-		private void OnSecondChange(int second)
+		private void OnSecondChange(int toalseconds, int seconds)
 		{
-			secondsText.text = second.ToString();
+			secondsText.text = seconds.ToString();
 		}
 
 		private void ToggleButtons() {

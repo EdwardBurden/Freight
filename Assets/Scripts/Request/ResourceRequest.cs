@@ -25,4 +25,6 @@ public abstract class ResourceRequest
 	{
 		amountFulfilled += amount;
 	}
+
+	public abstract string FormatRequest();
 }

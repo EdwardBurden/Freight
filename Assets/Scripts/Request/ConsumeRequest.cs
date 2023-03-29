@@ -9,4 +9,9 @@ public class ConsumeRequest : ResourceRequest
 	public ConsumeRequest(ResourceDefintion resource, int amount) : base(resource, amount)
 	{
 	}
+
+	public override string FormatRequest()
+	{
+		return $"Consume {amount} {resource.resourceName}'s";
+	}
 }

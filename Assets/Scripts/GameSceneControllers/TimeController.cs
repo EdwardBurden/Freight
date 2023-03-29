@@ -6,10 +6,11 @@ using UnityEngine;
 
 public class TimeController : Singleton<TimeController>, IGameController
 {
-	public static event Action<int> SecondsChangeEvent;
+	public static event Action<int,int> SecondsChangeEvent;
 	public static event Action<int> MinutesChangeEvent;
 
-	public static int second;
+	public static int totalSeconds;
+	public static int seconds;
 	public static int minute;
 
 	private float secondToRealTime = 1f;
@@ -39,14 +40,15 @@ public class TimeController : Singleton<TimeController>, IGameController
 
 		if (timer <= 0)
 		{
-			second++;
-			if (second >= 60)
+			totalSeconds++;
+			seconds++;
+			if (totalSeconds % 60 == 0)
 			{
 				minute++;
 				MinutesChangeEvent?.Invoke(minute);
-				second = 0;
+				seconds = 0;
 			}
-			SecondsChangeEvent?.Invoke(second);
+			SecondsChangeEvent?.Invoke(totalSeconds, seconds);
 			timer = secondToRealTime;
 		}
 	}
@@ -67,7 +69,7 @@ public class TimeController : Singleton<TimeController>, IGameController
 
 	public void StartTime()
 	{
-		second = 0;
+		totalSeconds = 0;
 		minute = 0;
 		timer = secondToRealTime;
 		ResumeTime();

@@ -69,11 +69,17 @@ public class LevelBuilding : MonoBehaviour //gets spawned but does nothing, pure
 
 	internal bool HasWants()
 	{
-		return wants == null || wants.resourceRequests == null || wants.resourceRequests.Length == 0;
+		return wants != null && wants.resourceRequests != null && wants.resourceRequests.Length > 0;
 	}
 
 	internal string GetLevelName()
 	{
 		return buildingDefintion.buildingName;
+	}
+
+	internal void ResetRequest()
+	{
+		needs = new RequestGroup(buildingDefintion.needs);
+		wants = new RequestGroup(buildingDefintion.wants);
 	}
 }

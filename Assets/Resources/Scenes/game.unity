@@ -228,6 +228,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 8483260845814136644, guid: 974dfdb4fa455214d94d7585e246d498, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8483260846387805495, guid: 974dfdb4fa455214d94d7585e246d498, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8483260847301043926, guid: 974dfdb4fa455214d94d7585e246d498, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8483260847569185737, guid: 974dfdb4fa455214d94d7585e246d498, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8483260847824738723, guid: 974dfdb4fa455214d94d7585e246d498, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 974dfdb4fa455214d94d7585e246d498, type: 3}
 --- !u!114 &545579774 stripped
@@ -909,7 +929,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
       propertyPath: turnTimeInSeconds
-      value: 4
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
       propertyPath: turnRewardsOptions.Array.size

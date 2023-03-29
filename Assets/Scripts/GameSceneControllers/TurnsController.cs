@@ -42,11 +42,11 @@ public class TurnsController : MonoBehaviour, IGameController
 		active = false;
 	}
 
-	private void OnSecondsChange(int seconds)
+	private void OnSecondsChange(int totalSeconds, int seconds)
 	{
 		if (active)
 		{
-			if ((seconds % turnTimeInSeconds) == 0)
+			if ((totalSeconds % turnTimeInSeconds) == 0)
 			{
 				StartNextTurn();
 			}
