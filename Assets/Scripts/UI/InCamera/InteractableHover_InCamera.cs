@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 namespace UI
 {
-	public class InteractableHover_InCamera : InCamera
+	public class InteractableHover_InCamera : MonoBehaviour
 	{
 		[SerializeField] private TMP_Text nameText;
 
@@ -18,7 +18,7 @@ namespace UI
 			nameText.text = interactableObject.GetInteractableObjectName();
 		}
 
-		protected override void Follow()
+		private void Update()
 		{
 			Vector2 movePos;
 			Canvas canvas = this.transform.parent.GetComponent<Canvas>();

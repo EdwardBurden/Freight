@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8862016042286839640}
   - component: {fileID: 1772923548604499550}
   - component: {fileID: 6806353551596812141}
+  - component: {fileID: 2839979762421982636}
   m_Layer: 0
   m_Name: FreightShipSummaryUI
   m_TagString: Untagged
@@ -131,6 +132,18 @@ MonoBehaviour:
   shipNameText: {fileID: 2085583403994665777}
   resourceIconButtonWidget: {fileID: 3756753267502298690, guid: d4e37d3ce6cd9c14991a67063337ef64, type: 3}
   cargoTransform: {fileID: 1217193087697872218}
+--- !u!114 &2839979762421982636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125040592743029816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adaf58b1c47fcc64b80e12b49a72dd40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4383006231421457952
 GameObject:
   m_ObjectHideFlags: 0

@@ -22,7 +22,7 @@ public class Storage : MonoBehaviour
 			storage[resourceDefintion] -= amount;
 		}
 		StorageUpdatedEvent?.Invoke();
-		DisplayMessage_InCamera displayMessage_InCamera = GameUIController.instance.CreateInScene(storageUpdatePrefab, storageMessageTransform) as DisplayMessage_InCamera;
+		DisplayMessage_InCamera displayMessage_InCamera = GameUIController.instance.CreateInScene(storageUpdatePrefab.gameObject, storageMessageTransform).GetComponent<DisplayMessage_InCamera>();
 		displayMessage_InCamera.ShowTransactionText($"Storage of {amount} {resourceDefintion.resourceName}'s removed", 5);
 	}
 
@@ -37,8 +37,8 @@ public class Storage : MonoBehaviour
 			storage.Add(resourceDefintion, amount);
 		}
 		StorageUpdatedEvent?.Invoke();
-		DisplayMessage_InCamera displayMessage_InCamera = GameUIController.instance.CreateInScene(storageUpdatePrefab, storageMessageTransform) as DisplayMessage_InCamera;
-		displayMessage_InCamera.ShowTransactionText($"Storage of {amount} {resourceDefintion.resourceName}'s added" , 5);
+		DisplayMessage_InCamera displayMessage_InCamera = GameUIController.instance.CreateInScene(storageUpdatePrefab.gameObject, storageMessageTransform).GetComponent<DisplayMessage_InCamera>();
+		displayMessage_InCamera.ShowTransactionText($"Storage of {amount} {resourceDefintion.resourceName}'s added", 5);
 	}
 
 	public bool HasStorage(ResourceDefintion resourceData)

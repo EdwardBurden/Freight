@@ -12,7 +12,7 @@ public class LevelBuilding : MonoBehaviour //gets spawned but does nothing, pure
 	public RequestGroup wants;//can be a requestgroup , with helper methods inside
 	public Building buildingContainer;
 
-	[SerializeField] protected Transform summaryUIAnchor;
+	[SerializeField] public Transform summaryUIAnchor;
 	protected BuildingSummary summaryUI;
 
 	public virtual void Init(BuildingLevelDefintion buildingDefintion, Building building)

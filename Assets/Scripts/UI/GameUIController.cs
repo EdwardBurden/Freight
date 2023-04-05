@@ -50,11 +50,15 @@ namespace UI
 		}
 
 		//InScene
-		public InCamera CreateInScene(InCamera prefab, Transform transform)
+		public GameObject CreateInScene(GameObject prefab, Transform transform)
 		{
-			InCamera inSceneUI = Instantiate(prefab, inScene.transform).GetComponent<InCamera>();
-			inSceneUI.SetFollow(transform);
-			return inSceneUI;
+			GameObject gameObject = Instantiate(prefab, inScene.transform);
+			RotateAndScaleToCamera rotateAndScaleTo = gameObject.GetComponent<RotateAndScaleToCamera>();
+			if (rotateAndScaleTo != null)
+			{
+				rotateAndScaleTo.SetFollow(transform);
+			}
+			return gameObject;
 		}
 
 		//Screens
@@ -111,13 +115,13 @@ namespace UI
 			}
 		}
 
-		public  void Open()
+		public void Open()
 		{
 			uiCamera.enabled = true;
 			ToggleHUD(true);
 		}
 
-		public  void Close()
+		public void Close()
 		{
 			CloseAllScreens();
 			ToggleHUD(false);

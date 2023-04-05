@@ -53,7 +53,7 @@ public class WalletController : Singleton<WalletController>, IGameController
 	{
 		wallet.AddTransaction(walletTransaction);
 		TransactionAddedEvent?.Invoke(walletTransaction, wallet.credits);
-		DisplayMessage_InCamera transactionCompleteInScene = GameUIController.instance.CreateInScene(transactionIndicatorPrefab, walletTransaction.GetTransactionLocation()) as DisplayMessage_InCamera;
+		DisplayMessage_InCamera transactionCompleteInScene = GameUIController.instance.CreateInScene(transactionIndicatorPrefab.gameObject, walletTransaction.GetTransactionLocation()).GetComponent<DisplayMessage_InCamera>();
 		transactionCompleteInScene.ShowTransactionText(walletTransaction.transactiontext);
 	}
 }

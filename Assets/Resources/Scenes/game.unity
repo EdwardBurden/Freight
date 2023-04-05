@@ -929,11 +929,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
       propertyPath: turnTimeInSeconds
-      value: 30
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
       propertyPath: turnRewardsOptions.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
       propertyPath: turnRewardsOptions.Array.data[0].rewardTurn
@@ -941,7 +941,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
       propertyPath: turnRewardsOptions.Array.data[1].rewardTurn
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
       propertyPath: turnRewardsOptions.Array.data[0].turnRewards.Array.size
@@ -955,6 +955,14 @@ PrefabInstance:
       propertyPath: turnRewardsOptions.Array.data[0].turnRewards.Array.data[1]
       value: 
       objectReference: {fileID: 11400000, guid: f261211761c3a4d48b284f9347fe8604, type: 2}
+    - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
+      propertyPath: turnRewardsOptions.Array.data[1].turnRewards.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 09f84fdd74e3f804f88a30f5fda3b2f2, type: 2}
+    - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
+      propertyPath: turnRewardsOptions.Array.data[1].turnRewards.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: a8fa29a2955ed8348864aacc0e892934, type: 2}
     - target: {fileID: 7031766915070982513, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -1644,7 +1652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f73a359ecbaf034791c2171d9c4307b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipSpawnNumber: 10
+  shipSpawnNumber: 2
   shipDefintions:
   - {fileID: 11400000, guid: 119648b6183e8fd43b254992cfd1e1db, type: 2}
   - {fileID: 11400000, guid: 4ca04fc164ff3724eab607a0ae0efe2e, type: 2}

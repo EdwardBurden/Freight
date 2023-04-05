@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 namespace UI
 {
-	public class DisplayMessage_InCamera : InCamera
+	public class DisplayMessage_InCamera : MonoBehaviour
 	{
 		[SerializeField]
 		private TMP_Text transactionText;
