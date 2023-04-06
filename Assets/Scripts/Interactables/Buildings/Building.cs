@@ -10,7 +10,7 @@ using UnityEngine;
 
 public class Building : InteractableObject, IProducer, IConsumer
 {
-
+	[SerializeField] private ShipLandingQueue shipLandingQueue;
 	[SerializeField] protected Transform summaryUIAnchor;
 	[SerializeField] public Storage storage;
 	[SerializeField] public LandingPlatform landingPlatform; //should be array
@@ -25,19 +25,8 @@ public class Building : InteractableObject, IProducer, IConsumer
 	public void Init(BuildingDefintion buildingDefintion)
 	{
 		this.BuildingDefintion = buildingDefintion;
-		//TODO
-		//make building level pure visual prefab thing with ability to spawn ui and hold requests
-		//Building is psawned in at build place and will chane out levelbuilding per turn
-		//do action checks against this object only
-		//dont chnage i pord/icon
-
-
-
-
 		level = 0;
 		PlaceLevelBuilding(level);
-		//currentLevel = Instantiate(BuildingDefintion.buildingLevels[level].buildingPrefab, this.transform);
-		//currentLevel.Init(BuildingDefintion.buildingLevels[level], this);
 	}
 
 	private void PlaceLevelBuilding(int level)
@@ -49,18 +38,11 @@ public class Building : InteractableObject, IProducer, IConsumer
 	private void OnEnable()
 	{
 		TurnsController.TurnEndedEvent += TurnEndedEvent;
-		//TurnsController.TurnEndedEvent += TurnStartedEvent;
 	}
 
 	private void OnDisable()
 	{
 		TurnsController.TurnEndedEvent -= TurnEndedEvent;
-		//TurnsController.TurnEndedEvent -= TurnStartedEvent;
-	}
-
-	private void TurnStartedEvent(int turn)
-	{
-
 	}
 
 	private void TurnEndedEvent(int turn)
@@ -88,12 +70,10 @@ public class Building : InteractableObject, IProducer, IConsumer
 			ResetRequest();
 			return;
 		}
-		//TODO
+
 		Destroy(currentLevel.gameObject);
 		level--;
 		PlaceLevelBuilding(level);
-		//currentLevel = Instantiate(BuildingDefintion.buildingLevels[level].buildingPrefab, this.transform);
-		//currentLevel.Init(BuildingDefintion.buildingLevels[level], this);
 	}
 
 	private void LevelUpBuilding()
@@ -107,7 +87,6 @@ public class Building : InteractableObject, IProducer, IConsumer
 		Destroy(currentLevel.gameObject);
 		level++;
 		PlaceLevelBuilding(level);
-
 	}
 
 	private void ResetRequest()
@@ -126,15 +105,9 @@ public class Building : InteractableObject, IProducer, IConsumer
 		return currentLevel.GetLevelName();
 	}
 
-
-	internal void SetBuildingFreedom(bool freedom)
+	public bool IsLandinPlatformFree(LandingPlatform landingPlatform)
 	{
-		free = freedom;
-	}
-
-	internal bool IsFree()
-	{
-		return free;
+		return shipLandingQueue.IsFree(landingPlatform);
 	}
 
 	LandingPlatform IProducer.GetProducerLandingPlatform()
@@ -164,7 +137,6 @@ public class Building : InteractableObject, IProducer, IConsumer
 		currentLevel.wants.UpdateResourceRequests<ProduceRequest>(resource, 1);
 		WalletController.instance.AddBuyTransaction(resource.buyPrice, this, ship, resource);
 		storage.RemoveStorage(resource);
-
 	}
 
 	Transform IProducer.GetProducerNavigationPostion()
@@ -204,7 +176,6 @@ public class Building : InteractableObject, IProducer, IConsumer
 		currentLevel.wants.UpdateResourceRequests<ConsumeRequest>(resource, 1);
 		WalletController.instance.AddSellTransaction(resource.sellPrice, this, ship, resource);
 		storage.AddStorage(resource);
-
 	}
 }
 

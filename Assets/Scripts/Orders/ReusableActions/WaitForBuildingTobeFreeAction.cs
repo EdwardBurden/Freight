@@ -14,7 +14,7 @@ public class WaitForBuildingToBeFreeAction : Action
 
 	public override void OnUpdate()
 	{
-		if (building.IsFree())
+		if (building.IsLandinPlatformFree())
 		{
 			isFinished = true;
 		}
