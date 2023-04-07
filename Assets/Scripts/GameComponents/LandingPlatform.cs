@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 
 public class LandingPlatform : MonoBehaviour
 {
+	public event Action<Ship> OnQueueUpdatedEvent;
 	public event Action OpenAnimationCompleteEvent;
 	public event Action CloseAnimationCompleteEvent;
 
@@ -12,6 +14,10 @@ public class LandingPlatform : MonoBehaviour
 
 	[SerializeField]
 	private GameObject landingSpot;
+
+	private HashSet<Ship> waitingShips = new HashSet<Ship>();
+
+
 
 	public Vector3 GetLandingPosition()
 	{
@@ -56,5 +62,25 @@ public class LandingPlatform : MonoBehaviour
 			direction = -direction;
 		}
 		return Quaternion.LookRotation(direction);
+	}
+
+	public void RegisterWaitingShip(Ship ship)
+	{
+		waitingShips.Add(ship);
+		if (waitingShips.Count == 1)
+		{
+			RemoveWaitingShip(ship);
+		}
+	}
+
+	internal void RemoveWaitingShip(Ship ship)
+	{
+		waitingShips.Remove(ship);
+		OnQueueUpdatedEvent?.Invoke(ship);
+	}
+
+	internal int WaitingShipsCount()
+	{
+		return waitingShips.Count;
 	}
 }

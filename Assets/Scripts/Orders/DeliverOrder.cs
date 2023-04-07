@@ -24,14 +24,16 @@ public class DeliverOrder : ShipOrder
 		Vector3 position = landingPlatform.GetLandingPosition();
 		Building building = (Building)consumer;
 
+
+
 		//Move
 		childList.PushAction(new LookAtAction(position, shipObject, true));
 		childList.PushAction(new NavigateToAction(navtransform.position, shipObject, true));
-		childList.PushAction(new AlignShipForDeliveryAction(shipObject, carryObject, resourceData, landingPlatform));
 
 		//Wait
-		childList.PushAction(new WaitForBuildingToBeFreeAction(building)); //move to iconsumer 
-		childList.PushAction(new SetBuildingFreedomAction(building, false));  //move to iconsumer 
+		childList.PushAction(new WaitForPlatformToBeFreeAction(landingPlatform, shipObject)); 
+		childList.PushAction(new AlignShipForDeliveryAction(shipObject, carryObject, resourceData, landingPlatform));
+		//childList.PushAction(new RegisterShipToLandingPlatformAction(building, false));  
 
 		//Deliver
 		childList.PushAction(new AnimateLoadingPlatformOpenAction(landingPlatform));
@@ -41,7 +43,8 @@ public class DeliverOrder : ShipOrder
 		childList.PushAction(new DestoryFreightAction(landingPlatform));
 
 		//Sync
-		childList.PushAction(new SetBuildingFreedomAction(building, true));
+		//	childList.PushAction(new RegisterShipToLandingPlatformAction(building, true));
+		childList.PushAction(new NavigateToAction(navtransform.position, shipObject, true));
 		childList.PushAction(new SyncAction());
 	}
 

@@ -1,5 +1,6 @@
 ﻿using OpenCover.Framework.Model;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,14 +14,13 @@ public class Building : InteractableObject, IProducer, IConsumer
 	[SerializeField] private ShipLandingQueue shipLandingQueue;
 	[SerializeField] protected Transform summaryUIAnchor;
 	[SerializeField] public Storage storage;
-	[SerializeField] public LandingPlatform landingPlatform; //should be array
+	[SerializeField] private List<LandingPlatform> landingPlatforms;
 
 	public BuildingDefintion BuildingDefintion { get; set; }
 	private LevelBuilding currentLevel;
 	public IslandBlock islandBlock;
 
 	private int level = 0;
-	private bool free = true;
 
 	public void Init(BuildingDefintion buildingDefintion)
 	{
@@ -105,14 +105,25 @@ public class Building : InteractableObject, IProducer, IConsumer
 		return currentLevel.GetLevelName();
 	}
 
-	public bool IsLandinPlatformFree(LandingPlatform landingPlatform)
+	private LandingPlatform GetMostAvailblePlatform()
 	{
-		return shipLandingQueue.IsFree(landingPlatform);
+		int lowest = int.MaxValue;
+		int index = 0;
+		for (int i = 0; i < landingPlatforms.Count; i++)
+		{
+			int waiting = landingPlatforms[i].WaitingShipsCount();
+			if (waiting < lowest)
+			{
+				lowest = waiting;
+				index = i;
+			}
+		}
+		return landingPlatforms[index];
 	}
 
 	LandingPlatform IProducer.GetProducerLandingPlatform()
 	{
-		return landingPlatform;
+		return GetMostAvailblePlatform();
 	}
 
 	ResourceDefintion[] IProducer.GetProducedResources()
@@ -162,7 +173,7 @@ public class Building : InteractableObject, IProducer, IConsumer
 
 	LandingPlatform IConsumer.GetConsumerLandingPlatform()
 	{
-		return landingPlatform;
+		return GetMostAvailblePlatform();
 	}
 
 	Transform IConsumer.GetConsumerNavigationPostion()

@@ -1,0 +1,8 @@
+You were workign on landin platforms.
+
+Mainly you were stuck on how the events should work.
+
+Ideally the order(collect/deliver) will have a action that will register the ships interest in a landinplatform then wait for it to be free.
+The landingplatform should have a list of waiting ships and inform the first ship when free to dock, it then needs to lock so other ships cant land.
+When the active ship is finsihed landing and leaves the order(collect/deliver) should tell the platform it is done.
+The platform then unlocks and finds the next ship if there is one to tell to stop waiting.

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+//TODO, move into each land
 public class ShipLandingQueue : MonoBehaviour
 {
 	public static event Action<Ship> ShipQueueAvailableEvent;
@@ -30,7 +31,7 @@ public class ShipLandingQueue : MonoBehaviour
 		}
 	}
 
-	private PlatformShips GetMostAvailblePlatform()
+	private LandingPlatform GetMostAvailblePlatform()
 	{
 		int lowest = int.MaxValue;
 		int index = 0;

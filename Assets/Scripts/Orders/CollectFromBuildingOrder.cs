@@ -30,8 +30,8 @@ public class CollectFromBuildingOrder : ShipOrder
 		childList.PushAction(new AlignShipForCollectionAction(shipObject, carryObject, landingPlatform));
 
 		//wait
-		childList.PushAction(new WaitForBuildingToBeFreeAction(building));
-		childList.PushAction(new SetBuildingFreedomAction(building, false));
+		childList.PushAction(new WaitForPlatformToBeFreeAction(building));
+		childList.PushAction(new RegisterShipToLandingPlatformAction(building, false));
 
 		//Collect
 		childList.PushAction(new SpawnFreightAction(resourceData, landingPlatform));
@@ -41,7 +41,7 @@ public class CollectFromBuildingOrder : ShipOrder
 		childList.PushAction(new AnimateLoadingPlatformCloseAction(landingPlatform));
 
 		//Sync
-		childList.PushAction(new SetBuildingFreedomAction(building, true));
+		childList.PushAction(new RegisterShipToLandingPlatformAction(building, true));
 		childList.PushAction(new SyncAction());
 	}
 
