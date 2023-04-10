@@ -77,10 +77,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverUIPrefab: {fileID: 234753750589598935, guid: ae65448598d6f4743bd4d43b4a5b7178, type: 3}
+  shipLandingQueue: {fileID: 0}
   summaryUIAnchor: {fileID: 4222638901452952209}
   storage: {fileID: 1938302725284762558}
-  landingPlatform: {fileID: 1801980852806676929}
-  levelBuilding: {fileID: 0}
+  landingPlatforms:
+  - {fileID: 1801980852806676929}
   islandBlock: {fileID: 0}
 --- !u!1 &6655783111704557487
 GameObject:

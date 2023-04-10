@@ -2,14 +2,14 @@ using ActionLists;
 using UnityEngine;
 
 //TOD make seperate order for collecting from non buildings
-public class CollectFromBuildingOrder : ShipOrder
+public class CollectOrder : ShipOrder
 {
 	private CarryObject carryObject;
 	private ResourceDefintion resourceData;
 	private IProducer producer;
 
 
-	public CollectFromBuildingOrder(ShipActionDefintion shipActionDefintion, Ship shipObject, IProducer producer, ResourceDefintion resourceTarget) : base(shipActionDefintion, shipObject)
+	public CollectOrder(ShipActionDefintion shipActionDefintion, Ship shipObject, IProducer producer, ResourceDefintion resourceTarget) : base(shipActionDefintion, shipObject)
 	{
 		this.producer = producer; //hate but will come back to later
 		this.carryObject = shipObject.GetComponent<CarryObject>();
@@ -19,7 +19,6 @@ public class CollectFromBuildingOrder : ShipOrder
 	public override void Setup()
 	{
 		base.Setup();
-		Building building = (Building)producer;
 		LandingPlatform landingPlatform = producer.GetProducerLandingPlatform();
 		Transform navtransform = producer.GetProducerNavigationPostion();
 		Vector3 position = landingPlatform.GetLandingPosition();
@@ -27,11 +26,11 @@ public class CollectFromBuildingOrder : ShipOrder
 		//Move
 		childList.PushAction(new LookAtAction(position, shipObject, true));
 		childList.PushAction(new NavigateToAction(navtransform.position, shipObject, true));
-		childList.PushAction(new AlignShipForCollectionAction(shipObject, carryObject, landingPlatform));
 
-		//wait
-		childList.PushAction(new WaitForPlatformToBeFreeAction(building));
-		childList.PushAction(new RegisterShipToLandingPlatformAction(building, false));
+		//Wait
+		//childList.PushAction(new MovenNearAction(navtransform.position, shipObject, 5, true));
+		childList.PushAction(new WaitForPlatformToBeFreeAction(landingPlatform, shipObject, navtransform.position));
+		childList.PushAction(new AlignShipForCollectionAction(shipObject, carryObject, landingPlatform));
 
 		//Collect
 		childList.PushAction(new SpawnFreightAction(resourceData, landingPlatform));
@@ -40,8 +39,9 @@ public class CollectFromBuildingOrder : ShipOrder
 		childList.PushAction(new ParentFreightToShipAction(landingPlatform, carryObject));
 		childList.PushAction(new AnimateLoadingPlatformCloseAction(landingPlatform));
 
-		//Sync
-		childList.PushAction(new RegisterShipToLandingPlatformAction(building, true));
+		//Leave
+		childList.PushAction(new FreePlatformAction(landingPlatform, shipObject));
+		childList.PushAction(new MoveToAction(navtransform.position, shipObject, true));
 		childList.PushAction(new SyncAction());
 	}
 

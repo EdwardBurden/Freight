@@ -7,7 +7,7 @@ using UnityEngine;
 //TODO, move into each land
 public class ShipLandingQueue : MonoBehaviour
 {
-	public static event Action<Ship> ShipQueueAvailableEvent;
+	/*public static event Action<Ship> ShipQueueAvailableEvent;
 	private List<Ship> queue;
 
 	[SerializeField] private List<LandingPlatform> landingPlatforms;
@@ -89,5 +89,5 @@ public class ShipLandingQueue : MonoBehaviour
 			queedShips.Remove(ship);
 		}
 	}
-
+	*/
 }

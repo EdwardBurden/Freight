@@ -22,18 +22,15 @@ public class DeliverOrder : ShipOrder
 		LandingPlatform landingPlatform = consumer.GetConsumerLandingPlatform();
 		Transform navtransform = consumer.GetConsumerNavigationPostion();
 		Vector3 position = landingPlatform.GetLandingPosition();
-		Building building = (Building)consumer;
-
-
 
 		//Move
 		childList.PushAction(new LookAtAction(position, shipObject, true));
 		childList.PushAction(new NavigateToAction(navtransform.position, shipObject, true));
 
 		//Wait
-		childList.PushAction(new WaitForPlatformToBeFreeAction(landingPlatform, shipObject)); 
+		//childList.PushAction(new MovenNearAction(navtransform.position, shipObject, 5, true));
+		childList.PushAction(new WaitForPlatformToBeFreeAction(landingPlatform, shipObject, navtransform.position));
 		childList.PushAction(new AlignShipForDeliveryAction(shipObject, carryObject, resourceData, landingPlatform));
-		//childList.PushAction(new RegisterShipToLandingPlatformAction(building, false));  
 
 		//Deliver
 		childList.PushAction(new AnimateLoadingPlatformOpenAction(landingPlatform));
@@ -42,9 +39,9 @@ public class DeliverOrder : ShipOrder
 		childList.PushAction(new AnimateLoadingPlatformCloseAction(landingPlatform));
 		childList.PushAction(new DestoryFreightAction(landingPlatform));
 
-		//Sync
-		//	childList.PushAction(new RegisterShipToLandingPlatformAction(building, true));
-		childList.PushAction(new NavigateToAction(navtransform.position, shipObject, true));
+		//Leave
+		childList.PushAction(new FreePlatformAction(landingPlatform, shipObject));
+		childList.PushAction(new MoveToAction(navtransform.position, shipObject, true));
 		childList.PushAction(new SyncAction());
 	}
 

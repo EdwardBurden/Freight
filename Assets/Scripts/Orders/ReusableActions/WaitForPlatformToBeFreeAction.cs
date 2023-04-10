@@ -7,22 +7,36 @@ public class WaitForPlatformToBeFreeAction : Action
 {
 	private LandingPlatform platform;
 	private Ship ship;
+	private Vector3 navPos;
 
-	public WaitForPlatformToBeFreeAction(LandingPlatform platform, Ship ship) : base(true)
+	public WaitForPlatformToBeFreeAction(LandingPlatform platform, Ship ship, Vector3 navPos) : base(true)
 	{
 		this.platform = platform;
 		this.ship = ship;
+		this.navPos = navPos;
 	}
 
 	public override void OnInitialise()
 	{
 		base.OnInitialise();
 		platform.RegisterWaitingShip(ship);
-		platform.OnQueueUpdatedEvent += OnQueueUpdated;
+		platform.OnShipLeftPlatformEvent += OnQueueUpdated;
+		if (platform.WaitingShipsCount() == 1)
+		{
+			isFinished = true;
+			platform.OnShipLeftPlatformEvent -= OnQueueUpdated;
+		}
+		else
+		{
+			owner.InsertActionNext(this, new MovenNearAction(navPos, ship, 4, true));
+		}
 	}
 
 	public override void OnUpdate()
 	{
+
+		//add to parent list this 		childList.PushAction(new MovenNearAction(navtransform.position, shipObject, 5, true));
+		//TODO make ship orbit
 		//throw new System.NotImplementedException();
 	}
 
@@ -31,15 +45,14 @@ public class WaitForPlatformToBeFreeAction : Action
 		if (this.ship == ship)
 		{
 			isFinished = true;
-			platform.RemoveWaitingShip(ship);
-			platform.OnQueueUpdatedEvent -= OnQueueUpdated;
+			platform.OnShipLeftPlatformEvent -= OnQueueUpdated;
 		}
 	}
 
 	public override void Cancel()
 	{
 		base.Cancel();
-		platform.RemoveWaitingShip(ship);
-		platform.OnQueueUpdatedEvent -= OnQueueUpdated;
+		platform.ShipLeft(ship);
+		platform.OnShipLeftPlatformEvent -= OnQueueUpdated;
 	}
 }

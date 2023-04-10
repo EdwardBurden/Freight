@@ -929,7 +929,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
       propertyPath: turnTimeInSeconds
-      value: 2
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 3722101176289900605, guid: 8a7282f9cf05b944fb921c43f1130c63, type: 3}
       propertyPath: turnRewardsOptions.Array.size
@@ -1652,7 +1652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f73a359ecbaf034791c2171d9c4307b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipSpawnNumber: 2
+  shipSpawnNumber: 6
   shipDefintions:
   - {fileID: 11400000, guid: 119648b6183e8fd43b254992cfd1e1db, type: 2}
   - {fileID: 11400000, guid: 4ca04fc164ff3724eab607a0ae0efe2e, type: 2}

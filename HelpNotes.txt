@@ -1,3 +1,12 @@
+Still on platforms, actions seem to making sense.
+
+Need to make the MovenNearAction into a wait/ circle location action and then have it removed from the list when the wait is finsihed. Make sure to have the circle one not block the wait too.
+And make sure its resolved in the cancle too.
+
+
+
+
+------------------------
 You were workign on landin platforms.
 
 Mainly you were stuck on how the events should work.

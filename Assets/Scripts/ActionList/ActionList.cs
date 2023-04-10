@@ -12,6 +12,13 @@ namespace ActionLists
 			actions.Add(action);
 		}
 
+		public void InsertActionNext(Action currentAction, Action nextAction)
+		{
+			int index = actions.IndexOf(currentAction);
+			nextAction.SetOwner(this);
+			actions.Insert(index, nextAction);
+		}
+
 		public bool IsEmpty()
 		{
 			return actions.Count == 0;

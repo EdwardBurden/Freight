@@ -35,7 +35,7 @@ public class CollectActionDefintion : ShipActionDefintion
 
 	private void OnResourceSelected(Ship shipObject, IProducer producer, ResourceDefintion resourceDefintion, Action<ShipOrder> callback)
 	{
-		CollectFromBuildingOrder collectAction = new CollectFromBuildingOrder(this, shipObject, producer, resourceDefintion);
+		CollectOrder collectAction = new CollectOrder(this, shipObject, producer, resourceDefintion);
 		callback?.Invoke(collectAction);
 	}
 }
