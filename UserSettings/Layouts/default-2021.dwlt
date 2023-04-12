@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1851
     height: 1037
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Hierarchy
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 212
+  controlID: 6577
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 213
+  controlID: 6578
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 214
+  controlID: 6579
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -224,7 +224,7 @@ MonoBehaviour:
   - {fileID: 15}
   - {fileID: 16}
   m_Selected: 0
-  m_LastSelected: 1
+  m_LastSelected: 3
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -404,7 +404,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: eef3ffff
+      m_ExpandedIDs: 22fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -807,7 +807,7 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: -0.2967895, y: -0.6544569, z: 0.312818, w: -0.6211538}
     speed: 2
-    m_Value: {x: 0.29678953, y: 0.654457, z: -0.312818, w: 0.6211538}
+    m_Value: {x: -0.2967769, y: -0.65442914, z: 0.31280473, w: -0.6211274}
   m_Size:
     m_Target: 49.752613
     speed: 2
@@ -2627,7 +2627,7 @@ MonoBehaviour:
     m_LastAppliedPresetName: Default
     m_SaveData: []
   m_SearchFilter:
-    m_NameFilter: setbuilding
+    m_NameFilter: col
     m_ClassNames: []
     m_AssetLabels: []
     m_AssetBundleNames: []
@@ -2639,22 +2639,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/GameComponents
+    - Assets/Resources/Defintions/Settings
     m_Globs: []
-    m_OriginalText: setbuilding
+    m_OriginalText: col
   m_ViewMode: 1
   m_StartGridSize: 71
   m_LastFolders:
-  - Assets/Scripts/GameComponents
+  - Assets/Resources/Defintions/Settings
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\edwar\Documents\Freight
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 255}
-    m_SelectedIDs: e4820000
-    m_LastClickedID: 33508
-    m_ExpandedIDs: 00000000567100007071000000ca9a3bffffff7f
+    m_SelectedIDs: 3c870000
+    m_LastClickedID: 34620
+    m_ExpandedIDs: 00000000d67c00001c7d0000287d00003e87000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2682,7 +2682,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000000ca9a3bffffff7f
+    m_ExpandedIDs: 000000001c7d0000287d00003e87000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2709,7 +2709,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: 
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -2796,4 +2796,4 @@ MonoBehaviour:
     m_SaveData: []
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 41952
+  m_LastSelectedObjectID: -1314

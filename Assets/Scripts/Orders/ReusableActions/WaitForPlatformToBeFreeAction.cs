@@ -28,7 +28,7 @@ public class WaitForPlatformToBeFreeAction : Action
 		}
 		else
 		{
-			owner.InsertActionNext(this, new MovenNearAction(navPos, ship, 4, true));
+			owner.InsertActionBefore(this, new CirclePositionAction(navPos, ship, 4));
 		}
 	}
 
@@ -46,6 +46,7 @@ public class WaitForPlatformToBeFreeAction : Action
 		{
 			isFinished = true;
 			platform.OnShipLeftPlatformEvent -= OnQueueUpdated;
+			owner.RemoveActionBefore(this);
 		}
 	}
 

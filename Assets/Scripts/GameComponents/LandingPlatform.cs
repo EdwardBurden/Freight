@@ -79,6 +79,6 @@ public class LandingPlatform : MonoBehaviour
 	public void ShipLeft(Ship ship)
 	{
 		waitingShips.Remove(ship);
-		OnShipLeftPlatformEvent?.Invoke(waitingShips[waitingShips.Count - 1]);
+		OnShipLeftPlatformEvent?.Invoke(waitingShips[0]);
 	}
 }

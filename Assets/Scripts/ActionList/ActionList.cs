@@ -12,11 +12,17 @@ namespace ActionLists
 			actions.Add(action);
 		}
 
-		public void InsertActionNext(Action currentAction, Action nextAction)
+		public void InsertActionBefore(Action currentAction, Action nextAction)
 		{
 			int index = actions.IndexOf(currentAction);
 			nextAction.SetOwner(this);
 			actions.Insert(index, nextAction);
+		}
+
+		internal void RemoveActionBefore(Action currentAction)
+		{
+			int index = actions.IndexOf(currentAction);
+			actions.RemoveAt(index-1);
 		}
 
 		public bool IsEmpty()

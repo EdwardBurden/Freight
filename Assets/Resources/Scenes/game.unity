@@ -1655,5 +1655,4 @@ MonoBehaviour:
   shipSpawnNumber: 6
   shipDefintions:
   - {fileID: 11400000, guid: 119648b6183e8fd43b254992cfd1e1db, type: 2}
-  - {fileID: 11400000, guid: 4ca04fc164ff3724eab607a0ae0efe2e, type: 2}
   motherShip: {fileID: 3230672453934816780, guid: cc54081f16307db439bc89a2c042f4fc, type: 3}
