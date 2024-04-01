@@ -148,6 +148,7 @@ public class Building : InteractableObject, IProducer, IConsumer
 		currentLevel.wants.UpdateResourceRequests<ProduceRequest>(resource, 1);
 		WalletController.instance.AddBuyTransaction(resource.buyPrice, this, ship, resource);
 		storage.RemoveStorage(resource);
+		GetComponent<SettlementGenerator>().AddMiniBuildings();
 	}
 
 	Transform IProducer.GetProducerNavigationPostion()
@@ -187,6 +188,7 @@ public class Building : InteractableObject, IProducer, IConsumer
 		currentLevel.wants.UpdateResourceRequests<ConsumeRequest>(resource, 1);
 		WalletController.instance.AddSellTransaction(resource.sellPrice, this, ship, resource);
 		storage.AddStorage(resource);
+		GetComponent<SettlementGenerator>().AddMiniBuildings();
 	}
 }
 

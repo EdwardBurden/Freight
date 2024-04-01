@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 3464735330050093884}
   - component: {fileID: 1938302725284762558}
   - component: {fileID: 466932338718362588}
+  - component: {fileID: 6551159736829257187}
+  - component: {fileID: 7887521499248235681}
   m_Layer: 0
   m_Name: BuildingBase1
   m_TagString: Untagged
@@ -83,6 +85,35 @@ MonoBehaviour:
   landingPlatforms:
   - {fileID: 1801980852806676929}
   islandBlock: {fileID: 0}
+--- !u!114 &6551159736829257187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2086307441504904185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4e384a2417d56b40bacc8de4d612f74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generationSettings: {fileID: 11400000, guid: 14253e0e6c46b0f4daa99c010d44723e, type: 2}
+  waitTime: 0.05
+  addAmount: 5
+  overrideAmount: 1
+  maxPoints: 100
+--- !u!114 &7887521499248235681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2086307441504904185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a27de1bba5aa8684693b39d2f900446d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6655783111704557487
 GameObject:
   m_ObjectHideFlags: 0
